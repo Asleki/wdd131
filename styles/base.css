@@ -116,6 +116,64 @@ main {
     text-decoration: underline;
 }
 
+.about-me-card {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Two columns: text and image */
+    grid-template-rows: auto auto auto auto auto; /* Adjust rows as needed */
+    gap: 1rem;
+    align-items: start; /* Align items to the start of the grid cell */
+}
+
+.about-me-content {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    gap: 1rem;
+    align-items: center; /* Vertically align text and image */
+}
+
+.about-me-content p {
+    flex-grow: 1; /* Allow text to take up available space */
+}
+
+.profile-image {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 150px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px; /* Optional: rounded corners */
+}
+
+.location-heading {
+    grid-column: 1 / -1; /* Span across both columns */
+    grid-row: 2;
+    text-align: center;
+    font-weight: bold;
+    color: #004d40; /* Match other headings */
+    margin-top: 1rem; /* Add some spacing */
+    margin-bottom: 0.5rem;
+}
+
+.about-me-card > img:nth-child(4) { /* Select the Madagascar flag image */
+    grid-column: 1 / -1; /* Span across both columns */
+    grid-row: 3;
+    justify-self: center; /* Center the flag */
+}
+
+.about-me-card > p:nth-child(5) { /* Select the flag caption */
+    grid-column: 1 / -1; /* Span across both columns */
+    grid-row: 4;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.about-me-card > p:nth-child(6) { /* Select the Madagascar description */
+    grid-column: 1 / -1; /* Span across both columns */
+    grid-row: 5;
+}
+
 footer {
     background-color: #004d40; /* Dark teal footer */
     color: #fff;
