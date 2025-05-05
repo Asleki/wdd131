@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WDD 131 – Dynamic Web Fundamentals - Alex Malunda</title>
-        <meta name="description" content="WDD 131 – Dynamic Web Fundamentals. Alex Malunda. This page serves as an introduction to dynamic web concepts.">
-        <meta name="author" content="Alex Malunda">
-        <link rel="stylesheet" href="styles/base.css">
-        <script src="scripts/getdates.js" defer></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    </head><body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDD 131 – Dynamic Web Fundamentals - Alex Malunda</title>
+    <meta name="description" content="WDD 131 – Dynamic Web Fundamentals. Alex Malunda. This page serves as an introduction to dynamic web concepts.">
+    <meta name="author" content="Alex Malunda">
+    <link rel="stylesheet" href="styles/base.css">
+    <script src="scripts/getdates.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+<body>
     <header>
-        <h1>WDD 131 – Dynamic Web Fundamentals</h1>
+        <div class="header-top">
+            <h1>WDD 131: Dynamic Web Fundamentals - <span class="name">Alex Malunda</span></h1>
+        </div>
         <nav>
             <ul>
-                <li><a href="YOUR_LINKEDIN_PROFILE_URL">LinkedIn</a></li>
+                <li><a href="https://www.linkedin.com/in/alex-malunda-509094233?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BmR%2FqBU5MR3a5XwzGFaeRdQ%3D%3D">LinkedIn</a></li>
                 <li><a href="https://byupw.instructure.com/">Canvas</a></li>
                 <li><a href="https://www.churchofjesuschrist.org/study/scriptures">Scripture</a></li>
                 <li><a href="#">Final Project</a></li>
@@ -24,18 +27,23 @@
         </nav>
     </header>
     <main>
-        <section class="card about-me-card">
+        <section class="card about-me">
             <h2>About Me</h2>
-            <div class="about-me-content">
+            <div class="about-me-intro">
                 <p>My name is Alex Malunda and I go by Alex. I was born in Nairobi, Kenya and I'm currently a student at BYU-Idaho studying software development, currently on WDD131. I'm also learning Python. I love music, reading crime novels, and watching thriller series.</p>
-                <img src="images/your-profile.jpg" alt="Your Profile Picture" class="profile-image">
+                <img src="images/myprofile.JPG" alt="My Profile Picture" class="profile-image">
             </div>
-            <h3 class="location-heading">Nairobi, Kenya</h3>
-            <img src="images/kenya_flag.png" alt="Official Flag of Kenya" style="width: 150px;">
-            <p class="caption">Official Flag of Kenya</p>
-            <p>Kenya, officially the Republic of Kenya, is a country in Eastern Africa. At 580,367 square kilometers (224,081 sq mi), Kenya is the 48th largest country by total area. Kenya borders Uganda to the west, South Sudan to the northwest, Ethiopia to the north, Somalia to the northeast, Tanzania to the south, and the Indian Ocean to the southeast. Its capital and largest city is Nairobi.</p>
+            <h3>Nairobi, Kenya</h3>
+            <div class="kenya-info">
+                <figure>
+                <img src="images/kenyanflag.png" width="150" height="100" alt="Official Flag of Kenya">
+                <figcaption>Official Flag of Kenya</figcaption>
+                </figure>
+                <p>Kenya, officially the Republic of Kenya, is a country in Eastern Africa. At 580,367 square kilometers (224,081 sq mi), Kenya is the 48th largest country by total area. Kenya borders Uganda to the west, South Sudan to the northwest, Ethiopia to the north, Somalia to the northeast, Tanzania to the south, and the Indian Ocean to the southeast. Its capital and largest city is Nairobi.</p>
+            </div>
+            <p class="flag-caption"></p>
         </section>
-        <section class="card">
+        <section class="card web-dev-resources">
             <h2>Web Dev Resources</h2>
             <ul>
                 <li><a href="https://dev.to/">Dev.to Community</a></li>
@@ -46,7 +54,6 @@
                 <li><a href="#">Image Placeholder</a></li>
             </ul>
         </section>
-    </main>
     </main>
     <footer>
         <p>&copy; <span id="currentyear"></span> Alex Malunda, Kenya</p>
