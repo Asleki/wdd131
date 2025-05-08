@@ -1,0 +1,47 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: lightblue;
+    color: #333;
+  }
+  
+  /* Combined styles for header, main, and footer */
+  header,
+  main,
+  footer {
+    max-width: 640px;
+    margin: 1rem auto;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    background-color: #e0f7fa; /* A light blueish color */
+  }
+  
+  header {
+    text-align: center;
+  }
+  
+  main {
+    display: grid;
+    grid-template-columns: 1fr; /* One column grid layout */
+    gap: 1rem; /* Grid gap */
+  }
+  
+  section {
+    padding: 1rem;
+    background-color: #f8f8f8; /* Lighter background for sections */
+  }
+  
+  h2 {
+    color: blue;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    line-height: 1.5;
+  }
+  
+  footer {
+    text-align: left;
+  }
+  
