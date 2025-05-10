@@ -1,70 +1,78 @@
 body {
-    margin: 0; /* Reset the default body margins */
-    padding: 0; /* You might also want to reset default padding */
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    background-color: rgb(79, 35, 133); /* Match the purple background */
-    color: white; /* Match the text color */
-    padding: 15px; /* Add some padding around the content */
-    width: 100%; /* Make the header span the entire width */
-    display: flex; /* Enable flexbox for alignment */
-    justify-content: space-between; /* Space out the title and navigation */
-    align-items: center; /* Vertically align items in the header */
+    background-color: rgb(79, 35, 133);
+    color: white;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
-    margin: 0; /* Remove default margin for the heading */
+    margin: 0;
+}
+
+main h1 {
+    text-align: center;
 }
 
 header nav {
-    display: flex; /* Arrange navigation links horizontally */
+    display: flex;
 }
 
 header nav a {
     color: white;
-    text-decoration: none; /* Remove underlines from links */
-    padding: 8px 15px; /* Add padding around the links */
-    margin-left: 10px; /* Add some spacing between links */
+    text-decoration: none;
+    padding: 8px 15px;
+    margin-left: 10px;
     margin-right: 2rem;
 }
 
-/* Optional: Style the links on hover */
 header nav a:hover {
     opacity: 0.8;
     color: goldenrod;
 }
 
 main {
-    /* Add your main content styles here */
-    padding: 20px; /* Example padding for the main content */
+    padding: 20px;
+    text-align: center; /* Keep this for the h1 and figcaption */
+    display: grid;
+    grid-template-columns: 1fr; /* Single column for mobile */
+    gap: 20px;
+    justify-items: center; /* Center the grid items (figures) horizontally */
 }
 
 figure {
-    /* Add your figure styles here */
-    margin-bottom: 20px; /* Example margin below each image */
-    text-align: center; /* Center the figcaption */
+    margin-bottom: 0; /* Remove default figure margins as grid gap is handling spacing */
+    text-align: center;
 }
 
 figure img {
-    max-width: 100%; /* Make images responsive */
+    max-width: 100%;
     height: auto;
+    display: block; /* Prevent extra space below inline images */
+    margin-bottom: 5px; /* Add some space between image and caption */
 }
 
 figcaption {
     margin-top: 5px;
     font-style: italic;
-    color: #555; /* Example caption color */
+    color: #555;
 }
 
 footer {
-    background-color: rgb(79, 35, 133); /* Match the header background */
-    color: #ecf0f1; /* Light gray */
+    background-color: rgb(79, 35, 133);
+    color: #ecf0f1;
     padding: 15px;
     text-align: center;
-    font-size: 0.85em;
+    font-size: 0.99em;
     max-width: 100%;
-    margin-top: 20px; /* Add some space above the footer */
+    margin-top: 20px;
 }
 
 #lastModified {
