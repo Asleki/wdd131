@@ -1,26 +1,26 @@
 @media (min-width: 768px) {
-    main {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Force exactly three columns */
-        gap: 20px;
-        justify-items: center; /* Center the images within their grid cells */
-    }
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Force exactly three columns */
+    gap: 20px;
+    justify-items: center; /* Center the images within their grid cells */
+  }
 
-    main h1 {
-        text-align: center; /* Center the main heading */
-        grid-column: 1 / -1; /* Make the heading span all columns */
-        margin-bottom: 20px; /* Add some space below the heading */
-    }
+  main h1 {
+    text-align: center; /* Center the main heading */
+    grid-column: 1 / -1; /* Make the heading span all columns */
+    margin-bottom: 20px; /* Add some space below the heading */
+  }
 
-    figure {
-        text-align: center; /* Center the figcaption */
-        margin-bottom: 20px; /* Add some bottom margin between rows of figures */
-    }
+  figure {
+    text-align: center; /* Center the figcaption */
+    margin-bottom: 20px; /* Add some bottom margin between rows of figures */
+  }
 
-    figure img {
-        width: 100%; /* Make images fill their grid cell width */
-        height: auto;
-        display: block;
-        margin-bottom: 5px; /* Space between image and caption */
-    }
+  figure img {
+    width: 100%; /* Make images fill their grid cell width */
+    height: auto;
+    display: block;
+    margin-bottom: 5px; /* Space between image and caption */
+  }
 }

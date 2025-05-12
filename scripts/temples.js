@@ -1,12 +1,21 @@
-// getdates.js
+const menuBtn = document.getElementById("menuBtn");
+const nav = document.querySelector(".navigation");
 
-const currentYear = new Date().getFullYear();
-const currentYearSpan = document.getElementById('currentyear');
-if (currentYearSpan) {
-  currentYearSpan.textContent = currentYear;
+menuBtn.addEventListener("click", () => {
+    nav.classList.toggle("open");
+    if (menuBtn.textContent === "☰") {
+        menuBtn.textContent = "✖";
+    } else {
+        menuBtn.textContent = "☰";
+    }
+});
+
+function updateFooter() {
+    const currentYear = new Date().getFullYear();
+    const lastModified = document.lastModified;
+
+    document.getElementById("currentyear").textContent = currentYear;
+    document.getElementById("lastModified").textContent = `Last Modification: ${lastModified}`;
 }
-const lastModifiedDate = document.lastModified;
-const lastModifiedSpan = document.getElementById('lastModified');
-if (lastModifiedSpan) {
-  lastModifiedSpan.textContent = `Last Modification: ${lastModifiedDate}`;
-}
+
+updateFooter();
