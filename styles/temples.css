@@ -63,8 +63,8 @@ header h1 {
     padding: 1.2rem;
     text-align: center;
     font-size: 1.4rem;
-    transition: background-color 0.3s ease;
-    border-bottom: 1px solid #00509e;
+   
+    
 }
 
 .navigation a:last-child {
@@ -99,24 +99,18 @@ main h1 {
 
 figure {
     margin: 0;
-    border: 1px solid #ddd;
-    padding: 0.8rem;
-    border-radius: 0.8rem;
-    background-color: white;
+    
+    
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
 }
 
-figure:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
+
 
 figure img {
     width: 100%;
     height: auto;
-    border-radius: 0.8rem 0.8rem 0 0;
-    transition: border-radius 0.3s ease;
+    
 }
 
 
@@ -124,7 +118,7 @@ figure figcaption {
     text-align: center;
     font-size: 1.1rem;
     color: #585454;
-    padding: 0.75rem;
+    
     font-style: italic;
     font-weight: 500;
 }
@@ -173,14 +167,11 @@ footer p{
         position: relative;
         top: 0;
         left: 0;
-        background-color: transparent;
-        box-shadow: none;
+        
         width: auto;
     }
 
-    .navigation a {
-        padding: 0.75rem 1rem;
-    }
+  
 
     .navigation a:hover {
         color: #c9ff07;
