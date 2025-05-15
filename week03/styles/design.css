@@ -1,0 +1,93 @@
+body {
+    font-family: Roboto, helvetica, sans-serif;
+    margin: 0; /* Reset default body margin for better control */
+    padding: 0; /* Reset default body padding */
+}
+
+header,
+main,
+footer {
+    max-width: 760px;
+    margin: 0 auto; /* Center the content block */
+    padding: 1rem; /* Add some consistent padding around the main content areas */
+}
+
+/* Remove the marquee */
+/* marquee {
+    padding: 1rem;
+    background-color: #eee;
+} */
+
+.banner {
+    padding: 1rem;
+    background-color: #eee; /* Example background color for the banner */
+    text-align: center; /* Center the banner text if needed */
+}
+
+h1 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the main heading */
+    padding-bottom: 0.5rem; /* Add some space below the heading */
+    margin-bottom: 1rem; /* Add some margin below the heading */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Create two equal columns */
+    gap: 1rem; /* Add some space between the columns */
+}
+
+main h2 {
+    color: navy;
+    text-align: left; /* Align the main section headings to the left */
+    grid-column: 1 / -1; /* Make the h2 span both columns */
+}
+
+section {
+    padding: 1rem;
+    margin-bottom: 1.5rem; /* Add some space between sections */
+    border: 1px solid #ddd; /* Add a subtle border for visual separation */
+    border-radius: 5px; /* Add some rounded corners */
+}
+
+section h2 {
+    color: #333; /* Slightly darker heading color within sections */
+    margin-top: 0; /* Remove default top margin for section headings */
+    margin-bottom: 0.75rem;
+}
+
+section h3 {
+    color: #555;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+section ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    padding-left: 0;
+}
+
+section li {
+    margin-bottom: 0.5rem;
+}
+
+section p {
+    line-height: 1.6; /* Improve readability of paragraphs */
+}
+
+.callout {
+    color: #fff; /* Set text color to white for better contrast */
+    background-color: #702963;
+    padding: 1rem; /* Add consistent padding all around */
+    border-radius: 5px; /* Optional: add rounded corners to the callout */
+    grid-column: 1 / -1; /* Make the callout span both columns */
+}
+
+footer {
+    margin-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: smaller;
+    text-align: left; /* Align the footer content to the left */
+    padding-top: 0.5rem;
+}
