@@ -99,7 +99,7 @@ main {
 }
 
 footer {
-    background-color: var(--footer-background);
+    background-color: #dc3545;
     color: var(--footer-text-color);
     text-align: center;
     padding: 1em 0;
@@ -219,7 +219,7 @@ footer p:last-child span#lastModified {
     }
 
     main {
-        padding: 0;
+        padding: 2em;
         /* Consider adjusting right padding here to ensure overall page content has space */
         /* padding-right: 4em; */
     }
@@ -240,7 +240,7 @@ footer p:last-child span#lastModified {
     }
 
     footer {
-        background-color: rgba(220, 53, 69, 0.9);
+        background-color: #dc3545;
         color: var(--footer-text-color);
     }
 }
