@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CineWatch | Add Show</title>
+  <link rel="stylesheet" href="styles/watch.css" />
+  <script defer src="scripts/watch.js"></script>
+</head>
+<body>
+  <header id="main-header">
+    <img src="images/icons&logos/logo.svg" alt="CineWatch Logo" class="logo" />
+    <a href="discover.html">Back to Discover</a>
+  </header>
+
+  <main class="form-page">
+    <h1>Add a New Show</h1>
+    <form id="add-show-form">
+      <label for="show-title">Title:</label>
+      <input type="text" id="show-title" required />
+      
+      <label for="show-genre">Genre:</label>
+      <input type="text" id="show-genre" required />
+      
+      <label for="show-synopsis">Synopsis:</label>
+      <textarea id="show-synopsis" required></textarea>
+      
+      <label for="show-cast">Cast (comma-separated):</label>
+      <input type="text" id="show-cast" required />
+      
+      <label for="release-date">Release Date:</label>
+      <input type="date" id="release-date" required />
+      
+      <label for="poster-upload">Poster Image Filename:</label>
+      <input type="text" id="poster-upload" placeholder="e.g., avatar.webp" required />
+      
+      <button type="submit">Add Show</button>
+    </form>
+  </main>
+</body>
+</html>

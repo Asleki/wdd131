@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CineWatch | Discover</title>
+  <link rel="stylesheet" href="styles/watch.css" />
+  <script defer src="scripts/watch.js"></script>
+</head>
+<body>
+  <header id="main-header">
+    <img src="images/icons&logos/logo.svg" alt="CineWatch Logo" class="logo" />
+    <nav>
+      <a href="trending.html">Trending</a>
+      <a href="comingsoon.html">Coming Soon</a>
+      <a href="hollywood.html">Hollywood</a>
+      <a href="addshow.html">➕ Add Show</a>
+      <a href="login.html" id="login-link">Login</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Discover Your Next Favorite Show</h1>
+    <p>Explore trending shows, upcoming releases, and Hollywood hits</p>
+  </section>
+
+  <main>
+    <section class="category-section" data-category="trending">
+      <h2>Trending</h2>
+      <div class="shows-grid" id="trending-shows">
+        <!-- Trending shows inserted by JS -->
+      </div>
+      <button class="see-more-btn">See More</button>
+    </section>
+
+    <section class="category-section" data-category="comingsoon">
+      <h2>Coming Soon</h2>
+      <div class="shows-grid" id="comingsoon-shows">
+        <!-- Coming soon shows inserted by JS -->
+      </div>
+      <button class="see-more-btn">See More</button>
+    </section>
+
+    <section class="category-section" data-category="hollywood">
+      <h2>Hollywood</h2>
+      <div class="shows-grid" id="hollywood-shows">
+        <!-- Hollywood shows inserted by JS -->
+      </div>
+      <button class="see-more-btn">See More</button>
+    </section>
+  </main>
+</body>
+</html>
