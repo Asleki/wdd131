@@ -1,2 +1,202 @@
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Header */
+#main-header {
+  background-color: #9cd4f5;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.2);
+}
 
 
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center all content horizontally */
+  flex-wrap: wrap;
+  gap: 1rem; /* Optional: adds space between logo and tagline */
+}
+
+.logo {
+  height: 150px; /* Increase from 50px to 70px or adjust to your preference */
+  width: auto;  /* Keeps the aspect ratio */
+}
+
+
+.tagline {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #993f3f;
+}
+
+
+/* Navigation */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 1rem 0 0.5rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #1db954;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 50%;
+  background: url('../images/backdrops/moneyheistbackdrop2.webp') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Poster aligned to left */
+.hero-poster img {
+  height: 350px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Button + logo centered vertically */
+.hero-center-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Watch Now Button */
+#watch-now {
+  background-color: #1db954;
+  color: #fff;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#watch-now:hover {
+  background-color: #17a44a;
+}
+
+/* Network logo under button */
+.network-logo {
+  width: 80px;
+  height: auto;
+  border-radius: 2rem;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding-left: 1rem;
+  }
+
+  .tagline {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero-content-container {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .hero-poster img {
+    height: 250px;
+  }
+
+  .network-logo {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  #watch-now {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+}
