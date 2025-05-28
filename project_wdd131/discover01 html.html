@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Horizontal Categories</title>
+    <link rel="stylesheet" href="styles/watch01.css">
+</head>
+<body>
+
+    <header>
+        <nav style="background-color: #333; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 1.8em; font-weight: bold;">CineWatch</div>
+            <div>
+                <button style="background: none; border: none; color: white; margin-right: 10px;">Dark/Light Mode</button>
+                <input type="text" placeholder="Search..." style="padding: 5px;">
+                <button style="background-color: #007bff; color: white; border: none; padding: 8px 12px; margin-left: 10px;">Join/Watch</button>
+                <img src="images/icons&logos/account_icon.webp" alt="Account" style="height: 24px; vertical-align: middle; margin-left: 10px; filter: invert(1);">
+            </div>
+        </nav>
+    </header>
+    <section id="hero" style="background-color: #444; padding: 50px; text-align: center; color: white;">
+        <h1 style="font-size: 3em; margin-bottom: 20px;">Stream, Discover, Repeat</h1>
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px;">Categories</button>
+            <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px;">Movies</button>
+            <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px;">Series</button>
+            <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px;">Tickets</button>
+            <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px;">About Us</button>
+        </div>
+    </section>
+
+    <main>
+        <div class="categories-container">
+            <section class="category-section" id="trending-section">
+                <h2 class="category-title">TRENDING</h2>
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-slide" data-show-id="money-heist-1">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/moneyheistposter.webp" alt="Money Heist Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Money Heist</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: International, Action, Thriller</p>
+                                    <p class="show-meta">Status: Trending</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>9.1/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>93%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: Spanish, English</p>
+                                    <p class="show-meta show-cast">Cast: Úrsula Corberó, Álvaro Morte, Itziar Ituño</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/netflixwordlogo.webp" alt="Netflix Logo" class="network-logo">
+                                        <span>WATCH NOW</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    An enigmatic criminal mastermind known as 'The Professor' recruits a gang of eight people
+                                    to carry out the biggest heist in history: to rob the Royal Mint of Spain.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="money-heist-2">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/moneyheistposter1.webp" alt="La Casa de Papel Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">La Casa de Papel</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: International, Crime, Drama</p>
+                                    <p class="show-meta">Status: Trending</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>9.0/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>91%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: Spanish</p>
+                                    <p class="show-meta show-cast">Cast: Pedro Alonso, Alba Flores, Miguel Herrán</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/netflixwordlogo.webp" alt="Netflix Logo" class="network-logo">
+                                        <span>VER AHORA</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    Ocho ladrones toman rehenes y se encierran en la Fábrica Nacional de Moneda y Timbre de España.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="prison-break-1">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/prisonbreakposter1.webp" alt="Prison Break Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Prison Break</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: Hollywood, Action, Crime, Drama</p>
+                                    <p class="show-meta">Status: Trending</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>8.3/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>60%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: English</p>
+                                    <p class="show-meta show-cast">Cast: Wentworth Miller, Dominic Purcell, Amaury Nolasco</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/hulu-logo-green-on-black-.webp" alt="Hulu Logo" class="network-logo">
+                                        <span>WATCH NOW</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    A man gets himself incarcerated in order to help his brother, who is on death row, escape from prison.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="prison-break-2">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/prisonbreakposter2.webp" alt="Prison Break Spanish Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Fuga de la Prisión</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: Hollywood, Action, Crime, Thriller</p>
+                                    <p class="show-meta">Status: Trending</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>8.2/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>58%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: Spanish, English</p>
+                                    <p class="show-meta show-cast">Cast: Robert Knepper, Sarah Wayne Callies, William Fichtner</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/hbo.webp" alt="HBO Logo" class="network-logo">
+                                        <span>VER AHORA</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    Un ingeniero se hace arrestar para ayudar a su hermano a escapar de la prisión antes de su ejecución.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                    </div> <div class="carousel-navigation">
+                        <button class="nav-button prev-btn">
+                            <img src="images/icons&logos/slideshow_24dpblue.svg" alt="Previous" class="nav-icon flip-horizontal">
+                        </button>
+                        <div class="pagination-dots">
+                            </div>
+                        <button class="nav-button next-btn">
+                            <img src="images/icons&logos/slideshow_24dpblue.svg" alt="Next" class="nav-icon">
+                        </button>
+                    </div>
+                </div> </section>
+
+            <section class="category-section" id="hollywood-section">
+                <h2 class="category-title">HOLLYWOOD</h2>
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-slide" data-show-id="money-heist-1">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/moneyheistposter.webp" alt="Money Heist Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Money Heist</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: International, Action, Thriller</p>
+                                    <p class="show-meta">Status: Popular</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>9.1/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>93%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: Spanish, English</p>
+                                    <p class="show-meta show-cast">Cast: Úrsula Corberó, Álvaro Morte, Itziar Ituño</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/netflixwordlogo.webp" alt="Netflix Logo" class="network-logo">
+                                        <span>WATCH NOW</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    An enigmatic criminal mastermind known as 'The Professor' recruits a gang of eight people
+                                    to carry out the biggest heist in history: to rob the Royal Mint of Spain.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="money-heist-2">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/moneyheistposter1.webp" alt="La Casa de Papel Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">La Casa de Papel</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: International, Crime, Drama</p>
+                                    <p class="show-meta">Status: Popular</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>9.0/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>91%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: Spanish</p>
+                                    <p class="show-meta show-cast">Cast: Pedro Alonso, Alba Flores, Miguel Herrán</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/netflixwordlogo.webp" alt="Netflix Logo" class="network-logo">
+                                        <span>VER AHORA</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    Ocho ladrones toman rehenes y se encierran en la Fábrica Nacional de Moneda y Timbre de España.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="prison-break-1">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/prisonbreakposter1.webp" alt="Prison Break Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Prison Break</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: Hollywood, Action, Crime, Drama</p>
+                                    <p class="show-meta">Status: Popular</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>8.3/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>60%</span>
+                                    </div>
+                                    <p class="show-meta">Languages: English</p>
+                                    <p class="show-meta show-cast">Cast: Wentworth Miller, Dominic Purcell, Amaury Nolasco</p>
+                                    <a href="#" class="watch-now-btn">
+                                        <img src="images/icons&logos/hulu-logo-green-on-black-.webp" alt="Hulu Logo" class="network-logo">
+                                        <span>WATCH NOW</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview-area">
+                                <p class="show-overview">
+                                    A man gets himself incarcerated in order to help his brother, who is on death row, escape from prison.
+                                </p>
+                                <a href="#" class="read-more">Read More / Full Synopsis</a>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide" data-show-id="prison-break-2">
+                            <div class="slide-content">
+                                <div class="poster-area">
+                                    <img src="images/posters/prisonbreakposter2.webp" alt="Prison Break Spanish Poster" class="show-poster">
+                                </div>
+                                <div class="info-area">
+                                    <h3 class="show-title">Fuga de la Prisión</h3>
+                                    <p class="show-meta">Type: Series</p>
+                                    <p class="show-meta">Genre: Hollywood, Action, Crime, Thriller</p>
+                                    <p class="show-meta">Status: Popular</p>
+                                    <div class="ratings">
+                                        <img src="images/icons&logos/imdblogo.webp" alt="IMDb Logo" class="rating-logo imdb-logo"> <span>8.2/10</span>
+                                        <img src="images/icons&logos/rottentomatoeslogo.webp" alt="Rotten Tomatoes Logo" class="rating-logo rt-logo"> <span>58%</span>
+                                    </div>
+                                 

@@ -1,0 +1,391 @@
+/* Ensure HTML and Body are set up for overall page scrolling */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensure full width */
+    min-height: 100vh; /* Minimum height is viewport height, allows content to push it larger */
+    overflow-x: hidden; /* Prevent horizontal scrolling on the root level */
+    overflow-y: auto; /* Allow vertical scrolling if page content exceeds viewport */
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+/* NEW: Container for horizontal categories */
+.categories-container {
+    display: flex; /* Arrange categories horizontally */
+    flex-direction: row;
+    overflow-x: auto; /* Enable horizontal scrolling for categories */
+    overflow-y: hidden; /* Hide vertical scrollbar within this container */
+    scroll-snap-type: x mandatory; /* Optional: Snap to categories when scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding: 20px; /* Padding around the entire row of categories */
+    gap: 30px; /* Space between each category section */
+}
+
+/* Category Section Styling - now for horizontal arrangement */
+.category-section {
+    flex: 0 0 auto; /* Prevent sections from shrinking, but allow them to take only necessary width */
+    scroll-snap-align: start; /* Optional: Snap individual categories to the start of the scroll area */
+    
+    /* Removed min-height: 100vh from here, as each category will now have a height determined by its content */
+    /* and they are now arranged horizontally, not trying to fill vertical screen */
+    
+    padding: 20px; /* Padding inside each category section */
+    background-color: #2a2a2a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px; /* Added for better separation */
+    
+    display: flex; /* Use flexbox to stack title and carousel vertically */
+    flex-direction: column;
+    align-items: center; /* Center category title and carousel horizontally within the section */
+    min-width: 90vw; /* Make each category at least 90% of the viewport width */
+    max-width: 90vw; /* Cap max width to prevent them from becoming too wide */
+    box-sizing: border-box; /* Include padding/border in the width */
+}
+
+/* Category title */
+.category-title {
+    display: block;
+    font-size: 2.2em;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+    width: 90%; /* Take up most of the category section's width */
+    max-width: 800px;
+}
+
+/* Carousel Container (remains mostly the same, now centered within its category-section) */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Take full width of its parent .category-section */
+    max-width: 900px; /* Still cap the max width for the carousel content */
+    margin: 0 auto; /* Horizontally center the container within the section */
+    flex-grow: 1; /* Allow it to grow vertically if needed within the category-section */
+
+    /* Ensure track is centered within the carousel container */
+    display: flex;
+    align-items: center; /* Vertically center the track */
+    justify-content: center; /* Horizontally center the track (initial position) */
+}
+
+/* Carousel Track */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * var(--total-slides, 6)); /* Updated for totalRealSlides + 2 clones */
+    height: auto; /* Height will be determined by content */
+    align-items: center; /* Align slides vertically centered within the track */
+}
+
+/* Individual Carousel Slide */
+.carousel-slide {
+    min-width: 100%; /* Each slide takes 100% width of the visible container */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column; /* Stack poster/info block above overview */
+    align-items: center; /* Center content block horizontally within the slide */
+    
+    padding: 30px 20px; /* Internal padding for the slide content */
+    box-sizing: border-box;
+    /* Removed overflow-y: auto from here; vertical scrolling is for the whole body */
+}
+
+/* Layout for Poster and Info (now stacked vertically) */
+.slide-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Poster Area - define its consistent size and aspect ratio */
+.poster-area {
+    flex-shrink: 0;
+    width: 250px; /* Fixed width for desktop posters */
+    height: 375px; /* Fixed height for desktop posters (aspect ratio 2:3) */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* The actual image */
+.show-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Use cover to fill the poster area, cropping if needed */
+    display: block;
+}
+
+/* Info Area - back to original styles */
+.info-area {
+    width: 100%; /* Take full width of slide-content */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items within info-area */
+    text-align: center; /* Center text within info-area */
+}
+
+.show-title {
+    font-size: 2em;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.show-meta {
+    font-size: 0.95em;
+    color: #bbb;
+    margin-bottom: 5px;
+}
+
+.ratings {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center ratings horizontally */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rating-logo {
+    height: 24px;
+    width: auto;
+    margin-right: 8px;
+}
+
+.imdb-logo {
+    filter: invert(0.8) sepia(1) saturate(5) hue-rotate(30deg);
+}
+
+.rt-logo {
+    filter: brightness(1.2);
+}
+
+/* Watch Now Button Styling */
+.watch-now-btn {
+    display: flex;
+    align-items: center;
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    align-self: center; /* Center the button */
+    margin-top: 15px; /* Space above button */
+    gap: 10px;
+}
+
+.watch-now-btn:hover {
+    background-color: #ff2a35;
+}
+
+.network-logo {
+    height: 25px;
+    filter: brightness(1.8) invert(0);
+}
+
+/* Overview Area */
+.overview-area {
+    width: 100%;
+    max-width: 600px; /* Constrain max width for readability */
+    margin-top: 20px;
+    text-align: center; /* Center overview text */
+}
+
+.show-overview {
+    font-size: 1.05em;
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: #0056b3;
+}
+
+/* ------------------------------------------------------------- */
+/* Carousel Navigation Styles (kept from previous setup) */
+/* ------------------------------------------------------------- */
+.carousel-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.nav-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.nav-icon {
+    width: 30px;
+    height: 30px;
+    filter: brightness(1.8) invert(1);
+}
+
+.nav-icon.flip-horizontal {
+    transform: scaleX(-1);
+}
+
+.pagination-dots {
+    display: flex;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dot.active {
+    background-color: #007bff;
+    transform: scale(1.2);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .categories-container {
+        padding: 15px;
+        gap: 20px;
+    }
+    .category-section {
+        padding: 15px;
+        min-width: 95vw; /* Adjust for smaller screens */
+        max-width: 95vw;
+    }
+    .carousel-container {
+        width: 95%;
+        max-width: 700px;
+    }
+    .poster-area {
+        width: 200px; /* Adjust fixed width for tablets */
+        height: 300px; /* Adjust fixed height for tablets */
+    }
+    .slide-content {
+        max-width: 350px;
+        gap: 15px;
+    }
+    .show-title {
+        font-size: 1.8em;
+    }
+    .overview-area {
+        max-width: 500px;
+    }
+    .carousel-navigation {
+        padding: 0 10px;
+    }
+    .nav-button {
+        padding: 8px;
+    }
+    .nav-icon {
+        width: 25px;
+        height: 25px;
+    }
+    .pagination-dots {
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .categories-container {
+        padding: 10px;
+        gap: 15px;
+    }
+    .category-section {
+        padding: 10px;
+        min-width: 100vw; /* Take full width on very small screens */
+        max-width: 100vw;
+    }
+    .category-title {
+        font-size: 1.6em;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .carousel-container {
+        width: 100%;
+        max-width: none;
+    }
+    .poster-area {
+        width: 180px;
+        height: 270px;
+    }
+    .slide-content {
+        gap: 10px;
+    }
+    .show-title {
+        font-size: 1.5em;
+    }
+    .show-meta, .show-overview {
+        font-size: 0.9em;
+    }
+    .watch-now-btn {
+        padding: 8px 15px;
+        font-size: 1em;
+    }
+    .network-logo {
+        height: 20px;
+    }
+    .overview-area {
+        max-width: 350px;
+    }
+    .carousel-navigation {
+        padding: 0 5px;
+    }
+    .nav-button {
+        padding: 5px;
+    }
+    .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+    .pagination-dots {
+        display: none;
+    }
+}
