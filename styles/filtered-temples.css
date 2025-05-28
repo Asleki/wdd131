@@ -1,0 +1,215 @@
+/* General Body and Font Styles */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+
+    /* Sticky Footer - Flexbox Setup */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures body takes at least full viewport height */
+}
+
+h1, h2, h3 {
+    font-family: 'Cal Sans', sans-serif;
+    color: #2c3e50;
+}
+
+/* Header Styles - Enhanced Colors */
+header {
+    background-color: #004d40; /* Dark Teal */
+    color: #e0f2f1; /* Light Cyan */
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #e0f2f1; /* Ensure h1 also has the light color */
+}
+
+#menuBtn {
+    background: none;
+    border: none;
+    color: #e0f2f1;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none; /* Hidden by default for desktop */
+}
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.navigation a {
+    color: #e0f2f1; /* Light Cyan */
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+}
+
+.navigation a:hover,
+.navigation a.active { /* Style for active link */
+    background-color: #388e3c; /* Green */
+    color: #ffffff; /* White */
+}
+
+/* Main Content Styles */
+.temple-grid-container { /* New class for the main area holding heading and cards */
+    padding: 2rem;
+    text-align: center;
+    flex-grow: 1; /* Allows main content to take up available space */
+}
+
+/* Style for the dynamically added main heading */
+#main-heading {
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: left; /* Align heading to left within its space */
+    max-width: 1200px; /* Constrain width of heading to match content */
+    margin-left: auto; /* Center the heading */
+    margin-right: auto;
+}
+
+/* Temple Cards Container (the actual grid) */
+#temple-cards-area { /* ID for the div holding the cards */
+    display: grid;
+    /* This creates a responsive grid: min 300px wide, max 1fr for each column */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    justify-items: center; /* Center cards within their grid cells */
+    align-items: start; /* Align items to the start of their cells */
+    max-width: 1200px; /* Max width for the grid to keep it centered */
+    margin: 0 auto; /* Center the grid container */
+}
+
+
+/* Temple Card Styling */
+.temple-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 350px; /* Ensure cards don't get too wide */
+    width: 100%; /* Take full width up to max-width in its cell */
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content to top/bottom within card */
+}
+
+.temple-card:hover {
+    transform: translateY(-5px);
+}
+
+.temple-card h2 {
+    font-size: 1.5rem;
+    margin: 1rem 0.5rem 0.5rem 0.5rem;
+    color: #34495e;
+}
+
+.temple-card p {
+    font-size: 0.95rem;
+    margin: 0.2rem 1rem;
+    line-height: 1.4;
+    text-align: left; /* Align text within card to left */
+}
+
+.temple-card p strong {
+    color: #555;
+}
+
+.temple-card img {
+    width: 100%;
+    height: 250px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures image covers the area */
+    display: block;
+    border-top: 1px solid #eee; /* Changed from bottom to top for visual separation */
+    margin-top: 1rem; /* Space above image */
+}
+
+/* Footer Styles - Enhanced Colors */
+footer {
+    background-color: #004d40; /* Dark Teal - matching header */
+    color: #e0f2f1; /* Light Cyan */
+    text-align: center;
+    padding: 1rem;
+    /* margin-top: 2rem; Removed because flex-grow on main handles spacing */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
+footer p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+#lastModified {
+
+    color: gold;
+}
+
+/* Responsive Styles (for smaller screens) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+
+    #menuBtn {
+        display: block; /* Show menu button on smaller screens */
+    }
+
+    .navigation {
+        display: none; /* Hide navigation by default on small screens */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #004d40; /* Match header color */
+        z-index: 1000;
+    }
+
+    .navigation.show { /* Class added by JS to show navigation */
+        display: flex;
+    }
+
+    .navigation a {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    .navigation a:last-child {
+        border-bottom: none;
+    }
+
+    .temple-grid-container {
+        padding: 1rem;
+    }
+
+    #temple-cards-area {
+        grid-template-columns: 1fr; /* Stack cards on very small screens */
+    }
+
+    #main-heading {
+        text-align: center; /* Center heading on mobile */
+    }
+}
