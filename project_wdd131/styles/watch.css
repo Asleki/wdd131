@@ -2,54 +2,285 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f0f2f5; /* Light grey background */
+    /* Default light mode body background */
+    background-color: #dbe5f5;
     color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-header {
-    background-color: #fff;
+/* --- Dark Mode specific body styles --- */
+/* This class will be added/removed by JavaScript for light/dark mode toggling */
+body.dark-mode {
+    background-color: #1a1a1a; /* Darker background for dark mode */
+    color: #f0f0f0; /* Lighter text color for dark mode */
+    /* You can add more specific dark mode styles for other elements here
+        e.g., to make card backgrounds darker, text lighter etc. */
+}
+
+/* --- Utility Header Styles (NEW TOP HEADER) --- */
+.utility-header {
+    background-color: #e0e0e0; /* Grey background */
+    color: #333;
+    padding: 8px 20px; /* Thinner padding */
+    display: flex;
+    justify-content: space-between; /* Space out left and right sections */
+    align-items: center;
+    font-size: 0.9em;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 10px; /* Space between sections */
+}
+
+/* Dark mode for utility header */
+body.dark-mode .utility-header {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+}
+/* Invert colors for black icons to white in dark mode */
+body.dark-mode .utility-header .header-action img {
+    filter: invert(1);
+}
+body.dark-mode .utility-header .join-cinewatch {
+    color: #8ab4f8; /* Lighter blue for dark mode link */
+}
+body.dark-mode .utility-header .join-cinewatch:hover {
+    color: #a7c7ff;
+}
+
+.utility-left, .utility-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icons/text in utility sections */
+}
+
+.mode-toggle {
+    cursor: pointer;
+    display: flex; /* To align icons if they have different sizes slightly */
+    align-items: center;
+}
+
+.mode-icon {
+    width: 20px; /* Size for mode icons */
+    height: 20px;
+    display: none; /* Hidden by default, activated by JS */
+    transition: opacity 0.3s ease;
+}
+
+.mode-icon.active {
+    display: block; /* Visible when active */
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+
+.header-action:hover {
+    opacity: 0.7;
+}
+
+.header-action img {
+    width: 22px; /* Size for action icons */
+    height: 22px;
+    vertical-align: middle;
+}
+
+.join-cinewatch {
+    text-decoration: none;
+    color: #007bff; /* Blue for the link */
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.join-cinewatch:hover {
+    color: #0056b3;
+}
+
+/* --- Main Header Styles (Three Sections) --- */
+.main-header {
+    background-color: #f0f0f0; /* Light gray background for main header */
     padding: 15px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;   /* Center children horizontally */
+    justify-content: center; /* CHANGE: Center all content vertically by default */
+    flex-wrap: wrap; /* Keep for responsiveness */
+    gap: 20px; /* Space between sections */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Lighter shadow for light background */
+    min-height: 180px; /* INCREASED: Minimum height to allow vertical distribution */
+    padding-bottom: 15px; /* ADD: Padding at the bottom to ensure nav isn't right on the edge */
 }
 
-.search-container {
-    display: flex;
-    align-items: center;
-    width: 100%; /* Take full width within header */
-    max-width: 600px; /* Limit search bar width */
-    margin: 0 auto; /* Center the search bar */
+/* Dark mode for main header */
+body.dark-mode .main-header {
+    background-color: #0a0a0a; /* Very dark background for dark mode */
+    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+}
+body.dark-mode .main-header .main-nav ul li a {
+    color: #e7d4d4;
+}
+body.dark-mode .main-header .main-nav ul li a:hover {
+    color: #8ab4f8; /* Lighter blue for dark mode hover */
 }
 
-.search-container input[type="text"] {
+.header-section {
+    display: flex;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.header-left {
+    /* No changes needed here, as parent .main-header handles centering */
+    /* Removed previous margin-bottom as it's now handled by overall flex gap or nav margin-top */
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column; /* Stack logo and tagline vertically */
+    align-items: center; /* Center them horizontally */
+    text-align: center; /* Center text within the link */
+}
+
+/* New: Styles for the logo image */
+.logo-link img {
+    max-width: 150px; /* Adjust size as needed for your logo */
+    height: auto;
+    margin-bottom: 5px; /* Space between logo and tagline */
+}
+
+/* New: Styles for the tagline */
+.logo-link p.tagline {
+    font-size: 0.9em; /* Smaller font for tagline */
+    color: #555; /* Dark gray text for tagline */
+    margin: 0; /* Remove default paragraph margin */
+    white-space: nowrap; /* Keep tagline on one line if space allows */
+}
+
+/* Dark mode for logo and tagline */
+body.dark-mode .logo-link img {
+    filter: brightness(1.2) saturate(0.8); /* Adjust for better visibility of blue logo in dark mode */
+}
+body.dark-mode .logo-link p.tagline {
+    color: #ccc; /* Lighter color for tagline in dark mode */
+}
+
+
+.header-center {
+    /* No flex-grow: 1 here as we want it pushed to bottom, not taking all horizontal space */
+    justify-content: center; /* Still useful for centering nav items if nav is flex row */
+    min-width: 200px; /* Keep min-width for nav links */
+    margin-top: auto; /* KEY CHANGE: Pushes this section to the bottom of the main-header */
+    width: 100%; /* Ensure it takes full width to center its content */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the navigation links horizontally */
+    gap: 25px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: #333; /* Dark text for links in light mode */
+    font-size: 1.1em;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.main-nav ul li a:hover {
+    color: #007bff;
+}
+
+/* Dark mode for main nav links */
+body.dark-mode .main-nav ul li a {
+    color: #e7d4d4; /* Lighter text for links in dark mode */
+}
+body.dark-mode .main-nav ul li a:hover {
+    color: #8ab4f8; /* Lighter blue for dark mode hover */
+}
+
+
+.header-right {
+    /* This section remains empty as per previous HTML update, no specific styling needed here */
+}
+
+/* --- Subheader Styles (your original "header" content) --- */
+.subheader {
+    background-color: #f8f8f8;
+    padding: 15px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the search container */
+    margin-bottom: 20px; /* Space between subheader and main content */
+}
+
+/* Dark mode for subheader */
+body.dark-mode .subheader {
+    background-color: #1a1a1a;
+    box-shadow: 0 1px 3px rgba(255,255,255,0.05);
+}
+body.dark-mode .subheader .search-container input[type="text"] {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #555;
+}
+body.dark-mode .subheader .search-container input[type="text"]::placeholder {
+    color: #aaa;
+}
+body.dark-mode .subheader .search-container button {
+    background-color: #0056b3;
+}
+body.dark-mode .subheader .search-container button:hover {
+    background-color: #003e80;
+}
+
+
+.subheader .search-container { /* Scoped to subheader to avoid conflicts */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 700px; /* Wider search bar in subheader */
+}
+
+.subheader .search-container input[type="text"] {
     flex-grow: 1;
-    padding: 10px 15px;
+    padding: 12px 18px;
     border: 1px solid #ddd;
-    border-radius: 20px 0 0 20px; /* Rounded left side */
-    font-size: 16px;
+    border-radius: 25px 0 0 25px;
+    font-size: 17px;
     outline: none;
+    min-width: 100px;
 }
 
-.search-container button {
-    background-color: #007bff; /* Blue search button */
+.subheader .search-container button {
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 0 20px 20px 0; /* Rounded right side */
+    padding: 12px 25px;
+    border-radius: 0 25px 25px 0;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
     transition: background-color 0.3s ease;
 }
 
-.search-container button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+.subheader .search-container button:hover {
+    background-color: #0056b3;
 }
 
+/* --- Main Content Area Styles (Your existing styles - untouched) --- */
 main {
     display: flex;
     flex-direction: column; /* Stack sections vertically */
@@ -57,6 +288,86 @@ main {
     padding: 20px;
     flex-grow: 1;
 }
+
+/* Dark mode for main content elements */
+body.dark-mode .category-section {
+    background-color: #262626;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    color: #f0f0f0;
+}
+body.dark-mode .category-section h2 {
+    color: #f0f0f0;
+}
+body.dark-mode .show-card {
+    background-color: #333;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    color: #f0f0f0;
+}
+body.dark-mode .show-details-right h3 {
+    color: #f0f0f0;
+}
+body.dark-mode .show-details-right p {
+    color: #e0e0e0;
+}
+body.dark-mode .network-logo-section .watch-now-text {
+    color: #8ab4f8;
+}
+body.dark-mode .network-logo-section .subscription-required {
+    color: #ccc;
+}
+body.dark-mode .show-synopsis h4 {
+    color: #f0f0f0;
+}
+body.dark-mode .synopsis-text {
+    color: #e0e0e0;
+}
+body.dark-mode .read-more-btn,
+body.dark-mode .read-less-btn {
+    color: #8ab4f8;
+}
+body.dark-mode .read-more-btn:hover,
+body.dark-mode .read-less-btn:hover {
+    background-color: rgba(138, 180, 248, 0.1);
+}
+body.dark-mode .read-more-btn img,
+body.dark-mode .read-less-btn img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* Adjust for yellow icon */
+}
+body.dark-mode .carousel-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+body.dark-mode .carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+body.dark-mode .carousel-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .pagination-dot {
+    background-color: #555;
+}
+body.dark-mode .pagination-dot.active {
+    background-color: #8ab4f8;
+}
+body.dark-mode .quotes-sidebar {
+    background-color: #262626;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    color: #f0f0f0;
+}
+body.dark-mode .quotes-sidebar h3 {
+    color: #f0f0f0;
+}
+body.dark-mode .quote-container {
+    background-color: #333;
+    border-left-color: #8ab4f8;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+body.dark-mode .quote-text {
+    color: #e0e0e0;
+}
+body.dark-mode .quote-character {
+    color: #bbb;
+}
+
 
 /* Category Section Styling (e.g., for "Hollywood Shows", "Bollywood Shows", etc.) */
 .category-section {
@@ -105,11 +416,11 @@ main {
 .carousel-track {
     display: flex;
     transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
-    width: 100%; /* Each slide takes 100% of the container width */
+    width: 100%; /* Each slide takes 100% of the container width on large screens */
 }
 
 .show-card {
-    min-width: 100%; /* Each card takes full width in the track */
+    min-width: 100%; /* Each card takes full width in the track's *current viewport* */
     box-sizing: border-box; /* Include padding/border in width */
     display: flex;
     background-color: #fff;
@@ -153,18 +464,21 @@ main {
     justify-content: space-between;
     align-items: center; /* Center items */
     width: 100%;
+    min-width: 180px;
 }
 
 .show-details-right h3 {
     font-size: 2.2em;
     margin-bottom: 10px;
     color: #222;
+    word-wrap: break-word; /* Allow long titles to break lines */
 }
 
 .show-details-right p {
     margin: 5px 0;
     font-size: 1.1em;
     line-height: 1.5;
+    word-wrap: break-word; /* Allow long text to break lines */
 }
 
 .show-info-icon-display {
@@ -259,7 +573,7 @@ main {
     font-size: 2em;
     cursor: pointer;
     position: absolute;
-    top: 50%; /* Center vertically */
+    top: 70%; /* Adjusted: Moved down from 50% */
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
@@ -355,7 +669,105 @@ main {
     font-size: 0.85em;
 }
 
+/* Hero Section Styling */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 450px; /* Adjusted height: 600px - 25% = 450px */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 30px; /* Space below hero section */
+}
+
+.hero-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0; /* Behind other content */
+    transition: opacity 0.5s ease-in-out; /* For fade effect */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0) 60%);
+    z-index: 1; /* Above backdrop, below content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* On top of overlay */
+    display: flex;
+    align-items: flex-end; /* Align poster and text at the bottom */
+    padding: 20px 5%; /* Adjust padding as needed */
+    width: 100%;
+    max-width: 1200px; /* Max width for content */
+    box-sizing: border-box; /* Include padding in width */
+    gap: 30px; /* Space between poster and text */
+}
+
+.hero-poster {
+    width: 200px; /* Adjust poster size */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.hero-text {
+    flex-grow: 1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* For readability */
+}
+
+.hero-text h2 {
+    font-size: 3em; /* Larger title */
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.hero-text p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    max-width: 800px; /* Limit synopsis width */
+}
+
+.hero-buttons button {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-right: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-buttons button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: white;
+}
+
+.hero-buttons button img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1); /* Make icons white */
+}
+
 /* Responsive Design */
+
+/* Desktop / Larger Screens (min-width: 768px) */
 @media (min-width: 768px) {
     .show-info-and-poster-container {
         flex-direction: row; /* Horizontal layout for poster and details */
@@ -368,7 +780,7 @@ main {
     }
 
     .show-details-right h3 {
-        font-size: 2.5em;
+        font-size: 2.5em; /* Larger on desktop */
     }
 
     .show-details-right p {
@@ -394,67 +806,172 @@ main {
     }
 
     .carousel-track-container {
-         /* Adjusted width to make space for sidebar, accounting for margin-left of sidebar */
-         width: calc(100% - 310px); 
-         max-width: 800px; /* Keep a reasonable max width for the main carousel part */
+            /* Adjusted width to make space for sidebar, accounting for margin-left of sidebar */
+            width: calc(100% - 310px);
+            max-width: 800px; /* Keep a reasonable max width for the main carousel part */
     }
 
     .quotes-sidebar {
         display: flex; /* Ensure it's displayed on larger screens */
     }
+
+    /* Adjust main nav links for desktop when main header is light */
+    .main-nav ul li a {
+        color: #333; /* Dark text for links */
+    }
+    .main-nav ul li a:hover {
+        color: #007bff;
+    }
+    body.dark-mode .main-nav ul li a {
+        color: #e7d4d4; /* Lighter text in dark mode */
+    }
+    body.dark-mode .main-nav ul li a:hover {
+        color: #8ab4f8; /* Lighter blue in dark mode hover */
+    }
+
 }
 
+/* Tablet and Mobile (max-width: 767px) */
 @media (max-width: 767px) {
-    header {
-        flex-direction: column;
-        align-items: stretch;
+    /* --- Utility Header Responsive Styles --- */
+    .utility-header {
+        flex-direction: column; /* Stack utility items vertically */
+        text-align: center;
+        padding: 8px 10px;
+        gap: 8px;
     }
 
-    .search-container {
-        margin-top: 10px;
-        max-width: none;
-    }
-
-    .search-container input[type="text"],
-    .search-container button {
-        border-radius: 0;
-    }
-
-    .carousel-wrapper {
-        flex-direction: column; /* Stack carousel and quotes sidebar vertically */
-        align-items: center;
-    }
-
-    .quotes-sidebar {
+    .utility-left, .utility-right {
         width: 100%;
-        margin-left: 0;
-        margin-top: 30px; /* Space between carousel and sidebar */
+        justify-content: center; /* Center items within each half */
+        gap: 10px;
+    }
+
+    /* --- Main Header Responsive Styles --- */
+    .main-header {
+        flex-direction: column; /* Stack header sections vertically */
+        align-items: center;
+        gap: 15px;
+        padding: 15px 10px;
+    }
+
+    .header-section {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Adjust logo and tagline for smaller screens */
+    .logo-link img {
+        max-width: 120px; /* Smaller logo on mobile */
+        margin-bottom: 3px;
+    }
+    .logo-link p.tagline {
+        font-size: 0.8em; /* Smaller tagline on mobile */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .main-nav ul li a {
+        display: block;
+        padding: 10px;
+        background-color: rgba(0,0,0,0.05); /* Slightly darker background for buttons in light mode */
+        border-radius: 5px;
+        color: #333; /* Dark text for links */
+    }
+    body.dark-mode .main-nav ul li a {
+        background-color: rgba(255,255,255,0.1);
+        color: #e7d4d4; /* Lighter text in dark mode */
+    }
+
+
+    /* --- Subheader Responsive Styles --- */
+    .subheader {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .subheader .search-container input[type="text"],
+    .subheader .search-container button {
+        border-radius: 0;
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    /* ---- KEY CHANGES FOR SINGLE SHOW CARD DISPLAY ON SMALL SCREENS ---- */
+    .carousel-track {
+        width: 100%;
     }
 
     .show-card {
+        min-width: 100%;
+        width: 100%;
         padding: 15px;
+        max-width: none;
+        margin: 0;
+    }
+    /* ----------------------------------------------------------------- */
+
+    .show-poster-container {
+        width: 150px;
+        height: 225px;
     }
 
     .show-details-right h3 {
-        font-size: 1.8em;
+        font-size: 1.6em;
+        margin-bottom: 5px;
+        text-align: center;
     }
 
     .show-details-right p {
-        font-size: 1em;
+        font-size: 0.9em;
+        margin: 3px 0;
+        text-align: center;
     }
 
     .network-logo {
-        max-width: 100px;
+        max-width: 90px;
+        margin-top: 15px;
+    }
+
+    .watch-now-text {
+        font-size: 1.1em;
+    }
+
+    .subscription-required {
+        font-size: 0.8em;
+    }
+
+    .show-synopsis {
+        margin-top: 10px;
+    }
+
+    .show-synopsis h4 {
+        font-size: 1.1em;
     }
 
     .synopsis-text {
         font-size: 0.9em;
     }
 
+    .read-more-btn, .read-less-btn {
+        font-size: 0.9em;
+        padding: 3px 8px;
+    }
+
+    .read-more-btn img, .read-less-btn img {
+        width: 14px;
+        height: 14px;
+    }
+
     .carousel-btn {
         width: 40px;
         height: 40px;
         font-size: 1.5em;
+        top: 70%; /* Adjusted for mobile as well */
     }
 
     .prev-btn {
@@ -464,4 +981,206 @@ main {
     .next-btn {
         right: 5px;
     }
+
+    .carousel-pagination {
+        margin-top: 15px;
+        gap: 8px;
+    }
+
+    .pagination-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .quote-container {
+        padding: 12px;
+    }
+
+    .quote-text {
+        font-size: 0.9em;
+    }
+
+    .quote-character {
+        font-size: 0.8em;
+    }
 }
+
+/* Extra small screens (e.g., old phones, very narrow views) */
+@media (max-width: 480px) {
+    .utility-header {
+        padding: 5px 8px;
+        font-size: 0.8em;
+    }
+    .mode-icon, .header-action img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .main-header {
+        padding: 10px 8px; /* Reduce padding further for very small screens */
+    }
+
+    .logo-link img {
+        max-width: 100px; /* Even smaller logo */
+    }
+    .logo-link p.tagline {
+        font-size: 0.75em; /* Even smaller tagline */
+    }
+
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .main-nav ul li a {
+        font-size: 1em;
+        padding: 8px;
+    }
+
+    main {
+        padding: 5px;
+    }
+
+    .category-section {
+        padding: 10px;
+    }
+
+    .category-section h2 {
+        font-size: 22px;
+    }
+
+    .show-card {
+        padding: 10px;
+    }
+
+    .show-poster-container {
+        width: 120px;
+        height: 180px;
+    }
+
+    .show-details-right h3 {
+        font-size: 1.4em;
+    }
+
+    .show-details-right p {
+        font-size: 0.85em;
+    }
+
+    .network-logo {
+        max-width: 80px;
+    }
+
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+    }
+}
+
+/* Responsive adjustments for hero section on mobile */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 300px; /* Shorter hero on mobile, adjusted for new base height */
+    }
+
+    .hero-content {
+        flex-direction: column; /* Stack poster and text */
+        align-items: center;
+        text-align: center;
+        padding-bottom: 15px; /* Adjust padding */
+        gap: 15px;
+    }
+
+    .hero-poster {
+        width: 120px; /* Smaller poster on mobile */
+    }
+
+    .hero-text h2 {
+        font-size: 2em;
+    }
+
+    .hero-text p.hidden-on-mobile {
+        display: none; /* Hide synopsis on small screens */
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .hero-buttons button {
+        margin: 0; /* Remove extra margin for stacking */
+    }
+}
+
+/* Dark Mode compatibility for message box buttons */
+body.dark-mode .message-box {
+    background: #333;
+    color: #eee;
+    border-color: #555;
+}
+
+body.dark-mode .message-box button {
+    background-color: #555;
+    color: #fff;
+    border-color: #777;
+}
+body.dark-mode .message-box button:hover {
+    background-color: #777;
+}
+
+/* Also add general dark mode variables if you haven't already */
+:root {
+    --background-color-light: #f4f4f4;
+    --text-color-light: #333;
+    --card-background-light: #ffffff;
+    --border-color-light: #ddd;
+    --primary-button-background-light: #007bff;
+    --primary-button-text-light: white;
+    --primary-button-hover-background-light: #0056b3;
+}
+
+.dark-mode {
+    --background-color-dark: #1a1a1a;
+    --text-color-dark: #e0e0e0;
+    --card-background-dark: #2a2a2a;
+    --border-color-dark: #444;
+    --primary-button-background-dark: #6200ea; /* A purple tone for dark mode buttons */
+    --primary-button-text-dark: white;
+    --primary-button-hover-background-dark: #3700b3;
+}
+
+/* Apply variables */
+body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+.message-box { /* Apply variables to the message box */
+    background: var(--card-background-light);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+}
+
+.message-box button { /* Apply variables to message box button */
+    background-color: var(--primary-button-background-light);
+    color: var(--primary-button-text-light);
+}
+
+.message-box button:hover {
+    background-color: var(--primary-button-hover-background-light);
+}
+
+/* You will need to apply these variables across your other components as well */
+/* Example: For your carousel cards, etc. */
+/* .show-card { background-color: var(--card-background); border-color: var(--border-color); } */
+/* Add more global variables and apply them where needed */

@@ -207,7 +207,7 @@ const allShows = [
     {
         title: "The Day Of The Jackal",
         categories: ["International", "Coming Soon"],
-        poster: "thedayofjackalposter1.jpg",
+        poster: "thedayofthejackalposter1.webp", // Adjusted to .webp as per requirement
         imdb: "Expected",
         releaseDate: "Expected Premier: November 2024 (Series)",
         seasons: "1 (Upcoming Series)",
@@ -224,7 +224,7 @@ const allShows = [
     {
         title: "Train To Busan",
         categories: ["K-Drama"],
-        poster: "traintobusanposter1.jpg",
+        poster: "traintobusanposter1.webp", // Adjusted to .webp as per requirement
         imdb: "7.6/10 (Action)",
         releaseDate: "July 20, 2016",
         seasons: "1 (Film)",
@@ -564,6 +564,7 @@ function resetSynopsisStates(container) {
 
 // Function to update the quotes sidebar
 function updateQuotesSidebar(quotesSidebarElement, currentShow, quotesForShow) {
+    if (!quotesSidebarElement) return; // Robustness check
     quotesSidebarElement.innerHTML = '<h3>Famous Quotes</h3>';
     if (quotesForShow && quotesForShow.length > 0) {
         quotesForShow.forEach(q => {
@@ -581,6 +582,11 @@ function updateQuotesSidebar(quotesSidebarElement, currentShow, quotesForShow) {
 
 // Function to update a specific carousel's display
 function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, shows, currentShowIndex, quotesSidebarElement) {
+    if (!carouselTrack || !paginationContainer || !prevBtn || !nextBtn || !quotesSidebarElement) {
+        console.warn('One or more carousel elements missing for updateCarousel. Skipping update.');
+        return;
+    }
+
     if (shows.length === 0) {
         carouselTrack.style.transform = `translateX(0%)`;
         prevBtn.disabled = true;
@@ -593,9 +599,9 @@ function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, sh
     const offset = -currentShowIndex * 100;
     carouselTrack.style.transform = `translateX(${offset}%)`;
 
-    // Disable navigation buttons if at start/end
-    prevBtn.disabled = currentShowIndex === 0;
-    nextBtn.disabled = currentShowIndex === shows.length - 1;
+    // Disable navigation buttons if at start/end (this logic is overridden by looping in initializeCarouselForCategory)
+    prevBtn.disabled = currentShowIndex === 0 && !carouselTrack.dataset.looping;
+    nextBtn.disabled = currentShowIndex === shows.length - 1 && !carouselTrack.dataset.looping;
 
     // Update pagination dots
     paginationContainer.innerHTML = ''; // Clear previous dots
@@ -610,7 +616,7 @@ function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, sh
             const carouselState = categoryCarousels.find(state => state.carouselTrack === carouselTrack);
             if (carouselState) {
                 carouselState.currentIndex = i;
-                updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, shows, i, quotesSidebarElement);
+                updateCarousel(carouselState.carouselTrack, carouselState.paginationContainer, carouselState.prevBtn, carouselState.nextBtn, carouselState.shows, i, carouselState.quotesSidebar);
             }
         });
         paginationContainer.appendChild(dot);
@@ -623,8 +629,6 @@ function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, sh
     updateQuotesSidebar(quotesSidebarElement, currentShow, allShowQuotes[globalShowIndex]);
 
     // Reset "Read More/Less" state for the current card
-    // Use setTimeout to ensure the carousel has finished transforming before resetting synopsis.
-    // This prevents a visual flicker if the synopsis was expanded on a previous slide.
     setTimeout(() => {
         resetSynopsisStates(carouselTrack);
     }, 500); // Match this timeout with the CSS transition duration for transform
@@ -635,7 +639,15 @@ const categoryCarousels = [];
 
 // Function to initialize a carousel for a given category
 function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
-    if (showsInCategory.length === 0) return; // Don't create carousel if no shows
+    if (!sectionDiv) {
+        console.warn(`Section div not provided for category: ${category}. Skipping carousel initialization.`);
+        return;
+    }
+    if (showsInCategory.length === 0) {
+        // Optionally display a message "No shows in this category"
+        sectionDiv.innerHTML = `<h2>${category} Shows</h2><p>No shows available for this category.</p>`;
+        return; // Don't create carousel if no shows
+    }
 
     let currentIndex = 0; // Each carousel gets its own index, initialized to 0
 
@@ -644,8 +656,7 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
         <div class="carousel-wrapper">
             <div class="carousel-content">
                 <div class="carousel-track-container">
-                    <div class="carousel-track">
-                        </div>
+                    <div class="carousel-track"></div>
                     <button class="carousel-btn prev-btn">&lt;</button>
                     <button class="carousel-btn next-btn">&gt;</button>
                 </div>
@@ -660,6 +671,15 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
     const nextBtn = sectionDiv.querySelector('.next-btn');
     const paginationContainer = sectionDiv.querySelector('.carousel-pagination');
     const quotesSidebar = sectionDiv.querySelector('.quotes-sidebar');
+
+    // Robustness check: Ensure all elements were found before proceeding
+    if (!carouselTrack || !prevBtn || !nextBtn || !paginationContainer || !quotesSidebar) {
+        console.error(`Failed to find all carousel elements for category: ${category}.`);
+        // Clean up or revert sectionDiv content if elements are critical
+        sectionDiv.innerHTML = `<h2>${category} Shows</h2><p>Error loading carousel for this category.</p>`;
+        return;
+    }
+
 
     // Populate the carousel track with show cards for this category
     showsInCategory.forEach(show => {
@@ -679,20 +699,21 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
     };
     categoryCarousels.push(carouselState);
 
+    // Initial update of the carousel display
+    updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, showsInCategory, currentIndex, quotesSidebar);
+
     // Add event listeners for navigation buttons for this specific carousel
     prevBtn.addEventListener('click', () => {
-        carouselState.currentIndex = (carouselState.currentIndex > 0) ? carouselState.currentIndex - 1 : carouselState.shows.length - 1;
+        carouselState.currentIndex = (carouselState.currentIndex > 0) ? carouselState.currentIndex - 1 : carouselState.shows.length - 1; // Loop back
         updateCarousel(carouselState.carouselTrack, carouselState.paginationContainer, carouselState.prevBtn, carouselState.nextBtn, carouselState.shows, carouselState.currentIndex, carouselState.quotesSidebar);
     });
 
     nextBtn.addEventListener('click', () => {
-        carouselState.currentIndex = (carouselState.currentIndex < carouselState.shows.length - 1) ? carouselState.currentIndex + 1 : 0;
+        carouselState.currentIndex = (carouselState.currentIndex < carouselState.shows.length - 1) ? carouselState.currentIndex + 1 : 0; // Loop to start
         updateCarousel(carouselState.carouselTrack, carouselState.paginationContainer, carouselState.prevBtn, carouselState.nextBtn, carouselState.shows, carouselState.currentIndex, carouselState.quotesSidebar);
     });
 
-    // Initial update for this carousel to render the first card, pagination, and quotes
-    updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, showsInCategory, currentIndex, quotesSidebar);
-    // Add synopsis listeners for cards within this specific carousel
+    // Add "Read More/Less" event listeners for all cards within this carousel
     addSynopsisToggleListeners(carouselTrack);
 }
 
@@ -700,8 +721,12 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
 // Main function to render all categories
 function renderAllCategories() {
     const categorySectionsContainer = document.getElementById('categorySections');
+    if (!categorySectionsContainer) {
+        console.error('Element with ID "categorySections" not found. Cannot render categories.');
+        return; // Exit if the container is missing, main functionality might be impacted otherwise.
+    }
     // Clear any existing content before rendering to prevent duplicates on re-render
-    categorySectionsContainer.innerHTML = ''; 
+    categorySectionsContainer.innerHTML = '';
 
     // Define the desired order of categories
     const categories = ["Trending", "Coming Soon", "Hollywood", "Bollywood", "K-Drama", "International", "Kenyan Drama"];
@@ -710,20 +735,327 @@ function renderAllCategories() {
         // Filter shows relevant to the current category
         const showsInCategory = allShows.filter(show => show.categories.includes(category));
 
-        if (showsInCategory.length > 0) {
-            // Create a div for each category section
-            const sectionDiv = document.createElement('div');
-            sectionDiv.classList.add('category-section');
-            // Append the section to the main container BEFORE initializing the carousel
-            // This is crucial because `initializeCarouselForCategory` needs the sectionDiv to be in the DOM
-            // to correctly query its child elements (like .carousel-track, .prev-btn, etc.).
-            categorySectionsContainer.appendChild(sectionDiv);
+        // Always create a div for each category section, even if no shows, to maintain structure
+        const sectionDiv = document.createElement('div');
+        sectionDiv.classList.add('category-section');
+        categorySectionsContainer.appendChild(sectionDiv); // Append before initializing
 
-            // Initialize the carousel for this specific category
-            initializeCarouselForCategory(category, showsInCategory, sectionDiv);
-        }
+        // Initialize the carousel for this specific category
+        // The initializeCarouselForCategory function handles the case of zero shows internally
+        initializeCarouselForCategory(category, showsInCategory, sectionDiv);
     });
 }
 
-// Call the main rendering function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', renderAllCategories);
+// Function to display a custom message box (replaces alert())
+function showMessageBox(message) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px); /* Optional: blur background */
+    `;
+
+    // Create message box
+    const messageBox = document.createElement('div');
+    messageBox.style.cssText = `
+        background: var(--background-color-dark); /* Use a CSS variable for dark mode compatibility */
+        color: var(--text-color); /* Use a CSS variable for dark mode compatibility */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 80%;
+        font-family: Arial, sans-serif;
+        border: 1px solid var(--border-color); /* Optional: subtle border */
+    `;
+
+    const messageText = document.createElement('p');
+    messageText.textContent = message;
+    messageText.style.marginBottom = '15px';
+    messageText.style.fontSize = '1.1em';
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+        background-color: var(--primary-button-background); /* Use a CSS variable */
+        color: var(--primary-button-text); /* Use a CSS variable */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.2s ease;
+    `;
+    closeButton.onmouseover = () => closeButton.style.backgroundColor = 'var(--primary-button-hover-background)';
+    closeButton.onmouseout = () => closeButton.style.backgroundColor = 'var(--primary-button-background)';
+    closeButton.onclick = () => document.body.removeChild(overlay);
+
+    messageBox.appendChild(messageText);
+    messageBox.appendChild(closeButton);
+    overlay.appendChild(messageBox);
+    document.body.appendChild(overlay);
+}
+
+
+// --- START: Hero Section Logic ---
+
+// Hardcoded lists of available WEBP backdrop and poster filenames based on your provided images
+// This assumes these files exist at images/backdrops/ and images/posters/ respectively.
+const availableBackdrops = [
+    `3idiotsbackdrop1.webp`, `3idiotsbackdrop2.webp`, `3idiotsbackdrop3.webp`, `3idiotsbackdrop4.webp`,
+    `40sticksbackdrop1.webp`,
+    `allofusaredeadbackdrop1.webp`, `allofusaredeadbackdrop2.webp`, `allofusaredeadbackdrop3.webp`, `allofusaredeadbackdrop4.webp`, `allofusaredeadbackdrop5.webp`,
+    `breakingbadbackdrop.webp`, `breakingbadbackdrop1.webp`, `breakingbadbackdrop2.webp`, `breakingbadbackdrop3.webp`, `breakingbadbackdrop4.webp`, `breakingbadbackdrop5.webp`, `breakingbadbackdrop6.webp`, `breakingbadbackdrop7.webp`, `breakingbadbackdrop9.webp`, `breakingbadbackdrop10.webp`, `breakingbadbackdrop11.webp`,
+    `crimeandjusticebackdrop1.webp`, `crimeandjusticebackdrop2.webp`,
+    `dangalbackdrop1.webp`,
+    `extractionbackdrop1.webp`, `extractionbackdrop2.webp`, `extractionbackdrop3.webp`, `extractionbackdrop4.webp`,
+    `ghoulbackdrop1.webp`, `ghoulbackdrop2.webp`, `ghoulbackdrop3.webp`, `ghoulbackdrop4.webp`, `ghoulbackdrop5.webp`,
+    `inceptionbackdrop1.webp`, `inceptionbackdrop2.webp`, `inceptionbackdrop3.webp`, `inceptionbackdrop4.webp`, `inceptionbackdrop5.webp`, `inceptionbackdrop6.webp`, `inceptionbackdrop7.webp`,
+    `lupinbackdrop1.webp`, `lupinbackdrop2.webp`, `lupinbackdrop3.webp`, `lupinbackdrop4.webp`, `lupinbackdrop5.webp`, `lupinbackdrop6.webp`,
+    `moneheistkoreabacdrop3.webp`, `moneheistkoreabackdrop1.webp`, `moneheistkoreabackdrop2.webp`, `moneheistkoreabackdrop3.webp`, `moneheistkoreabackdrop4.webp`,
+    `moneyheistbackdrop1.webp`, `moneyheistbackdrop2.webp`, `moneyheistbackdrop3.webp`, `moneyheistbackdrop4.webp`, `moneyheistbackdrop5.webp`, `moneyheistbackdrop6.webp`,
+    `nairobihalflifebackdrop1.webp`, `nairobihalflifebackdrop2.webp`, `nairobihalflifebackdrop3.webp`,
+    `prisonbreakbackdrop.webp`, `prisonbreakbackdrop1.webp`, `prisonbreakbackdrop2.webp`, `prisonbreakbackdrop3.webp`, `prisonbreakbackdrop5.webp`, `prisonbreakbackdrop6.webp`, `prisonbreakbackdrop7.webp`,
+    `secondfamilybackdrop1.webp`,
+    `squidgamebackdrop1.webp`, `squidgamebackdrop2.webp`, `squidgamebackdrop3.webp`, `squidgamebackdrop4.webp`, `squidgamebackdrop6.webp`, `squidgamebackdrop7.webp`,
+    `strangerthingsbackdrop1.webp`, `strangerthingsbackdrop2.webp`, `strangerthingsbackdrop3.webp`, `strangerthingsbackdrop4.webp`, `strangerthingsbackdrop5.webp`,
+    `thedayofthejackalbackdrop1.webp`, `thedayofthejackalbackdrop2.webp`, `thedayofthejackalbackdrop3.webp`, `thedayofthejackalbackdrop4.webp`,
+    `theofficebackdrop1.webp`, `theofficebackdrop2.webp`, `theofficebackdrop3.webp`, `theofficebackdrop4.webp`, `theofficebackdrop5.webp`, `theofficebackdrop6.webp`, `theofficebackdrop7.webp`
+];
+
+const availablePosters = [
+    `3idiotsposter1.webp`, `3idiotsposter2.webp`,
+    `40sticksposter1.webp`,
+    `allofusaredeadposter1.webp`, `allofusaredeadposter2.webp`, `allofusaredeadposter3.webp`, `allofusaredeadposter4.webp`, `allofusaredeadposter5.webp`,
+    `breakingbadposter1.webp`, `breakingbadposter2.webp`, `breakingbadposter3.webp`, `breakingbadposter4.webp`, `breakingbadposter5.webp`, `breakingbadposter6.webp`, `breakingbadposter7.webp`,
+    `crimeandjusticeposter1.webp`, `crimeandjusticeposter2.webp`,
+    `dangalposter1.webp`, `dangalposter2.webp`,
+    `extractionposter1.webp`, `extractionposter2.webp`,
+    `ghoulposter1.webp`, `ghoulposter2.webp`, `ghoulposter3.webp`, `ghoulposter4.webp`,
+    `inceptionposter1.webp`, `inceptionposter2.webp`, `inceptionposter3.webp`, `inceptionposter4.webp`, `inceptionposter5.webp`,
+    `lupinposter1.webp`, `lupinposter2.webp`,
+    `moneheistkoreaposter1.webp`, `moneheistkoreaposter2.webp`, `moneheistkoreaposter3.webp`, `moneheistkoreaposter4.webp`,
+    `moneyheistposter1.webp`, `moneyheistposter2.webp`, `moneyheistposter3.webp`, `moneyheistposter4.webp`, `moneyheistposter5.webp`, `moneyheistposter6.webp`,
+    `nairobihalflifeposter1.webp`,
+    `prisonbreakposter1.webp`, `prisonbreakposter2.webp`, `prisonbreakposter3.webp`, `prisonbreakposter4.webp`, `prisonbreakposter5.webp`, `prisonbreakposter6.webp`, `prisonbreakposter7.webp`, `prisonbreakposter8.webp`, `prisonbreakposter9.webp`,
+    `secondfamilyposter1.webp`, `secondfamilyposter2.webp`, `secondfamilyposter3.webp`,
+    `squidgameposter1.webp`, `squidgameposter2.webp`,
+    `strangerthingsposter1.webp`, `strangerthingsposter2.webp`, `strangerthingsposter3.webp`, `strangerthingsposter4.webp`, `strangerthingsposter5.webp`,
+    `thedayofthejackalposter1.webp`, `thedayofthejackalposter2.webp`,
+    `theofficeposter1.webp`, `theofficeposter2.webp`, `theofficeposter3.webp`, `theofficeposter4.webp`, `theofficeposter5.webp`, `theofficeposter6.webp`, `theofficeposter7.webp`, `theofficeposter8.webp`, `theofficeposter9.webp`, `theofficeposter10.webp`,
+    `traintobusanposter1.webp`, `traintobusanposter2.webp`, `traintobusanposter3.webp`,
+    `yourhonorposter1.webp`, `yourhonorposter2.webp`, `yourhonorposter3.webp`, `yourhonorposter4.webp`, `yourhonorposter5.webp`, `yourhonorposter6.webp`
+];
+
+let heroPairs = []; // This will store the filtered and matched hero pairs
+let currentHeroPairIndex = 0;
+
+// Function to populate heroPairs based on matching .webp files
+function initializeHeroPairs() {
+    allShows.forEach(show => {
+        // Extract base name and potential number from the show's poster filename
+        // e.g., "moneyheistposter1.webp" -> "moneyheist", "1"
+        const showPosterBase = show.poster.replace(/\.webp$/, ''); // Remove .webp
+        const match = showPosterBase.match(/([a-zA-Z]+?)(\d+)?(poster)?$/); // Extract base name and optional number before 'poster'
+
+        if (!match) {
+            console.warn(`Could not parse poster filename for show: ${show.title}. Skipping for hero. Filename: ${show.poster}`);
+            return;
+        }
+
+        const showName = match[1]; // e.g., "moneyheist"
+        const showNumber = match[2] || ''; // e.g., "1" or "" if no number
+
+        // Construct potential backdrop filename
+        const potentialBackdrop = `${showName}backdrop${showNumber}.webp`;
+
+        // Check if both the specific poster and the derived backdrop exist as .webp
+        const posterExists = availablePosters.includes(show.poster);
+        const backdropExists = availableBackdrops.includes(potentialBackdrop);
+
+        if (posterExists && backdropExists) {
+            heroPairs.push({
+                title: show.title,
+                poster: show.poster,
+                backdrop: potentialBackdrop,
+                synopsis: show.synopsis // Include synopsis for hero section
+            });
+        }
+    });
+
+    // Optional: Shuffle the heroPairs array to get a random order each time the page loads
+    // This is good for variety, but might not be desired if a specific order is preferred
+    // for (let i = heroPairs.length - 1; i > 0; i--) {
+    //     const j = Math.floor(Math.random() * (i + 1));
+    //     [heroPairs[i], heroPairs[j]] = [heroPairs[j], heroPairs[i]];
+    // }
+
+    if (heroPairs.length === 0) {
+        console.warn("No suitable .webp hero poster/backdrop pairs found. Hero section might be empty.");
+    }
+}
+
+// Function to update the hero section content
+function updateHeroSection() {
+    const heroBackdropImg = document.getElementById('heroBackdrop');
+    const heroPosterImg = document.getElementById('heroPoster');
+    const heroTitleElement = document.getElementById('heroTitle');
+    const heroSynopsisElement = document.getElementById('heroSynopsis');
+
+    // Robustness: Check if hero elements exist before trying to update them
+    if (!heroBackdropImg || !heroPosterImg || !heroTitleElement || !heroSynopsisElement) {
+        console.error("One or more hero section elements not found in HTML. Skipping hero update.");
+        return; // Exit function if critical elements are missing
+    }
+
+    if (!heroPairs.length) {
+        console.warn("No suitable hero pairs available to display. Hero section will remain static or empty.");
+        heroBackdropImg.style.display = 'none'; // Hide if no content
+        heroPosterImg.style.display = 'none';
+        heroTitleElement.textContent = "Welcome to CineMax!";
+        heroSynopsisElement.textContent = "Discover your next favorite show.";
+        return;
+    }
+
+    const currentPair = heroPairs[currentHeroPairIndex];
+
+    // Fade out backdrop before changing source
+    heroBackdropImg.style.opacity = 0;
+    setTimeout(() => {
+        heroBackdropImg.src = `images/backdrops/${currentPair.backdrop}`;
+        heroBackdropImg.alt = `${currentPair.title} Backdrop`;
+        heroBackdropImg.style.opacity = 1; // Fade in after source change
+    }, 500); // This delay should match the CSS transition duration for opacity
+
+    heroPosterImg.src = `images/posters/${currentPair.poster}`;
+    heroPosterImg.alt = `${currentPair.title} Poster`;
+    heroTitleElement.textContent = currentPair.title;
+
+    // Truncate synopsis for hero section if too long
+    const truncatedSynopsis = currentPair.synopsis.length > 200 ?
+        currentPair.synopsis.substring(0, 200) + '...' :
+        currentPair.synopsis;
+    heroSynopsisElement.textContent = truncatedSynopsis;
+
+
+    currentHeroPairIndex = (currentHeroPairIndex + 1) % heroPairs.length; // Move to the next pair, loop back if at end
+}
+
+// --- END: Hero Section Logic ---
+
+
+// Main execution logic
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the hero pairs data
+    initializeHeroPairs();
+
+    // Set initial hero section content
+    updateHeroSection();
+
+    // Start cycling the hero section every 6 seconds (6000 milliseconds)
+    // Only set interval if there's more than one pair to cycle through
+    if (heroPairs.length > 1) {
+        setInterval(updateHeroSection, 6000);
+    } else if (heroPairs.length === 1) {
+        console.info("Only one hero pair found. Hero section will display statically.");
+    }
+
+
+    // --- Dark Mode Toggle Logic ---
+    const modeToggle = document.querySelector('.mode-toggle');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+    const lightModeIcon = document.getElementById('lightModeIcon');
+    const body = document.body;
+
+    // Robustness: Check if elements exist before adding event listeners or manipulating
+    if (modeToggle && darkModeIcon && lightModeIcon && body) {
+        // Check for saved preference in localStorage, default to light mode
+        const savedMode = localStorage.getItem('theme');
+        if (savedMode === 'dark') {
+            body.classList.add('dark-mode');
+            darkModeIcon.classList.add('active');
+            lightModeIcon.classList.remove('active');
+        } else {
+            body.classList.remove('dark-mode');
+            lightModeIcon.classList.add('active');
+            darkModeIcon.classList.remove('active');
+        }
+
+        modeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                // Switch to light mode
+                body.classList.remove('dark-mode');
+                lightModeIcon.classList.add('active');
+                darkModeIcon.classList.remove('active');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark mode
+                body.classList.add('dark-mode');
+                darkModeIcon.classList.add('active');
+                lightModeIcon.classList.remove('active');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    } else {
+        console.warn("Dark mode toggle elements not found. Dark mode functionality skipped.");
+    }
+
+
+    // --- Header Action Button Logic (using showMessageBox) ---
+    const addShowIcon = document.getElementById('addShowIcon');
+    if (addShowIcon) {
+        addShowIcon.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            showMessageBox("Add to Playlist functionality is coming soon!");
+        });
+    } else {
+        console.warn("Add Show Icon not found.");
+    }
+
+    const accountIcon = document.getElementById('accountIcon');
+    if (accountIcon) {
+        accountIcon.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            showMessageBox("Account management features are under development!");
+        });
+    } else {
+        console.warn("Account Icon not found.");
+    }
+
+    const searchIconBtn = document.querySelector('.search-icon-btn');
+    if (searchIconBtn) {
+        searchIconBtn.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            showMessageBox("Search functionality will be enhanced soon!");
+        });
+    } else {
+        console.warn("Search Icon button not found.");
+    }
+
+    // Play/My List button handlers for hero section (optional, can be expanded)
+    // Using event delegation for these buttons if they are inside the hero-content div which updates
+    // Or, add listeners inside updateHeroSection if buttons themselves are dynamic
+    // For now, assuming they are static elements within hero-section
+    const playButton = document.querySelector('.hero-buttons .play-button');
+    const myListButton = document.querySelector('.hero-buttons .my-list-button');
+
+    if (playButton) {
+        playButton.addEventListener('click', () => showMessageBox("Play functionality coming soon!"));
+    }
+    if (myListButton) {
+        myListButton.addEventListener('click', () => showMessageBox("Adding to My List coming soon!"));
+    }
+
+
+    // Call the main rendering function for categories when the DOM is fully loaded
+    renderAllCategories();
+});
