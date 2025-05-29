@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CineWatch | Sign Up</title>
-  <link rel="stylesheet" href="styles/watch.css" />
-  <script defer src="scripts/watch.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase</title>
+    <link rel="icon" href="images/icons&logos/app-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="watch.css"> 
 </head>
 <body>
-  <header id="main-header">
-    <img src="images/icons&logos/logo.svg" alt="CineWatch Logo" class="logo" />
-    <a href="discover.html">Back to Discover</a>
-  </header>
+    <header>
+        <div class="search-container">
+            <input type="text" placeholder="Search for a movie/show...">
+            <button>Search</button>
+        </div>
+    </header>
 
-  <main class="form-page">
-    <h1>Create an Account</h1>
-    <form id="signup-form">
-      <label for="signup-name">Name:</label>
-      <input type="text" id="signup-name" required />
-      
-      <label for="signup-email">Email:</label>
-      <input type="email" id="signup-email" required />
-      
-      <label for="signup-password">Password:</label>
-      <input type="password" id="signup-password" required />
-      
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Login</a></p>
-  </main>
+    <main>
+        <div id="categorySections"></div>
+    </main>
+
+    <script src="watch.js"></script>
 </body>
 </html>

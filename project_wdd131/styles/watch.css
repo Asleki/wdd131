@@ -1,202 +1,467 @@
-/* Base Styles */
+/* General Body and Layout */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fff;
-  color: #000;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5; /* Light grey background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Header */
-#main-header {
-  background-color: #9cd4f5;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+header {
+    background-color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.nav-icons {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-left: auto;
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Take full width within header */
+    max-width: 600px; /* Limit search bar width */
+    margin: 0 auto; /* Center the search bar */
 }
 
-.nav-icon {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+.search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px 0 0 20px; /* Rounded left side */
+    font-size: 16px;
+    outline: none;
 }
 
-.nav-icon:hover {
-  transform: scale(1.2);
+.search-container button {
+    background-color: #007bff; /* Blue search button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 20px 20px 0; /* Rounded right side */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.search-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center all content horizontally */
-  flex-wrap: wrap;
-  gap: 1rem; /* Optional: adds space between logo and tagline */
+main {
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    gap: 30px; /* Space between sections */
+    padding: 20px;
+    flex-grow: 1;
 }
 
-.logo {
-  height: 150px; /* Increase from 50px to 70px or adjust to your preference */
-  width: auto;  /* Keeps the aspect ratio */
+/* Category Section Styling (e.g., for "Hollywood Shows", "Bollywood Shows", etc.) */
+.category-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative; /* For positioning child elements */
 }
 
-
-.tagline {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #993f3f;
+.category-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-
-/* Navigation */
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 1rem 0 0.5rem;
+/* Carousel Specific Styles */
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden; /* Hide overflowing cards */
+    width: 100%;
+    margin: 0 auto;
+    display: flex; /* Allow content and sidebar to align */
+    justify-content: center; /* Center the content */
+    align-items: flex-start; /* Align items to the top */
 }
 
-.main-nav a {
-  text-decoration: none;
-  color: #000;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.carousel-content {
+    display: flex;
+    flex-direction: column; /* Stack carousel track and pagination */
+    flex-grow: 1; /* Allow content to take available space */
+    align-items: center;
+    max-width: 1000px; /* Limit the width of the carousel items */
 }
 
-.main-nav a:hover {
-  color: #1db954;
+.carousel-track-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px; /* For the main carousel view */
 }
 
-/* Hero Section */
-.hero-section {
-  position: relative;
-  height: 50%;
-  background: url('../images/backdrops/moneyheistbackdrop2.webp') center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
+    width: 100%; /* Each slide takes 100% of the container width */
 }
 
-.hero-overlay {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.show-card {
+    min-width: 100%; /* Each card takes full width in the track */
+    box-sizing: border-box; /* Include padding/border in width */
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 20px;
+    flex-direction: column; /* Stack show-info and synopsis */
+    align-items: center; /* Center content horizontally within the card */
+    text-align: center; /* Center text within the card */
 }
 
-.hero-content-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.show-info-and-poster-container {
+    display: flex;
+    flex-direction: column; /* Stack poster and details vertically on smaller screens */
+    align-items: center; /* Center them */
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px; /* Space between top info and synopsis */
 }
 
-/* Poster aligned to left */
-.hero-poster img {
-  height: 350px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+.show-poster-container {
+    flex-shrink: 0;
+    width: 180px; /* Fixed width for poster */
+    height: 270px; /* Fixed height for poster (approx 2:3 aspect ratio) */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* Button + logo centered vertically */
-.hero-center-content {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.show-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Watch Now Button */
-#watch-now {
-  background-color: #1db954;
-  color: #fff;
-  padding: 1rem 2.5rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.show-details-right {
+    flex-grow: 1; /* Allow details to take available space */
+    display: flex;
+    flex-direction: column; /* Stack info and network logo section */
+    justify-content: space-between;
+    align-items: center; /* Center items */
+    width: 100%;
 }
 
-#watch-now:hover {
-  background-color: #17a44a;
+.show-details-right h3 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    color: #222;
 }
 
-/* Network logo under button */
+.show-details-right p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.show-info-icon-display {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-left: 8px;
+    display: none; /* Hide by default, only for desktop */
+}
+
+.network-logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .network-logo {
-  width: 80px;
-  height: auto;
-  border-radius: 2rem;
+    max-width: 120px; /* Limit logo width */
+    height: auto;
+    margin-bottom: 8px;
 }
 
-/* Responsive Styling */
-@media (max-width: 768px) {
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .main-nav ul {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding-left: 1rem;
-  }
-
-  .tagline {
-    font-size: 1.3rem;
-    margin-top: 0.5rem;
-  }
-
-  .hero-content-container {
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1rem;
-  }
-
-  .hero-poster img {
-    height: 250px;
-  }
-
-  .network-logo {
-    width: 80px;
-  }
+.watch-now-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff; /* Blue text for watch now */
+    margin-bottom: 5px;
 }
 
-@media (max-width: 480px) {
-  #watch-now {
-    font-size: 1rem;
-    padding: 0.8rem 2rem;
-  }
+.subscription-required {
+    font-size: 0.9em;
+    color: #666;
+}
 
-  .logo {
-    height: 40px;
-  }
+.show-synopsis {
+    width: 100%;
+    text-align: left; /* Align synopsis text left */
+    margin-top: 15px;
+}
 
-  .tagline {
-    font-size: 1.1rem;
-  }
+.show-synopsis h4 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.synopsis-text {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+}
+
+.synopsis-controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; /* Center buttons */
+}
+
+.read-more-btn, .read-less-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 1em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.read-more-btn:hover, .read-less-btn:hover {
+    background-color: #e9f5ff;
+}
+
+.read-more-btn img, .read-less-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    cursor: pointer;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-btn:disabled {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+}
+
+.prev-btn {
+    left: 10px; /* Position relative to carousel-track-container */
+}
+
+.next-btn {
+    right: 10px; /* Position relative to carousel-track-container */
+}
+
+/* Pagination Dots */
+.carousel-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination-dot.active {
+    background-color: #007bff;
+    transform: scale(1.2);
+}
+
+/* Famous Quotes Sidebar */
+.quotes-sidebar {
+    width: 280px; /* Fixed width for the sidebar */
+    min-width: 280px; /* Ensure it doesn't shrink */
+    background-color: #f8f9fa; /* Lighter grey background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-left: 30px; /* Space from carousel content */
+    height: fit-content; /* Adjust height to content */
+    align-self: flex-start; /* Align to the top of carousel-wrapper */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quotes-sidebar h3 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.quote-container {
+    background-color: #fff;
+    padding: 15px;
+    border-left: 4px solid #007bff; /* Blue accent line */
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    margin-bottom: 10px;
+}
+
+.quote-text {
+    font-style: italic;
+    margin: 0 0 8px 0;
+    color: #444;
+    font-size: 0.95em;
+}
+
+.quote-character {
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    color: #666;
+    font-size: 0.85em;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .show-info-and-poster-container {
+        flex-direction: row; /* Horizontal layout for poster and details */
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    .show-details-right {
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .show-details-right h3 {
+        font-size: 2.5em;
+    }
+
+    .show-details-right p {
+        font-size: 1.1em;
+    }
+
+    .show-info-icon-display {
+        display: inline-block; /* Show on desktop */
+    }
+
+    .network-logo-section {
+        align-items: flex-start;
+    }
+
+    .show-card {
+        flex-direction: column; /* Stack main info and synopsis */
+    }
+
+    .carousel-wrapper {
+        flex-direction: row; /* Content and sidebar side-by-side */
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .carousel-track-container {
+         /* Adjusted width to make space for sidebar, accounting for margin-left of sidebar */
+         width: calc(100% - 310px); 
+         max-width: 800px; /* Keep a reasonable max width for the main carousel part */
+    }
+
+    .quotes-sidebar {
+        display: flex; /* Ensure it's displayed on larger screens */
+    }
+}
+
+@media (max-width: 767px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-container {
+        margin-top: 10px;
+        max-width: none;
+    }
+
+    .search-container input[type="text"],
+    .search-container button {
+        border-radius: 0;
+    }
+
+    .carousel-wrapper {
+        flex-direction: column; /* Stack carousel and quotes sidebar vertically */
+        align-items: center;
+    }
+
+    .quotes-sidebar {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px; /* Space between carousel and sidebar */
+    }
+
+    .show-card {
+        padding: 15px;
+    }
+
+    .show-details-right h3 {
+        font-size: 1.8em;
+    }
+
+    .show-details-right p {
+        font-size: 1em;
+    }
+
+    .network-logo {
+        max-width: 100px;
+    }
+
+    .synopsis-text {
+        font-size: 0.9em;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5em;
+    }
+
+    .prev-btn {
+        left: 5px;
+    }
+
+    .next-btn {
+        right: 5px;
+    }
 }
