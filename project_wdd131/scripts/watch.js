@@ -1,3 +1,66 @@
+// Data for hero slides
+const heroSlides = [
+    {
+        backdrop: 'images/herobackdrops/allofusaredeadbackdrop.webp',
+        poster: 'images/heroposters/allofusaredeadheroposter.webp',
+        quote: 'We’re trapped, surrounded by dead things… and by dead people.',
+    },
+    {
+        backdrop: 'images/herobackdrops/breakingbadbackdrop.webp',
+        poster: 'images/heroposters/breakingbadheroposter.webp',
+        quote: 'I am the one who knocks!',
+    },
+    {
+        backdrop: 'images/herobackdrops/extractionbackdrop.webp',
+        poster: 'images/heroposters/extractionheroposter.webp',
+        quote: 'You send a boy to do a man\'s job.',
+    },
+    {
+        backdrop: 'images/herobackdrops/moneyheistbackdrop.webp',
+        poster: 'images/heroposters/moneyheistheroposter.webp',
+        quote: 'The police are just like us. They\'re just doing their job.',
+    },
+    {
+        backdrop: 'images/herobackdrops/prisonbreakbackdrop.webp',
+        poster: 'images/heroposters/prisonbreakheroposter.webp',
+        quote: 'Get yourself a plan and stick to it.',
+    },
+];
+
+let currentSlideIndex = 0;
+let heroSection, heroQuoteElement, heroPosterElement; // Declare globally to be assigned later
+
+function updateHeroSection() {
+    if (!heroSection || heroSlides.length === 0) {
+        console.warn("Hero section elements not found or no slides defined. Skipping hero section update.");
+        if(heroSection) heroSection.style.display = 'none'; // Hide if no slides
+        return;
+    }
+
+    const slide = heroSlides[currentSlideIndex];
+
+    // Update background image
+    heroSection.style.backgroundImage = `url('${slide.backdrop}')`;
+    heroSection.style.backgroundSize = 'cover';
+    heroSection.style.backgroundPosition = 'center';
+    heroSection.style.backgroundRepeat = 'no-repeat';
+
+    // Update poster image
+    heroPosterElement.src = slide.poster;
+    heroPosterElement.alt = `Poster for ${slide.quote.substring(0, Math.min(slide.quote.length, 20))}...`; // Use a part of the quote for alt text
+
+    // Update quote
+    heroQuoteElement.textContent = slide.quote;
+
+    // Fade effect (optional, requires CSS transitions for .fade-in)
+    heroSection.classList.remove('fade-in');
+    // A trick to force reflow and restart the CSS animation
+    void heroSection.offsetWidth;
+    heroSection.classList.add('fade-in');
+
+    currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+}
+
 // Data for all shows
 const allShows = [
     {
@@ -12,7 +75,7 @@ const allShows = [
         genre: "Heist, Crime, Drama, Thriller",
         creators: "Alex Pina",
         cast: "Úrsula Corberó, Álvaro Morte, Itziar Ituño",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "A mysterious man known as 'The Professor' recruits a band of eight robbers to carry out an ambitious plan: to steal billions of euros from the Royal Mint of Spain. As the heist unfolds, the team grapples with hostages, police, and personal conflicts, turning the robbery into a complex game of cat and mouse. Known for its intricate plot twists and strong character development."
@@ -20,7 +83,7 @@ const allShows = [
     {
         title: "Money Heist (K-Drama)",
         categories: ["K-Drama", "Coming Soon"],
-        poster: "moneyheistkdramaposter1.webp",
+        poster: "moneyheistkoreaposter1.webp",
         imdb: "Expected",
         releaseDate: "Expected Premier: December 2024 (Season 2)",
         seasons: "2 (Expected)",
@@ -46,7 +109,7 @@ const allShows = [
         genre: "Action, Crime, Drama, Thriller",
         creators: "Paul Scheuring",
         cast: "Wentworth Miller, Dominic Purcell, Amaury Nolasco",
-        networkLogo: "Hulu-logo-green-on-black-.webp",
+        networkLogo: "hululogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "When his brother, Lincoln Burrows, is wrongly sentenced to death, a structural engineer, Michael Scofield, devises an elaborate plan to break him out of prison—starting by getting incarcerated himself. A thrilling ride full of twists, tension, and brotherly loyalty as they navigate their escape and evade authorities."
@@ -54,7 +117,7 @@ const allShows = [
     {
         title: "Inception",
         categories: ["Hollywood"],
-        poster: "inceptionposter1.webp",
+        poster: "inceptioposter1.webp",
         imdb: "8.8/10 (Sci-Fi)",
         releaseDate: "July 16, 2010",
         seasons: "1 (Film)",
@@ -80,7 +143,7 @@ const allShows = [
         genre: "Crime, Drama, Thriller",
         creators: "Vince Gilligan",
         cast: "Bryan Cranston, Aaron Paul, Anna Gunn",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "Breaking Bad follows Walter White, a high school chemistry teacher turned methamphetamine producer, as he partners with former student Jesse Pinkman. Faced with a cancer diagnosis and financial hardship, Walter descends into a criminal underworld that transforms his identity and relationships, exploring themes of morality, family, and ambition."
@@ -97,7 +160,7 @@ const allShows = [
         genre: "Comedy",
         creators: "Ricky Gervais, Stephen Merchant, Greg Daniels",
         cast: "Steve Carell, Rainn Wilson, John Krasinski",
-        networkLogo: "peacock.webp", // Assuming Peacock (US)
+        networkLogo: "pecock-logo.webp", // Assuming Peacock (US)
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium. The everyday lives of the employees are seen through the lens of a documentary film crew."
@@ -131,7 +194,7 @@ const allShows = [
         genre: "Comedy, Drama, Romance",
         creators: "Rajkumar Hirani",
         cast: "Aamir Khan, Madhavan, Sharman Joshi",
-        networkLogo: "amazon-prime-logo-free-png.webp", // Assuming Prime Video
+        networkLogo: "primevideologo.webp", // Assuming Prime Video
         networkText: "Watch Now",
         subscription: "Subscription/Rent/Buy",
         synopsis: "Two friends embark on a quest for a third, long-lost friend, while reminiscing about their college days and the profound impact their eccentric, brilliant buddy had on their lives and perspectives on education and success."
@@ -148,7 +211,7 @@ const allShows = [
         genre: "Horror, Thriller",
         creators: "Patrick Graham",
         cast: "Radhika Apte, Manav Kaul, Ratnabali Bhattacharjee",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "A newly appointed interrogator arrives at a remote military detention center to question a dangerous terrorist, only to discover that the detainee is not what he seems and harbors a terrifying supernatural entity."
@@ -165,7 +228,7 @@ const allShows = [
         genre: "Biography, Drama, Sport",
         creators: "Nitesh Tiwari",
         cast: "Aamir Khan, Fatima Sana Shaikh, Sanya Malhotra",
-        networkLogo: "netflixwordlogo.webp", // Also available on Netflix
+        networkLogo: "netflixlogo.webp", // Also available on Netflix
         networkText: "Watch Now",
         subscription: "Subscription/Rent/Buy",
         synopsis: "Based on the true story of Mahavir Singh Phogat, a former wrestler who trains his daughters Geeta Phogat and Babita Kumari to become world-class female wrestlers, challenging societal norms and achieving international success."
@@ -199,7 +262,7 @@ const allShows = [
         genre: "Crime, Drama, Legal",
         creators: "Showmax Original",
         cast: "Sarah Hassan, Alfred Munyua, Maqbul Mohammed",
-        networkLogo: "showmax.webp", // Assuming Showmax logo if you have it
+        networkLogo: "showmaxlogo.webp", // Assuming Showmax logo if you have it
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "A Kenyan police procedural series that follows two detectives as they investigate various crimes in Nairobi. The show delves into the dark side of the city, exploring themes of corruption, greed, and the pursuit of justice."
@@ -216,7 +279,7 @@ const allShows = [
         genre: "Thriller",
         creators: "Ronan Bennett",
         cast: "Eddie Redmayne, Lashana Lynch",
-        networkLogo: "peacock.webp", // SkyShowtime/Peacock
+        networkLogo: "pecock-logo.webp", // SkyShowtime/Peacock
         networkText: "Watch Trailer",
         subscription: "Free",
         synopsis: "An upcoming modern-day reimagining of the iconic novel and film, following a professional assassin known as 'The Jackal' as he undertakes a mission to assassinate a high-profile target."
@@ -284,7 +347,7 @@ const allShows = [
         genre: "Drama, Fantasy, Horror",
         creators: "The Duffer Brothers",
         cast: "Millie Bobby Brown, Finn Wolfhard, Winona Ryder",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl with extraordinary powers."
@@ -301,7 +364,7 @@ const allShows = [
         genre: "Crime, Drama, Mystery",
         creators: "George Kay, François Uzan",
         cast: "Omar Sy, Ludivine Sagnier, Clotilde Hesme",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "Inspired by the adventures of Arsène Lupin, master of disguise and gentleman thief Assane Diop sets out to avenge his father for an injustice inflicted by a wealthy family."
@@ -318,7 +381,7 @@ const allShows = [
         genre: "Action, Thriller, Drama",
         creators: "Hwang Dong-hyuk",
         cast: "Lee Jung-jae, Park Hae-soo, Jung Ho-yeon",
-        networkLogo: "netflixwordlogo.webp",
+        networkLogo: "netflixlogo.webp",
         networkText: "Watch Now", // For Season 1
         subscription: "Subscription Required",
         synopsis: "When a man with a huge debt is invited to play a series of children's games for a life-changing sum of money. The catch is, losing means death. The second season is highly anticipated."
@@ -352,7 +415,7 @@ const allShows = [
         genre: "Action, Crime, Thriller",
         creators: "Victor Gatonye (Director)",
         cast: "Robert Agengo, Mwaura Bilal, Andreo Kamau",
-        networkLogo: "netflixwordlogo.webp", // Available on Netflix
+        networkLogo: "netflixlogo.webp", // Available on Netflix
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "When a prison bus crashes in the middle of a forest, a group of convicts must work together to survive the harsh wilderness while evading an unknown, deadly threat lurking in the shadows."
@@ -476,7 +539,7 @@ const allShowQuotes = [
 // Function to create HTML for a single show card
 function createShowCardHTML(show) {
     const posterPath = `images/posters/${show.poster}`;
-    const networkLogoPath = `images/logos/${show.networkLogo}`;
+    const networkLogoPath = `images/icons&logos/${show.networkLogo}`;
     const synopsisTruncated = show.synopsis.length > 150 ? show.synopsis.substring(0, 150) + '...' : show.synopsis;
 
     return `
@@ -806,169 +869,26 @@ function showMessageBox(message) {
 }
 
 
-// --- START: Hero Section Logic ---
-
-// Hardcoded lists of available WEBP backdrop and poster filenames based on your provided images
-// This assumes these files exist at images/backdrops/ and images/posters/ respectively.
-const availableBackdrops = [
-    `3idiotsbackdrop1.webp`, `3idiotsbackdrop2.webp`, `3idiotsbackdrop3.webp`, `3idiotsbackdrop4.webp`,
-    `40sticksbackdrop1.webp`,
-    `allofusaredeadbackdrop1.webp`, `allofusaredeadbackdrop2.webp`, `allofusaredeadbackdrop3.webp`, `allofusaredeadbackdrop4.webp`, `allofusaredeadbackdrop5.webp`,
-    `breakingbadbackdrop.webp`, `breakingbadbackdrop1.webp`, `breakingbadbackdrop2.webp`, `breakingbadbackdrop3.webp`, `breakingbadbackdrop4.webp`, `breakingbadbackdrop5.webp`, `breakingbadbackdrop6.webp`, `breakingbadbackdrop7.webp`, `breakingbadbackdrop9.webp`, `breakingbadbackdrop10.webp`, `breakingbadbackdrop11.webp`,
-    `crimeandjusticebackdrop1.webp`, `crimeandjusticebackdrop2.webp`,
-    `dangalbackdrop1.webp`,
-    `extractionbackdrop1.webp`, `extractionbackdrop2.webp`, `extractionbackdrop3.webp`, `extractionbackdrop4.webp`,
-    `ghoulbackdrop1.webp`, `ghoulbackdrop2.webp`, `ghoulbackdrop3.webp`, `ghoulbackdrop4.webp`, `ghoulbackdrop5.webp`,
-    `inceptionbackdrop1.webp`, `inceptionbackdrop2.webp`, `inceptionbackdrop3.webp`, `inceptionbackdrop4.webp`, `inceptionbackdrop5.webp`, `inceptionbackdrop6.webp`, `inceptionbackdrop7.webp`,
-    `lupinbackdrop1.webp`, `lupinbackdrop2.webp`, `lupinbackdrop3.webp`, `lupinbackdrop4.webp`, `lupinbackdrop5.webp`, `lupinbackdrop6.webp`,
-    `moneheistkoreabacdrop3.webp`, `moneheistkoreabackdrop1.webp`, `moneheistkoreabackdrop2.webp`, `moneheistkoreabackdrop3.webp`, `moneheistkoreabackdrop4.webp`,
-    `moneyheistbackdrop1.webp`, `moneyheistbackdrop2.webp`, `moneyheistbackdrop3.webp`, `moneyheistbackdrop4.webp`, `moneyheistbackdrop5.webp`, `moneyheistbackdrop6.webp`,
-    `nairobihalflifebackdrop1.webp`, `nairobihalflifebackdrop2.webp`, `nairobihalflifebackdrop3.webp`,
-    `prisonbreakbackdrop.webp`, `prisonbreakbackdrop1.webp`, `prisonbreakbackdrop2.webp`, `prisonbreakbackdrop3.webp`, `prisonbreakbackdrop5.webp`, `prisonbreakbackdrop6.webp`, `prisonbreakbackdrop7.webp`,
-    `secondfamilybackdrop1.webp`,
-    `squidgamebackdrop1.webp`, `squidgamebackdrop2.webp`, `squidgamebackdrop3.webp`, `squidgamebackdrop4.webp`, `squidgamebackdrop6.webp`, `squidgamebackdrop7.webp`,
-    `strangerthingsbackdrop1.webp`, `strangerthingsbackdrop2.webp`, `strangerthingsbackdrop3.webp`, `strangerthingsbackdrop4.webp`, `strangerthingsbackdrop5.webp`,
-    `thedayofthejackalbackdrop1.webp`, `thedayofthejackalbackdrop2.webp`, `thedayofthejackalbackdrop3.webp`, `thedayofthejackalbackdrop4.webp`,
-    `theofficebackdrop1.webp`, `theofficebackdrop2.webp`, `theofficebackdrop3.webp`, `theofficebackdrop4.webp`, `theofficebackdrop5.webp`, `theofficebackdrop6.webp`, `theofficebackdrop7.webp`
-];
-
-const availablePosters = [
-    `3idiotsposter1.webp`, `3idiotsposter2.webp`,
-    `40sticksposter1.webp`,
-    `allofusaredeadposter1.webp`, `allofusaredeadposter2.webp`, `allofusaredeadposter3.webp`, `allofusaredeadposter4.webp`, `allofusaredeadposter5.webp`,
-    `breakingbadposter1.webp`, `breakingbadposter2.webp`, `breakingbadposter3.webp`, `breakingbadposter4.webp`, `breakingbadposter5.webp`, `breakingbadposter6.webp`, `breakingbadposter7.webp`,
-    `crimeandjusticeposter1.webp`, `crimeandjusticeposter2.webp`,
-    `dangalposter1.webp`, `dangalposter2.webp`,
-    `extractionposter1.webp`, `extractionposter2.webp`,
-    `ghoulposter1.webp`, `ghoulposter2.webp`, `ghoulposter3.webp`, `ghoulposter4.webp`,
-    `inceptionposter1.webp`, `inceptionposter2.webp`, `inceptionposter3.webp`, `inceptionposter4.webp`, `inceptionposter5.webp`,
-    `lupinposter1.webp`, `lupinposter2.webp`,
-    `moneheistkoreaposter1.webp`, `moneheistkoreaposter2.webp`, `moneheistkoreaposter3.webp`, `moneheistkoreaposter4.webp`,
-    `moneyheistposter1.webp`, `moneyheistposter2.webp`, `moneyheistposter3.webp`, `moneyheistposter4.webp`, `moneyheistposter5.webp`, `moneyheistposter6.webp`,
-    `nairobihalflifeposter1.webp`,
-    `prisonbreakposter1.webp`, `prisonbreakposter2.webp`, `prisonbreakposter3.webp`, `prisonbreakposter4.webp`, `prisonbreakposter5.webp`, `prisonbreakposter6.webp`, `prisonbreakposter7.webp`, `prisonbreakposter8.webp`, `prisonbreakposter9.webp`,
-    `secondfamilyposter1.webp`, `secondfamilyposter2.webp`, `secondfamilyposter3.webp`,
-    `squidgameposter1.webp`, `squidgameposter2.webp`,
-    `strangerthingsposter1.webp`, `strangerthingsposter2.webp`, `strangerthingsposter3.webp`, `strangerthingsposter4.webp`, `strangerthingsposter5.webp`,
-    `thedayofthejackalposter1.webp`, `thedayofthejackalposter2.webp`,
-    `theofficeposter1.webp`, `theofficeposter2.webp`, `theofficeposter3.webp`, `theofficeposter4.webp`, `theofficeposter5.webp`, `theofficeposter6.webp`, `theofficeposter7.webp`, `theofficeposter8.webp`, `theofficeposter9.webp`, `theofficeposter10.webp`,
-    `traintobusanposter1.webp`, `traintobusanposter2.webp`, `traintobusanposter3.webp`,
-    `yourhonorposter1.webp`, `yourhonorposter2.webp`, `yourhonorposter3.webp`, `yourhonorposter4.webp`, `yourhonorposter5.webp`, `yourhonorposter6.webp`
-];
-
-let heroPairs = []; // This will store the filtered and matched hero pairs
-let currentHeroPairIndex = 0;
-
-// Function to populate heroPairs based on matching .webp files
-function initializeHeroPairs() {
-    allShows.forEach(show => {
-        // Extract base name and potential number from the show's poster filename
-        // e.g., "moneyheistposter1.webp" -> "moneyheist", "1"
-        const showPosterBase = show.poster.replace(/\.webp$/, ''); // Remove .webp
-        const match = showPosterBase.match(/([a-zA-Z]+?)(\d+)?(poster)?$/); // Extract base name and optional number before 'poster'
-
-        if (!match) {
-            console.warn(`Could not parse poster filename for show: ${show.title}. Skipping for hero. Filename: ${show.poster}`);
-            return;
-        }
-
-        const showName = match[1]; // e.g., "moneyheist"
-        const showNumber = match[2] || ''; // e.g., "1" or "" if no number
-
-        // Construct potential backdrop filename
-        const potentialBackdrop = `${showName}backdrop${showNumber}.webp`;
-
-        // Check if both the specific poster and the derived backdrop exist as .webp
-        const posterExists = availablePosters.includes(show.poster);
-        const backdropExists = availableBackdrops.includes(potentialBackdrop);
-
-        if (posterExists && backdropExists) {
-            heroPairs.push({
-                title: show.title,
-                poster: show.poster,
-                backdrop: potentialBackdrop,
-                synopsis: show.synopsis // Include synopsis for hero section
-            });
-        }
-    });
-
-    // Optional: Shuffle the heroPairs array to get a random order each time the page loads
-    // This is good for variety, but might not be desired if a specific order is preferred
-    // for (let i = heroPairs.length - 1; i > 0; i--) {
-    //     const j = Math.floor(Math.random() * (i + 1));
-    //     [heroPairs[i], heroPairs[j]] = [heroPairs[j], heroPairs[i]];
-    // }
-
-    if (heroPairs.length === 0) {
-        console.warn("No suitable .webp hero poster/backdrop pairs found. Hero section might be empty.");
-    }
-}
-
-// Function to update the hero section content
-function updateHeroSection() {
-    const heroBackdropImg = document.getElementById('heroBackdrop');
-    const heroPosterImg = document.getElementById('heroPoster');
-    const heroTitleElement = document.getElementById('heroTitle');
-    const heroSynopsisElement = document.getElementById('heroSynopsis');
-
-    // Robustness: Check if hero elements exist before trying to update them
-    if (!heroBackdropImg || !heroPosterImg || !heroTitleElement || !heroSynopsisElement) {
-        console.error("One or more hero section elements not found in HTML. Skipping hero update.");
-        return; // Exit function if critical elements are missing
-    }
-
-    if (!heroPairs.length) {
-        console.warn("No suitable hero pairs available to display. Hero section will remain static or empty.");
-        heroBackdropImg.style.display = 'none'; // Hide if no content
-        heroPosterImg.style.display = 'none';
-        heroTitleElement.textContent = "Welcome to CineMax!";
-        heroSynopsisElement.textContent = "Discover your next favorite show.";
-        return;
-    }
-
-    const currentPair = heroPairs[currentHeroPairIndex];
-
-    // Fade out backdrop before changing source
-    heroBackdropImg.style.opacity = 0;
-    setTimeout(() => {
-        heroBackdropImg.src = `images/backdrops/${currentPair.backdrop}`;
-        heroBackdropImg.alt = `${currentPair.title} Backdrop`;
-        heroBackdropImg.style.opacity = 1; // Fade in after source change
-    }, 500); // This delay should match the CSS transition duration for opacity
-
-    heroPosterImg.src = `images/posters/${currentPair.poster}`;
-    heroPosterImg.alt = `${currentPair.title} Poster`;
-    heroTitleElement.textContent = currentPair.title;
-
-    // Truncate synopsis for hero section if too long
-    const truncatedSynopsis = currentPair.synopsis.length > 200 ?
-        currentPair.synopsis.substring(0, 200) + '...' :
-        currentPair.synopsis;
-    heroSynopsisElement.textContent = truncatedSynopsis;
-
-
-    currentHeroPairIndex = (currentHeroPairIndex + 1) % heroPairs.length; // Move to the next pair, loop back if at end
-}
-
-// --- END: Hero Section Logic ---
-
-
 // Main execution logic
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize the hero pairs data
-    initializeHeroPairs();
+    // Get hero section elements once the DOM is loaded
+    heroSection = document.getElementById('heroSection');
+    if (heroSection) {
+        heroQuoteElement = heroSection.querySelector('.hero-quote');
+        heroPosterElement = heroSection.querySelector('.hero-poster');
 
-    // Set initial hero section content
-    updateHeroSection();
-
-    // Start cycling the hero section every 6 seconds (6000 milliseconds)
-    // Only set interval if there's more than one pair to cycle through
-    if (heroPairs.length > 1) {
-        setInterval(updateHeroSection, 6000);
-    } else if (heroPairs.length === 1) {
-        console.info("Only one hero pair found. Hero section will display statically.");
+        // Initial load of the hero section
+        if (heroSlides.length > 0) {
+            updateHeroSection();
+            // Set interval for changing slides every 7 seconds (7000 milliseconds)
+            setInterval(updateHeroSection, 7000);
+        } else {
+            console.warn("No hero slides defined. Hero section will not be displayed.");
+            heroSection.style.display = 'none'; // Hide if no slides
+        }
+    } else {
+        console.warn("Hero section container with ID 'heroSection' not found. Hero slideshow functionality will not work.");
     }
-
 
     // --- Dark Mode Toggle Logic ---
     const modeToggle = document.querySelector('.mode-toggle');
@@ -1040,21 +960,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn("Search Icon button not found.");
     }
-
-    // Play/My List button handlers for hero section (optional, can be expanded)
-    // Using event delegation for these buttons if they are inside the hero-content div which updates
-    // Or, add listeners inside updateHeroSection if buttons themselves are dynamic
-    // For now, assuming they are static elements within hero-section
-    const playButton = document.querySelector('.hero-buttons .play-button');
-    const myListButton = document.querySelector('.hero-buttons .my-list-button');
-
-    if (playButton) {
-        playButton.addEventListener('click', () => showMessageBox("Play functionality coming soon!"));
-    }
-    if (myListButton) {
-        myListButton.addEventListener('click', () => showMessageBox("Adding to My List coming soon!"));
-    }
-
 
     // Call the main rendering function for categories when the DOM is fully loaded
     renderAllCategories();

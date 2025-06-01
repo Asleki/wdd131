@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Casts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            color: #333;
+        }
+        .show-container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .show-title {
+            color: #0056b3;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2em;
+        }
+        .cast-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .cast-item {
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 20px); /* Two columns, considering gap */
+            box-sizing: border-box; /* Include padding and border in the width */
+            margin-bottom: 10px; /* Space between rows */
+        }
+        .cast-item img {
+            width: 150px; /* Fixed width for the image */
+            height: 150px; /* Fixed height for the image */
+            object-fit: cover; /* Cover the area, crop if necessary */
+            border-radius: 8px;
+            margin-right: 20px; /* Space between image and text */
+            flex-shrink: 0; /* Prevent image from shrinking */
+        }
+        .cast-details {
+            flex-grow: 1; /* Allow details to take up remaining space */
+        }
+        .cast-name {
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .cast-role {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .cast-info {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .cast-bio, .cast-quotes {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        .cast-quotes strong {
+            color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .cast-item {
+                width: 100%; /* Single column on smaller screens */
+                flex-direction: column; /* Stack image and text vertically */
+                align-items: center; /* Center items when stacked */
+                text-align: center;
+            }
+            .cast-item img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="show-container">
+        <h2 class="show-title">Your Honor</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Bryan Cranston.webp" alt="Bryan Cranston">
+                <div class="cast-details">
+                    <div class="cast-name">Bryan Cranston</div>
+                    <div class="cast-role">Role: Michael Desiato</div>
+                    <div class="cast-info">Info: A respected New Orleans judge whose son becomes involved in a hit-and-run.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Hunter Doohan">
+                <div class="cast-details">
+                    <div class="cast-name">Hunter Doohan</div>
+                    <div class="cast-role">Role: Adam Desiato</div>
+                    <div class="cast-info">Info: Michael's son, who commits a hit-and-run that leads to a complex cover-up.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Hope Davis.webp" alt="Hope Davis">
+                <div class="cast-details">
+                    <div class="cast-name">Hope Davis</div>
+                    <div class="cast-role">Role: Gina Baxter</div>
+                    <div class="cast-info">Info: The formidable wife of a crime boss.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Sofia Black-D'Elia">
+                <div class="cast-details">
+                    <div class="cast-name">Sofia Black-D'Elia</div>
+                    <div class="cast-role">Role: Olivia Delmont</div>
+                    <div class="cast-info">Info: A character involved in the unfolding drama.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Isiah Whitlock, Jr.webp" alt="Isiah Whitlock Jr.">
+                <div class="cast-details">
+                    <div class="cast-name">Isiah Whitlock Jr.</div>
+                    <div class="cast-role">Role: Charlie Figaro</div>
+                    <div class="cast-info">Info: A politician and close friend of Michael.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Michael Stuhlbarg">
+                <div class="cast-details">
+                    <div class="cast-name">Michael Stuhlbarg</div>
+                    <div class="cast-role">Role: Jimmy Baxter</div>
+                    <div class="cast-info">Info: A powerful and dangerous crime boss.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Carmen Ejogo">
+                <div class="cast-details">
+                    <div class="cast-name">Carmen Ejogo</div>
+                    <div class="cast-role">Role: Lee Delamere</div>
+                    <div class="cast-info">Info: A defense attorney.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">3 Idiots</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Aamir Khan.webp" alt="Aamir Khan">
+                <div class="cast-details">
+                    <div class="cast-name">Aamir Khan</div>
+                    <div class="cast-role">Role: Rancho/Phunsukh Wangdu</div>
+                    <div class="cast-info">Info: An unconventional and brilliant engineering student.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Madhavan.webp" alt="Madhavan">
+                <div class="cast-details">
+                    <div class="cast-name">Madhavan</div>
+                    <div class="cast-role">Role: Farhan Qureshi</div>
+                    <div class="cast-info">Info: One of Rancho's best friends, aspiring to be a wildlife photographer.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Sharman Joshi.webp" alt="Sharman Joshi">
+                <div class="cast-details">
+                    <div class="cast-name">Sharman Joshi</div>
+                    <div class="cast-role">Role: Raju Rastogi</div>
+                    <div class="cast-info">Info: Another of Rancho's friends, struggling with family pressure.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Kareena Kapoor Khan.webp" alt="Kareena Kapoor Khan">
+                <div class="cast-details">
+                    <div class="cast-name">Kareena Kapoor Khan</div>
+                    <div class="cast-role">Role: Pia Sahastrabuddhe</div>
+                    <div class="cast-info">Info: The Dean's daughter and Rancho's love interest.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Boman Irani.webp" alt="Boman Irani">
+                <div class="cast-details">
+                    <div class="cast-name">Boman Irani</div>
+                    <div class="cast-role">Role: Viru Sahastrabuddhe / Virus</div>
+                    <div class="cast-info">Info: The strict and traditional director of the engineering college.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Omi Vaidya">
+                <div class="cast-details">
+                    <div class="cast-name">Omi Vaidya</div>
+                    <div class="cast-role">Role: Chatur Ramalingam / "Silencer"</div>
+                    <div class="cast-info">Info: A rival student known for his rote learning.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Ghoul</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Radhika Apte.webp" alt="Radhika Apte">
+                <div class="cast-details">
+                    <div class="cast-name">Radhika Apte</div>
+                    <div class="cast-role">Role: Nida Rahim</div>
+                    <div class="cast-info">Info: A military interrogator.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Manav Kaul .webp" alt="Manav Kaul">
+                <div class="cast-details">
+                    <div class="cast-name">Manav Kaul</div>
+                    <div class="cast-role">Role: Colonel Sunil Dacunha</div>
+                    <div class="cast-info">Info: The head of the detention center.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Ratnabali Bhattacharjee.webp" alt="Ratnabali Bhattacharjee">
+                <div class="cast-details">
+                    <div class="cast-name">Ratnabali Bhattacharjee</div>
+                    <div class="cast-role">Role: Major Laxmi Das</div>
+                    <div class="cast-info">Info: A military officer at the facility.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Mahesh Balraj.webp" alt="Mahesh Balraj">
+                <div class="cast-details">
+                    <div class="cast-name">Mahesh Balraj</div>
+                    <div class="cast-role">Role: Ali Saeed</div>
+                    <div class="cast-info">Info: The captured terrorist who is more than he seems.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Dangal</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Aamir Khan.webp" alt="Aamir Khan">
+                <div class="cast-details">
+                    <div class="cast-name">Aamir Khan</div>
+                    <div class="cast-role">Role: Mahavir Singh Phogat</div>
+                    <div class="cast-info">Info: A former wrestler who coaches his daughters.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Fatima Sana Shaikh.webp" alt="Fatima Sana Shaikh">
+                <div class="cast-details">
+                    <div class="cast-name">Fatima Sana Shaikh</div>
+                    <div class="cast-role">Role: Geeta Phogat</div>
+                    <div class="cast-info">Info: Mahavir's eldest daughter, who becomes a champion wrestler.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Sanya Malhotra.webp" alt="Sanya Malhotra">
+                <div class="cast-details">
+                    <div class="cast-name">Sanya Malhotra</div>
+                    <div class="cast-role">Role: Babita Kumari</div>
+                    <div class="cast-info">Info: Mahavir's second daughter, also a wrestler.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Zaira Wasim.webp" alt="Zaira Wasim">
+                <div class="cast-details">
+                    <div class="cast-name">Zaira Wasim</div>
+                    <div class="cast-role">Role: Young Geeta</div>
+                    <div class="cast-info">Info: Portrays Geeta in her younger years.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Suhani Bhatnagar">
+                <div class="cast-details">
+                    <div class="cast-name">Suhani Bhatnagar</div>
+                    <div class="cast-role">Role: Young Babita</div>
+                    <div class="cast-info">Info: Portrays Babita in her younger years.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Sakshi Tanwar">
+                <div class="cast-details">
+                    <div class="cast-name">Sakshi Tanwar</div>
+                    <div class="cast-role">Role: Daya Kaur</div>
+                    <div class="cast-info">Info: Mahavir's supportive wife.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Aparshakti Khurana.webp" alt="Aparshakti Khurana">
+                <div class="cast-details">
+                    <div class="cast-name">Aparshakti Khurana</div>
+                    <div class="cast-role">Role: Omkar</div>
+                    <div class="cast-info">Info: Mahavir's nephew and commentator.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Nairobi Half Life</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Joseph Wairimu">
+                <div class="cast-details">
+                    <div class="cast-name">Joseph Wairimu</div>
+                    <div class="cast-role">Role: Mwas</div>
+                    <div class="cast-info">Info: An aspiring actor who moves to Nairobi.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Olwenya Maina">
+                <div class="cast-details">
+                    <div class="cast-name">Olwenya Maina</div>
+                    <div class="cast-role">Role: Oti</div>
+                    <div class="cast-info">Info: A charismatic gang leader who befriends Mwas.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Nancy Wanjiku Karanja">
+                <div class="cast-details">
+                    <div class="cast-name">Nancy Wanjiku Karanja</div>
+                    <div class="cast-role">Role: Amina</div>
+                    <div class="cast-info">Info: A street vendor who Mwas develops feelings for.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Mugambi Nthiga">
+                <div class="cast-details">
+                    <div class="cast-name">Mugambi Nthiga</div>
+                    <div class="cast-role">Role: Cedric</div>
+                    <div class="cast-info">Info: A film producer.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Paul Ogola.webp" alt="Paul Ogola">
+                <div class="cast-details">
+                    <div class="cast-name">Paul Ogola</div>
+                    <div class="cast-role">Role: Mugabe</div>
+                    <div class="cast-info">Info: A member of Oti's gang.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Crime and Justice</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Sarah Hassan.webp" alt="Sarah Hassan">
+                <div class="cast-details">
+                    <div class="cast-name">Sarah Hassan</div>
+                    <div class="cast-role">Role: Detective Makena</div>
+                    <div class="cast-info">Info: A driven and intelligent detective.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Alfred Munyua">
+                <div class="cast-details">
+                    <div class="cast-name">Alfred Munyua</div>
+                    <div class="cast-role">Role: Detective Silas</div>
+                    <div class="cast-info">Info: Makena's partner, a seasoned detective.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Maqbul Mohammed">
+                <div class="cast-details">
+                    <div class="cast-name">Maqbul Mohammed</div>
+                    <div class="cast-role">Role: DCP Femi Biboye</div>
+                    <div class="cast-info">Info: The head of the investigative unit.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Paul Ogola.webp" alt="Paul Ogola">
+                <div class="cast-details">
+                    <div class="cast-name">Paul Ogola</div>
+                    <div class="cast-role">Role: Chief Inspector Kebo</div>
+                    <div class="cast-info">Info: A colleague at the police department.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">The Day Of The Jackal</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Edward John David Redmayne.webp" alt="Eddie Redmayne">
+                <div class="cast-details">
+                    <div class="cast-name">Eddie Redmayne</div>
+                    <div class="cast-role">Role: The Jackal</div>
+                    <div class="cast-info">Info: A professional assassin.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Lashana Lynch.webp" alt="Lashana Lynch">
+                <div class="cast-details">
+                    <div class="cast-name">Lashana Lynch</div>
+                    <div class="cast-role">Role: Bianca Pullman</div>
+                    <div class="cast-info">Info: A determined intelligence officer.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Úrsula Corberó.webp" alt="Úrsula Corberó">
+                <div class="cast-details">
+                    <div class="cast-name">Úrsula Corberó</div>
+                    <div class="cast-role">Role: Nuria</div>
+                    <div class="cast-info">Info: Role details awaited.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Charles Dance">
+                <div class="cast-details">
+                    <div class="cast-name">Charles Dance</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Richard Dormer">
+                <div class="cast-details">
+                    <div class="cast-name">Richard Dormer</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Chukwudi Iwuji.webp" alt="Chukwudi Iwuji">
+                <div class="cast-details">
+                    <div class="cast-name">Chukwudi Iwuji</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Lia Williams">
+                <div class="cast-details">
+                    <div class="cast-name">Lia Williams</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Train To Busan</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Gong Yoo.webp" alt="Gong Yoo">
+                <div class="cast-details">
+                    <div class="cast-name">Gong Yoo</div>
+                    <div class="cast-role">Role: Seok-woo</div>
+                    <div class="cast-info">Info: A busy fund manager accompanying his daughter.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Jung Yu-mi .webp" alt="Jung Yu-mi">
+                <div class="cast-details">
+                    <div class="cast-name">Jung Yu-mi</div>
+                    <div class="cast-role">Role: Seong-kyeong</div>
+                    <div class="cast-info">Info: A pregnant woman on the train.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Ma Dong-seok.webp" alt="Ma Dong-seok">
+                <div class="cast-details">
+                    <div class="cast-name">Ma Dong-seok</div>
+                    <div class="cast-role">Role: Sang-hwa</div>
+                    <div class="cast-info">Info: Seong-kyeong's protective husband.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Kim Su-an.webp" alt="Kim Su-an">
+                <div class="cast-details">
+                    <div class="cast-name">Kim Su-an</div>
+                    <div class="cast-role">Role: Su-an</div>
+                    <div class="cast-info">Info: Seok-woo's daughter.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Choi Woo-shik.webp" alt="Choi Woo-shik">
+                <div class="cast-details">
+                    <div class="cast-name">Choi Woo-shik</div>
+                    <div class="cast-role">Role: Young-gook</div>
+                    <div class="cast-info">Info: A high school baseball player.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/An So-hee.webp" alt="Ahn So-hee">
+                <div class="cast-details">
+                    <div class="cast-name">Ahn So-hee</div>
+                    <div class="cast-role">Role: Jin-hee</div>
+                    <div class="cast-info">Info: A high school student, Young-gook's girlfriend.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Kim Eui-sung">
+                <div class="cast-details">
+                    <div class="cast-name">Kim Eui-sung</div>
+                    <div class="cast-role">Role: Yon-suk</div>
+                    <div class="cast-info">Info: A selfish and antagonistic businessman.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Extraction</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Christopher Hemsworth .webp" alt="Chris Hemsworth">
+                <div class="cast-details">
+                    <div class="cast-name">Chris Hemsworth</div>
+                    <div class="cast-role">Role: Tyler Rake</div>
+                    <div class="cast-info">Info: A fearless black-market mercenary.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Rudhraksh Jaiswal.webp" alt="Rudhraksh Jaiswal">
+                <div class="cast-details">
+                    <div class="cast-name">Rudhraksh Jaiswal</div>
+                    <div class="cast-role">Role: Ovi Mahajan</div>
+                    <div class="cast-info">Info: The kidnapped son of an Indian crime lord.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Randeep Hooda">
+                <div class="cast-details">
+                    <div class="cast-name">Randeep Hooda</div>
+                    <div class="cast-role">Role: Saju</div>
+                    <div class="cast-info">Info: Ovi Sr.'s head of security, who hires Tyler.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Golshifteh Farahani">
+                <div class="cast-details">
+                    <div class="cast-name">Golshifteh Farahani</div>
+                    <div class="cast-role">Role: Nik Khan</div>
+                    <div class="cast-info">Info: Tyler's partner and coordinator.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Pankaj Tripathi.webp" alt="Pankaj Tripathi">
+                <div class="cast-details">
+                    <div class="cast-name">Pankaj Tripathi</div>
+                    <div class="cast-role">Role: Ovi Mahajan Sr.</div>
+                    <div class="cast-info">Info: The imprisoned crime lord.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/David Kenneth Harbour.webp" alt="David Harbour">
+                <div class="cast-details">
+                    <div class="cast-name">David Harbour</div>
+                    <div class="cast-role">Role: Gaspar</div>
+                    <div class="cast-info">Info: An old contact of Tyler's in Dhaka.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Adam Bessa">
+                <div class="cast-details">
+                    <div class="cast-name">Adam Bessa</div>
+                    <div class="cast-role">Role: Yaz</div>
+                    <div class="cast-info">Info: Nik's brother and a member of their team.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">All Of Us Are Dead</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Park Ji-hu.webp" alt="Park Ji-hu">
+                <div class="cast-details">
+                    <div class="cast-name">Park Ji-hu</div>
+                    <div class="cast-role">Role: Nam On-jo</div>
+                    <div class="cast-info">Info: A cheerful student good at survival skills.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Yoon Chan-young.webp" alt="Yoon Chan-young">
+                <div class="cast-details">
+                    <div class="cast-name">Yoon Chan-young</div>
+                    <div class="cast-role">Role: Lee Cheong-san</div>
+                    <div class="cast-info">Info: On-jo's best friend.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Cho Yi Hyun.webp" alt="Cho Yi-hyun">
+                <div class="cast-details">
+                    <div class="cast-name">Cho Yi-hyun</div>
+                    <div class="cast-role">Role: Choi Nam-ra</div>
+                    <div class="cast-info">Info: The class president.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Lomon.webp" alt="Park Solomon">
+                <div class="cast-details">
+                    <div class="cast-name">Park Solomon</div>
+                    <div class="cast-role">Role: Lee Su-hyeok</div>
+                    <div class="cast-info">Info: A former bully who becomes a protector.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Lee Yoo-mi">
+                <div class="cast-details">
+                    <div class="cast-name">Lee Yoo-mi</div>
+                    <div class="cast-role">Role: Lee Na-yeon</div>
+                    <div class="cast-info">Info: A selfish and arrogant student.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Yoo In-soo.webp" alt="Yoo In-soo">
+                <div class="cast-details">
+                    <div class="cast-name">Yoo In-soo</div>
+                    <div class="cast-role">Role: Yoon Gwi-nam</div>
+                    <div class="cast-info">Info: The main antagonist, a persistent bully.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Lee Eun-saem">
+                <div class="cast-details">
+                    <div class="cast-name">Lee Eun-saem</div>
+                    <div class="cast-role">Role: Park Mi-jin</div>
+                    <div class="cast-info">Info: A tough and resilient student.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Stranger Things</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Winona Laura Horowitz.webp" alt="Winona Ryder">
+                <div class="cast-details">
+                    <div class="cast-name">Winona Ryder</div>
+                    <div class="cast-role">Role: Joyce Byers</div>
+                    <div class="cast-info">Info: Will and Jonathan's determined mother.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/David Kenneth Harbour.webp" alt="David Harbour">
+                <div class="cast-details">
+                    <div class="cast-name">David Harbour</div>
+                    <div class="cast-role">Role: Jim Hopper</div>
+                    <div class="cast-info">Info: The town's chief of police.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Millie Bonnie Brown Bongiovi.webp" alt="Millie Bobby Brown">
+                <div class="cast-details">
+                    <div class="cast-name">Millie Bobby Brown</div>
+                    <div class="cast-role">Role: Eleven</div>
+                    <div class="cast-info">Info: A girl with psychokinetic abilities.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Finn Wolfhard.webp" alt="Finn Wolfhard">
+                <div class="cast-details">
+                    <div class="cast-name">Finn Wolfhard</div>
+                    <div class="cast-role">Role: Mike Wheeler</div>
+                    <div class="cast-info">Info: One of Eleven's closest friends.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Gaetano John Matarazzo .webp" alt="Gaten Matarazzo">
+                <div class="cast-details">
+                    <div class="cast-name">Gaten Matarazzo</div>
+                    <div class="cast-role">Role: Dustin Henderson</div>
+                    <div class="cast-info">Info: A clever and loyal friend.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Caleb Reginald McLaughlin.webp" alt="Caleb McLaughlin">
+                <div class="cast-details">
+                    <div class="cast-name">Caleb McLaughlin</div>
+                    <div class="cast-role">Role: Lucas Sinclair</div>
+                    <div class="cast-info">Info: A skeptical but brave friend.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Noah Schnapp">
+                <div class="cast-details">
+                    <div class="cast-name">Noah Schnapp</div>
+                    <div class="cast-role">Role: Will Byers</div>
+                    <div class="cast-info">Info: The boy who goes missing, setting off the main events.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Sadie Sink">
+                <div class="cast-details">
+                    <div class="cast-name">Sadie Sink</div>
+                    <div class="cast-role">Role: Max Mayfield</div>
+                    <div class="cast-info">Info: A new girl in town who becomes part of the group.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Natalia Dyer">
+                <div class="cast-details">
+                    <div class="cast-name">Natalia Dyer</div>
+                    <div class="cast-role">Role: Nancy Wheeler</div>
+                    <div class="cast-info">Info: Mike's older sister, an aspiring journalist.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Charlie Heaton">
+                <div class="cast-details">
+                    <div class="cast-name">Charlie Heaton</div>
+                    <div class="cast-role">Role: Jonathan Byers</div>
+                    <div class="cast-info">Info: Will's older brother, a budding photographer.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Joe Keery">
+                <div class="cast-details">
+                    <div class="cast-name">Joe Keery</div>
+                    <div class="cast-role">Role: Steve Harrington</div>
+                    <div class="cast-info">Info: A popular high school student who evolves into a protector.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Maya Hawke">
+                <div class="cast-details">
+                    <div class="cast-name">Maya Hawke</div>
+                    <div class="cast-role">Role: Robin Buckley</div>
+                    <div class="cast-info">Info: Steve's sarcastic and intelligent co-worker.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Priah Ferguson">
+                <div class="cast-details">
+                    <div class="cast-name">Priah Ferguson</div>
+                    <div class="cast-role">Role: Erica Sinclair</div>
+                    <div class="cast-info">Info: Lucas's sassy younger sister.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Lupin</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/Omar Sy.webp" alt="Omar Sy">
+                <div class="cast-details">
+                    <div class="cast-name">Omar Sy</div>
+                    <div class="cast-role">Role: Assane Diop</div>
+                    <div class="cast-info">Info: A master thief inspired by Arsène Lupin.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Ludivine Sagnier .webp" alt="Ludivine Sagnier">
+                <div class="cast-details">
+                    <div class="cast-name">Ludivine Sagnier</div>
+                    <div class="cast-role">Role: Claire</div>
+                    <div class="cast-info">Info: Assane's ex-wife and mother of their son.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Etan Simon.webp" alt="Etan Simon">
+                <div class="cast-details">
+                    <div class="cast-name">Etan Simon</div>
+                    <div class="cast-role">Role: Raoul</div>
+                    <div class="cast-info">Info: Assane and Claire's son.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Antoine Gouy">
+                <div class="cast-details">
+                    <div class="cast-name">Antoine Gouy</div>
+                    <div class="cast-role">Role: Benjamin Ferel</div>
+                    <div class="cast-info">Info: Assane's childhood friend and accomplice.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Soufiane Guerrab.webp" alt="Soufiane Guerrab">
+                <div class="cast-details">
+                    <div class="cast-name">Soufiane Guerrab</div>
+                    <div class="cast-role">Role: Youssef Guedira</div>
+                    <div class="cast-info">Info: A detective obsessed with Lupin, recognizing Assane's methods.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Shirine Boutella.webp" alt="Shirine Boutella">
+                <div class="cast-details">
+                    <div class="cast-name">Shirine Boutella</div>
+                    <div class="cast-role">Role: Lieutenant Sofia Belkacem</div>
+                    <div class="cast-info">Info: Guedira's colleague.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Hervé Pierre.webp" alt="Hervé Pierre">
+                <div class="cast-details">
+                    <div class="cast-name">Hervé Pierre</div>
+                    <div class="cast-role">Role: Hubert Pellegrini</div>
+                    <div class="cast-info">Info: A powerful and corrupt businessman.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Clotilde Hesme.webp" alt="Clotilde Hesme">
+                <div class="cast-details">
+                    <div class="cast-name">Clotilde Hesme</div>
+                    <div class="cast-role">Role: Juliette Pellegrini</div>
+                    <div class="cast-info">Info: Hubert's daughter and Assane's friend from childhood.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Squid Game</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Lee Jung-jae">
+                <div class="cast-details">
+                    <div class="cast-name">Lee Jung-jae</div>
+                    <div class="cast-role">Role: Seong Gi-hun / Player 456</div>
+                    <div class="cast-info">Info: A deeply indebted gambler who enters the game.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Park Hae-soo.webp" alt="Park Hae-soo">
+                <div class="cast-details">
+                    <div class="cast-name">Park Hae-soo</div>
+                    <div class="cast-role">Role: Cho Sang-woo / Player 218</div>
+                    <div class="cast-info">Info: Gi-hun's childhood friend, a disgraced businessman.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Jung Ho-yeon">
+                <div class="cast-details">
+                    <div class="cast-name">Jung Ho-yeon</div>
+                    <div class="cast-role">Role: Kang Sae-byeok / Player 067</div>
+                    <div class="cast-info">Info: A North Korean defector seeking money for her family.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="O Yeong-su">
+                <div class="cast-details">
+                    <div class="cast-name">O Yeong-su</div>
+                    <div class="cast-role">Role: Oh Il-nam / Player 001</div>
+                    <div class="cast-info">Info: An elderly man with a brain tumor.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Anupam Tripathi">
+                <div class="cast-details">
+                    <div class="cast-name">Anupam Tripathi</div>
+                    <div class="cast-role">Role: Ali Abdul / Player 199</div>
+                    <div class="cast-info">Info: A kind-hearted Pakistani migrant worker.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Heo Sung-tae">
+                <div class="cast-details">
+                    <div class="cast-name">Heo Sung-tae</div>
+                    <div class="cast-role">Role: Jang Deok-su / Player 101</div>
+                    <div class="cast-info">Info: A ruthless gangster.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Kim Joo-ryoung">
+                <div class="cast-details">
+                    <div class="cast-name">Kim Joo-ryoung</div>
+                    <div class="cast-role">Role: Han Mi-nyeo / Player 212</div>
+                    <div class="cast-info">Info: A boisterous and manipulative woman.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Wi Ha-joon">
+                <div class="cast-details">
+                    <div class="cast-name">Wi Ha-joon</div>
+                    <div class="cast-role">Role: Hwang Jun-ho</div>
+                    <div class="cast-info">Info: A police officer who infiltrates the game to find his brother.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/Gong Yoo.webp" alt="Gong Yoo">
+                <div class="cast-details">
+                    <div class="cast-name">Gong Yoo</div>
+                    <div class="cast-role">Role: The Salesman</div>
+                    <div class="cast-info">Info: The mysterious recruiter for the game.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Lee Byung-hun">
+                <div class="cast-details">
+                    <div class="cast-name">Lee Byung-hun</div>
+                    <div class="cast-role">Role: The Front Man</div>
+                    <div class="cast-info">Info: The enigmatic masked leader of the game.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">Second Wife</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Cast Member 1">
+                <div class="cast-details">
+                    <div class="cast-name">Cast Member 1</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Cast Member 2">
+                <div class="cast-details">
+                    <div class="cast-name">Cast Member 2</div>
+                    <div class="cast-role">Role: Role details awaited</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="show-container">
+        <h2 class="show-title">40 Sticks</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Robert Agengo">
+                <div class="cast-details">
+                    <div class="cast-name">Robert Agengo</div>
+                    <div class="cast-role">Role: Jabali</div>
+                    <div class="cast-info">Info: One of the convicts trying to survive.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Mwaura Bilal">
+                <div class="cast-details">
+                    <div class="cast-name">Mwaura Bilal</div>
+                    <div class="cast-role">Role: Zulu</div>
+                    <div class="cast-info">Info: A fellow convict.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Andreo Kamau">
+                <div class="cast-details">
+                    <div class="cast-name">Andreo Kamau</div>
+                    <div class="cast-role">Role: Chira</div>
+                    <div class="cast-info">Info: A prisoner.</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Mumbi Maina">
+                <div class="cast-details">
+                    <div class="cast-name">Mumbi Maina</div>
+                    <div class="cast-role">Role: Doctor</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+            <li class="cast-item">
+                <img src="images/casts/placeholderimage.webp" alt="Nyakundi Isaboke">
+                <div class="cast-details">
+                    <div class="cast-name">Nyakundi Isaboke</div>
+                    <div class="cast-role">Role: Diesel</div>
+                    <div class="cast-info">Info: Character background awaited</div>
+                    <div class="cast-bio">**Biography:** Input bio here</div>
+                    <div class="cast-quotes">**Quotes:** "Input quote here"</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

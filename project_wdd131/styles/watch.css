@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
 }
 
 /* --- Dark Mode specific body styles --- */
@@ -16,7 +17,7 @@ body.dark-mode {
     background-color: #1a1a1a; /* Darker background for dark mode */
     color: #f0f0f0; /* Lighter text color for dark mode */
     /* You can add more specific dark mode styles for other elements here
-        e.g., to make card backgrounds darker, text lighter etc. */
+         e.g., to make card backgrounds darker, text lighter etc. */
 }
 
 /* --- Utility Header Styles (NEW TOP HEADER) --- */
@@ -34,7 +35,7 @@ body.dark-mode {
 
 /* Dark mode for utility header */
 body.dark-mode .utility-header {
-    background-color: #2b2b2b;
+    background-color: #464343;
     color: #f0f0f0;
 }
 /* Invert colors for black icons to white in dark mode */
@@ -135,10 +136,7 @@ body.dark-mode .main-header .main-nav ul li a:hover {
     flex-shrink: 1;
 }
 
-.header-left {
-    /* No changes needed here, as parent .main-header handles centering */
-    /* Removed previous margin-bottom as it's now handled by overall flex gap or nav margin-top */
-}
+/* .header-left ruleset removed as it was empty and unnecessary */
 
 .logo-link {
     text-decoration: none;
@@ -151,7 +149,7 @@ body.dark-mode .main-header .main-nav ul li a:hover {
 
 /* New: Styles for the logo image */
 .logo-link img {
-    max-width: 150px; /* Adjust size as needed for your logo */
+    max-width: 200px; /* Adjust size as needed for your logo */
     height: auto;
     margin-bottom: 5px; /* Space between logo and tagline */
 }
@@ -212,9 +210,7 @@ body.dark-mode .main-nav ul li a:hover {
 }
 
 
-.header-right {
-    /* This section remains empty as per previous HTML update, no specific styling needed here */
-}
+
 
 /* --- Subheader Styles (your original "header" content) --- */
 .subheader {
@@ -279,6 +275,94 @@ body.dark-mode .subheader .search-container button:hover {
 .subheader .search-container button:hover {
     background-color: #0056b3;
 }
+
+/* Basic Hero Section Styling */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 55vh; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space out content and poster */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure content stays within bounds */
+    color: white; /* Text color for content */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Make text more readable on background */
+    transition: background-image 1s ease-in-out; /* Smooth background transition */
+}
+
+/* Optional: Fade in effect for the entire hero section content */
+.hero-section.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+.hero-content {
+    flex: 1; /* Take up available space */
+    max-width: 60%; /* Limit content width */
+    padding-right: 20px; /* Space between content and poster */
+    z-index: 1; /* Ensure content is above background */
+    text-align: left;
+}
+
+.hero-quote {
+    font-size: 2.5em; /* Adjust font size as needed */
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-poster {
+    width: 250px; /* Adjust poster width as needed */
+    height: auto;
+    object-fit: contain; /* Ensure the image fits without cropping much */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    z-index: 1; /* Ensure poster is above background */
+}
+
+/* Ensure background image covers the whole section */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+    z-index: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column; /* Stack content and poster on small screens */
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 90%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .hero-quote {
+        font-size: 1.8em;
+    }
+
+    .hero-poster {
+        width: 180px; /* Adjust poster size for smaller screens */
+    }
+}
+
+/* Dark Mode considerations (adapt based on your existing dark mode CSS) */
 
 /* --- Main Content Area Styles (Your existing styles - untouched) --- */
 main {
@@ -423,7 +507,7 @@ body.dark-mode .quote-character {
     min-width: 100%; /* Each card takes full width in the track's *current viewport* */
     box-sizing: border-box; /* Include padding/border in width */
     display: flex;
-    background-color: #fff;
+    background-color: #c5e0f3;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
@@ -440,6 +524,7 @@ body.dark-mode .quote-character {
     gap: 20px;
     width: 100%;
     margin-bottom: 20px; /* Space between top info and synopsis */
+    margin: 0;
 }
 
 .show-poster-container {
@@ -500,6 +585,7 @@ body.dark-mode .quote-character {
     max-width: 120px; /* Limit logo width */
     height: auto;
     margin-bottom: 8px;
+    border-radius: 1rem;
 }
 
 .watch-now-text {
@@ -573,7 +659,7 @@ body.dark-mode .quote-character {
     font-size: 2em;
     cursor: pointer;
     position: absolute;
-    top: 70%; /* Adjusted: Moved down from 50% */
+    top: 60%; /* Adjusted: Moved down from 50% */
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
@@ -625,7 +711,7 @@ body.dark-mode .quote-character {
 .quotes-sidebar {
     width: 280px; /* Fixed width for the sidebar */
     min-width: 280px; /* Ensure it doesn't shrink */
-    background-color: #f8f9fa; /* Lighter grey background */
+    background-color: #98cafc; /* Lighter grey background */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -667,102 +753,6 @@ body.dark-mode .quote-character {
     font-weight: bold;
     color: #666;
     font-size: 0.85em;
-}
-
-/* Hero Section Styling */
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: 450px; /* Adjusted height: 600px - 25% = 450px */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin-bottom: 30px; /* Space below hero section */
-}
-
-.hero-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0; /* Behind other content */
-    transition: opacity 0.5s ease-in-out; /* For fade effect */
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0) 60%);
-    z-index: 1; /* Above backdrop, below content */
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2; /* On top of overlay */
-    display: flex;
-    align-items: flex-end; /* Align poster and text at the bottom */
-    padding: 20px 5%; /* Adjust padding as needed */
-    width: 100%;
-    max-width: 1200px; /* Max width for content */
-    box-sizing: border-box; /* Include padding in width */
-    gap: 30px; /* Space between poster and text */
-}
-
-.hero-poster {
-    width: 200px; /* Adjust poster size */
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.hero-text {
-    flex-grow: 1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* For readability */
-}
-
-.hero-text h2 {
-    font-size: 3em; /* Larger title */
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.hero-text p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    max-width: 800px; /* Limit synopsis width */
-}
-
-.hero-buttons button {
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-right: 15px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.hero-buttons button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: white;
-}
-
-.hero-buttons button img {
-    width: 20px;
-    height: 20px;
-    filter: invert(1); /* Make icons white */
 }
 
 /* Responsive Design */
@@ -1076,43 +1066,6 @@ body.dark-mode .quote-character {
         width: 35px;
         height: 35px;
         font-size: 1.2em;
-    }
-}
-
-/* Responsive adjustments for hero section on mobile */
-@media (max-width: 768px) {
-    .hero-section {
-        height: 300px; /* Shorter hero on mobile, adjusted for new base height */
-    }
-
-    .hero-content {
-        flex-direction: column; /* Stack poster and text */
-        align-items: center;
-        text-align: center;
-        padding-bottom: 15px; /* Adjust padding */
-        gap: 15px;
-    }
-
-    .hero-poster {
-        width: 120px; /* Smaller poster on mobile */
-    }
-
-    .hero-text h2 {
-        font-size: 2em;
-    }
-
-    .hero-text p.hidden-on-mobile {
-        display: none; /* Hide synopsis on small screens */
-    }
-
-    .hero-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-    .hero-buttons button {
-        margin: 0; /* Remove extra margin for stacking */
     }
 }
 

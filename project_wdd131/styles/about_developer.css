@@ -1,0 +1,214 @@
+/* --- Developer Page Specific Styles --- */
+
+/* Developer Hero Section (same as general hero but specific context) */
+.developer-page-content .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/developer-bg.jpg') no-repeat center center/cover; /* Optional: Use a different background image for this page */
+    padding: 100px 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Developer Bio Section */
+.developer-bio-section .content-wrapper {
+    align-items: flex-start; /* Align text and image at the top */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.developer-image-container {
+    flex: 0 0 300px; /* Fixed width for image container on larger screens */
+    margin-right: 40px;
+    text-align: center;
+}
+
+.developer-image-container img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px auto;
+    border: 5px solid #00bfff;
+    box-shadow: 0 0 0 10px rgba(0, 191, 255, 0.2);
+}
+
+.developer-image-container h3 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.developer-image-container .developer-tagline {
+    color: #b0b0b0;
+    font-style: italic;
+    font-size: 1.1em;
+}
+
+.developer-intro {
+    flex: 1;
+    min-width: 400px; /* Ensure text content doesn't get too narrow */
+}
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.project-card {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    background-color: #242424;
+}
+
+.project-card h3 {
+    color: #00bfff;
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    font-size: 0.95em;
+    color: #c0c0c0;
+    flex-grow: 1; /* Allow description to take up available space */
+    margin-bottom: 20px;
+}
+
+.project-card .project-btn {
+    align-self: flex-start; /* Align button to the left */
+    padding: 10px 20px;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Contact Developer Section */
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.contact-item {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    background-color: #242424;
+}
+
+.contact-item .icon {
+    font-size: 3em;
+    color: #00bfff;
+    margin-bottom: 15px;
+}
+
+.contact-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.contact-item a, .contact-item p {
+    color: #c0c0c0;
+    font-size: 1.1em;
+    word-break: break-word; /* For long emails/numbers */
+}
+
+.contact-item a:hover {
+    color: #00bfff;
+}
+
+.social-links {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-links a {
+    font-size: 2.5em;
+    color: #ffffff;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: #00bfff;
+    transform: translateY(-5px);
+}
+
+/* Specific button style for the "Developer More Info" in about_us.html */
+.developer-cta {
+    margin-top: 30px;
+    text-align: center; /* Or left if you prefer */
+}
+
+.developer-cta .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    padding: 12px 25px;
+}
+.developer-cta .btn-primary i {
+    transition: transform 0.3s ease;
+}
+.developer-cta .btn-primary:hover i {
+    transform: translateX(5px);
+}
+
+
+/* Responsive adjustments for developer page */
+@media (max-width: 992px) {
+    .developer-bio-section .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .developer-image-container {
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .developer-intro {
+        min-width: unset; /* Remove min-width to allow content to shrink */
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .developer-image-container img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .projects-grid,
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .social-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
