@@ -1,0 +1,280 @@
+/* General Body and Font Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; /* Changed to 0 to allow header/footer to span full width */
+    background-color: #dbe5f5; /* Light Mode: Background Color */
+    color: #333333; /* Light Mode: Primary Text Color */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure footer stays at bottom */
+    box-sizing: border-box;
+}
+
+/* Container for constrained content width */
+.container {
+    max-width: 800px; /* Max width for content */
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px; /* Horizontal padding for content inside container */
+    box-sizing: border-box; /* Include padding in element's total width */
+}
+
+header {
+    background-color: #c5e0f3; /* Light Mode: Card Background (used for header) */
+    padding: 20px 0; /* Vertical padding, horizontal handled by .container */
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center; /* Center content within header for H1, etc. */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #007bff; /* Light Mode: Accent/Primary Action Color for heading */
+}
+
+main {
+    flex-grow: 1; /* Allows main content to expand */
+    /* max-width and margin:0 auto moved to .container inside main */
+    padding-top: 30px; /* Vertical padding for main content */
+    padding-bottom: 30px; /* Vertical padding for main content */
+    background-color: #ffffff; /* Light Mode: Quote Container/Sub-Card Background (used for main content) */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-left: 20px; /* Add some margin to separate from the body edges */
+    margin-right: 20px; /* Add some margin to separate from the body edges */
+}
+
+/* Adjust padding for the container inside main to prevent double padding */
+main .container {
+    padding: 0;
+}
+
+form fieldset {
+    border: 1px solid #e0e0e0; /* Light Mode: Sidebar Background (for fieldset border) */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #fdfdff; /* Slightly off-white for internal fieldset background */
+}
+
+form legend {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #007bff; /* Light Mode: Accent Color for legend */
+    padding: 0 10px;
+    background-color: #ffffff; /* Match main background for legend cutout effect */
+    border-radius: 5px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333333; /* Light Mode: Primary Text Color */
+}
+
+form input[type="text"],
+form input[type="date"],
+form select,
+form textarea {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    color: #333333;
+    background-color: #ffffff;
+}
+
+form textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px;
+}
+
+/* Specific styling for radio and checkbox labels */
+.rating-group label,
+.checkbox-group label {
+    font-weight: normal; /* Less bold than main labels */
+}
+
+/* Rating stars styling */
+.rating-group {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    gap: 5px; /* Space between star labels */
+}
+
+.rating-group label {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 1.5em; /* Larger stars */
+    cursor: pointer;
+    color: #e0e0e0; /* Default star color (light gray from palette) */
+    transition: color 0.2s ease-in-out;
+}
+
+/* Hide default radio buttons visually */
+.rating-group input[type="radio"] {
+    position: absolute; /* Take out of normal flow */
+    opacity: 0;         /* Make completely transparent */
+    width: 0;           /* Set width and height to zero */
+    height: 0;
+    pointer-events: none; /* Ensure no interaction with hidden element */
+}
+
+/* Style selected star and previous stars */
+.rating-group input[type="radio"]:checked ~ label {
+    color: #FFD700; /* Gold color for selected stars */
+}
+/* Style current hovered star and previous stars */
+.rating-group label:hover,
+.rating-group label:hover ~ label {
+    color: #DAA520; /* Darker gold on hover */
+}
+/* Reset hovered stars after selected ones (important for correct hover behavior) */
+.rating-group input[type="radio"]:checked + label:hover ~ label {
+    color: #e0e0e0; /* Revert to default for non-selected hovered stars */
+}
+
+
+/* Checkbox group for better alignment */
+.checkbox-group {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.checkbox-group label {
+    display: inline-block; /* Align label next to checkbox */
+    font-weight: normal;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+.checkbox-group input[type="checkbox"] {
+    vertical-align: middle;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+
+/* Submission Button */
+form input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #007bff; /* Light Mode: Accent Color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Confirmation Page Specific Styles */
+.confirmation-message {
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #c5e0f3;
+    border-radius: 8px;
+    background-color: #fdfdff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.confirmation-message h2 {
+    color: #007bff;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.confirmation-message p {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.confirmation-message a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.confirmation-message a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+
+/* Footer Styling */
+footer {
+    margin-top: 40px;
+    padding: 20px 0; /* Vertical padding, horizontal handled by .container */
+    text-align: center;
+    background-color: #c5e0f3; /* Light Mode: Card Background (for footer) */
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.05);
+}
+
+footer p {
+    margin: 5px 0;
+    color: #333333; /* Light Mode: Primary Text */
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    /* Body padding handled by container */
+    header h1 {
+        font-size: 2em;
+    }
+
+    main {
+        padding: 20px 0; /* Adjust vertical padding */
+        margin-left: 10px; /* Adjust margin for smaller screens */
+        margin-right: 10px; /* Adjust margin for smaller screens */
+    }
+
+    .container {
+        padding: 0 10px; /* Adjust horizontal padding for smaller screens */
+    }
+
+    form fieldset {
+        padding: 15px;
+    }
+
+    form legend {
+        font-size: 1.2em;
+    }
+
+    .rating-group label {
+        font-size: 1.2em;
+    }
+
+    form input[type="text"],
+    form input[type="date"],
+    form select,
+    form textarea {
+        font-size: 0.9em;
+        width: calc(100% - 20px); /* Account for padding and border */
+    }
+
+    form input[type="submit"] {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+
+    .confirmation-message {
+        padding: 20px;
+    }
+
+    .confirmation-message h2 {
+        font-size: 1.8em;
+    }
+}
