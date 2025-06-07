@@ -23,7 +23,7 @@ header {
 .header-content {
     max-width: 900px; /* Constrain header content width like main */
     margin: 0 auto;
-    display: flex; /* Use flexbox for logo and title alignment */
+    display: flex; /* Use flexbox for title alignment */
     flex-direction: column; /* Stack items by default */
     align-items: center; /* Center items horizontally */
     justify-content: center;
@@ -36,13 +36,7 @@ header {
     margin-bottom: 10px; /* Space below the logo/title group */
 }
 
-.site-logo {
-    width: 60px; /* Adjust logo size */
-    height: 60px;
-    /* Optional: Add some padding or border if the SVG is too tight */
-    /* padding: 5px; */
-    /* border: 1px solid #007bff; */
-}
+
 
 header h1 {
     color: #007bff; /* Color Schema: Accent Color - used for main heading */
@@ -56,6 +50,20 @@ header p {
     color: #333333; /* Color Schema: Primary Text */
     margin-top: 0;
 }
+
+/* New styles for the logo after the header */
+.logo-after-header-container {
+    text-align: center;
+    margin-bottom: 30px; /* Space between logo and main content */
+}
+
+.site-logo-after-header {
+    width: 195px; /* 60px * 3 = 180px */
+    height: 195px; /* 60px * 3 = 180px */
+    display: block; /* Ensures centering */
+    margin: 0 auto; /* Centers the image */
+}
+
 
 /* Main Content Area */
 main {
@@ -166,16 +174,6 @@ ul li, ol li {
     margin-bottom: 30px;
 }
 
-/* No img tag styles needed here as images are no longer embedded */
-/* .wireframe-image img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-radius: 5px;
-    margin-bottom: 10px;
-} */
-
 .wireframe-image p {
     font-style: italic;
     font-size: 0.9em;
@@ -246,10 +244,17 @@ footer p {
         gap: 5px;
     }
 
-    .site-logo {
+    /* Removed .site-logo as it's now .site-logo-after-header */
+    /* .site-logo {
         width: 50px;
         height: 50px;
+    } */
+
+    .site-logo-after-header {
+        width: 150px; /* Adjust for smaller screens: 50px * 3 */
+        height: 150px;
     }
+
 
     header h1 {
         font-size: 2em;
@@ -284,5 +289,9 @@ footer p {
     }
     .moqups-placeholder {
         padding: 15px;
+    }
+    .site-logo-after-header {
+        width: 120px; /* Adjust for very small screens: 40px * 3 (if 40px was original) */
+        height: 120px;
     }
 }
