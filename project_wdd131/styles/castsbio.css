@@ -1,0 +1,287 @@
+/* Styling for the main show container */
+.show-container {
+    width: 90%; /* Adjust as needed */
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+/* Styling for the show title */
+.show-title {
+    text-align: center;
+    color: blue;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Styling for the list of casts */
+.cast-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid; /* Use grid for responsive layout of cast items */
+    gap: 20px; /* Space between cast items */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+}
+
+/* Styling for individual cast items */
+.cast-item {
+    display: flex; /* Use flexbox to put image on the left and details on the right */
+    align-items: flex-start; /* Align items to the top */
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures content respects border-radius */
+}
+
+/* Image column styling */
+.image-column {
+    flex-shrink: 0; /* Prevent image column from shrinking */
+    margin-right: 15px; /* Space between image and details */
+    text-align: center;
+}
+
+.image-column img {
+    max-width: 120px; /* Adjust image size as needed */
+    height: auto;
+    border-radius: 5px; /* Slightly rounded corners for images */
+    display: block; /* Remove extra space below image */
+    margin-bottom: 10px; /* Space between image and quote */
+}
+
+/* Image supplement for quotes */
+.image-supplement {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #555;
+    word-wrap: break-word; /* Ensure long quotes wrap */
+    max-width: 120px; /* Match image width for alignment */
+}
+
+/* Cast details styling */
+.cast-details {
+    flex-grow: 1; /* Allow cast details to take up remaining space */
+}
+
+/* --- UPDATED STYLING BELOW --- */
+
+/* Styling for cast name (blue and bold) */
+.cast-name {
+    color: blue;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+/* Styling for 'Role:', 'Info:', 'Quotes:' titles (blue and bold) */
+.cast-role strong,
+.cast-info strong,
+.cast-quotes strong {
+    color: blue;
+    font-weight: bold;
+}
+
+/* Styling for the actual content of role, info, and quote (normal weight, default color) */
+.cast-role,
+.cast-info,
+.cast-quotes {
+    font-weight: normal; /* Reset font-weight for the entire div */
+    color: #333; /* Default text color for the content */
+    margin-top: 10px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+/* Specific styling for the biography section */
+.cast-bio {
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+/* Ensure the "Biography:" label itself is blue and bold */
+.cast-bio strong {
+    color: blue;
+    font-weight: bold;
+}
+
+/* Ensure the actual quote content is displayed in full and not bold */
+.cast-quotes {
+    white-space: normal; /* Ensures quotes wrap naturally */
+    overflow: visible; /* Display full quote */
+}
+
+
+/* --- END OF UPDATED STYLING --- */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .show-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .cast-list {
+        grid-template-columns: 1fr; /* Stack cast items vertically on smaller screens */
+    }
+
+    .cast-item {
+        flex-direction: column; /* Stack image and details vertically */
+        align-items: center; /* Center items when stacked */
+        text-align: center;
+    }
+
+    .image-column {
+        margin-right: 0;
+        margin-bottom: 15px; /* Space between image and details when stacked */
+    }
+
+    .image-column img {
+        max-width: 150px; /* Adjust size for better visibility on small screens */
+    }
+
+    .image-supplement {
+        max-width: none; /* Allow quote to take full width */
+        width: 100%;
+        text-align: center;
+    }
+
+    .cast-details {
+        text-align: left; /* Align text left even when stacked */
+        width: 100%;
+    }
+}
+
+/* --- Footer Styling --- */
+footer {
+    background-color: var(--light-mode-footer-bg-color, #f0f0f0); /* Default light mode background */
+    color: var(--light-mode-text-color, #333); /* Default light mode text color */
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+    border-top: 1px solid var(--light-mode-border-color, #ccc); /* Default light mode border */
+    margin-top: auto; /* Pushes the footer to the bottom of the page */
+    width: 100%; /* Ensure it spans the whole width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Dark mode for footer: Black background */
+body.dark-mode footer {
+    background-color: var(--dark-mode-footer-bg-color, #000); /* Black background in dark mode */
+    color: var(--dark-mode-text-color, #f8f8f8); /* Light text in dark mode */
+    border-color: var(--dark-mode-border-color, #555); /* Dark mode border */
+}
+
+.footer-content {
+    display: flex; /* Use flexbox for main sections */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: space-between; /* Distribute space: centered-info will be in middle, social-links to right */
+    align-items: center; /* Vertically align items in the center */
+    max-width: 1200px; /* Max width to keep content from stretching too wide */
+    margin: 0 auto; /* Center the footer content horizontally */
+    padding: 0 20px; /* Horizontal padding for content inside max-width */
+}
+
+/* Individual Footer Sections */
+.footer-section {
+    padding: 10px; /* Internal padding for sections */
+}
+
+/* Centered Information Section (Copyright, Last Modified, Privacy, Sources) */
+.footer-section.centered-info {
+    flex: 1 1 auto; /* Allows it to grow and take most of the space */
+    min-width: 280px; /* Ensure enough width for content */
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    justify-content: center; /* Vertically center the stacked items */
+    align-items: center; /* Horizontally center the stacked items */
+    text-align: center; /* Fallback for text alignment */
+}
+
+.footer-section.centered-info p {
+    margin: 3px 0; /* Adjust vertical spacing between lines for a professional look */
+    line-height: 1.3; /* Tighter line height for professional stacking */
+}
+
+/* Removed: .footer-section.centered-info .citation-text as it's no longer a direct quote text */
+
+
+/* Social Links and About Developer (Right, Vertically Centered) */
+.footer-section.social-links {
+    flex: 0 1 auto; /* Don't grow, can shrink, take content width */
+    min-width: 200px; /* Ensure enough width for icons and link */
+    display: flex;
+    flex-direction: column; /* Stack the "About" link and social icons vertically */
+    justify-content: center; /* Vertically center the stacked items */
+    align-items: flex-end; /* Align to the right */
+}
+
+/* Social Icons Styling */
+.social-icons {
+    display: flex;
+    justify-content: flex-end; /* Align icons to the right within their container */
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.social-icons img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+    transform: translateY(-3px);
+}
+
+/* Link Styling */
+footer a {
+    color: var(--link-color, #007bff); /* Use CSS variable for link color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--link-hover-color, #0056b3); /* Use CSS variable for link hover color */
+    text-decoration: underline;
+}
+
+/* --- Responsive adjustments for smaller screens --- */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        justify-content: center; /* Center the stacked column */
+    }
+
+    .footer-section {
+        min-width: 100%; /* Take full width when stacked */
+        margin-bottom: 15px; /* Add space between stacked sections */
+        text-align: center; /* Center text for all sections */
+    }
+
+    .footer-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .footer-section.centered-info {
+        align-items: center; /* Ensure content is centered */
+    }
+
+    .footer-section.social-links {
+        align-items: center; /* Center their content */
+    }
+
+    .social-icons {
+        justify-content: center; /* Center social icons when stacked */
+    }
+}
+
+

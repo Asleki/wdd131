@@ -2,48 +2,42 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    /* Default light mode body background */
-    background-color: #dbe5f5;
-    color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- Dark Mode specific body styles --- */
-/* This class will be added/removed by JavaScript for light/dark mode toggling */
 body.dark-mode {
-    background-color: #1a1a1a; /* Darker background for dark mode */
-    color: #f0f0f0; /* Lighter text color for dark mode */
-    /* You can add more specific dark mode styles for other elements here
-         e.g., to make card backgrounds darker, text lighter etc. */
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
 }
 
-/* --- Utility Header Styles (NEW TOP HEADER) --- */
+/* --- Utility Header Styles --- */
 .utility-header {
-    background-color: #e0e0e0; /* Grey background */
+    background-color: #e0e0e0;
     color: #333;
-    padding: 8px 20px; /* Thinner padding */
+    padding: 8px 20px;
     display: flex;
-    justify-content: space-between; /* Space out left and right sections */
+    justify-content: space-between;
     align-items: center;
     font-size: 0.9em;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    gap: 10px; /* Space between sections */
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* Dark mode for utility header */
 body.dark-mode .utility-header {
     background-color: #464343;
     color: #f0f0f0;
 }
-/* Invert colors for black icons to white in dark mode */
 body.dark-mode .utility-header .header-action img {
     filter: invert(1);
 }
 body.dark-mode .utility-header .join-cinewatch {
-    color: #8ab4f8; /* Lighter blue for dark mode link */
+    color: #8ab4f8;
 }
 body.dark-mode .utility-header .join-cinewatch:hover {
     color: #a7c7ff;
@@ -52,24 +46,24 @@ body.dark-mode .utility-header .join-cinewatch:hover {
 .utility-left, .utility-right {
     display: flex;
     align-items: center;
-    gap: 15px; /* Space between icons/text in utility sections */
+    gap: 15px;
 }
 
 .mode-toggle {
     cursor: pointer;
-    display: flex; /* To align icons if they have different sizes slightly */
+    display: flex;
     align-items: center;
 }
 
 .mode-icon {
-    width: 20px; /* Size for mode icons */
+    width: 20px;
     height: 20px;
-    display: none; /* Hidden by default, activated by JS */
+    display: none;
     transition: opacity 0.3s ease;
 }
 
 .mode-icon.active {
-    display: block; /* Visible when active */
+    display: block;
 }
 
 .header-action {
@@ -85,18 +79,18 @@ body.dark-mode .utility-header .join-cinewatch:hover {
 }
 
 .header-action img {
-    width: 22px; /* Size for action icons */
+    width: 22px;
     height: 22px;
     vertical-align: middle;
 }
 
 .join-cinewatch {
     text-decoration: none;
-    color: #007bff; /* Blue for the link */
+    color: #007bff;
     font-weight: bold;
     padding: 5px 0;
     transition: color 0.3s ease;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap;
 }
 
 .join-cinewatch:hover {
@@ -105,29 +99,28 @@ body.dark-mode .utility-header .join-cinewatch:hover {
 
 /* --- Main Header Styles (Three Sections) --- */
 .main-header {
-    background-color: #f0f0f0; /* Light gray background for main header */
+    background-color: #f0f0f0;
     padding: 15px 20px;
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center;   /* Center children horizontally */
-    justify-content: center; /* CHANGE: Center all content vertically by default */
-    flex-wrap: wrap; /* Keep for responsiveness */
-    gap: 20px; /* Space between sections */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Lighter shadow for light background */
-    min-height: 180px; /* INCREASED: Minimum height to allow vertical distribution */
-    padding-bottom: 15px; /* ADD: Padding at the bottom to ensure nav isn't right on the edge */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 180px;
+    padding-bottom: 15px;
 }
 
-/* Dark mode for main header */
 body.dark-mode .main-header {
-    background-color: #0a0a0a; /* Very dark background for dark mode */
+    background-color: #0a0a0a;
     box-shadow: 0 2px 8px rgba(255,255,255,0.1);
 }
 body.dark-mode .main-header .main-nav ul li a {
     color: #e7d4d4;
 }
 body.dark-mode .main-header .main-nav ul li a:hover {
-    color: #8ab4f8; /* Lighter blue for dark mode hover */
+    color: #8ab4f8;
 }
 
 .header-section {
@@ -136,47 +129,40 @@ body.dark-mode .main-header .main-nav ul li a:hover {
     flex-shrink: 1;
 }
 
-/* .header-left ruleset removed as it was empty and unnecessary */
-
 .logo-link {
     text-decoration: none;
     color: inherit;
     display: flex;
-    flex-direction: column; /* Stack logo and tagline vertically */
-    align-items: center; /* Center them horizontally */
-    text-align: center; /* Center text within the link */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-/* New: Styles for the logo image */
 .logo-link img {
-    max-width: 200px; /* Adjust size as needed for your logo */
+    max-width: 200px;
     height: auto;
-    margin-bottom: 5px; /* Space between logo and tagline */
+    margin-bottom: 5px;
 }
 
-/* New: Styles for the tagline */
 .logo-link p.tagline {
-    font-size: 0.9em; /* Smaller font for tagline */
-    color: #555; /* Dark gray text for tagline */
-    margin: 0; /* Remove default paragraph margin */
-    white-space: nowrap; /* Keep tagline on one line if space allows */
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+    white-space: nowrap;
 }
 
-/* Dark mode for logo and tagline */
 body.dark-mode .logo-link img {
-    filter: brightness(1.2) saturate(0.8); /* Adjust for better visibility of blue logo in dark mode */
+    filter: brightness(1.2) saturate(0.8);
 }
 body.dark-mode .logo-link p.tagline {
-    color: #ccc; /* Lighter color for tagline in dark mode */
+    color: #ccc;
 }
 
-
 .header-center {
-    /* No flex-grow: 1 here as we want it pushed to bottom, not taking all horizontal space */
-    justify-content: center; /* Still useful for centering nav items if nav is flex row */
-    min-width: 200px; /* Keep min-width for nav links */
-    margin-top: auto; /* KEY CHANGE: Pushes this section to the bottom of the main-header */
-    width: 100%; /* Ensure it takes full width to center its content */
+    justify-content: center;
+    min-width: 200px;
+    margin-top: auto;
+    width: 100%;
 }
 
 .main-nav ul {
@@ -184,13 +170,13 @@ body.dark-mode .logo-link p.tagline {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Center the navigation links horizontally */
+    justify-content: center;
     gap: 25px;
 }
 
 .main-nav ul li a {
     text-decoration: none;
-    color: #333; /* Dark text for links in light mode */
+    color: #333;
     font-size: 1.1em;
     padding: 8px 0;
     transition: color 0.3s ease;
@@ -201,29 +187,24 @@ body.dark-mode .logo-link p.tagline {
     color: #007bff;
 }
 
-/* Dark mode for main nav links */
 body.dark-mode .main-nav ul li a {
-    color: #e7d4d4; /* Lighter text for links in dark mode */
+    color: #e7d4d4;
 }
 body.dark-mode .main-nav ul li a:hover {
-    color: #8ab4f8; /* Lighter blue for dark mode hover */
+    color: #8ab4f8;
 }
 
-
-
-
-/* --- Subheader Styles (your original "header" content) --- */
+/* --- Subheader Styles --- */
 .subheader {
     background-color: #f8f8f8;
     padding: 15px 20px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the search container */
-    margin-bottom: 20px; /* Space between subheader and main content */
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-/* Dark mode for subheader */
 body.dark-mode .subheader {
     background-color: #1a1a1a;
     box-shadow: 0 1px 3px rgba(255,255,255,0.05);
@@ -243,12 +224,11 @@ body.dark-mode .subheader .search-container button:hover {
     background-color: #003e80;
 }
 
-
-.subheader .search-container { /* Scoped to subheader to avoid conflicts */
+.subheader .search-container {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 700px; /* Wider search bar in subheader */
+    max-width: 700px;
 }
 
 .subheader .search-container input[type="text"] {
@@ -280,19 +260,18 @@ body.dark-mode .subheader .search-container button:hover {
 .hero-section {
     position: relative;
     width: 100%;
-    height: 55vh; /* Adjust height as needed */
+    height: 55vh;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space out content and poster */
+    justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden; /* Ensure content stays within bounds */
-    color: white; /* Text color for content */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Make text more readable on background */
-    transition: background-image 1s ease-in-out; /* Smooth background transition */
+    overflow: hidden;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    transition: background-image 1s ease-in-out;
 }
 
-/* Optional: Fade in effect for the entire hero section content */
 .hero-section.fade-in {
     animation: fadeIn 1s forwards;
 }
@@ -302,32 +281,30 @@ body.dark-mode .subheader .search-container button:hover {
     to { opacity: 1; }
 }
 
-
 .hero-content {
-    flex: 1; /* Take up available space */
-    max-width: 60%; /* Limit content width */
-    padding-right: 20px; /* Space between content and poster */
-    z-index: 1; /* Ensure content is above background */
+    flex: 1;
+    max-width: 60%;
+    padding-right: 20px;
+    z-index: 1;
     text-align: left;
 }
 
 .hero-quote {
-    font-size: 2.5em; /* Adjust font size as needed */
+    font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 15px;
     line-height: 1.2;
 }
 
 .hero-poster {
-    width: 250px; /* Adjust poster width as needed */
+    width: 250px;
     height: auto;
-    object-fit: contain; /* Ensure the image fits without cropping much */
+    object-fit: contain;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
-    z-index: 1; /* Ensure poster is above background */
+    z-index: 1;
 }
 
-/* Ensure background image covers the whole section */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -335,14 +312,13 @@ body.dark-mode .subheader .search-container button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 0;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .hero-section {
-        flex-direction: column; /* Stack content and poster on small screens */
+        flex-direction: column;
         justify-content: center;
         text-align: center;
     }
@@ -358,40 +334,38 @@ body.dark-mode .subheader .search-container button:hover {
     }
 
     .hero-poster {
-        width: 180px; /* Adjust poster size for smaller screens */
+        width: 180px;
     }
 }
 
-/* Dark Mode considerations (adapt based on your existing dark mode CSS) */
-
-/* --- Main Content Area Styles (Your existing styles - untouched) --- */
+/* --- Main Content Area Styles --- */
 main {
     display: flex;
-    flex-direction: column; /* Stack sections vertically */
-    gap: 30px; /* Space between sections */
+    flex-direction: column;
+    gap: 30px;
     padding: 20px;
     flex-grow: 1;
 }
 
-/* Dark mode for main content elements */
+/* --- Dark mode for main content elements (Consolidated and adjusted) --- */
 body.dark-mode .category-section {
-    background-color: #262626;
+    background-color: var(--card-background-dark);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .category-section h2 {
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .show-card {
-    background-color: #333;
+    background-color: var(--card-background-dark);
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .show-details-right h3 {
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .show-details-right p {
-    color: #e0e0e0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .network-logo-section .watch-now-text {
     color: #8ab4f8;
@@ -400,10 +374,10 @@ body.dark-mode .network-logo-section .subscription-required {
     color: #ccc;
 }
 body.dark-mode .show-synopsis h4 {
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .synopsis-text {
-    color: #e0e0e0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .read-more-btn,
 body.dark-mode .read-less-btn {
@@ -415,7 +389,7 @@ body.dark-mode .read-less-btn:hover {
 }
 body.dark-mode .read-more-btn img,
 body.dark-mode .read-less-btn img {
-    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* Adjust for yellow icon */
+    filter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 body.dark-mode .carousel-btn {
     background-color: rgba(255, 255, 255, 0.2);
@@ -433,12 +407,12 @@ body.dark-mode .pagination-dot.active {
     background-color: #8ab4f8;
 }
 body.dark-mode .quotes-sidebar {
-    background-color: #262626;
+    background-color: var(--card-background-dark);
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .quotes-sidebar h3 {
-    color: #f0f0f0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .quote-container {
     background-color: #333;
@@ -446,20 +420,19 @@ body.dark-mode .quote-container {
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 body.dark-mode .quote-text {
-    color: #e0e0e0;
+    color: var(--text-color-dark);
 }
 body.dark-mode .quote-character {
     color: #bbb;
 }
 
-
-/* Category Section Styling (e.g., for "Hollywood Shows", "Bollywood Shows", etc.) */
+/* Category Section Styling */
 .category-section {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: relative; /* For positioning child elements */
+    position: relative;
 }
 
 .category-section h2 {
@@ -474,63 +447,75 @@ body.dark-mode .quote-character {
 /* Carousel Specific Styles */
 .carousel-wrapper {
     position: relative;
-    overflow: hidden; /* Hide overflowing cards */
+    overflow: hidden;
     width: 100%;
     margin: 0 auto;
-    display: flex; /* Allow content and sidebar to align */
-    justify-content: center; /* Center the content */
-    align-items: flex-start; /* Align items to the top */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .carousel-content {
     display: flex;
-    flex-direction: column; /* Stack carousel track and pagination */
-    flex-grow: 1; /* Allow content to take available space */
+    flex-direction: column;
+    flex-grow: 1;
     align-items: center;
-    max-width: 1000px; /* Limit the width of the carousel items */
+    max-width: 1000px;
 }
 
 .carousel-track-container {
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 8px; /* For the main carousel view */
+    border-radius: 8px;
 }
 
 .carousel-track {
     display: flex;
-    transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
-    width: 100%; /* Each slide takes 100% of the container width on large screens */
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
 }
 
+/* --- MODIFIED: show-card for better content visibility --- */
 .show-card {
-    min-width: 100%; /* Each card takes full width in the track's *current viewport* */
-    box-sizing: border-box; /* Include padding/border in width */
+    min-width: 100%;
+    box-sizing: border-box;
     display: flex;
     background-color: #c5e0f3;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
-    padding: 20px;
-    flex-direction: column; /* Stack show-info and synopsis */
-    align-items: center; /* Center content horizontally within the card */
-    text-align: center; /* Center text within the card */
+    padding: 15px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* --- MODIFIED: Adjusted max-height to allow more content (e.g., network logo) --- */
+    max-height: 500px; /* Increased to accommodate more info. Adjust as needed. */
+    transition: background-color 0.3s ease;
+}
+body.dark-mode .show-card {
+    background-color: var(--card-background-dark);
 }
 
+/* --- MODIFIED: show-info-and-poster-container for flexible layout --- */
 .show-info-and-poster-container {
     display: flex;
-    flex-direction: column; /* Stack poster and details vertically on smaller screens */
-    align-items: center; /* Center them */
-    gap: 20px;
+    flex-direction: row; /* Default to row on larger screens */
+    align-items: flex-start;
+    gap: 15px;
     width: 100%;
-    margin-bottom: 20px; /* Space between top info and synopsis */
-    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    text-align: left;
+    flex-wrap: wrap; /* Allow wrapping on smaller desktop/tablet */
+    justify-content: center; /* Center content if it wraps */
 }
 
+/* --- MODIFIED: show-poster-container slightly larger for better detail --- */
 .show-poster-container {
     flex-shrink: 0;
-    width: 180px; /* Fixed width for poster */
-    height: 270px; /* Fixed height for poster (approx 2:3 aspect ratio) */
+    width: 140px; /* Slightly increased width for poster */
+    height: 210px; /* Corresponding height for 2:3 aspect ratio */
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -542,95 +527,126 @@ body.dark-mode .quote-character {
     object-fit: cover;
 }
 
+/* --- MODIFIED: show-details-right to allow content to flow --- */
 .show-details-right {
-    flex-grow: 1; /* Allow details to take available space */
+    flex-grow: 1;
     display: flex;
-    flex-direction: column; /* Stack info and network logo section */
-    justify-content: space-between;
-    align-items: center; /* Center items */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 100%;
     min-width: 180px;
+    /* --- REMOVED: max-height and overflow: hidden to allow full content --- */
+    /* max-height: 200px; */
+    /* overflow: hidden; */
 }
 
+/* --- MODIFIED: show-details-right h3 for better readability --- */
 .show-details-right h3 {
-    font-size: 2.2em;
-    margin-bottom: 10px;
+    font-size: 1.8em; /* Adjusted for better readability */
+    margin-bottom: 8px;
     color: #222;
-    word-wrap: break-word; /* Allow long titles to break lines */
+    word-wrap: break-word;
+    line-height: 1.2;
+    text-align: left;
 }
 
+/* --- MODIFIED: show-details-right p to allow wrapping --- */
 .show-details-right p {
-    margin: 5px 0;
-    font-size: 1.1em;
-    line-height: 1.5;
-    word-wrap: break-word; /* Allow long text to break lines */
+    margin: 3px 0;
+    font-size: 0.95em; /* Slightly increased font size */
+    line-height: 1.4; /* Adjusted line height */
+    word-wrap: break-word;
+    text-align: left;
+    /* --- REMOVED: white-space: nowrap and text-overflow: ellipsis --- */
+    white-space: normal; /* Allow text to wrap naturally */
+    overflow: visible; /* Ensure content is visible */
+    text-overflow: clip; /* No ellipsis if content wraps */
 }
 
 .show-info-icon-display {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     vertical-align: middle;
-    margin-left: 8px;
-    display: none; /* Hide by default, only for desktop */
+    margin-left: 5px;
+    display: inline-block;
 }
 
+/* --- MODIFIED: network-logo-section to be part of the flow --- */
 .network-logo-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    align-items: flex-start;
+    margin-top: 15px; /* Increased margin for separation */
+    width: 100%; /* Take full width to prevent squishing */
+    text-align: left; /* Ensure text within is left-aligned */
 }
 
+/* --- MODIFIED: network-logo size --- */
 .network-logo {
-    max-width: 120px; /* Limit logo width */
+    max-width: 100px; /* Slightly larger logo */
     height: auto;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     border-radius: 1rem;
 }
 
+/* --- MODIFIED: watch-now-text for clarity --- */
 .watch-now-text {
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: bold;
-    color: #007bff; /* Blue text for watch now */
-    margin-bottom: 5px;
+    color: #007bff;
+    margin-bottom: 3px;
 }
 
+/* --- MODIFIED: subscription-required for clarity --- */
 .subscription-required {
-    font-size: 0.9em;
+    font-size: 0.85em; /* Slightly larger for readability */
     color: #666;
 }
 
+/* --- MODIFIED: show-synopsis padding and border --- */
 .show-synopsis {
     width: 100%;
-    text-align: left; /* Align synopsis text left */
-    margin-top: 15px;
+    text-align: left;
+    margin-top: 15px; /* More separation from details */
+    padding-top: 15px; /* More padding from above */
+    border-top: 1px solid rgba(0,0,0,0.08); /* Slightly more visible separator */
+}
+body.dark-mode .show-synopsis {
+    border-top-color: rgba(255,255,255,0.1);
 }
 
+/* --- MODIFIED: show-synopsis h4 font size --- */
 .show-synopsis h4 {
-    font-size: 1.3em;
-    margin-bottom: 10px;
+    font-size: 1.2em; /* Slightly larger heading */
+    margin-bottom: 8px;
     color: #444;
+    text-align: center;
 }
 
+/* --- MODIFIED: synopsis-text font size and line height --- */
 .synopsis-text {
-    font-size: 1em;
+    font-size: 0.95em; /* Adjusted for better readability */
     line-height: 1.6;
     color: #555;
-    white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+    white-space: pre-wrap;
+    text-align: justify;
 }
 
+/* --- MODIFIED: synopsis-controls margin --- */
 .synopsis-controls {
-    margin-top: 10px;
+    margin-top: 10px; /* Adjusted margin */
     display: flex;
-    justify-content: center; /* Center buttons */
+    justify-content: center;
 }
 
+/* --- MODIFIED: read-more-btn, read-less-btn padding and gap --- */
 .read-more-btn, .read-less-btn {
     background: none;
     border: none;
     color: #007bff;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.95em; /* Slightly larger for readability */
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -644,22 +660,22 @@ body.dark-mode .quote-character {
 }
 
 .read-more-btn img, .read-less-btn img {
-    width: 16px;
+    width: 16px; /* Original size */
     height: 16px;
 }
 
 /* Carousel Navigation Buttons */
 .carousel-btn {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 2em;
+    width: 45px;
+    height: 45px;
+    font-size: 1.8em;
     cursor: pointer;
     position: absolute;
-    top: 60%; /* Adjusted: Moved down from 50% */
+    top: 50%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
@@ -678,24 +694,24 @@ body.dark-mode .quote-character {
 }
 
 .prev-btn {
-    left: 10px; /* Position relative to carousel-track-container */
+    left: 10px;
 }
 
 .next-btn {
-    right: 10px; /* Position relative to carousel-track-container */
+    right: 10px;
 }
 
 /* Pagination Dots */
 .carousel-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    gap: 10px;
+    margin-top: 15px;
+    gap: 8px;
 }
 
 .pagination-dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     background-color: #bbb;
     border-radius: 50%;
     cursor: pointer;
@@ -708,124 +724,149 @@ body.dark-mode .quote-character {
 }
 
 /* Famous Quotes Sidebar */
+/* --- MODIFIED: quotes-sidebar to allow more height and auto-scroll --- */
 .quotes-sidebar {
-    width: 280px; /* Fixed width for the sidebar */
-    min-width: 280px; /* Ensure it doesn't shrink */
-    background-color: #98cafc; /* Lighter grey background */
-    padding: 20px;
+    width: 250px;
+    min-width: 250px;
+    background-color: #e0e0e0;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    margin-left: 30px; /* Space from carousel content */
-    height: fit-content; /* Adjust height to content */
-    align-self: flex-start; /* Align to the top of carousel-wrapper */
+    margin-left: 20px;
+    height: fit-content;
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    /* --- MODIFIED: Increased max height to match card, added scroll --- */
+    max-height: 500px; /* Match show-card max-height */
+    overflow-y: auto; /* Enable scrolling for quotes if too many */
+    transition: background-color 0.3s ease;
+}
+body.dark-mode .quotes-sidebar {
+    background-color: var(--card-background-dark);
 }
 
+/* --- MODIFIED: quotes-sidebar h3 font size --- */
 .quotes-sidebar h3 {
     margin-top: 0;
     color: #333;
     text-align: center;
-    font-size: 22px;
-    margin-bottom: 20px;
+    font-size: 1.2em;
+    margin-bottom: 15px;
 }
 
+/* --- MODIFIED: quote-container padding --- */
 .quote-container {
     background-color: #fff;
-    padding: 15px;
-    border-left: 4px solid #007bff; /* Blue accent line */
+    padding: 12px;
+    border-left: 4px solid #007bff;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode .quote-container {
+    background-color: #333;
 }
 
+/* --- MODIFIED: quote-text font size --- */
 .quote-text {
     font-style: italic;
-    margin: 0 0 8px 0;
+    margin: 0 0 5px 0;
     color: #444;
-    font-size: 0.95em;
+    font-size: 0.9em; /* Slightly increased font size */
 }
 
+/* --- MODIFIED: quote-character font size --- */
 .quote-character {
     display: block;
     text-align: right;
     font-weight: bold;
     color: #666;
-    font-size: 0.85em;
+    font-size: 0.8em; /* Slightly increased font size */
 }
+
+.no-quotes-message {
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+}
+
 
 /* Responsive Design */
 
 /* Desktop / Larger Screens (min-width: 768px) */
 @media (min-width: 768px) {
+    /* --- MODIFIED: show-info-and-poster-container desktop - keep flex-direction row --- */
     .show-info-and-poster-container {
         flex-direction: row; /* Horizontal layout for poster and details */
-        text-align: left;
         justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: nowrap; /* Prevent wrapping on desktop */
     }
 
     .show-details-right {
-        align-items: flex-start; /* Align items to the start */
+        align-items: flex-start;
     }
 
     .show-details-right h3 {
-        font-size: 2.5em; /* Larger on desktop */
+        font-size: 1.8em;
     }
 
     .show-details-right p {
-        font-size: 1.1em;
+        font-size: 1em;
     }
 
     .show-info-icon-display {
-        display: inline-block; /* Show on desktop */
+        display: inline-block;
     }
 
     .network-logo-section {
         align-items: flex-start;
+        /* --- ADDED: Margin-top on desktop to separate network logo from details above --- */
+        margin-top: 15px;
     }
 
     .show-card {
-        flex-direction: column; /* Stack main info and synopsis */
+        flex-direction: column;
     }
 
     .carousel-wrapper {
-        flex-direction: row; /* Content and sidebar side-by-side */
+        flex-direction: row;
         justify-content: center;
         align-items: flex-start;
     }
 
+    /* --- MODIFIED: carousel-track-container width for desktop --- */
     .carousel-track-container {
-            /* Adjusted width to make space for sidebar, accounting for margin-left of sidebar */
-            width: calc(100% - 310px);
-            max-width: 800px; /* Keep a reasonable max width for the main carousel part */
+        width: calc(100% - 270px); /* Adjusted for sidebar width (250px + 20px margin) */
+        max-width: 800px;
     }
 
     .quotes-sidebar {
-        display: flex; /* Ensure it's displayed on larger screens */
+        display: flex;
     }
 
-    /* Adjust main nav links for desktop when main header is light */
     .main-nav ul li a {
-        color: #333; /* Dark text for links */
+        color: #333;
     }
     .main-nav ul li a:hover {
         color: #007bff;
     }
     body.dark-mode .main-nav ul li a {
-        color: #e7d4d4; /* Lighter text in dark mode */
+        color: #e7d4d4;
     }
     body.dark-mode .main-nav ul li a:hover {
-        color: #8ab4f8; /* Lighter blue in dark mode hover */
+        color: #8ab4f8;
     }
-
 }
 
 /* Tablet and Mobile (max-width: 767px) */
 @media (max-width: 767px) {
     /* --- Utility Header Responsive Styles --- */
     .utility-header {
-        flex-direction: column; /* Stack utility items vertically */
+        flex-direction: column;
         text-align: center;
         padding: 8px 10px;
         gap: 8px;
@@ -833,13 +874,13 @@ body.dark-mode .quote-character {
 
     .utility-left, .utility-right {
         width: 100%;
-        justify-content: center; /* Center items within each half */
+        justify-content: center;
         gap: 10px;
     }
 
     /* --- Main Header Responsive Styles --- */
     .main-header {
-        flex-direction: column; /* Stack header sections vertically */
+        flex-direction: column;
         align-items: center;
         gap: 15px;
         padding: 15px 10px;
@@ -850,13 +891,12 @@ body.dark-mode .quote-character {
         justify-content: center;
     }
 
-    /* Adjust logo and tagline for smaller screens */
     .logo-link img {
-        max-width: 120px; /* Smaller logo on mobile */
+        max-width: 120px;
         margin-bottom: 3px;
     }
     .logo-link p.tagline {
-        font-size: 0.8em; /* Smaller tagline on mobile */
+        font-size: 0.8em;
     }
 
     .main-nav ul {
@@ -868,15 +908,14 @@ body.dark-mode .quote-character {
     .main-nav ul li a {
         display: block;
         padding: 10px;
-        background-color: rgba(0,0,0,0.05); /* Slightly darker background for buttons in light mode */
+        background-color: rgba(0,0,0,0.05);
         border-radius: 5px;
-        color: #333; /* Dark text for links */
+        color: #333;
     }
     body.dark-mode .main-nav ul li a {
         background-color: rgba(255,255,255,0.1);
-        color: #e7d4d4; /* Lighter text in dark mode */
+        color: #e7d4d4;
     }
-
 
     /* --- Subheader Responsive Styles --- */
     .subheader {
@@ -896,35 +935,61 @@ body.dark-mode .quote-character {
         width: 100%;
     }
 
+    /* --- MODIFIED: show-card mobile - increased max-height to allow content --- */
     .show-card {
         min-width: 100%;
         width: 100%;
         padding: 15px;
         max-width: none;
         margin: 0;
+        max-height: 500px; /* Keep consistent with desktop max-height, or adjust if mobile needs more/less */
     }
-    /* ----------------------------------------------------------------- */
 
+    /* --- MODIFIED: show-info-and-poster-container mobile - stack elements --- */
+    .show-info-and-poster-container {
+        flex-direction: column; /* Stack poster and details vertically on mobile */
+        align-items: center;
+        text-align: center;
+        margin-bottom: 10px;
+        flex-wrap: nowrap; /* Prevent wrapping if already stacked */
+    }
+
+    /* --- MODIFIED: show-poster-container mobile size --- */
     .show-poster-container {
-        width: 150px;
-        height: 225px;
+        width: 120px; /* Slightly larger poster for mobile, if content allows */
+        height: 180px;
     }
 
+    /* --- MODIFIED: show-details-right mobile alignment --- */
+    .show-details-right {
+        align-items: center; /* Center text on mobile */
+        max-height: none; /* Allow content to flow */
+        overflow: visible;
+    }
+
+    /* --- MODIFIED: show-details-right h3 mobile font size --- */
     .show-details-right h3 {
-        font-size: 1.6em;
+        font-size: 1.6em; /* Adjusted font size */
         margin-bottom: 5px;
         text-align: center;
     }
 
+    /* --- MODIFIED: show-details-right p mobile font size and text alignment --- */
     .show-details-right p {
-        font-size: 0.9em;
+        font-size: 0.9em; /* Adjusted font size */
         margin: 3px 0;
-        text-align: center;
+        text-align: center; /* Center these details */
+        white-space: normal; /* Allow wrapping on mobile */
+    }
+
+    /* --- MODIFIED: network-logo-section mobile alignment and margin --- */
+    .network-logo-section {
+        align-items: center; /* Center on mobile */
+        margin-top: 15px; /* Ensure space */
     }
 
     .network-logo {
         max-width: 90px;
-        margin-top: 15px;
     }
 
     .watch-now-text {
@@ -937,14 +1002,17 @@ body.dark-mode .quote-character {
 
     .show-synopsis {
         margin-top: 10px;
+        text-align: left;
     }
 
     .show-synopsis h4 {
         font-size: 1.1em;
+        text-align: center;
     }
 
     .synopsis-text {
         font-size: 0.9em;
+        text-align: justify;
     }
 
     .read-more-btn, .read-less-btn {
@@ -961,7 +1029,7 @@ body.dark-mode .quote-character {
         width: 40px;
         height: 40px;
         font-size: 1.5em;
-        top: 70%; /* Adjusted for mobile as well */
+        top: 65%;
     }
 
     .prev-btn {
@@ -980,6 +1048,20 @@ body.dark-mode .quote-character {
     .pagination-dot {
         width: 10px;
         height: 10px;
+    }
+
+    /* --- MODIFIED: quotes-sidebar mobile - width, margin, and max-height --- */
+    .quotes-sidebar {
+        width: 95%;
+        margin-left: 0;
+        margin-top: 20px;
+        border-left: none;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        padding: 15px;
+        max-height: 350px; /* Adjusted max height for sidebar on mobile */
+    }
+    body.dark-mode .quotes-sidebar {
+        border-top-color: rgba(255,255,255,0.08);
     }
 
     .quote-container {
@@ -1007,16 +1089,15 @@ body.dark-mode .quote-character {
     }
 
     .main-header {
-        padding: 10px 8px; /* Reduce padding further for very small screens */
+        padding: 10px 8px;
     }
 
     .logo-link img {
-        max-width: 100px; /* Even smaller logo */
+        max-width: 100px;
     }
     .logo-link p.tagline {
-        font-size: 0.75em; /* Even smaller tagline */
+        font-size: 0.75em;
     }
-
 
     .main-nav ul {
         flex-direction: column;
@@ -1041,19 +1122,24 @@ body.dark-mode .quote-character {
         font-size: 22px;
     }
 
+    /* --- MODIFIED: show-card very small screen --- */
     .show-card {
         padding: 10px;
+        max-height: 480px; /* Adjusted for very small screens */
     }
 
+    /* --- MODIFIED: show-poster-container very small screen --- */
     .show-poster-container {
-        width: 120px;
-        height: 180px;
+        width: 100px;
+        height: 150px;
     }
 
+    /* --- MODIFIED: show-details-right h3 very small screen --- */
     .show-details-right h3 {
         font-size: 1.4em;
     }
 
+    /* --- MODIFIED: show-details-right p very small screen --- */
     .show-details-right p {
         font-size: 0.85em;
     }
@@ -1066,65 +1152,48 @@ body.dark-mode .quote-character {
         width: 35px;
         height: 35px;
         font-size: 1.2em;
+        top: 60%;
+    }
+    .carousel-pagination {
+        margin-top: 10px;
     }
 }
 
-/* Dark Mode compatibility for message box buttons */
-body.dark-mode .message-box {
-    background: #333;
-    color: #eee;
-    border-color: #555;
-}
-
-body.dark-mode .message-box button {
-    background-color: #555;
-    color: #fff;
-    border-color: #777;
-}
-body.dark-mode .message-box button:hover {
-    background-color: #777;
-}
-
-/* Also add general dark mode variables if you haven't already */
+/* --- CSS Variables Definition (Consolidated and refined) --- */
 :root {
-    --background-color-light: #f4f4f4;
+    /* Light Mode Variables */
+    --background-color-light: #dbe5f5;
     --text-color-light: #333;
-    --card-background-light: #ffffff;
+    --card-background-light: #c5e0f3;
     --border-color-light: #ddd;
     --primary-button-background-light: #007bff;
     --primary-button-text-light: white;
     --primary-button-hover-background-light: #0056b3;
+    --quote-background-light: #fff;
+    --quotes-sidebar-background-light: #e0e0e0;
 }
 
+/* Dark Mode Variables */
 .dark-mode {
     --background-color-dark: #1a1a1a;
-    --text-color-dark: #e0e0e0;
+    --text-color-dark: #f0f0f0;
     --card-background-dark: #2a2a2a;
     --border-color-dark: #444;
-    --primary-button-background-dark: #6200ea; /* A purple tone for dark mode buttons */
+    --primary-button-background-dark: #6200ea;
     --primary-button-text-dark: white;
     --primary-button-hover-background-dark: #3700b3;
+    --quote-background-dark: #333;
+    --quotes-sidebar-background-dark: #262626;
 }
 
-/* Apply variables */
-body {
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
-}
-
-.message-box { /* Apply variables to the message box */
+/* --- Apply Variables to elements not directly covered by light/dark mode classes --- */
+.message-box {
     background: var(--card-background-light);
     color: var(--text-color-light);
     border: 1px solid var(--border-color-light);
 }
 
-.message-box button { /* Apply variables to message box button */
+.message-box button {
     background-color: var(--primary-button-background-light);
     color: var(--primary-button-text-light);
 }
@@ -1133,7 +1202,55 @@ body.dark-mode {
     background-color: var(--primary-button-hover-background-light);
 }
 
-/* You will need to apply these variables across your other components as well */
-/* Example: For your carousel cards, etc. */
-/* .show-card { background-color: var(--card-background); border-color: var(--border-color); } */
-/* Add more global variables and apply them where needed */
+body.dark-mode .message-box {
+    background: var(--card-background-dark);
+    color: var(--text-color-dark);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .message-box button {
+    background-color: var(--primary-button-background-dark);
+    color: var(--primary-button-text-dark);
+    border-color: var(--border-color-dark);
+}
+body.dark-mode .message-box button:hover {
+    background-color: var(--primary-button-hover-background-dark);
+}
+/* Footer Links - uses the general 'a' style by default, but can be overridden */
+footer a {
+    color: var(--link-color, #61dafb); /* Can be specific for footer if needed */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--link-hover-color, #a0f0ff);
+    text-decoration: underline;
+}
+
+/* --- Responsive adjustments for smaller screens --- */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .footer-section {
+        min-width: 100%;
+        margin-bottom: var(--spacing-sm);
+        text-align: center;
+    }
+
+    .footer-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .footer-section.centered-info,
+    .footer-section.social-links {
+        align-items: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
