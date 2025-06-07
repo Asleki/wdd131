@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Website Plan</title>
+    <link rel="stylesheet" href="styles/siteplan.css">
+    </head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="logo/cinewatch.logo.svg" alt="CineWatch Logo" class="site-logo">
+                <h1>CineWatch - Website Planning Document</h1>
+            </div>
+            <p>A blueprint for designing and developing the CineWatch project.</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="site-name">
+            <h2>1. Site Name</h2>
+            <p><strong>Site Name:</strong> CineWatch</p>
+            <p><strong>Description:</strong> I chose "CineWatch" as the site name because it's a concise and clear combination of "Cinema" (referring to movies and shows) and "Watch" (indicating the primary user action). It's memorable, easy to pronounce, and directly communicates the site's purpose: a platform for watching and discovering cinematic content. The name aims for a modern and accessible feel, suitable for a broad audience interested in entertainment.</p>
+            <p><strong>Optional Domain Availability:</strong> cinewatch.com (Conceptual, not verified for actual availability)</p>
+        </section>
+
+        <section id="site-purpose">
+            <h2>2. Site Purpose</h2>
+            <p>The primary purpose of the CineWatch website is to serve as a comprehensive hub for discovering and exploring TV shows and movies. It aims to provide users with detailed information about various titles, including release dates, IMDb ratings, genres, creators, cast, famous quotes, and a synopsis. Additionally, it highlights where content can be watched (e.g., Netflix, Showmax) and indicates if a subscription is required. The site will feature trending and international shows, making it easy for users to find new content and revisit classics.</p>
+        </section>
+
+        <section id="scenarios">
+            <h2>3. Scenarios</h2>
+            <p>Here are two scenarios reflecting potential target audience users of CineWatch:</p>
+            <ol>
+                <li><strong>Scenario 1:</strong> "I just finished watching 'Breaking Bad' and loved the quotes. I wonder if this site has a section where I can easily find famous quotes from my favorite shows, and maybe even discover similar shows to watch next?"</li>
+                <li><strong>Scenario 2:</strong> "I'm looking for a new action-thriller series to binge-watch, but I'm not sure what's popular or highly-rated right now. Can CineWatch help me discover trending shows with good IMDb scores and tell me where I can stream them?"</li>
+            </ol>
+        </section>
+
+        <section id="color-schema">
+            <h2>4. Color Schema</h2>
+            <p>Our color schema is designed to be clean, modern, and user-friendly, with a focus on readability and visual appeal in both light and dark modes.</p>
+            <div class="color-palette">
+                <h3>Light Mode Palette:</h3>
+                <ul>
+                    <li class="color-item primary-bg">
+                        <span class="color-swatch" style="background-color: #dbe5f5;"></span>
+                        <span class="color-hex">#dbe5f5</span> - Background Color (Light Mode): Used for the main body background, providing a soft, light blue-gray base.
+                    </li>
+                    <li class="color-item secondary-text">
+                        <span class="color-swatch" style="background-color: #333333;"></span>
+                        <span class="color-hex">#333333</span> - Primary Text Color (Light Mode): Used for general body text, headings, and most informative text, ensuring high readability on light backgrounds.
+                    </li>
+                    <li class="color-item accent-color">
+                        <span class="color-swatch" style="background-color: #007bff;"></span>
+                        <span class="color-hex">#007bff</span> - Accent/Primary Action Color: Used for links, buttons (e.g., "Watch Now"), active pagination dots, and border accents (e.g., quote left border).
+                    </li>
+                    <li class="color-item card-bg">
+                        <span class="color-swatch" style="background-color: #c5e0f3;"></span>
+                        <span class="color-hex">#c5e0f3</span> - Card Background Color (Light Mode): Used for show cards and other prominent content blocks, providing a slightly darker shade of blue-gray than the main background.
+                    </li>
+                    <li class="color-item quote-bg">
+                        <span class="color-swatch" style="background-color: #ffffff;"></span>
+                        <span class="color-hex">#ffffff</span> - Quote Container/Sub-Card Background (Light Mode): Used for individual quote containers and potentially other nested content, offering a crisp white.
+                    </li>
+                    <li class="color-item quotes-sidebar-bg">
+                        <span class="color-swatch" style="background-color: #e0e0e0;"></span>
+                        <span class="color-hex">#e0e0e0</span> - Sidebar Background (Light Mode): Used for the Famous Quotes and Overview sidebars, a distinct light gray.
+                    </li>
+                </ul>
+                <h3>Dark Mode Palette:</h3>
+                <ul>
+                    <li class="color-item primary-bg-dark">
+                        <span class="color-swatch" style="background-color: #1a1a1a;"></span>
+                        <span class="color-hex">#1a1a1a</span> - Background Color (Dark Mode): The main body background for a deep, dark theme.
+                    </li>
+                    <li class="color-item secondary-text-dark">
+                        <span class="color-swatch" style="background-color: #f0f0f0;"></span>
+                        <span class="color-hex">#f0f0f0</span> - Primary Text Color (Dark Mode): Ensures high contrast and readability on dark backgrounds.
+                    </li>
+                    <li class="color-item accent-color-dark">
+                        <span class="color-swatch" style="background-color: #8ab4f8;"></span>
+                        <span class="color-hex">#8ab4f8</span> - Accent/Primary Action Color (Dark Mode): A brighter blue for links, buttons, and accents, ensuring visibility in the dark theme.
+                    </li>
+                    <li class="color-item card-bg-dark">
+                        <span class="color-swatch" style="background-color: #2a2a2a;"></span>
+                        <span class="color-hex">#2a2a2a</span> - Card Background Color (Dark Mode): Darker background for show cards and prominent content blocks.
+                    </li>
+                    <li class="color-item quote-bg-dark">
+                        <span class="color-swatch" style="background-color: #333333;"></span>
+                        <span class="color-hex">#333333</span> - Quote Container/Sub-Card Background (Dark Mode): Slightly lighter than the main dark background for nested content.
+                    </li>
+                    <li class="color-item quotes-sidebar-bg-dark">
+                        <span class="color-swatch" style="background-color: #262626;"></span>
+                        <span class="color-hex">#262626</span> - Sidebar Background (Dark Mode): A distinct dark gray for sidebars.
+                    </li>
+                </ul>
+            </div>
+            <div class="moqups-placeholder">
+                 <p>You can also view the pallets in the images below:</p>
+                <p>
+                    <a href="colorpallete/CineWatch Light Mode.png" target="_blank" class="view-link">View Light Mode Palette</a><br>
+                    <a href="colorpallete/CineWatch Dark Mode.png" target="_blank" class="view-link">View Dark Mode Palette</a>
+                </p>
+                <p>Remember to create a `colorpallete` folder inside your `project` directory for these images.</p>
+            </div>
+        </section>
+
+        <section id="typography">
+            <h2>5. Typography</h2>
+            <p>I will be using primarily one font family to maintain consistency and optimize loading times, while utilizing different weights and styles for hierarchy.</p>
+            <ul>
+                <li><strong>Font Family:</strong> Arial, sans-serif</li>
+                <li><strong>Application:</strong>
+                    <ul>
+                        <li style="font-family: Arial, sans-serif; font-size: 2em; font-weight: bold;">Headings (e.g., H1, H2, H3): Arial, Bold</li>
+                        <li style="font-family: Arial, sans-serif; font-size: 1.1em;">Body Text (Paragraphs, List Items): Arial, Regular</li>
+                        <li style="font-family: Arial, sans-serif; font-size: 0.9em; font-style: italic;">Quotes and Small Text: Arial, Italic (for quotes), Arial, Regular (for captions/small text)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>The choice of Arial, sans-serif ensures wide browser compatibility and excellent readability across various devices. Its clean, neutral aesthetic aligns well with a content-focused platform like CineWatch.</p>
+        </section>
+
+        <section id="wireframe">
+            <h2>6. Wireframes</h2>
+            <p>Below are conceptual wireframe sketches for the CineWatch homepage, illustrating the layout for both mobile and larger desktop views.</p>
+
+            <h3>Mobile View Wireframe</h3>
+            <div class="wireframe-image">
+                <p><em>This wireframe illustrates a typical mobile layout. Content stacks vertically. A prominent search bar or navigation toggle might be at the top. Carousel sections will display one show card at a time. Famous quotes section will be hidden on mobile. The "About the Developer" section will be at the very bottom.</em></p>
+                <a href="wireframes/CineWatchmobilewireframe.png" target="_blank" class="view-link">View Mobile Wireframe</a>
+            </div>
+
+            <h3>Larger Desktop View Wireframe</h3>
+            <div class="wireframe-image">
+                <p><em>This wireframe illustrates a larger desktop layout. Content is arranged in a grid format with multiple show cards visible at once. The sidebar for Famous Quotes and Overview is present on the right side. The "About the Developer" section is accessible via a link in the footer.</em></p>
+                <a href="wireframes/Cinewatch_LargescreenWireframe.png" target="_blank" class="view-link">View Desktop Wireframe</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CineWatch. All rights reserved. | Site Plan Document</p>
+        <p id="last-modified"></p>
+    </footer>
+
+    <script>
+        // JavaScript to display the last modified date
+        document.getElementById('last-modified').textContent = 'Last Modified: ' + document.lastModified;
+    </script>
+</body>
+</html>

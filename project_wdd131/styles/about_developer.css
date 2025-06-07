@@ -1,255 +1,337 @@
-/* ------------------------------------ */
-/* CSS Variables (usually in a :root or body selector) */
-/* ------------------------------------ */
-:root {
-    /* Colors */
-    --primary-color: #007bff;
-    --primary-hover-color: #0056b3;
-    --secondary-color: #6c757d;
-    --secondary-hover-color: #5a6268;
-    --text-color: #333;
-    --background-color: #fff;
-    --border-color: #ccc;
+/* Import basic variables from your main site's CSS for consistency */
+/* Assuming siteplan.css defines :root variables and .dark-mode variables */
+/* If your main site's variables are in a different file (e.g., style.css), change this import */
+@import url("siteplan.css"); /* This will bring in your --background-color-light/dark, --text-color-light/dark etc. */
 
-    /* Fonts */
-    --font-family-primary: 'Poppins', sans-serif;
-    --font-family-secondary: 'Roboto', sans-serif;
-    --font-size-base: 16px;
-
-    /* Spacing */
-    --spacing-xs: 8px;
-    --spacing-sm: 16px;
-    --spacing-md: 24px;
-    --spacing-lg: 32px;
-}
-
-/* Dark Mode Variables (assuming body.dark-mode is your toggle) */
-body.dark-mode {
-    --primary-color: #61dafb; /* Lighter primary for dark mode */
-    --primary-hover-color: #a0f0ff;
-    --secondary-color: #adb5bd;
-    --secondary-hover-color: #ced4da;
-    --text-color: #f8f8f8;
-    --background-color: #1a1a1a;
-    --border-color: #555;
-}
-
-/* ------------------------------------ */
-/* Base Styles (Resets, Typography) */
-/* ------------------------------------ */
-html {
-    box-sizing: border-box; /* Global box-sizing for easier layout */
-}
-
-*, *::before, *::after {
-    box-sizing: inherit;
-}
-
+/* General Body Styling */
 body {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-base);
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
     margin: 0;
-    min-height: 100vh; /* Ensures footer can stick to bottom */
+    line-height: 1.6;
+    background-color: var(--background-color-light); /* Uses CineWatch light mode background */
+    color: var(--text-color-light); /* Uses CineWatch light mode text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
-a {
-    text-decoration: none;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
+/* Dark Mode specific body styles (controlled by JS) */
+body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
 }
 
-a:hover {
-    color: var(--primary-hover-color);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block; /* Removes extra space below images */
-}
-
-/* ------------------------------------ */
-/* Layout Containers (e.g., .container) */
-/* ------------------------------------ */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-sm); /* Responsive padding */
-}
-
-/* ------------------------------------ */
-/* Component: Button */
-/* ------------------------------------ */
-.btn {
-    display: inline-flex; /* Allows icon and text to align */
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-xs) var(--spacing-md);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    text-decoration: none; /* Ensure buttons as links don't have underlines */
-    border: 1px solid transparent; /* Default transparent border */
-}
-
-.btn i { /* Icon inside button */
-    margin-right: var(--spacing-xs);
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: #fff; /* White text for primary buttons */
-    border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-hover-color);
-    border-color: var(--primary-hover-color);
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: #fff;
-    border-color: var(--secondary-color);
-}
-
-.btn-secondary:hover {
-    background-color: var(--secondary-hover-color);
-    border-color: var(--secondary-hover-color);
-}
-
-/* Example of an outline button */
-.btn-outline-primary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-}
-
-/* ------------------------------------ */
-/* Footer (as discussed) */
-/* ------------------------------------ */
-footer {
-    background-color: var(--light-mode-footer-bg-color, #f0f0f0);
-    color: var(--light-mode-text-color, #333);
-    padding: 20px 0;
-    font-family: var(--font-family-secondary); /* Use secondary font for footer */
-    font-size: 0.9em;
-    border-top: 1px solid var(--light-mode-border-color, #ccc);
-    margin-top: auto;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-body.dark-mode footer {
-    background-color: var(--dark-mode-footer-bg-color, #000);
-    color: var(--dark-mode-text-color, #f8f8f8);
-    border-color: var(--dark-mode-border-color, #555);
-}
-
-.footer-content {
+/* Header Styling (Consistent with CineWatch but simplified for this page) */
+.dev-header {
+    background-color: var(--card-background-light); /* A light blue accent for header */
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     display: flex;
+    justify-content: center; /* Center the content wrapper */
+    align-items: center;
     flex-wrap: wrap;
+    min-height: 80px;
+}
+
+body.dark-mode .dev-header {
+    background-color: var(--card-background-dark); /* Dark mode header background */
+    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+}
+
+.header-content-wrapper {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-sm);
+    width: 100%;
+    max-width: 1200px; /* Limit header content width */
 }
 
-.footer-section {
-    padding: 10px;
-}
-
-.footer-section.centered-info {
-    flex: 1 1 auto;
-    min-width: 280px;
+.dev-header .logo-link {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.dev-header .logo-link img {
+    max-width: 120px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.dev-header .logo-link .tagline {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+    white-space: nowrap;
+}
+
+body.dark-mode .dev-header .logo-link img {
+    filter: brightness(1.2) saturate(0.8); /* Adjust for dark mode if logo is dark */
+}
+body.dark-mode .dev-header .logo-link .tagline {
+    color: #ccc;
+}
+
+
+.dev-main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.dev-main-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color-light); /* Nav link color */
+    font-size: 1.1em;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.dev-main-nav ul li a:hover {
+    color: var(--accent-color); /* Hover color */
+}
+
+body.dark-mode .dev-main-nav ul li a {
+    color: var(--text-color-dark);
+}
+body.dark-mode .dev-main-nav ul li a:hover {
+    color: var(--accent-color-dark);
+}
+
+/* Dark mode toggle specific to this page */
+.mode-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.mode-icon {
+    width: 24px;
+    height: 24px;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+.mode-icon.active {
+    display: block;
+}
+
+/* Adjust icon color for dark mode toggle */
+body.dark-mode #dev-light-icon {
+    filter: invert(1); /* Invert color for dark mode */
+}
+body.dark-mode #dev-dark-icon {
+    filter: invert(1); /* Invert color for dark mode */
+}
+
+
+/* Main Content Styling */
+.dev-main-content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--quote-background-light); /* White/light background for content */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    flex-grow: 1; /* Pushes footer to the bottom */
+}
+
+body.dark-mode .dev-main-content {
+    background-color: var(--card-background-dark); /* Darker background for content in dark mode */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.dev-section {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--border-color-light); /* Light border */
+}
+
+body.dark-mode .dev-section {
+    border-bottom: 1px dashed var(--border-color-dark); /* Dark border */
+}
+
+.dev-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+h2, h3 {
+    color: var(--accent-color); /* Uses CineWatch accent color for headings */
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+body.dark-mode h2, body.dark-mode h3 {
+    color: var(--accent-color-dark); /* Dark mode accent color for headings */
+}
+
+h2 {
+    font-size: 2.2em;
     text-align: center;
+    margin-bottom: 25px;
 }
 
-.footer-section.centered-info p {
-    margin: 3px 0;
-    line-height: 1.3;
+h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
 }
 
-.footer-section.social-links {
-    flex: 0 1 auto;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
+p {
+    margin-bottom: 15px;
+    line-height: 1.7;
 }
 
-.social-icons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.social-icons img {
-    width: 28px;
-    height: 28px;
+.developer-photo {
+    display: block;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
-    transition: transform 0.3s ease;
+    object-fit: cover;
+    margin: 0 auto 25px;
+    border: 4px solid var(--accent-color); /* Accent border around photo */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.social-icons img:hover {
-    transform: translateY(-3px);
+body.dark-mode .developer-photo {
+    border-color: var(--accent-color-dark);
 }
 
-/* Footer Links - uses the general 'a' style by default, but can be overridden */
-footer a {
-    color: var(--link-color, #61dafb); /* Can be specific for footer if needed */
+/* Lists Styling */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-list li strong {
+    min-width: 70px;
+}
+
+.contact-list a, .project-list a {
+    color: var(--accent-color); /* Accent color for links */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-footer a:hover {
-    color: var(--link-hover-color, #a0f0ff);
+.contact-list a:hover, .project-list a:hover {
+    color: var(--primary-button-hover-background-light); /* Darker blue on hover */
     text-decoration: underline;
 }
 
-/* --- Responsive adjustments for smaller screens --- */
+body.dark-mode .contact-list a, body.dark-mode .project-list a {
+    color: var(--accent-color-dark);
+}
+body.dark-mode .contact-list a:hover, body.dark-mode .project-list a:hover {
+    color: var(--link-hover-color); /* Even brighter blue on hover for dark mode */
+}
+
+
+/* Footer Styling (Consistent with CineWatch main footer) */
+.dev-footer {
+    background-color: #333; /* Dark background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto; /* Pushes footer to the bottom */
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+body.dark-mode .dev-footer {
+    background-color: #0a0a0a; /* Even darker in dark mode */
+    box-shadow: 0 -2px 8px rgba(255,255,255,0.1);
+}
+
+.dev-footer p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #bbb;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .footer-content {
+    .dev-header .header-content-wrapper {
         flex-direction: column;
-        justify-content: center;
+        gap: 15px;
+    }
+    .dev-header .logo-link {
+        margin-bottom: 10px;
+    }
+    .dev-main-nav ul {
+        gap: 15px;
+    }
+    .dev-main-nav ul li a {
+        font-size: 1em;
     }
 
-    .footer-section {
-        min-width: 100%;
-        margin-bottom: var(--spacing-sm);
-        text-align: center;
+    .dev-main-content {
+        margin: 20px auto;
+        padding: 20px;
     }
-
-    .footer-section:last-child {
-        margin-bottom: 0;
+    h2 {
+        font-size: 1.8em;
     }
-
-    .footer-section.centered-info,
-    .footer-section.social-links {
-        align-items: center;
+    h3 {
+        font-size: 1.5em;
     }
+    .developer-photo {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+}
 
-    .social-icons {
-        justify-content: center;
+@media (max-width: 480px) {
+    .dev-header {
+        padding: 10px;
+    }
+    .dev-header .logo-link img {
+        max-width: 100px;
+    }
+    .dev-main-nav ul {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .dev-main-content {
+        padding: 15px;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.3em;
+    }
+    .developer-photo {
+        width: 120px;
+        height: 120px;
+    }
+    .contact-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .contact-list li strong {
+        min-width: unset;
     }
 }

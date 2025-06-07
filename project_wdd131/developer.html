@@ -3,146 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About The Developer - [Your Site Name]</title>
+    <title>About the Developer - CineWatch</title>
     <link rel="stylesheet" href="styles/about_developer.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalK/4fE52P701A7uB9F2Yj8z2k2e2h2e3h2p2w2g2q2u2o2s2t2u2v2w2x2y2z2a2b2c2d2e2f2g2h2i2j2k2l2m2n2o2p2q2r2s2t2u2v2w2x2y2z2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link rel="stylesheet" href="siteplan.css"> </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="images/logo.png" alt="[Your Site Name] Logo">
+    <header class="dev-header">
+        <div class="header-content-wrapper">
+            <a href="index.html" class="logo-link">
+                <img src="https://via.placeholder.com/150x50?text=CineWatch+Logo" alt="CineWatch Logo">
+                <p class="tagline">Your Gateway to Entertainment</p>
             </a>
-            <nav class="main-nav" aria-label="Main navigation">
+            <nav class="dev-main-nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="tv-shows.html">TV Shows</a></li>
-                    <li><a href="movies.html">Movies</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="about_us.html">About Us</a></li>
-                    </ul>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button id="devModeToggle" class="mode-toggle">
+                            <img src="https://img.icons8.com/ios-filled/24/null/sun.png" alt="Light Mode" class="mode-icon active" id="dev-light-icon">
+                            <img src="https://img.icons8.com/ios-filled/24/null/moon-symbol.png" alt="Dark Mode" class="mode-icon" id="dev-dark-icon">
+                        </button>
+                    </li>
+                </ul>
             </nav>
-            </div>
+        </div>
     </header>
 
-    <main id="developer-page-content">
-        <section class="hero-section">
-            <div class="container text-center">
-                <h1>About The Developer</h1>
-                <p class="tagline">The mind and hands behind **[Your Site Name]**</p>
-            </div>
+    <main class="dev-main-content">
+        <section id="developer-intro" class="dev-section">
+            <img src="https://via.placeholder.com/200x200?text=Your+Photo" alt="Developer's Photo" class="developer-photo">
+            <h2>Hello, I'm [Your Name]!</h2>
+            <p>I'm the passionate developer behind **CineWatch**, a platform designed to make your entertainment discovery effortless and enjoyable. My journey into web development has been an exciting adventure, driven by a love for technology and storytelling.</p>
         </section>
 
-        <section class="developer-bio-section section-padding">
-            <div class="container">
-                <div class="content-wrapper developer-details">
-                    <div class="image-content developer-image-container">
-                        <img src="images/casts/placeholderimage.webp" alt="[Your Name] - The Developer" loading="lazy">
-                        <h2>[Your Name]</h2>
-                        <p class="developer-tagline">Web Developer | Streaming Enthusiast | Problem Solver</p>
-                    </div>
-                    <div class="text-content developer-intro">
-                        <h2>Who I Am & What I Do</h2>
-                        <p>Hi, I'm **[Your Name]**, the sole developer and the passionate individual who brought **[Your Site Name]** to life. My journey into web development began with a deep fascination for technology and a particular love for storytelling through visual media.</p>
-                        <p>I specialize in **full-stack web development**, focusing on creating robust, scalable, and user-friendly applications. My work involves everything from designing intuitive user interfaces and building powerful backend systems to ensuring seamless database management and optimizing for performance. At **[Your Site Name]**, I handle the entire development lifecycle, constantly striving to implement the latest technologies and best practices to enhance your streaming experience.</p>
-                        <p>My goal is to create not just websites, but engaging platforms that solve real-world problems and bring joy to users. **[Your Site Name]** is a testament to this, born out of a personal need for a better TV show streaming hub here in Kenya.</p>
-                    </div>
-                </div>
-            </div>
+        <section id="my-bio" class="dev-section">
+            <h3>My Bio</h3>
+            <p>I am a [Your Profession/Student Status, e.g., aspiring web developer, full-stack developer, software engineering student] with a keen interest in creating intuitive and visually appealing web applications. My skills span [mention a few key skills, e.g., HTML, CSS, JavaScript, React, Python, UI/UX Design]. I thrive on solving complex problems and bringing ideas to life through code.</p>
+            <p>Beyond coding, I enjoy [mention a hobby, e.g., hiking, reading, gaming, watching movies (of course!)] and constantly learning new things. I believe that good design and robust functionality are equally important in creating memorable user experiences.</p>
         </section>
 
-        <section class="projects-section section-padding bg-light">
-            <div class="container">
-                <h2 class="section-heading">My Projects & GitHub</h2>
-                <p class="section-description">Beyond **[Your Site Name]**, I'm always working on exciting projects. Here are some of my other works, showcasing my development skills and interests:</p>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Project Name 1</h3>
-                        <p>A brief description of Project Name 1, highlighting its purpose and technologies used (e.g., "A real-time chat application built with Node.js and WebSockets").</p>
-                        <a href="[GitHub Project 1 Link]" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn"><i class="fab fa-github"></i> View on GitHub</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project Name 2</h3>
-                        <p>A brief description of Project Name 2, highlighting its purpose and technologies used (e.g., "An e-commerce platform prototype using React and Django REST Framework").</p>
-                        <a href="[GitHub Project 2 Link]" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn"><i class="fab fa-github"></i> View on GitHub</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project Name 3 (Optional)</h3>
-                        <p>A brief description of Project Name 3. You can add more cards as needed.</p>
-                        <a href="[GitHub Project 3 Link]" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn"><i class="fab fa-github"></i> View on GitHub</a>
-                    </div>
-                </div>
-                <div class="text-center button-group">
-                    <a href="[Your Main GitHub Profile Link]" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-github"></i> My Full GitHub Profile</a>
-                </div>
-            </div>
+        <section id="my-inspiration" class="dev-section">
+            <h3>My Inspiration for CineWatch</h3>
+            <p>CineWatch was born out of a personal frustration with the fragmented landscape of online entertainment. I often found myself jumping between multiple streaming services and review sites just to decide what to watch. My inspiration was to create a centralized, user-friendly hub where fellow movie and TV show enthusiasts could easily discover new content, get quick details, read famous quotes, and find out where to watch – all in one place.</p>
+            <p>I'm particularly inspired by platforms that simplify complex information and present it beautifully. The challenge of organizing vast amounts of data about films and series into an accessible and engaging interface was a key motivator for this project.</p>
         </section>
 
-        <section class="contact-developer-section section-padding">
-            <div class="container text-center">
-                <h2 class="section-heading">Get In Touch</h2>
-                <p class="section-description">Have a question, collaboration idea, or just want to connect? Feel free to reach out!</p>
-                <div class="contact-info-grid">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope icon"></i>
-                        <h3>Email</h3>
-                        <a href="mailto:youremail@example.com">youremail@example.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-whatsapp icon"></i>
-                        <h3>WhatsApp</h3>
-                        <a href="https://wa.me/[YourWhatsAppNumber]" target="_blank" rel="noopener noreferrer">[Your WhatsApp Number]</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt icon"></i>
-                        <h3>Location</h3>
-                        <p>Mlolongo, Machakos County, Kenya</p>
-                    </div>
-                </div>
-                <div class="social-links-contact">
-                    <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)"><i class="fab fa-x-twitter"></i></a>
-                </div>
-            </div>
+        <section id="fun-story" class="dev-section">
+            <h3>A Fun Story in Web Development</h3>
+            <p>One memorable moment in my web development journey happened during a [mention a project type, e.g., hackathon, personal project]. I was trying to implement a [mention a tricky feature, e.g., complex drag-and-drop interface, real-time chat, dynamic animation] and spent hours debugging what turned out to be a single missing semicolon! It was a frustrating but ultimately hilarious realization, teaching me the critical importance of meticulous attention to detail in code.</p>
+            <p>Another time, I accidentally deployed a test version of a website with placeholder "Lorem Ipsum" text still in a prominent section. My friend, who was testing it, messaged me: "Is 'Lorem Ipsum' the new viral marketing slogan?" We had a good laugh, and it became a reminder to always double-check content before going live!</p>
+        </section>
+
+        <section id="professional-background" class="dev-section">
+            <h3>Professional Background</h3>
+            <p>Apart from my work on CineWatch, I am currently a [Your Current Job Title, e.g., Junior Web Developer, Freelance UI Designer, Student Researcher] at [Your Current Company/Institution, e.g., Tech Innovations Inc., University of XYZ]. My responsibilities include [briefly describe responsibilities, e.g., developing front-end features, collaborating on API integrations, conducting usability testing].</p>
+            <p>I've previously gained experience at [Previous Employer/Project, if any] where I [briefly mention achievement/role]. These experiences have significantly shaped my approach to building robust and user-centric web solutions.</p>
+        </section>
+
+        <section id="connect-with-me" class="dev-section">
+            <h3>Connect with Me</h3>
+            <p>I'd love to connect! Feel free to reach out through any of the channels below:</p>
+            <ul class="contact-list">
+                <li><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+                <li><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></li>
+                <li><strong>Facebook:</strong> <a href="https://www.facebook.com/yourprofile" target="_blank">facebook.com/yourprofile</a></li>
+                <li><strong>WhatsApp:</strong> <a href="https://wa.me/1234567890" target="_blank">Send me a message</a></li>
+            </ul>
+        </section>
+
+        <section id="my-projects" class="dev-section">
+            <h3>My Other Projects</h3>
+            <p>You can explore more of my work on my GitHub pages. Here are a few highlights:</p>
+            <ul class="project-list">
+                <li><a href="https://yourusername.github.io/project-name-1/" target="_blank">Project Name One</a> - A brief description of what this project is about.</li>
+                <li><a href="https://yourusername.github.io/project-name-2/" target="_blank">Project Name Two</a> - Another cool project showcasing [specific skill].</li>
+                <li><a href="https://yourusername.github.io/project-name-3/" target="_blank">Project Name Three</a> - [Brief description] and link to live demo if available.</li>
+            </ul>
+            <p>Visit my full GitHub profile for more: <a href="https://github.com/yourusername?tab=repositories" target="_blank">github.com/yourusername/repositories</a></p>
+        </section>
+
+        <section id="closing-remarks" class="dev-section">
+            <h3>Thank You for Visiting!</h3>
+            <p>I hope you enjoy using CineWatch as much as I enjoyed building it. I'm always eager to learn and improve, so feel free to provide any feedback or suggestions.</p>
+            <p>Happy watching!</p>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-section centered-info">
-                <p>&copy; Copyright A Alex Malunda 2025</p>
-                <p>Last Modified: <span id="last-modified"></span></p>
-                <p><a href="privacy_notice.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
-                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
-            </div>
-            <div class="footer-section social-links">
-                <a href="about_developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <img src="images/socials/instagram-logo.webp" alt="Instagram">
-                    </a>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <img src="images/socials/facebook-logo.webp" alt="Facebook">
-                    </a>
-                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img src="images/socials/linkedin-logo.webp" alt="LinkedIn">
-                    </a>
-                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
-                        <img src="images/socials/x-logo.webp" alt="X (formerly Twitter)">
-                    </a>
-                </div>
-            </div>
-        </div>
+    <footer class="dev-footer">
+        <p>&copy; 2025 [Your Name]. All rights reserved. | Built with passion for CineWatch.</p>
     </footer>
 
-    <script>
-        // JavaScript to dynamically update the Last Modified date for the footer
-        document.getElementById('last-modified').textContent = document.lastModified;
-    </script>
-</body>
+    <script src="about_developer.js"></script>
+    <script src="your_main_site_js_file.js"></script> </body>
 </html>
