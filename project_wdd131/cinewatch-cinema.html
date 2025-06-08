@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alex Malunda">
+    <meta name="description" content="Find current movie showtimes and cinema halls in Nairobi, Kenya. Discover what's playing near you on CineWatch.">
+    <title>CineWatch Theatre Watch - Nairobi</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles/cinema_styles.css">
+    <!-- Font Awesome for icons (for social media in footer and potentially other icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <!-- Logo/Site Name -->
+            <div class="text-2xl font-bold mb-4 md:mb-0">
+                <a href="index.html" class="text-white hover:text-blue-300">CineWatch</a>
+            </div>
+
+            <!-- Search Bar and Suggestions Container -->
+            <div class="relative flex-grow mx-4 max-w-lg w-full mb-4 md:mb-0" id="search-container-wrapper">
+                <input type="text" id="search-bar" placeholder="Search movies, shows, cinemas..." class="w-full p-2 pl-10 rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+
+                <!-- Search Options and Suggestions Dropdown -->
+                <div id="search-dropdown" class="absolute hidden w-full bg-white dark:bg-gray-700 shadow-lg rounded-md mt-2 z-10 border border-gray-200 dark:border-gray-600">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-600">
+                        <label class="inline-flex items-center mr-4">
+                            <input type="radio" name="search-type" value="show" class="form-radio text-blue-600" checked>
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Search by Show</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="search-type" value="theater" class="form-radio text-blue-600">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Search by Theater</span>
+                        </label>
+                    </div>
+                    <ul id="suggestions-list" class="max-h-60 overflow-y-auto">
+                        <!-- Suggestions will be inserted here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Nav and Dark Mode Toggle -->
+            <nav class="flex items-center space-x-6">
+                <a href="discover.html" class="hover:text-blue-300 transition-colors">Home</a>
+                <a href="movies_series.html" class="hover:text-blue-300 transition-colors">Movies & Series</a>
+                <a href="castbio.html" class="hover:text-blue-300 transition-colors">Cast</a>
+                <a href="attributions.html" class="hover:text-blue-300 transition-colors">Attributions</a>
+                
+                <!-- Buy Tickets Button (opens modal) -->
+                <button id="buy-tickets-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">
+                    Buy Tickets
+                </button>
+
+                <!-- Dark Mode Toggle -->
+                <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon text-yellow-400"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex justify-center p-4 sm:p-6 lg:p-8">
+        <div class="max-w-6xl w-full bg-white shadow-lg rounded-lg p-6 sm:p-8 lg:p-10 border border-gray-200">
+            <h1 class="text-center text-gray-800 mb-6">CineWatch Theatre Guide - Nairobi</h1>
+            <p class="text-center text-gray-600 mb-8">Discover what's playing in cinemas around Nairobi!</p>
+
+            <div id="cinemas-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Cinema cards will be dynamically loaded here by JavaScript -->
+            </div>
+
+            <div class="mt-12 p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm text-center">
+                <p><strong>Note:</strong> Showtimes and movie availability are for illustrative purposes only. For the most accurate and up-to-date information, please visit the official website of each cinema.</p>
+                <p>Real-time cinema data usually requires integration with a specific third-party API.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Buy Tickets Modal -->
+    <div id="tickets-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-xl w-11/12 max-w-2xl relative">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Buy Your Tickets</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Ticket Selection -->
+                <div class="ticket-selection bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">1. Select Tickets</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="ticket-type">Ticket Type:</label>
+                        <select id="ticket-type" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800">
+                            <option value="adult-single">Single Adult ($12.00)</option>
+                            <option value="child-single">Single Child ($8.00)</option>
+                            <option value="adult-couple">Couple (2 Adults) ($22.00)</option>
+                            <option value="family-pack">Family Pack (2 Adults + 2 Children) ($35.00)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" value="1" min="1" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-800">
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 mt-6">2. Add Snacks</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center text-gray-700">
+                            <input type="checkbox" id="small-combo" value="7.00" class="mr-2 form-checkbox text-blue-600 rounded">
+                            Small Combo (Popcorn + Drink) - $7.00
+                        </label>
+                        <label class="flex items-center text-gray-700">
+                            <input type="checkbox" id="large-combo" value="12.00" class="mr-2 form-checkbox text-blue-600 rounded">
+                            Large Combo (Large Popcorn + 2 Drinks) - $12.00
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Order Summary & Payment -->
+                <div class="order-summary bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">3. Order Summary</h3>
+                    <div class="mb-4 text-gray-700">
+                        <p>Tickets: <span id="summary-tickets">0</span></p>
+                        <p>Snacks: <span id="summary-snacks">0</span></p>
+                        <p class="text-lg font-bold mt-2">Total: <span id="total-price" class="text-blue-600">$0.00</span> USD</p>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 mt-6">4. Payment Method</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center text-gray-700">
+                            <input type="radio" name="payment-method" value="credit-card" checked class="mr-2 form-radio text-blue-600">
+                            Credit Card
+                        </label>
+                        <label class="flex items-center text-gray-700">
+                            <input type="radio" name="payment-method" value="mobile-money" class="mr-2 form-radio text-blue-600">
+                            Mobile Money (e.g., M-Pesa)
+                        </label>
+                        <label class="flex items-center text-gray-700">
+                            <input type="radio" name="payment-method" value="paypal" class="mr-2 form-radio text-blue-600">
+                            PayPal
+                        </label>
+                    </div>
+
+                    <button id="checkout-btn" class="mt-8 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-md transition-colors">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer bg-gray-800 text-white p-6 shadow-lg mt-auto">
+        <div class="footer-content container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left space-y-4 md:space-y-0">
+            <div class="footer-section centered-info flex flex-col items-center md:items-start space-y-2">
+                <p>&copy; Copyright A Alex Malunda 2025</p>
+                <p><a href="privacy_notice.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300 transition-colors">Privacy Notice</a></p>
+                <p><a href="attributions.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300 transition-colors">Attributions</a></p>
+                <p>Last Modified: <span id="last-modified" class="font-light"></span></p>
+            </div>
+            <div class="footer-section social-links flex flex-col items-center md:items-end space-y-2">
+                <a href="about_developer.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300 transition-colors mb-2">About the Developer</a>
+                <div class="social-icons flex space-x-4">
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:opacity-75 transition-opacity">
+                        <img src="images/icons_logos/instagram_24dp.svg" alt="Instagram" class="w-6 h-6">
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:opacity-75 transition-opacity">
+                        <img src="images/icons_logos/facebook_24dp.svg" alt="Facebook" class="w-6 h-6">
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:opacity-75 transition-opacity">
+                        <img src="images/icons_logos/linkedin_24dp.svg" alt="LinkedIn" class="w-6 h-6">
+                    </a>
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)" class="hover:opacity-75 transition-opacity">
+                        <img src="images/icons_logos/twitter_24dp.svg" alt="X (formerly Twitter)" class="w-6 h-6">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script src="styles/cinema_script.js"></script>
+</body>
+</html>
