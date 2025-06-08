@@ -6,7 +6,7 @@
     --dark-text: #f0f0f0;
     --light-section-bg: #ffffff;
     --dark-section-bg: #2a2a2a;
-    --accent-color: #e50914; /* Netflix red-like */
+    --accent-color: #1F4A83; /* Changed from #666666 to a deep dark blue */
     --link-color: #007bff;
     --link-hover-color: #0056b3;
     --border-color: #ddd;
@@ -273,12 +273,12 @@ body.dark-mode #dark-icon {
     color: var(--dark-text);
 }
 
-.dev-section.bg-dark h2,
-.dev-section.bg-dark h3 {
-    color: #fff; /* White for headings on dark background */
+body.dark-mode .dev-section.bg-dark h2,
+body.dark-mode .dev-section.bg-dark h3 {
+    color: var(--accent-color); /* Use accent for headings on dark background in dark mode */
 }
 
-.dev-section.bg-dark a {
+body.dark-mode .dev-section.bg-dark a {
     color: #88c0d0; /* A lighter blue for links on dark */
 }
 
@@ -385,7 +385,7 @@ body.dark-mode .contact-list img {
 /* Closing Remarks Section */
 #closing-remarks {
     text-align: center;
-    background-color: var(--accent-color); /* Use accent color for emphasis */
+    background-color: var(--accent-color); /* Uses the new accent color */
     color: white;
     padding: 50px 20px;
 }
