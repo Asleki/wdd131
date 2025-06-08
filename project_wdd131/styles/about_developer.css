@@ -1,337 +1,511 @@
-/* Import basic variables from your main site's CSS for consistency */
-/* Assuming siteplan.css defines :root variables and .dark-mode variables */
-/* If your main site's variables are in a different file (e.g., style.css), change this import */
-@import url("siteplan.css"); /* This will bring in your --background-color-light/dark, --text-color-light/dark etc. */
+/* General Body and HTML Styles */
+:root {
+    --light-bg: #f9f9f9;
+    --dark-bg: #1a1a1a;
+    --light-text: #333;
+    --dark-text: #f0f0f0;
+    --light-section-bg: #ffffff;
+    --dark-section-bg: #2a2a2a;
+    --accent-color: #e50914; /* Netflix red-like */
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
 
-/* General Body Styling */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background-color: var(--background-color-light); /* Uses CineWatch light mode background */
-    color: var(--text-color-light); /* Uses CineWatch light mode text color */
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg);
+    color: var(--light-text);
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
-/* Dark Mode specific body styles (controlled by JS) */
+/* Dark Mode Styles */
 body.dark-mode {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
 }
 
-/* Header Styling (Consistent with CineWatch but simplified for this page) */
-.dev-header {
-    background-color: var(--card-background-light); /* A light blue accent for header */
-    padding: 15px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center; /* Center the content wrapper */
-    align-items: center;
-    flex-wrap: wrap;
-    min-height: 80px;
+body.dark-mode .site-header {
+    background-color: #222;
+    border-bottom: 1px solid #444;
 }
 
-body.dark-mode .dev-header {
-    background-color: var(--card-background-dark); /* Dark mode header background */
-    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+body.dark-mode .main-nav a {
+    color: var(--dark-text);
 }
 
-.header-content-wrapper {
+body.dark-mode .main-nav a:hover,
+body.dark-mode .main-nav a.active {
+    color: var(--accent-color);
+}
+
+body.dark-mode .mode-toggle {
+    background-color: #333;
+    border: 1px solid #555;
+}
+
+body.dark-mode .hero-section {
+    color: var(--dark-text); /* Ensure text is visible on hero */
+}
+
+body.dark-mode .dev-section.bg-light {
+    background-color: var(--dark-section-bg);
+    color: var(--dark-text);
+}
+
+body.dark-mode .dev-section.bg-dark {
+    background-color: #111; /* Even darker for contrast */
+    color: var(--dark-text);
+}
+
+body.dark-mode .site-footer {
+    background-color: #222;
+    border-top: 1px solid #444;
+    color: var(--dark-text);
+}
+
+body.dark-mode a {
+    color: var(--link-color); /* Maintain link color for visibility */
+}
+
+body.dark-mode a:hover {
+    color: var(--link-hover-color);
+}
+
+body.dark-mode strong {
+    color: var(--accent-color); /* Highlight strong text in dark mode */
+}
+
+/* Reusable Container for Content Width */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles (shared from about_us for consistency) */
+.site-header {
+    background-color: #fff;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    max-width: 1200px; /* Limit header content width */
 }
 
-.dev-header .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
+.site-header .logo img {
+    height: 50px; /* Adjust as needed */
+    width: auto;
 }
 
-.dev-header .logo-link img {
-    max-width: 120px;
-    height: auto;
-    margin-right: 10px;
-}
-
-.dev-header .logo-link .tagline {
-    font-size: 0.9em;
-    color: #555;
-    margin: 0;
-    white-space: nowrap;
-}
-
-body.dark-mode .dev-header .logo-link img {
-    filter: brightness(1.2) saturate(0.8); /* Adjust for dark mode if logo is dark */
-}
-body.dark-mode .dev-header .logo-link .tagline {
-    color: #ccc;
-}
-
-
-.dev-main-nav ul {
+.main-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 25px;
     align-items: center;
 }
 
-.dev-main-nav ul li a {
+.main-nav li {
+    margin-left: 25px;
+}
+
+.main-nav a {
     text-decoration: none;
-    color: var(--text-color-light); /* Nav link color */
-    font-size: 1.1em;
-    padding: 8px 0;
+    color: var(--light-text);
+    font-weight: 600;
     transition: color 0.3s ease;
-    white-space: nowrap;
+    padding: 5px 0;
 }
 
-.dev-main-nav ul li a:hover {
-    color: var(--accent-color); /* Hover color */
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--accent-color);
 }
 
-body.dark-mode .dev-main-nav ul li a {
-    color: var(--text-color-dark);
-}
-body.dark-mode .dev-main-nav ul li a:hover {
-    color: var(--accent-color-dark);
-}
-
-/* Dark mode toggle specific to this page */
+/* Mode Toggle Button */
 .mode-toggle {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
     background: none;
     border: none;
-    padding: 0;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-left: 20px;
+    padding: 5px;
+    color: var(--light-text);
+    background-color: var(--light-bg);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* For icon positioning */
 }
 
-.mode-icon {
-    width: 24px;
-    height: 24px;
+.mode-toggle .mode-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.mode-toggle .mode-icon.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+body:not(.dark-mode) #dark-icon {
     display: none;
-    transition: opacity 0.3s ease;
 }
 
-.mode-icon.active {
-    display: block;
+body.dark-mode #light-icon {
+    display: none;
 }
 
-/* Adjust icon color for dark mode toggle */
-body.dark-mode #dev-light-icon {
-    filter: invert(1); /* Invert color for dark mode */
-}
-body.dark-mode #dev-dark-icon {
-    filter: invert(1); /* Invert color for dark mode */
+body.dark-mode #dark-icon {
+    color: #ffd700; /* Gold for moon */
 }
 
+/* Hero Section - Specific to About Developer */
+.hero-section {
+    background-image: url('../images/myteam/aboutus_hero.webp'); /* Path to your hero image */
+    background-size: cover;
+    background-position: center;
+    color: white; /* Text color over the image */
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden; /* To contain pseudo-element */
+}
 
-/* Main Content Styling */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay for text readability */
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: white; /* Ensure heading is white */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.hero-section .tagline {
+    font-size: 1.2em;
+    font-weight: 300;
+    color: #f0f0f0;
+}
+
+/* Main Content Area */
 .dev-main-content {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 30px;
-    background-color: var(--quote-background-light); /* White/light background for content */
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    flex-grow: 1; /* Pushes footer to the bottom */
+    padding: 40px 0;
 }
 
-body.dark-mode .dev-main-content {
-    background-color: var(--card-background-dark); /* Darker background for content in dark mode */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-
+/* Individual Developer Sections */
 .dev-section {
     margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px dashed var(--border-color-light); /* Light border */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-body.dark-mode .dev-section {
-    border-bottom: 1px dashed var(--border-color-dark); /* Dark border */
+.section-padding {
+    padding: 40px;
 }
 
-.dev-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
-h2, h3 {
-    color: var(--accent-color); /* Uses CineWatch accent color for headings */
-    font-family: Arial, sans-serif;
-    font-weight: bold;
+.dev-section h2,
+.dev-section h3 {
+    color: var(--accent-color);
+    font-family: 'Poppins', sans-serif;
     margin-top: 0;
-    margin-bottom: 15px;
-}
-
-body.dark-mode h2, body.dark-mode h3 {
-    color: var(--accent-color-dark); /* Dark mode accent color for headings */
-}
-
-h2 {
-    font-size: 2.2em;
     text-align: center;
     margin-bottom: 25px;
 }
 
-h3 {
-    font-size: 1.8em;
+.dev-section p {
     margin-bottom: 15px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
 }
 
-p {
-    margin-bottom: 15px;
-    line-height: 1.7;
+.dev-section strong {
+    color: var(--accent-color);
+}
+
+/* Background Variations */
+.dev-section.bg-light {
+    background-color: var(--light-section-bg);
+}
+
+.dev-section.bg-dark {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+.dev-section.bg-dark h2,
+.dev-section.bg-dark h3 {
+    color: #fff; /* White for headings on dark background */
+}
+
+.dev-section.bg-dark a {
+    color: #88c0d0; /* A lighter blue for links on dark */
+}
+
+/* Developer Intro Section Specifics */
+#developer-intro .content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px; /* Space between image and text */
+}
+
+#developer-intro .image-content {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    text-align: center;
 }
 
 .developer-photo {
-    display: block;
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto 25px;
-    border: 4px solid var(--accent-color); /* Accent border around photo */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 5px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: transform 0.3s ease;
 }
 
-body.dark-mode .developer-photo {
-    border-color: var(--accent-color-dark);
+.developer-photo:hover {
+    transform: scale(1.05);
 }
 
-/* Lists Styling */
-ul {
+#developer-intro .text-content {
+    flex-grow: 1;
+}
+
+#developer-intro h2 {
+    text-align: left; /* Align heading with text */
+}
+
+/* Connect with Me Section */
+.contact-list {
     list-style: none;
-    padding-left: 0;
-}
-
-ul li {
-    margin-bottom: 8px;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contact-list li {
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
-.contact-list li strong {
-    min-width: 70px;
+.contact-list a {
+    text-decoration: none;
+    color: var(--link-color);
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
 }
 
-.contact-list a, .project-list a {
-    color: var(--accent-color); /* Accent color for links */
+.contact-list a:hover {
+    color: var(--link-hover-color);
+}
+
+.contact-list img {
+    width: 28px; /* Slightly larger for visibility */
+    height: 28px;
+    margin-right: 12px;
+    filter: brightness(0.8); /* Slightly dim icons */
+    transition: filter 0.3s ease;
+}
+
+body.dark-mode .contact-list img {
+    filter: brightness(1.2) invert(1); /* Invert and brighten for dark mode */
+}
+
+.contact-list a:hover img {
+    filter: brightness(1); /* Restore brightness on hover */
+}
+
+/* Other Projects Section */
+.project-list {
+    list-style: disc;
+    padding-left: 20px;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+.project-list li {
+    margin-bottom: 10px;
+}
+
+.project-list a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.project-list a:hover {
+    text-decoration: underline;
+}
+
+/* Closing Remarks Section */
+#closing-remarks {
+    text-align: center;
+    background-color: var(--accent-color); /* Use accent color for emphasis */
+    color: white;
+    padding: 50px 20px;
+}
+
+#closing-remarks h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Footer Styles (shared from about_us for consistency) */
+.site-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid #444;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-section p,
+.footer-section a {
+    margin: 5px 0;
+    color: #bbb;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.contact-list a:hover, .project-list a:hover {
-    color: var(--primary-button-hover-background-light); /* Darker blue on hover */
-    text-decoration: underline;
+.footer-section a:hover {
+    color: var(--accent-color);
 }
 
-body.dark-mode .contact-list a, body.dark-mode .project-list a {
-    color: var(--accent-color-dark);
-}
-body.dark-mode .contact-list a:hover, body.dark-mode .project-list a:hover {
-    color: var(--link-hover-color); /* Even brighter blue on hover for dark mode */
-}
-
-
-/* Footer Styling (Consistent with CineWatch main footer) */
-.dev-footer {
-    background-color: #333; /* Dark background */
-    color: white;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto; /* Pushes footer to the bottom */
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-    width: 100%;
+.social-icons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-body.dark-mode .dev-footer {
-    background-color: #0a0a0a; /* Even darker in dark mode */
-    box-shadow: 0 -2px 8px rgba(255,255,255,0.1);
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    filter: invert(1); /* Make social icons white */
+    transition: transform 0.3s ease;
 }
 
-.dev-footer p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #bbb;
+.social-icons a:hover img {
+    transform: scale(1.1);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .dev-header .header-content-wrapper {
+    .site-header .container {
         flex-direction: column;
         gap: 15px;
     }
-    .dev-header .logo-link {
-        margin-bottom: 10px;
-    }
-    .dev-main-nav ul {
-        gap: 15px;
-    }
-    .dev-main-nav ul li a {
-        font-size: 1em;
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .dev-main-content {
-        margin: 20px auto;
-        padding: 20px;
+    .main-nav li {
+        margin: 0 10px 10px 10px;
     }
-    h2 {
-        font-size: 1.8em;
+
+    #developer-intro .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
     }
-    h3 {
-        font-size: 1.5em;
+
+    #developer-intro h2 {
+        text-align: center;
     }
-    .developer-photo {
-        width: 150px;
-        height: 150px;
-        margin-bottom: 20px;
+
+    .section-padding {
+        padding: 25px;
+    }
+
+    .contact-list,
+    .project-list {
+        padding-left: 0;
+    }
+
+    .contact-list li {
+        justify-content: center; /* Center contact items */
+    }
+
+    .footer-content {
+        flex-direction: column;
     }
 }
 
 @media (max-width: 480px) {
-    .dev-header {
-        padding: 10px;
+    .hero-section h1 {
+        font-size: 2.2em;
     }
-    .dev-header .logo-link img {
-        max-width: 100px;
+
+    .hero-section .tagline {
+        font-size: 1em;
     }
-    .dev-main-nav ul {
-        flex-direction: column;
-        gap: 8px;
+
+    .developer-photo {
+        width: 150px;
+        height: 150px;
     }
-    .dev-main-content {
-        padding: 15px;
-    }
-    h2 {
+
+    .dev-section h2,
+    .dev-section h3 {
         font-size: 1.5em;
     }
-    h3 {
-        font-size: 1.3em;
-    }
-    .developer-photo {
-        width: 120px;
-        height: 120px;
-    }
-    .contact-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    .contact-list li strong {
-        min-width: unset;
+
+    .main-nav li {
+        margin: 0 8px 8px 8px;
     }
 }

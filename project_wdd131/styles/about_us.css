@@ -26,9 +26,10 @@ body.dark-mode {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1200px; /* Default max-width for main content */
     margin: 0 auto;
     padding: 0 20px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -116,23 +117,21 @@ body.dark-mode .section-description {
     background-color: var(--primary-bg-dark);
     padding: 15px 0;
     border-bottom: 1px solid var(--border-color-dark);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%; /* Ensure it spans full width */
-    /* Remove any max-width here */
-    box-sizing: border-box; /* Include padding in width */
+    /* Removed 'position: sticky;' and 'top: 0;' to make it scrollable */
+    /* Removed 'z-index: 1000;' as it's not sticky anymore */
+    width: 100%; /* Header spans full width */
+    box-sizing: border-box;
 }
 
 .site-header .container {
-    /* Remove max-width and horizontal padding from .container within the header */
-    max-width: none; /* This will make it span full width */
-    width: 100%; /* Ensure the container itself uses the full width it's given */
-    padding: 0 20px; /* Re-add horizontal padding directly here for content inset */
+    max-width: 1200px; /* Constrain content within container for readability */
+    width: 100%;
+    padding: 0 20px; /* Add horizontal padding for content inset */
+    margin: 0 auto; /* Center the container */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box;
 }
 
 .site-header .logo img {
@@ -203,13 +202,12 @@ body.dark-mode .section-description {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/hero-bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/myteam/man-watching-show-his-tv_926199-1957605.webp') no-repeat center center/cover;
     padding: 100px 0;
     text-align: center;
     color: #ffffff;
-    width: 100%; /* Ensure it spans full width */
-    /* Remove any max-width here */
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%; /* Hero section spans full width */
+    box-sizing: border-box;
 }
 
 .hero-section .container {
@@ -217,7 +215,7 @@ body.dark-mode .section-description {
     padding: 0 20px;
     margin: 0 auto;
     width: 100%;
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box;
 }
 
 .hero-section h1 {
@@ -239,6 +237,7 @@ body.dark-mode .section-description {
     align-items: center;
     gap: 40px;
     margin-bottom: 40px;
+    flex-direction: row; /* Default for larger screens */
 }
 
 .content-wrapper .text-content {
@@ -261,7 +260,7 @@ body.dark-mode .section-description {
 }
 
 .developer-section .content-wrapper {
-    flex-direction: row-reverse;
+    flex-direction: row-reverse; /* Specific for developer section on larger screens */
 }
 
 .developer-image {
@@ -385,11 +384,19 @@ body.dark-mode .developer-section h4 {
     align-items: flex-start;
     gap: 10px;
 }
-.contact-list li i {
+.contact-list li i { /* This assumes a font icon (e.g., Font Awesome) */
     color: var(--accent-color);
     font-size: 1.2em;
     min-width: 20px;
     text-align: center;
+    margin-top: 0.2em; /* Adjust to align icon with text baseline */
+}
+/* If using images for icons, add a specific rule for img */
+.contact-list li img {
+    width: 20px; /* Adjust as needed */
+    height: auto;
+    margin-top: 0.2em; /* Adjust to align icon with text baseline */
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 body.dark-mode .contact-list li i {
     color: var(--accent-color-dark);
@@ -494,150 +501,300 @@ body.dark-mode .btn-secondary:hover {
     color: var(--text-color-dark);
 }
 
-/* Footer */
+/* Footer Links - uses the general 'a' style by default, but can be overridden */
+
 .site-footer {
-    background-color: var(--primary-bg-dark);
-    color: var(--text-color-dark);
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid var(--border-color-dark);
+    background-color: #e6e6fa; /* Or your desired footer background color */
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    color: #333;
     font-size: 0.9em;
-    margin-top: auto;
-    width: 100%;
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%; /* Footer spans full width */
+    box-sizing: border-box;
+    margin-top: auto; /* Pushes footer to the bottom */
 }
 
 body.dark-mode .site-footer {
-    background-color: var(--primary-bg-dark);
-    border-color: var(--border-color-dark);
+    background-color: var(--primary-bg-dark); /* Example dark mode footer background */
     color: var(--text-color-dark);
+    border-color: var(--border-color-dark);
 }
 
-.site-footer .container {
-    max-width: none;
-    padding: 0 20px;
+.footer-content {
+    max-width: 960px; /* Max width for content on larger screens */
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack children vertically by default */
+    align-items: center; /* Center items horizontally when stacked vertically */
+    padding: 0 15px; /* Add some horizontal padding for smaller screens */
+    box-sizing: border-box;
+}
+
+.footer-section {
+    text-align: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+/* Remove margin-bottom from the last footer-section to avoid extra space */
+.footer-section:last-child {
+    margin-bottom: 0;
+}
+
+.centered-info p {
+    margin: 5px 0;
+}
+
+.centered-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+body.dark-mode .centered-info a {
+    color: var(--link-hover-color); /* Adjust for dark mode if needed */
+}
+
+.centered-info a:hover {
+    text-decoration: underline;
+}
+
+/* Specific styling for the 'About the Developer' link in the footer */
+.social-links a[href="about_developer.html"] {
+    color: #007bff; /* Link color for "About the Developer" */
+    text-decoration: none;
+    margin-bottom: 10px; /* Space between "About the Developer" and icons */
+    display: block; /* Make it a block to take its own line and allow vertical margin */
+}
+
+body.dark-mode .social-links a[href="about_developer.html"] {
+    color: var(--link-hover-color); /* Adjust for dark mode if needed */
+}
+
+.social-links a[href="about_developer.html"]:hover {
+    text-decoration: underline;
+}
+
+
+.social-icons {
+    display: flex;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
-    box-sizing: border-box; /* Include padding in width */
+    margin-top: 10px;
 }
 
-.footer-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.social-icons a {
+    margin: 0 8px;
     display: flex;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
-.footer-nav ul li a {
-    color: var(--text-color-dark);
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    display: block;
 }
 
-.footer-nav ul li a:hover {
-    color: var(--accent-color-dark);
-}
+/* ================== Media Queries ================== */
 
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .content-wrapper {
-        flex-direction: column;
-    }
-
-    .story-section .content-wrapper,
-    .developer-section .content-wrapper {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 768px) {
-    .site-header .container {
-        /* On small screens, allow content to scroll horizontally if it overflows */
-        overflow-x: auto; /* Enable horizontal scrolling */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        justify-content: flex-start; /* Align content to the start to make scrolling apparent */
-        flex-wrap: nowrap; /* Prevent wrapping of navigation items */
-        padding: 0 15px; /* Adjust padding for smaller screens if necessary */
-    }
-
-    .site-header .logo {
-        flex-shrink: 0; /* Prevent logo from shrinking */
-    }
-
-    .main-nav ul {
-        flex-direction: row; /* Keep nav items in a row for horizontal scroll */
-        margin-top: 0; /* Remove top margin */
-        padding-left: 20px; /* Add some space between logo and nav */
-        flex-wrap: nowrap; /* Ensure items stay in one line for scrolling */
-    }
-
-    .main-nav ul li {
-        margin-left: 20px; /* Adjust margin for horizontal layout */
-        flex-shrink: 0; /* Prevent nav items from shrinking */
-    }
-
-    .mode-toggle {
-        flex-shrink: 0; /* Prevent toggle from shrinking */
+/* Small devices (phones, max-width 600px) - Mobile-first adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 15px; /* Slightly reduce padding on smaller screens */
     }
 
     .hero-section h1 {
-        font-size: 2.8em;
+        font-size: 2.5em;
     }
-
     .hero-section .tagline {
         font-size: 1.2em;
     }
 
-    .section-padding {
-        padding: 50px 0;
+    .site-header .container {
+        flex-direction: column; /* Stack logo and nav vertically */
+        align-items: center;
+        padding: 15px 15px; /* Adjust padding */
+    }
+
+    .site-header .logo {
+        margin-bottom: 15px; /* Space between logo and nav */
+    }
+
+    .main-nav ul {
+        flex-direction: column; /* Stack nav items vertically */
+        gap: 10px;
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-nav ul li {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-nav ul li a {
+        padding: 8px 0;
+        display: block;
+        font-size: 1em; /* Smaller font for nav links */
+    }
+
+    .mode-toggle {
+        margin-top: 15px;
+        margin-left: 0;
+    }
+
+    .content-wrapper {
+        flex-direction: column; /* Stack story/developer content vertically */
+        text-align: center;
+        gap: 20px; /* Reduce gap */
+    }
+
+    .content-wrapper .text-content,
+    .content-wrapper .image-content {
+        flex: none; /* Reset flex-grow/shrink */
+        width: 100%;
+    }
+
+    .story-image, .developer-image {
+        max-width: 90%; /* Adjust image size for smaller screens */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .developer-section .content-wrapper {
+        flex-direction: column; /* Ensure it stacks even if default was reversed */
     }
 
     .team-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Single column for team members on small phones */
     }
 
     .cta-buttons {
-        flex-direction: column;
+        flex-direction: column; /* Stack CTA buttons */
         gap: 15px;
-    }
-
-    .site-footer .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .footer-nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .site-header .logo img {
-        height: 40px;
-    }
-
-    .hero-section h1 {
-        font-size: 2.2em;
-    }
-
-    .hero-section .tagline {
-        font-size: 1em;
     }
 
     .btn {
-        padding: 12px 20px;
+        padding: 12px 25px; /* Slightly smaller buttons */
         font-size: 1em;
     }
 
-    h2 {
-        font-size: 1.8em;
+    .section-padding {
+        padding: 60px 0; /* Reduce section padding */
     }
 
-    p {
-        font-size: 1em;
+    .footer-content {
+        padding: 0 15px; /* Ensure footer content is padded */
+        flex-direction: column; /* Ensure footer sections stack on small screens */
+    }
+
+    .footer-section {
+        margin-bottom: 20px; /* Add more space between stacked footer sections */
+    }
+}
+
+/* Medium devices (tablets, 601px to 992px) */
+@media (min-width: 601px) and (max-width: 992px) {
+    .container {
+        padding: 0 25px; /* Slightly more padding for tablets */
+    }
+
+    .hero-section h1 {
+        font-size: 3em;
+    }
+    .hero-section .tagline {
+        font-size: 1.4em;
+    }
+
+    /* Content wrapper (story/developer sections) can go side-by-side on tablets */
+    .content-wrapper {
+        flex-direction: row;
+        align-items: center; /* Ensure vertical alignment */
+    }
+
+    .developer-section .content-wrapper {
+        flex-direction: row-reverse;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for team members */
+        gap: 25px;
+    }
+
+    .btn {
+        padding: 14px 28px;
+    }
+
+    /* Footer layout for tablets */
+    .footer-content {
+        flex-direction: row; /* Arrange sections horizontally */
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap; /* Allow wrapping if needed */
+        padding: 0 25px; /* Adjust padding for tablets */
+    }
+
+    .footer-section {
+        flex: 1;
+        min-width: 250px; /* Adjust min-width for tablet columns */
+        margin-bottom: 0; /* Reset vertical margin for row layout */
+        text-align: left; /* Align text left in footer sections */
+    }
+
+    /* Keep specific footer sections centered if desired */
+    .centered-info,
+    .social-links {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Large devices (desktops, 993px and up) */
+@media (min-width: 993px) {
+    .container {
+        max-width: 1200px; /* Revert to the default max-width for main content */
+        padding: 0 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 3.8em;
+    }
+    .hero-section .tagline {
+        font-size: 1.6em;
+    }
+
+    .site-header .container {
+        max-width: 1200px; /* Ensure header content aligns with main content container */
+        padding: 0 20px;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Allow 3 or 4 columns if space permits */
+    }
+
+    .footer-content {
+        max-width: 960px; /* Footer content remains constrained and centered */
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 0; /* No horizontal padding needed as max-width and margin auto will center it */
+    }
+
+    .footer-section {
+        flex: 1;
+        min-width: 250px;
+        text-align: left;
+    }
+    /* Override for specific sections to keep center alignment on large screens */
+    .centered-info {
+        text-align: center;
+    }
+    .social-links {
+        text-align: center;
     }
 }
