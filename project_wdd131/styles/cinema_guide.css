@@ -1,0 +1,278 @@
+/* General styling for the Cinema Guide page */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg); /* Uses theme variable from standalone_header.css */
+    color: var(--text); /* Uses theme variable from standalone_header.css */
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Main content container for the Cinema Guide */
+.cinema-guide-container {
+    flex-grow: 1; /* Allows content to push footer down */
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    color: var(--primary-color, #e50914); /* Default to Netflix Red if var not found */
+    text-align: center;
+    font-size: 2.8em;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Filter Controls Section */
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Allow filters to wrap on smaller screens */
+}
+
+.filter-controls select,
+.filter-controls input[type="date"] {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    background-color: var(--bg); /* Adapts to theme */
+    color: var(--text); /* Adapts to theme */
+    font-size: 1em;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+body.dark-mode .filter-controls select,
+body.dark-mode .filter-controls input[type="date"] {
+    background-color: #333;
+    border-color: var(--border-color-dark);
+    color: var(--text);
+}
+
+.filter-controls select:focus,
+.filter-controls input[type="date"]:focus {
+    border-color: var(--highlight);
+    box-shadow: 0 0 0 3px rgba(var(--highlight-rgb), 0.2);
+}
+
+/* Cinema Listings Grid */
+.cinema-listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Individual Cinema Card */
+.cinema-card {
+    background-color: var(--card-background-light); /* Adapts to theme */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
+    border: 1px solid var(--border-color-light);
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-mode .cinema-card {
+    background-color: var(--card-background-dark);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--border-color-dark);
+}
+
+.cinema-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cinema-card h3 {
+    color: var(--highlight); /* Cinema name in highlight color */
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cinema-card .cinema-location {
+    font-size: 0.95em;
+    color: var(--secondary-text, #555); /* Secondary text color */
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--border-color-light);
+    padding-bottom: 15px;
+}
+body.dark-mode .cinema-card .cinema-location {
+    color: #ccc;
+    border-bottom-color: var(--border-color-dark);
+}
+
+.movie-showtimes {
+    flex-grow: 1; /* Allows showtimes section to grow */
+}
+
+.movie-entry {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* Light separator */
+}
+body.dark-mode .movie-entry {
+    border-bottom: 1px solid rgba(255,255,255,0.05); /* Dark separator */
+}
+
+.movie-entry:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.movie-entry h4 {
+    font-size: 1.3em;
+    color: var(--text); /* Movie title adapts to theme */
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.movie-entry .movie-genre {
+    font-size: 0.85em;
+    color: var(--secondary-text, #666); /* Genre text color */
+    margin-bottom: 10px;
+}
+body.dark-mode .movie-entry .movie-genre {
+    color: #bbb;
+}
+
+
+.showtime-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.showtime-buttons button {
+    background-color: var(--primary-button-background-light); /* Adapts to theme */
+    color: var(--primary-button-text-light); /* Adapts to theme */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+body.dark-mode .showtime-buttons button {
+    background-color: var(--primary-button-background-dark);
+    color: var(--primary-button-text-dark);
+    box-shadow: 0 2px 7px rgba(0,0,0,0.2);
+}
+
+.showtime-buttons button:hover {
+    background-color: var(--primary-button-hover-background-light); /* Adapts to theme */
+    transform: translateY(-1px);
+}
+body.dark-mode .showtime-buttons button:hover {
+    background-color: var(--primary-button-hover-background-dark);
+}
+
+.showtime-buttons button:active {
+    transform: translateY(0);
+}
+
+/* Placeholder card for loading state */
+.placeholder-card {
+    text-align: center;
+    grid-column: 1 / -1; /* Span full width in grid */
+    padding: 50px;
+    font-size: 1.2em;
+    color: var(--secondary-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-card i {
+    font-size: 3em;
+    margin-top: 20px;
+    color: var(--highlight); /* Spinner icon in highlight color */
+    animation: spin 2s linear infinite; /* Spinning animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .cinema-guide-container {
+        padding: 15px;
+    }
+
+    .page-title {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .filter-controls select,
+    .filter-controls input[type="date"] {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .cinema-listings-grid {
+        grid-template-columns: 1fr; /* Single column layout on mobile */
+        gap: 20px;
+    }
+
+    .cinema-card {
+        padding: 20px;
+    }
+
+    .cinema-card h3 {
+        font-size: 1.5em;
+    }
+
+    .movie-entry h4 {
+        font-size: 1.1em;
+    }
+
+    .showtime-buttons button {
+        padding: 7px 12px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+    }
+}
+
+/* --- Social Icons in Footer (Ensuring original colors) --- */
+/* This rule is crucial to prevent social media icons from inverting colors in dark mode.
+   It overrides any potential global filter on images or i tags that might be set by watch.css
+   or standalone_header.css to invert all icons/images. */
+.site-footer .social-icons img,
+.site-footer .social-icons i { /* Include i if you swap to Font Awesome for social icons */
+    filter: none !important; /* Forces no inversion for these specific images/icons */
+}
+body.dark-mode .site-footer .social-icons img,
+body.dark-mode .site-footer .social-icons i {
+    filter: none !important; /* Double-check for dark mode */
+}

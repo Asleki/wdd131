@@ -3,95 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CineWatch Cinema Guide - Find movie showtimes and buy tickets for cinemas in Nairobi, New York, Beijing, Seoul and more.">
-    <meta name="author" content="Alex Malunda">
-    <title>Cinema Guide - CineWatch</title>
-
-    <!-- Consolidated CSS links -->
-       
-    <link rel="stylesheet" href="styles1/themes.css">    <!-- Your theme variables -->
-    <link rel="stylesheet" href="styles1/cinema-guide.css"> <!-- NEW: Page-specific Cinema Guide styles -->
-
-    <!-- Google Fonts: Poppins (for headings) and Roboto (for body text) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>CineWatch - Cinema Guide</title>
+    <link rel="icon" href="images/icons&logos/app-logo.png" type="image/x-icon">
+    <!-- Link our standalone header CSS for header specific styles -->
+    <link rel="stylesheet" href="styles/standalone_header.css">
+    <!-- Link the specific Cinema Guide CSS for all other page styles including the body and footer -->
+    <link rel="stylesheet" href="styles/cinema_guide.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="light-mode">
-    
-    <main class="cinema-guide-page">
-        <section class="hero-section small-hero">
-            <div class="container">
-                <h1>Cinema Guide</h1>
-                <p class="tagline">Find movie showtimes near you and book your tickets!</p>
-            </div>
-        </section>
+<body>
+    <!-- Main Header (Standalone Header - Integrated Content) -->
+    <header id="mainHeader">
+        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
 
-        <section class="city-selection-section">
-            <div class="container">
-                <h2>Select Your City</h2>
-                <div class="city-buttons" id="city-buttons">
-                    <button class="btn btn-secondary active" data-city="nairobi">Nairobi</button>
-                    <button class="btn btn-secondary" data-city="new-york">New York</button>
-                    <button class="btn btn-secondary" data-city="beijing">Beijing</button>
-                    <button class="btn btn-secondary" data-city="seoul">Seoul</button>
-                    <!-- Add more cities here as needed -->
-                </div>
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content dynamically added by JS -->
             </div>
-        </section>
+        </nav>
+    </header>
 
-        <!-- NEW SECTION: Featured Movies in Cinemas (9 shows with posters and synopsis) -->
-        <section class="featured-movies-cinemas-section">
-            <div class="container">
-                <h2>Featured Movies Currently Showing</h2>
-                <div class="featured-movie-grid" id="featured-movie-grid">
-                    <!-- 9 movie posters with synopsis dynamically inserted here by JS -->
-                </div>
-            </div>
-        </section>
+    <!-- Search Subheader (from standalone_header.html - Integrated Content) -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
 
+    <!-- Alert Box (from standalone_header.html - Integrated Content) -->
+    <div id="alertBox" class="alert-box hidden">
+        <i class="fas fa-exclamation-triangle red-icon"></i>
+        <span>You must be logged in to add shows!</span>
+    </div>
+
+    <!-- Cinema Guide Hero Section -->
+    <section id="cinemaHeroSection" class="cinema-hero-section">
+        <div id="screeningTitlesMarquee" class="screening-titles-marquee">
+            <!-- Dynamic content from JS -->
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <main class="cinema-guide-container">
+        <h1 class="page-title">Cinema Guide</h1>
+        
         <section class="cinema-listings-section">
-            <div class="container">
-                <h2>Showtimes & Cinemas</h2>
-                <div id="cinema-listings-container">
-                    <!-- Cinema listings will be dynamically loaded here by JS -->
-                    <p class="no-cinema-message">Select a city to view cinema listings.</p>
+            <div class="filter-controls">
+                <select id="citySelect" aria-label="Select City">
+                    <option value="">All Cities</option>
+                    <option value="Nairobi">Nairobi</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Eldoret">Eldoret</option>
+                </select>
+                <input type="date" id="dateSelect" aria-label="Select Date">
+            </div>
+
+            <div id="cinemaListings" class="cinema-listings-grid">
+                <!-- Loading indicator visible by default, will be hidden by JS after load -->
+                <div class="loading-animation-container" id="loadingSpinner">
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p>Loading screening shows for you/near you...</p>
                 </div>
+                <!-- Cinema listings will be dynamically inserted here -->
             </div>
         </section>
     </main>
-        <footer class="site-footer">
+
+    <!-- Footer - Exactly as provided by user, with updated image paths -->
+    <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-section centered-info">
-                <p>&copy; Copyright A Alex Malunda 2025</p>
-                <p>Last Modified: <span id="last-modified"></span></p>
+                <p>&copy; Copyright Alex Malunda 2025</p>
                 <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
                 <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
             </div>
             <div class="footer-section social-links">
                 <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
                 <div class="social-icons">
                     <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                        <img src="images/socials/instagram-logo.webp" alt="Instagram">
                     </a>
-                    <a href="https://www.facebook.com/aslekiymastamynd" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <img src="images/socialicons/facebook_24dp.svg" alt="Facebook">
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/socials/facebook-logo.webp" alt="Facebook">
                     </a>
-                    <a href="https://www.linkedin.com/in/alexmalunda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn">
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/socials/linkedin-logo.webp" alt="LinkedIn">
                     </a>
-                    <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
-                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/socials/x-logo.webp" alt="X (formerly Twitter)">
                     </a>
                 </div>
             </div>
         </div>
     </footer>
 
-   
-    <!-- Essential JS files -->
-    <!-- Place js/data.js here if it's a separate file -->
-    <script src="scripts1/watch.js"></script> <!-- For shared header/footer functionality (mode toggle, message box, year) -->
-    <script src="js/cinema-guide-logic.js"></script> <!-- NEW: Page-specific Cinema Guide JS -->
+    <!-- Load necessary JavaScript files from scripts/ folder -->
+    <!-- app_core.js must be loaded first for allShows and showMessageBox -->
+    <script defer src="scripts/app_core.js"></script>
+    <!-- standalone_header.js for header functionalities (search, dark mode, account) -->
+    <script defer src="scripts/standalone_header.js"></script>
+    <!-- cinema_guide.js for page-specific logic -->
+    <script defer src="scripts/cinema_guide.js"></script>
 </body>
 </html>
