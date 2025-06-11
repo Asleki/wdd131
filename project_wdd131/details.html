@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Show Details</title>
-    <link rel="stylesheet" href="styles/details.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/details.css"> <!-- Link to the new CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+    <!-- Main content for the show details page -->
     <main class="show-detail-page">
+        <!-- Hero Section: Displays backdrop, poster, title, and key info -->
         <section class="hero-section" id="showHero">
             <div class="hero-backdrop" id="heroBackdrop"></div>
             <div class="hero-content">
@@ -16,11 +19,14 @@
                     <h1 id="showTitle"></h1>
                     <div class="meta-data" id="showMetaData"></div>
                     <p class="description" id="showDescription"></p>
+                    <div class="synopsis-controls-container">
+                         <!-- Synopsis will be populated and trimmed by JS, with a read more/less button -->
+                    </div>
                     <div class="network-logo-container">
                         <img src="" alt="Network Logo" class="network-logo" id="networkLogo">
                     </div>
                     <div class="action-icons">
-                        <button class="action-btn"><i class="fas fa-play"></i> Watch Trailer</button>
+                        <button class="action-btn watch-trailer-btn"><i class="fas fa-play"></i> Watch Trailer</button>
                         <i class="fas fa-plus-square" id="addToPlaylistIcon" title="Add to Playlist"></i>
                         <i class="fas fa-bookmark" id="bookmarkIcon" title="Bookmark"></i>
                         <i class="fas fa-heart" id="markFavoriteIcon" title="Mark Favorite"></i>
@@ -29,22 +35,29 @@
             </div>
         </section>
 
+        <!-- Awards Section: Placeholder for show awards -->
         <section class="awards-section">
             <h2>Awards & Recognition</h2>
             <div class="awards-list" id="awardsList">
-                <p>No awards information available for this show.</p>
+                <!-- Awards will be dynamically added here if available in awards_data.js -->
+                <p>No awards information available for this show. Please check back later!</p>
             </div>
         </section>
 
+        <!-- Cast Section: Displays a limited number of cast members with a "View All" button -->
         <section class="cast-section">
             <h2>Cast</h2>
             <div class="cast-thumbnails" id="castThumbnails">
-                </div>
+                <!-- First few cast members with images and names will be dynamically added here -->
+            </div>
             <button id="viewAllCastsBtn" class="view-all-btn">View All Cast Info</button>
         </section>
     </main>
 
-    <script src="scripts/watch.js"></script>
+    <!-- Link all necessary JavaScript files in order -->
+    <script src="scripts/app_core.js"></script>
+    <script src="scripts/awards_data.js"></script>
+    <script src="scripts/cast_details_data.js"></script>
     <script src="scripts/details.js"></script>
 </body>
 </html>
