@@ -1,0 +1,144 @@
+/* Root Theme Variables */
+:root {
+  --bg: #fff;
+  --text: #111;
+  --header-bg: #222;
+  --search-bg: #f4f4f4;
+  --highlight: #ff0;
+  --danger: #f44336;
+}
+
+body.dark-mode {
+  --bg: #111;
+  --text: #f4f4f4;
+  --header-bg: #000;
+  --search-bg: #333;
+}
+
+/* General Reset */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Header */
+#mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  color: var(--text);
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.nav-icons i {
+  margin-left: 15px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.yellow-icon {
+  color: var(--highlight);
+}
+
+.red-icon {
+  color: var(--danger);
+}
+
+.nav-icons i:hover {
+  transform: scale(1.2);
+}
+
+/* Search Subheader */
+#searchSubheader {
+  background-color: var(--search-bg);
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#searchInput {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.voice-icon, .clear-icon {
+  position: absolute;
+  right: 35px;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.clear-icon {
+  right: 10px;
+}
+
+.suggestions-box {
+  background: var(--bg);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.suggestions-box div {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.suggestions-box div:hover {
+  background-color: #eee;
+}
+
+/* Alert Box */
+.alert-box {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background-color: #fff0f0;
+  color: var(--danger);
+  padding: 10px 15px;
+  border: 1px solid var(--danger);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 2000;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

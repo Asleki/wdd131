@@ -1,0 +1,1002 @@
+/* General Body and Layout */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto for body text */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Colors handled by themes.css */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- Utility Header Styles --- */
+.utility-header {
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* Colors handled by themes.css */
+}
+
+.utility-left, .utility-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mode-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: none; /* Remove button default styles */
+    border: none;
+    padding: 0;
+}
+
+.mode-icon {
+    width: 20px;
+    height: 20px;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+.mode-icon.active {
+    display: block;
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+
+.header-action:hover {
+    opacity: 0.7;
+}
+
+.header-action svg { /* Apply fill to SVG icons */
+    fill: currentColor;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.join-cinewatch {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    /* Colors handled by themes.css */
+}
+
+/* --- Main Header Styles (Three Sections) --- */
+.main-header {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 180px;
+    padding-bottom: 15px;
+    font-family: 'Poppins', sans-serif; /* Poppins for headers/navigation */
+    /* Colors handled by themes.css */
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-link img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.logo-link p.tagline {
+    font-size: 0.9em;
+    margin: 0;
+    white-space: nowrap;
+    /* Colors handled by themes.css */
+}
+
+.header-center {
+    justify-content: center;
+    min-width: 200px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    /* Colors handled by themes.css */
+}
+
+.main-nav .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.main-nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--header-bg-light); /* Inherit from header */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+.dark-mode .main-nav .dropdown-content {
+    background-color: var(--header-bg-dark);
+}
+
+.main-nav .dropdown-content a {
+    color: var(--text-color-light); /* Use text color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    white-space: nowrap; /* Prevent wrapping in dropdown */
+}
+.dark-mode .main-nav .dropdown-content a {
+    color: var(--text-color-dark);
+}
+
+.main-nav .dropdown-content a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
+}
+.dark-mode .main-nav .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Dark mode hover effect */
+}
+
+
+.main-nav .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* --- Search Container (Header Right) --- */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative; /* For suggestions dropdown */
+}
+
+.search-container input[type="text"] {
+    padding: 8px 15px;
+    border: 1px solid var(--border-color-light);
+    border-radius: 20px;
+    font-size: 0.9em;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+}
+.dark-mode .search-container input[type="text"] {
+    border-color: var(--border-color-dark);
+    background-color: var(--card-background-dark);
+    color: var(--text-color-dark);
+}
+.search-container input[type="text"]::placeholder {
+    color: var(--text-color-light);
+    opacity: 0.7;
+}
+.dark-mode .search-container input[type="text"]::placeholder {
+    color: var(--text-color-dark);
+    opacity: 0.7;
+}
+
+
+.search-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    margin-left: -35px; /* Overlay on input */
+    z-index: 2;
+    transition: background-color 0.2s ease;
+}
+.search-container button:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+.dark-mode .search-container button:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.search-container button svg {
+    fill: currentColor;
+    width: 20px;
+    height: 20px;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%; /* Position below the input */
+    left: 0;
+    right: 0;
+    background-color: var(--card-background-light);
+    border: 1px solid var(--border-color-light);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+    display: none; /* Hidden by default, JS toggles */
+    max-height: 200px;
+    overflow-y: auto;
+}
+.dark-mode .search-suggestions {
+    background-color: var(--card-background-dark);
+    border-color: var(--border-color-dark);
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: var(--text-color-light);
+}
+.dark-mode .suggestion-item {
+    color: var(--text-color-dark);
+}
+
+.suggestion-item:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue hover */
+}
+.dark-mode .suggestion-item:hover {
+    background-color: rgba(92, 107, 192, 0.1); /* Muted blue hover */
+}
+
+
+/* Basic Hero Section Styling */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Slightly taller hero for impact */
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    transition: background-image 1s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative; /* To place it above pseudo-element overlay */
+    z-index: 1;
+    display: flex;
+    align-items: center; /* Align poster and info vertically */
+    justify-content: space-between; /* Space out info and poster */
+    width: 100%;
+    max-width: 1200px; /* Limit content width */
+    margin: 0 auto;
+}
+
+.hero-info {
+    flex: 1;
+    max-width: 60%; /* Ensure info doesn't take up too much space */
+    padding-right: 30px; /* Space between info and poster */
+    text-align: left;
+}
+
+.hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hero-overview {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    max-height: 120px; /* Limit overview height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+}
+
+.hero-poster {
+    width: 250px; /* Fixed width for poster */
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 12px; /* More rounded corners */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-button-background-light);
+    color: var(--primary-button-text-light);
+}
+.btn-primary:hover {
+    background-color: var(--primary-button-hover-background-light);
+    transform: translateY(-2px);
+}
+.dark-mode .btn-primary {
+    background-color: var(--primary-button-background-dark);
+    color: var(--primary-button-text-dark);
+}
+.dark-mode .btn-primary:hover {
+    background-color: var(--primary-button-hover-background-dark);
+}
+
+/* --- Main Content Area Styles --- */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* Category Section Styling - general for all categories */
+.category-section {
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    /* Colors handled by themes.css */
+}
+
+.category-section h2 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    /* Colors handled by themes.css */
+}
+
+/* Carousel Specific Styles */
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    display: flex; /* Changed from column to flex to allow sidebar */
+    justify-content: center;
+    align-items: flex-start; /* Align items to top, especially important for sidebar */
+}
+
+.carousel-content {
+    display: flex;
+    flex-direction: column; /* Content inside carousel-content remains column */
+    flex-grow: 1;
+    align-items: center;
+    max-width: calc(100% - 280px); /* Adjust for sidebar width + margin (250px + 30px) */
+}
+
+.carousel-track-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+/* Show Card Styling (Homepage - NO SYNOPSIS) */
+.show-card {
+    min-width: 100%; /* Ensures only one card is visible per "slide" */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Changed to column to stack elements neatly */
+    align-items: center;
+    text-align: center;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 20px; /* Increased padding */
+    max-height: 480px; /* Adjusted max-height to fit content without synopsis */
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Indicate clickable */
+}
+
+.show-info-and-poster-container {
+    display: flex;
+    flex-direction: row; /* Poster and details side-by-side */
+    align-items: flex-start;
+    gap: 20px; /* Increased gap */
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: left;
+    flex-wrap: wrap; /* Allow wrapping on smaller desktop/tablet */
+    justify-content: center; /* Center content if it wraps */
+}
+
+.show-poster-container {
+    flex-shrink: 0;
+    width: 150px; /* Slightly larger poster for homepage */
+    height: 225px; /* Maintain 2:3 aspect ratio */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.show-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.show-details-right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto; /* Adjust width based on content */
+    min-width: 200px;
+}
+
+.show-details-right h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    word-wrap: break-word;
+    text-align: left;
+    /* Colors handled by themes.css */
+}
+
+.show-details-right p {
+    font-size: 0.95em;
+    margin: 3px 0;
+    line-height: 1.4;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.show-info-icon-display { /* Placeholder icon - remove if not used or replace with actual */
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.network-logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+}
+
+.network-logo {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 5px;
+    border-radius: 1rem;
+}
+
+.watch-now-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    /* Color handled by themes.css */
+    margin-bottom: 3px;
+}
+
+.subscription-required {
+    font-size: 0.85em;
+    /* Color handled by themes.css */
+}
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.8em;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    /* Colors handled by themes.css */
+}
+
+.prev-btn {
+    left: -20px; /* Position outside carousel-track-container */
+}
+
+.next-btn {
+    right: -20px; /* Position outside carousel-track-container */
+}
+
+/* Pagination Dots */
+.carousel-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 8px;
+}
+
+.pagination-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Colors handled by themes.css */
+}
+
+.pagination-dot.active {
+    transform: scale(1.2);
+}
+
+/* Famous Quotes Sidebar */
+.quotes-sidebar {
+    width: 250px;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-left: 30px; /* Space from carousel */
+    height: fit-content;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 480px; /* Match show-card height for visual balance */
+    overflow-y: auto;
+    transition: background-color 0.3s ease;
+    /* Colors handled by themes.css */
+}
+
+.quotes-sidebar h3 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    /* Colors handled by themes.css */
+}
+
+.quote-container {
+    padding: 12px;
+    border-left: 4px solid;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Indicate clickable */
+    /* Colors handled by themes.css */
+}
+
+.quote-text {
+    font-style: italic;
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+    /* Colors handled by themes.css */
+}
+
+.quote-character {
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    font-size: 0.8em;
+    /* Colors handled by themes.css */
+}
+
+.no-quotes-message {
+    text-align: center;
+    font-size: 0.9em;
+    /* Colors handled by themes.css */
+}
+
+/* --- Footer Styles --- */
+.site-footer {
+    padding: 20px;
+    border-top: 1px solid;
+    margin-top: 40px; /* Space above footer */
+    font-size: 0.9em;
+    text-align: center; /* Default for mobile/smaller screens */
+    /* Colors handled by themes.css */
+}
+
+.footer-content {
+    max-width: 1200px; /* Max width for content on larger screens */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Stack children vertically by default */
+    align-items: center;
+    gap: 20px; /* Space between sections */
+}
+
+.footer-section {
+    width: 100%;
+}
+
+.footer-section p {
+    margin: 5px 0;
+}
+
+.footer-section a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    /* Colors handled by themes.css */
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-links li {
+    display: inline-block;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 15px; /* Space between social icons */
+}
+
+.social-icons a {
+    display: flex; /* To center SVG if needed */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+.social-icons a:hover {
+    transform: translateY(-2px);
+    text-decoration: none; /* Remove underline on hover for icons */
+}
+
+.social-icons svg {
+    width: 28px; /* Slightly larger social icons */
+    height: 28px;
+    fill: currentColor; /* Inherit color from parent for dark/light mode */
+    display: block;
+}
+
+
+/* Responsive Design */
+
+/* Tablet and Mobile (max-width: 767px) */
+@media (max-width: 767px) {
+    /* Utility Header */
+    .utility-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    .utility-left, .utility-right {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+    .header-action svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Main Header */
+    .main-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 10px;
+        min-height: auto; /* Allow height to adjust */
+    }
+    .header-section {
+        width: 100%;
+        justify-content: center;
+    }
+    .logo-link img {
+        max-width: 120px;
+        margin-bottom: 3px;
+    }
+    .logo-link p.tagline {
+        font-size: 0.8em;
+    }
+    .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .main-nav ul li a {
+        display: block;
+        padding: 10px;
+        background-color: rgba(0,0,0,0.05); /* Light background for mobile nav items */
+        border-radius: 5px;
+        font-size: 1em;
+    }
+    .dark-mode .main-nav ul li a {
+        background-color: rgba(255,255,255,0.1);
+    }
+    .main-nav .dropdown-content {
+        position: static; /* Remove absolute positioning on mobile */
+        box-shadow: none;
+        border-top: 1px solid var(--border-color-light); /* Add separator */
+        border-radius: 0;
+        margin-top: 5px;
+        background-color: transparent; /* Make it transparent */
+    }
+    .dark-mode .main-nav .dropdown-content {
+        border-top-color: var(--border-color-dark);
+        background-color: transparent;
+    }
+    .main-nav .dropdown-content a {
+        padding-left: 20px; /* Indent dropdown items */
+    }
+    .search-container {
+        width: 100%;
+    }
+    .search-container input[type="text"] {
+        flex-grow: 1;
+    }
+    .search-container button {
+        margin-left: -30px;
+    }
+    .mode-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height: 70vh; /* Taller on mobile to give more space */
+        padding: 15px;
+    }
+    .hero-section::before { /* Adjust gradient for vertical stack */
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%);
+    }
+    .hero-content {
+        flex-direction: column; /* Stack poster and info vertically */
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    .hero-info {
+        max-width: 95%;
+        padding-right: 0;
+        margin-bottom: 20px; /* Space between info and poster */
+        text-align: center;
+    }
+    .hero-title {
+        font-size: 2.2em;
+    }
+    .hero-overview {
+        font-size: 1em;
+        -webkit-line-clamp: 5; /* Allow more lines for overview on mobile */
+    }
+    .hero-poster {
+        width: 180px; /* Smaller poster on mobile */
+        height: 270px;
+    }
+
+    /* Main Content */
+    main {
+        padding: 10px;
+        gap: 20px;
+    }
+
+    /* Category Section */
+    .category-section {
+        padding: 15px;
+    }
+    .category-section h2 {
+        font-size: 24px;
+    }
+
+    /* Carousel */
+    .carousel-wrapper {
+        flex-direction: column; /* Stack carousel content and sidebar */
+        align-items: center;
+    }
+    .carousel-content {
+        max-width: 100%; /* Take full width on mobile */
+    }
+    .carousel-track-container {
+        width: 100%;
+    }
+    .show-card {
+        padding: 15px;
+        max-height: 400px; /* Adjust as needed for mobile card content */
+    }
+    .show-info-and-poster-container {
+        flex-direction: column; /* Stack within card */
+        align-items: center;
+        gap: 15px;
+    }
+    .show-poster-container {
+        width: 120px;
+        height: 180px;
+    }
+    .show-details-right {
+        align-items: center;
+        text-align: center;
+    }
+    .show-details-right h3 {
+        font-size: 1.5em;
+    }
+    .show-details-right p {
+        font-size: 0.9em;
+    }
+    .network-logo-section {
+        align-items: center;
+    }
+    .network-logo {
+        max-width: 80px;
+    }
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5em;
+        left: 5px; /* Adjust positioning for mobile */
+        right: 5px;
+        top: 60%; /* Position lower on mobile */
+    }
+    .quotes-sidebar {
+        width: 100%; /* Take full width on mobile */
+        margin-left: 0;
+        margin-top: 25px; /* Space from carousel */
+        max-height: 300px; /* Adjust max height for mobile sidebar */
+    }
+    .quotes-sidebar h3 {
+        font-size: 1.1em;
+    }
+    .quote-container {
+        padding: 10px;
+    }
+    .quote-text, .quote-character {
+        font-size: 0.85em;
+    }
+
+    /* Footer */
+    .site-footer {
+        padding: 15px 10px;
+    }
+    .footer-content {
+        gap: 15px;
+    }
+    .footer-links ul {
+        gap: 10px;
+    }
+    .social-icons {
+        gap: 10px;
+    }
+    .social-icons svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Extra small screens (e.g., very narrow views) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8em;
+    }
+    .hero-overview {
+        font-size: 0.9em;
+        -webkit-line-clamp: 6;
+    }
+    .hero-poster {
+        width: 150px;
+        height: 225px;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .category-section h2 {
+        font-size: 20px;
+    }
+    .show-card {
+        padding: 10px;
+        max-height: 380px;
+    }
+    .show-details-right h3 {
+        font-size: 1.3em;
+    }
+    .show-details-right p {
+        font-size: 0.8em;
+    }
+    .quotes-sidebar {
+        max-height: 250px;
+    }
+    .quote-text, .quote-character {
+        font-size: 0.8em;
+    }
+}

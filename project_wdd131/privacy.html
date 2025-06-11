@@ -12,29 +12,7 @@
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
-    <header>
-        <div class="utility-header">
-            <div class="utility-left">
-                <!-- Dark/Light Mode Toggle: Icons are dynamically switched by JavaScript -->
-            <button id="dark-mode-toggle" class="mode-toggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon mode-icon" id="darkModeIcon"></i>
-            </button>
-                    <i class="fas fa-sun mode-icon hidden" id="lightModeIcon"></i> </button>
-                <a href="#" class="header-action" id="addShowIcon">
-                    <i class="fas fa-plus-circle"></i>
-                </a>
-            </div>
-            <div class="utility-right">
-                <a href="signup.html" class="join-cinewatch">Join CineWatch</a>
-                <a href="#" class="header-action" id="accountIcon">
-                    <i class="fas fa-user-circle"></i>
-                </a>
-                <a href="#" class="header-action search-icon-btn">
-                    <i class="fas fa-search"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+   
 
     <main class="flex-grow flex justify-center p-4 sm:p-6 lg:p-8">
         <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 sm:p-8 lg:p-10 border border-gray-200">
@@ -176,13 +154,13 @@
         </div>
     </main>
 
-    <footer class="site-footer">
+       <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-section centered-info">
-                <p>&copy; Copyright Alex Malunda 2025</p>
+                <p>&copy; Copyright A Alex Malunda 2025</p>
+                <p>Last Modified: <span id="last-modified"></span></p>
                 <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
                 <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
-                <p>Last Modified: <span id="last-modified"></span></p>
             </div>
             <div class="footer-section social-links">
                 <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
@@ -190,20 +168,19 @@
                     <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
                     </a>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <img src="images/icons&logos/facebook_24dp.svg" alt="Facebook">
+                    <a href="https://www.facebook.com/aslekiymastamynd" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/socialicons/facebook_24dp.svg" alt="Facebook">
                     </a>
-                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img src="images/icons&logos/linkedin_24dp.svg" alt="LinkedIn">
+                    <a href="https://www.linkedin.com/in/alexmalunda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn">
                     </a>
-                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                    <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
                         <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
                     </a>
                 </div>
             </div>
         </div>
     </footer>
-
     <div id="customAlert" class="custom-alert">
         <div class="alert-content">
             <i class="fas fa-exclamation-triangle alert-icon"></i> <p id="alertMessage"></p>

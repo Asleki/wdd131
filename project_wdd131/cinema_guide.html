@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineWatch Cinema Guide - Find movie showtimes and buy tickets for cinemas in Nairobi, New York, Beijing, Seoul and more.">
+    <meta name="author" content="Alex Malunda">
+    <title>Cinema Guide - CineWatch</title>
+
+    <!-- Consolidated CSS links -->
+       
+    <link rel="stylesheet" href="styles1/themes.css">    <!-- Your theme variables -->
+    <link rel="stylesheet" href="styles1/cinema-guide.css"> <!-- NEW: Page-specific Cinema Guide styles -->
+
+    <!-- Google Fonts: Poppins (for headings) and Roboto (for body text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    
+    <main class="cinema-guide-page">
+        <section class="hero-section small-hero">
+            <div class="container">
+                <h1>Cinema Guide</h1>
+                <p class="tagline">Find movie showtimes near you and book your tickets!</p>
+            </div>
+        </section>
+
+        <section class="city-selection-section">
+            <div class="container">
+                <h2>Select Your City</h2>
+                <div class="city-buttons" id="city-buttons">
+                    <button class="btn btn-secondary active" data-city="nairobi">Nairobi</button>
+                    <button class="btn btn-secondary" data-city="new-york">New York</button>
+                    <button class="btn btn-secondary" data-city="beijing">Beijing</button>
+                    <button class="btn btn-secondary" data-city="seoul">Seoul</button>
+                    <!-- Add more cities here as needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: Featured Movies in Cinemas (9 shows with posters and synopsis) -->
+        <section class="featured-movies-cinemas-section">
+            <div class="container">
+                <h2>Featured Movies Currently Showing</h2>
+                <div class="featured-movie-grid" id="featured-movie-grid">
+                    <!-- 9 movie posters with synopsis dynamically inserted here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="cinema-listings-section">
+            <div class="container">
+                <h2>Showtimes & Cinemas</h2>
+                <div id="cinema-listings-container">
+                    <!-- Cinema listings will be dynamically loaded here by JS -->
+                    <p class="no-cinema-message">Select a city to view cinema listings.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+        <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section centered-info">
+                <p>&copy; Copyright A Alex Malunda 2025</p>
+                <p>Last Modified: <span id="last-modified"></span></p>
+                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+            </div>
+            <div class="footer-section social-links">
+                <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/aslekiymastamynd" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/socialicons/facebook_24dp.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alexmalunda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   
+    <!-- Essential JS files -->
+    <!-- Place js/data.js here if it's a separate file -->
+    <script src="scripts1/watch.js"></script> <!-- For shared header/footer functionality (mode toggle, message box, year) -->
+    <script src="js/cinema-guide-logic.js"></script> <!-- NEW: Page-specific Cinema Guide JS -->
+</body>
+</html>

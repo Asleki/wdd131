@@ -1,0 +1,291 @@
+/* --- CSS Variables Definition (Consolidated and refined) --- */
+:root {
+    /* Light Mode Colors: Light Blue, Grey, Dull Hues */
+    --background-color-light: #e6f0fa; /* Very light blue */
+    --text-color-light: #333d47; /* Dark grey for text */
+    --header-bg-light: #dae8f5; /* Slightly darker light blue for header */
+    --card-background-light: #f0f7ff; /* Lighter blue for cards */
+    --border-color-light: #c2d8ee; /* Dull blue border */
+    --primary-button-background-light: #007bff; /* Standard blue */
+    --primary-button-text-light: white;
+    --primary-button-hover-background-light: #0056b3; /* Darker blue on hover */
+    --accent-color-light: #6a9cff; /* A slightly brighter blue for accents */
+    --quote-background-light: #f8f8f8; /* Light grey for quotes */
+    --quotes-sidebar-background-light: #e0e6ec; /* Dull light grey for sidebar */
+    --link-color-light: #007bff; /* Blue for links */
+    --link-hover-color-light: #0056b3;
+
+    /* Utility Header Colors (Specific overrides if needed for light mode) */
+    --utility-header-bg-light: #cbdceb; /* Dull light blue */
+    --utility-text-color-light: #333;
+    --utility-link-color-light: #007bff;
+    --utility-link-hover-color-light: #0056b3;
+}
+
+.dark-mode {
+    /* Dark Mode Colors: Dark Blue, Grey, Dull Hues */
+    --background-color-dark: #121820; /* Very dark blue/grey */
+    --text-color-dark: #e0e6f0; /* Light grey for text */
+    --header-bg-dark: #1e252f; /* Darker blue/grey for header */
+    --card-background-dark: #2a3440; /* Dark blue/grey for cards */
+    --border-color-dark: #3a475a; /* Dull dark blue border */
+    --primary-button-background-dark: #5c6bc0; /* Muted blue */
+    --primary-button-text-dark: white;
+    --primary-button-hover-background-dark: #3f51b5; /* Darker muted blue on hover */
+    --accent-color-dark: #8c9eff; /* A slightly brighter muted blue */
+    --quote-background-dark: #20262f; /* Dark grey for quotes */
+    --quotes-sidebar-background-dark: #1a2028; /* Slightly lighter dark grey for sidebar */
+    --link-color-dark: #90caf9; /* Light blue for links */
+    --link-hover-color-dark: #64b5f6;
+
+    /* Utility Header Colors (Specific overrides if needed for dark mode) */
+    --utility-header-bg-dark: #2a3440; /* Match card background */
+    --utility-text-color-dark: #e0e6f0;
+    --utility-link-color-dark: #90caf9;
+    --utility-link-hover-color-dark: #64b5f6;
+}
+
+/* Apply variables to general elements */
+body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Ensure smooth transition */
+}
+body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Header Specifics */
+.utility-header {
+    background-color: var(--utility-header-bg-light);
+    color: var(--utility-text-color-light);
+}
+body.dark-mode .utility-header {
+    background-color: var(--utility-header-bg-dark);
+    color: var(--utility-text-color-dark);
+}
+.utility-header .join-cinewatch {
+    color: var(--utility-link-color-light);
+}
+.utility-header .join-cinewatch:hover {
+    color: var(--utility-link-hover-color-light);
+}
+body.dark-mode .utility-header .join-cinewatch {
+    color: var(--utility-link-color-dark);
+}
+body.dark-mode .utility-header .join-cinewatch:hover {
+    color: var(--utility-link-hover-color-dark);
+}
+
+.main-header {
+    background-color: var(--header-bg-light);
+}
+body.dark-mode .main-header {
+    background-color: var(--header-bg-dark);
+}
+.main-nav ul li a {
+    color: var(--text-color-light);
+}
+.main-nav ul li a:hover {
+    color: var(--link-hover-color-light);
+}
+body.dark-mode .main-nav ul li a {
+    color: var(--text-color-dark);
+}
+body.dark-mode .main-nav ul li a:hover {
+    color: var(--link-hover-color-dark);
+}
+
+/* Category Section Styling */
+.category-section {
+    background-color: var(--card-background-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Ensure shadow is part of the theme */
+}
+body.dark-mode .category-section {
+    background-color: var(--card-background-dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5); /* Darker shadow for dark mode */
+}
+
+/* Show Card Styling */
+.show-card {
+    background-color: var(--card-background-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Ensure shadow is part of the theme */
+}
+body.dark-mode .show-card {
+    background-color: var(--card-background-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.show-details-right h3 {
+    color: var(--text-color-light);
+}
+body.dark-mode .show-details-right h3 {
+    color: var(--text-color-dark);
+}
+.network-logo-section .watch-now-text {
+    color: var(--primary-button-background-light);
+}
+body.dark-mode .network-logo-section .watch-now-text {
+    color: var(--primary-button-background-dark);
+}
+.subscription-required {
+    color: var(--text-color-light);
+}
+body.dark-mode .subscription-required {
+    color: var(--text-color-dark);
+}
+
+/* Synopsis styling (if present in other HTML pages, not this one) */
+.show-synopsis h4 {
+    color: var(--text-color-light);
+}
+body.dark-mode .show-synopsis h4 {
+    color: var(--text-color-dark);
+}
+.synopsis-text {
+    color: var(--text-color-light);
+}
+body.dark-mode .synopsis-text {
+    color: var(--text-color-dark);
+}
+.read-more-btn, .read-less-btn {
+    color: var(--link-color-light);
+}
+body.dark-mode .read-more-btn, body.dark-mode .read-less-btn {
+    color: var(--link-color-dark);
+}
+.read-more-btn:hover, .read-less-btn:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue hover */
+}
+body.dark-mode .read-more-btn:hover, body.dark-mode .read-less-btn:hover {
+    background-color: rgba(92, 107, 192, 0.1); /* Muted blue hover */
+}
+.read-more-btn img, .read-less-btn img {
+    filter: none; /* Reset filter for light mode */
+}
+body.dark-mode .read-more-btn img, body.dark-mode .read-less-btn img {
+    filter: invert(1); /* Invert for dark mode if images are dark */
+}
+
+
+/* Carousel Buttons */
+.carousel-btn {
+    background-color: rgba(0, 0, 0, 0.4); /* Consistent dark overlay for buttons */
+    color: white;
+}
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+body.dark-mode .carousel-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+body.dark-mode .carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Pagination Dots */
+.pagination-dot {
+    background-color: var(--border-color-light);
+}
+.pagination-dot.active {
+    background-color: var(--primary-button-background-light);
+}
+body.dark-mode .pagination-dot {
+    background-color: var(--border-color-dark);
+}
+body.dark-mode .pagination-dot.active {
+    background-color: var(--primary-button-background-dark);
+}
+
+/* Quotes Sidebar */
+.quotes-sidebar {
+    background-color: var(--quotes-sidebar-background-light);
+    color: var(--text-color-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Ensure shadow is part of the theme */
+}
+body.dark-mode .quotes-sidebar {
+    background-color: var(--quotes-sidebar-background-dark);
+    color: var(--text-color-dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.quotes-sidebar h3 {
+    color: var(--text-color-light);
+}
+body.dark-mode .quotes-sidebar h3 {
+    color: var(--text-color-dark);
+}
+.quote-container {
+    background-color: var(--quote-background-light);
+    border-left-color: var(--accent-color-light);
+}
+body.dark-mode .quote-container {
+    background-color: var(--quote-background-dark);
+    border-left-color: var(--accent-color-dark);
+}
+.quote-text {
+    color: var(--text-color-light);
+}
+body.dark-mode .quote-text {
+    color: var(--text-color-dark);
+}
+.quote-character {
+    color: var(--text-color-light); /* Adjusted for consistency */
+}
+body.dark-mode .quote-character {
+    color: var(--text-color-dark);
+}
+
+/* Footer Styling */
+.site-footer {
+    background-color: var(--header-bg-light); /* Use header background for footer */
+    color: var(--text-color-light);
+    border-top: 1px solid var(--border-color-light);
+}
+body.dark-mode .site-footer {
+    background-color: var(--header-bg-dark);
+    color: var(--text-color-dark);
+    border-top-color: var(--border-color-dark);
+}
+.site-footer a {
+    color: var(--link-color-light);
+}
+.site-footer a:hover {
+    color: var(--link-hover-color-light);
+}
+body.dark-mode .site-footer a {
+    color: var(--link-color-dark);
+}
+body.dark-mode .site-footer a:hover {
+    color: var(--link-hover-color-dark);
+}
+
+/* Message Box Styling */
+.message-box {
+    background: var(--card-background-light);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+}
+
+.message-box button {
+    background-color: var(--primary-button-background-light);
+    color: var(--primary-button-text-light);
+}
+
+.message-box button:hover {
+    background-color: var(--primary-button-hover-background-light);
+}
+
+body.dark-mode .message-box {
+    background: var(--card-background-dark);
+    color: var(--text-color-dark);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .message-box button {
+    background-color: var(--primary-button-background-dark);
+    color: var(--primary-button-text-dark);
+    border-color: var(--border-color-dark);
+}
+body.dark-mode .message-box button:hover {
+    background-color: var(--primary-button-hover-background-dark);
+}

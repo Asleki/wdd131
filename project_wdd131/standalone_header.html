@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CineWatch Header</title>
+  <link rel="stylesheet" href="styles/standalone_header.css">
+  
+
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+  <!-- Main Header -->
+  <header id="mainHeader">
+    <div class="logo">🎬 CineWatch</div>
+    <nav class="nav-icons">
+      <i id="searchIcon" class="fas fa-search" title="Search"></i>
+      <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+      <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+      <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+    </nav>
+  </header>
+
+  <!-- Search Subheader -->
+  <div id="searchSubheader" class="hidden">
+    <div class="search-bar-container">
+      <input type="text" id="searchInput" placeholder="Search movies, shows, actors, genres, years..." autocomplete="off" />
+      <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+      <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+    </div>
+    <div id="suggestionsBox" class="suggestions-box"></div>
+  </div>
+
+  <!-- Alert Box -->
+  <div id="alertBox" class="alert-box hidden">
+    <i class="fas fa-exclamation-triangle red-icon"></i>
+    <span>You must be logged in to add shows!</span>
+  </div>
+  <script defer src="scripts/standalone_header.js"></script>
+  <script defer src="scripts/watch.js"></script>
+  
+  
+</body>
+</html>
