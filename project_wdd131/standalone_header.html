@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineWatch Header</title>
   <link rel="stylesheet" href="styles/standalone_header.css">
-  
 
   <!-- Font Awesome CDN for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
   <!-- Main Header -->
   <header id="mainHeader">
-    <div class="logo">🎬 CineWatch</div>
+    <!-- Removed the emoji, now just text that links to discover.html -->
+    <div class="logo"><a href="discover.html">CineWatch</a></div>
     <nav class="nav-icons">
       <i id="searchIcon" class="fas fa-search" title="Search"></i>
       <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
@@ -27,7 +26,7 @@
   <!-- Search Subheader -->
   <div id="searchSubheader" class="hidden">
     <div class="search-bar-container">
-      <input type="text" id="searchInput" placeholder="Search movies, shows, actors, genres, years..." autocomplete="off" />
+      <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
       <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
       <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
     </div>
@@ -39,9 +38,9 @@
     <i class="fas fa-exclamation-triangle red-icon"></i>
     <span>You must be logged in to add shows!</span>
   </div>
+
+  <!-- Load app_core.js first to ensure allShows is available globally -->
+  <script defer src="scripts/app_core.js"></script>
   <script defer src="scripts/standalone_header.js"></script>
-  <script defer src="scripts/watch.js"></script>
-  
-  
 </body>
 </html>

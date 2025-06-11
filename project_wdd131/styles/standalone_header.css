@@ -6,6 +6,7 @@
   --search-bg: #f4f4f4;
   --highlight: #ff0;
   --danger: #f44336;
+  --cinewatch-blue: #000080; /* Dark blue color for CineWatch name */
 }
 
 body.dark-mode {
@@ -13,12 +14,13 @@ body.dark-mode {
   --text: #f4f4f4;
   --header-bg: #000;
   --search-bg: #333;
+  --cinewatch-blue: #ADD8E6; /* Lighter blue for dark mode contrast */
 }
 
 /* General Reset */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif; /* Consistent font */
   background-color: var(--bg);
   color: var(--text);
 }
@@ -36,9 +38,23 @@ body {
   z-index: 1000;
 }
 
-.logo {
-  font-size: 1.5rem;
+/* Stylish CineWatch Logo/Site Name */
+.logo a {
+  font-family: 'Georgia', serif; /* A more stylish, serif font for the logo */
+  font-size: 2.2rem; /* Larger font size */
+  font-weight: bold; /* Make it bold */
+  color: var(--cinewatch-blue); /* Dark blue color */
+  text-decoration: none; /* Remove underline from link */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Subtle text shadow for depth */
+  transition: color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover */
+  display: inline-block; /* Allows transform to work */
 }
+
+.logo a:hover {
+  color: var(--highlight); /* Highlight color on hover for effect */
+  transform: scale(1.03); /* Slightly enlarge on hover */
+}
+
 
 .nav-icons i {
   margin-left: 15px;
@@ -103,7 +119,7 @@ body {
 
 .suggestions-box {
   background: var(--bg);
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Use border-color variable */
   border-radius: 6px;
   max-height: 250px;
   overflow-y: auto;
@@ -112,12 +128,17 @@ body {
 
 .suggestions-box div {
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color); /* Use border-color variable */
   cursor: pointer;
+  color: var(--text); /* Ensure text color is theme-aware */
 }
 
 .suggestions-box div:hover {
-  background-color: #eee;
+  background-color: #eee; /* Light hover for light mode */
+}
+
+body.dark-mode .suggestions-box div:hover {
+    background-color: #555; /* Darker hover for dark mode */
 }
 
 /* Alert Box */
