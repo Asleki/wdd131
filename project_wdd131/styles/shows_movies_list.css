@@ -1,0 +1,295 @@
+/* General styling for the TV Shows and Movies list pages */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: var(--bg); /* Uses variable from standalone_header.css */
+    color: var(--text); /* Uses variable from standalone_header.css */
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Main container for the list pages */
+.list-page-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.page-title {
+    color: var(--primary-color, #e50914); /* Default to Netflix Red if var not found */
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.shows-movies-grid {
+    display: grid;
+    /* Responsive grid:
+       - Default 1 column on small screens (handled by media query)
+       - 2 columns on medium screens (min-width 768px)
+       - 3 columns on larger screens (min-width 1024px) */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Min card width, max 1fr */
+    gap: 30px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+}
+
+.show-movie-card {
+    background-color: var(--card-bg, #f9f9f9); /* Uses variable, fallback to light gray */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Prominent shadow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stack top row and synopsis row */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid var(--border-color, #ddd); /* Subtle border */
+    cursor: pointer; /* Indicate entire card is clickable */
+}
+
+.show-movie-card:hover {
+    transform: translateY(-8px); /* Lift card on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Enhanced shadow on hover */
+}
+
+/* --- New Card Layout Structure --- */
+
+.card-top-row {
+    display: flex; /* Horizontal alignment for poster, info, network */
+    align-items: center; /* Vertically align items in the row */
+    padding: 15px;
+    gap: 15px; /* Space between columns */
+    border-bottom: 1px solid var(--border-color, #ddd); /* Separator from synopsis */
+    background-color: var(--bg); /* Lighter background for the top part */
+}
+
+.card-poster-column {
+    flex-shrink: 0; /* Prevent poster from shrinking */
+    width: 100px; /* Fixed width for poster */
+    height: 150px; /* Fixed height for poster */
+    overflow: hidden;
+    border-radius: 8px; /* Rounded corners for poster */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.card-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the area without distortion */
+    display: block; /* Remove extra space below image */
+}
+
+.card-info-column {
+    flex-grow: 1; /* Allows info to take up available space */
+    flex-basis: 0; /* Important for flex-grow to work correctly */
+    padding-right: 10px; /* Spacing from network column */
+}
+
+.card-title {
+    font-size: 1.4em; /* Title size */
+    color: var(--primary-color, #e50914); /* Use primary color for title */
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    min-height: 1.2em; /* Ensure consistent height for single-line titles */
+}
+
+.card-info-column p {
+    font-size: 0.9em;
+    color: var(--secondary-text, #555);
+    margin-bottom: 5px;
+}
+
+.card-info-column p strong {
+    color: var(--text); /* Make labels bold and clearly visible */
+}
+
+
+.card-network-column {
+    flex-shrink: 0; /* Prevent network column from shrinking */
+    width: 90px; /* Increased width for network column to accommodate text */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center logo and text vertically */
+    text-align: center;
+    gap: 5px;
+}
+
+.card-network-column .network-logo {
+    max-width: 50px; /* Consistent logo size */
+    height: auto;
+    filter: invert(var(--network-logo-invert, 0)); /* Control invert based on dark mode */
+    border-radius: 4px;
+}
+body.dark-mode .card-network-column .network-logo {
+    filter: invert(1); /* Invert logo for dark mode if it's typically light */
+}
+
+.card-network-column .watch-now-text {
+    font-weight: bold;
+    color: var(--primary-color, #e50914);
+    font-size: 0.8em; /* Slightly smaller for better fit */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Ensure long words break */
+}
+
+.card-network-column .subscription-required {
+    font-size: 0.7em; /* Slightly smaller for better fit */
+    color: var(--secondary-text, #555);
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Ensure long words break */
+    line-height: 1.2; /* Tighter line height for multi-line text */
+}
+
+.card-synopsis-row {
+    padding: 15px;
+    background-color: var(--card-bg, #f9f9f9); /* Card background for synopsis area */
+    flex-grow: 1; /* Allow this row to fill available space */
+}
+
+.synopsis-text {
+    max-height: 4.5em; /* Approximately 3 lines for synopsis */
+    overflow: hidden;
+    text-overflow: ellipsis; /* For browsers that support it on multi-line text */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    transition: max-height 0.3s ease-out; /* Smooth transition for expansion */
+    color: var(--text); /* Ensure synopsis text color is correct */
+    font-size: 0.95em;
+}
+
+.synopsis-text.expanded {
+    max-height: 500px; /* Large enough to show full text */
+    -webkit-line-clamp: unset; /* Remove line clamp when expanded */
+}
+
+.synopsis-controls {
+    margin-top: 10px;
+}
+
+.synopsis-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color, #e50914);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+    padding: 0; /* Remove default button padding */
+}
+
+.synopsis-btn:hover {
+    color: #ff4d55;
+}
+
+.synopsis-btn i {
+    font-size: 0.7em;
+}
+
+/* Loading message styling */
+.loading-message, .no-shows-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--secondary-text);
+    padding: 50px 0;
+    grid-column: 1 / -1; /* Span across all columns in the grid */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .shows-movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjust minmax for smaller screens */
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shows-movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Even smaller cards */
+        gap: 20px;
+    }
+    .list-page-container {
+        padding: 15px;
+    }
+    .page-title {
+        font-size: 2em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    /* On smaller screens, the card's top row can remain horizontal,
+       but the columns might become more squished.
+       We can simplify to a two-column (poster + info/network) or stack if needed.
+       For now, let's keep it horizontal but ensure responsiveness. */
+    .card-top-row {
+        flex-wrap: wrap; /* Allow columns to wrap if needed */
+        justify-content: center; /* Center items if wrapped */
+    }
+    .card-poster-column {
+        width: 90px;
+        height: 135px;
+    }
+    .card-info-column {
+        flex-grow: 1;
+        flex-basis: auto; /* Let content determine basis, then grow */
+        padding-right: 0;
+        text-align: center; /* Center text if stacked */
+    }
+    .card-network-column {
+        width: auto; /* Let content determine width */
+        margin-left: auto; /* Push to right if space available */
+        margin-right: auto; /* Center if space is tight */
+    }
+    .card-title {
+        font-size: 1.2em;
+    }
+    .card-info-column p {
+        font-size: 0.85em;
+    }
+    .card-network-column .watch-now-text {
+        font-size: 0.75em;
+    }
+    .card-network-column .subscription-required {
+        font-size: 0.65em;
+    }
+    .synopsis-text {
+        -webkit-line-clamp: 3; /* Keep 3 lines for synopsis on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .shows-movies-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    .card-top-row {
+        flex-direction: column; /* Stack all three columns vertically */
+        align-items: center;
+        padding: 10px;
+        gap: 8px;
+    }
+    .card-poster-column {
+        width: 80px;
+        height: 120px;
+    }
+    .card-info-column, .card-network-column {
+        width: 100%;
+        text-align: center; /* Center text when stacked */
+        margin: 0; /* Remove auto margins */
+    }
+    .card-title {
+        font-size: 1.1em;
+    }
+    .card-info-column p, .card-network-column span {
+        font-size: 0.75em;
+    }
+    .synopsis-text {
+        font-size: 0.8em;
+    }
+    .synopsis-btn {
+        font-size: 0.75em;
+    }
+}

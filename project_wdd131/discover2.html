@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch</title>
+    <link rel="icon" href="images/icons&logos/app-logo.png" type="image/x-icon">
+    <!-- Link our standalone header CSS -->
+    <link rel="stylesheet" href="styles/standalone_header.css">
+    <!-- Link the new discover-specific CSS -->
+    <link rel="stylesheet" href="styles/discover.css">
+    <link rel="stylesheet" href="styles/watch.css">
+    <!-- Font Awesome for icons in standalone header -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Our Standalone Header - Directly inserted here -->
+    <header id="mainHeader">
+        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+        </nav>
+    </header>
+
+    <!-- Search Subheader (from standalone_header.html) -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <!-- Alert Box (from standalone_header.html) -->
+    <div id="alertBox" class="alert-box hidden">
+        <i class="fas fa-exclamation-triangle red-icon"></i>
+        <span>You must be logged in to add shows!</span>
+    </div>
+
+    <!-- Your Existing Main Header -->
+    <div class="main-header">
+        <div class="header-section header-left">
+            <!-- Logo is now only in the standalone header at the very top, this section might be redundant for a logo if the standalone header is already placed. -->
+            <!-- Keeping it for now as per your original structure, but consider if this section should just contain the tagline -->
+            <a href="discover.html" class="logo-link">
+                <!-- Removed actual logo image here as CineWatch text in standalone header is the main clickable logo -->
+                <p class="tagline">Stream, Discover, Repeat</p>
+            </a>
+        </div>
+        <div class="header-section header-center">
+            <nav class="main-nav">
+                <ul>                    
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="tv_shows.html">Tv Shows</a></li>
+                    <li><a href="cinema_guide.html">Cinema Guide</a></li>
+                    <li><a href="about_us.html">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- The original subheader with its search bar is removed as per your request -->
+
+    <main>
+        <div id="heroSection" class="hero-section">
+            <div class="hero-content">
+                <p class="hero-quote"></p>
+            </div>
+            <img src="" alt="Hero Poster" class="hero-poster">
+        </div>
+        <div id="categorySections"></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section centered-info">
+                <p>&copy; Copyright Alex Malunda 2025</p>               
+                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
+            </div>
+            <div class="footer-section social-links">
+                <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="images/socials/instagram-logo.webp" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/socials/facebook-logo.webp" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/socials/linkedin-logo.webp" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/socials/x-logo.webp" alt="X (formerly Twitter)">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load app_core.js first as it contains allShows data and common utility functions -->
+    <script defer src="scripts/app_core.js"></script>
+    <!-- Load standalone_header.js for the top header functionality -->
+    <script defer src="scripts/standalone_header.js"></script>
+    <!-- Load the new discover.js for homepage specific logic -->
+    <script defer src="scripts/discover.js"></script>
+</body>
+</html>

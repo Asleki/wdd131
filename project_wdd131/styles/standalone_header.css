@@ -2,19 +2,43 @@
 :root {
   --bg: #fff;
   --text: #111;
-  --header-bg: #222;
+  --header-bg: #f0ecec;
   --search-bg: #f4f4f4;
-  --highlight: #ff0;
+  --highlight: rgb(28, 12, 241); /* This is the blue used for highlight */
   --danger: #f44336;
   --cinewatch-blue: #000080; /* Dark blue color for CineWatch name */
+
+  /* Variables for custom message box & dropdown in light mode */
+  --message-box-bg: #fff;
+  --message-box-text: #111;
+  --message-box-border: #ccc;
+  --message-box-button-bg: #007bff;
+  --message-box-button-text: white;
+  --message-box-button-hover-bg: #0056b3;
+
+  --dropdown-bg: #fff;
+  --dropdown-item-hover-bg: #f0f0f0;
+  --dropdown-border: #ddd;
 }
 
 body.dark-mode {
   --bg: #111;
   --text: #f4f4f4;
-  --header-bg: #000;
-  --search-bg: #333;
-  --cinewatch-blue: #ADD8E6; /* Lighter blue for dark mode contrast */
+  --header-bg: #8d8181;
+  --search-bg: #0a06ff;
+  --cinewatch-blue: #2d05f8; /* Lighter blue for dark mode contrast */
+
+  /* Variables for custom message box & dropdown in dark mode */
+  --message-box-bg: #2a2a2a;
+  --message-box-text: #f4f4f4;
+  --message-box-border: #444;
+  --message-box-button-bg: #6200ea;
+  --message-box-button-text: white;
+  --message-box-button-hover-bg: #3700b3;
+
+  --dropdown-bg: #2a2a2a;
+  --dropdown-item-hover-bg: #3a3a3a;
+  --dropdown-border: #555;
 }
 
 /* General Reset */
@@ -41,7 +65,7 @@ body {
 /* Stylish CineWatch Logo/Site Name */
 .logo a {
   font-family: 'Georgia', serif; /* A more stylish, serif font for the logo */
-  font-size: 2.2rem; /* Larger font size */
+  font-size: 2.4rem; /* Larger font size */
   font-weight: bold; /* Make it bold */
   color: var(--cinewatch-blue); /* Dark blue color */
   text-decoration: none; /* Remove underline from link */
@@ -55,6 +79,12 @@ body {
   transform: scale(1.03); /* Slightly enlarge on hover */
 }
 
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    position: relative; /* For the account dropdown positioning */
+}
 
 .nav-icons i {
   margin-left: 15px;
@@ -73,6 +103,11 @@ body {
 
 .nav-icons i:hover {
   transform: scale(1.2);
+}
+
+/* Specific rule for Search Icon in dark mode */
+body.dark-mode #searchIcon {
+  color: var(--highlight); /* Make search icon blue in dark mode */
 }
 
 /* Search Subheader */
@@ -133,6 +168,10 @@ body {
   color: var(--text); /* Ensure text color is theme-aware */
 }
 
+.suggestions-box div:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
 .suggestions-box div:hover {
   background-color: #eee; /* Light hover for light mode */
 }
@@ -141,7 +180,8 @@ body.dark-mode .suggestions-box div:hover {
     background-color: #555; /* Darker hover for dark mode */
 }
 
-/* Alert Box */
+/* Alert Box - Keeping this for direct integration via HTML */
+/* But also providing styles for the JS-generated message box */
 .alert-box {
   position: fixed;
   top: 70px;
@@ -156,10 +196,196 @@ body.dark-mode .suggestions-box div:hover {
   gap: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   z-index: 2000;
+  animation: fadeIn 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards; /* Fade in, then fade out after a delay */
 }
+
+/* --- Styles for the JS-generated custom message box (from app_core.js) --- */
+.message-box-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Higher than alert-box */
+    backdrop-filter: blur(5px);
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+.message-box-custom {
+    background: var(--message-box-bg);
+    color: var(--message-box-text);
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    max-width: 90%;
+    width: 350px;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--message-box-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: zoomIn 0.3s ease-out;
+}
+
+.message-box-custom .message-icon {
+    font-size: 3em; /* Large icon */
+    color: var(--highlight); /* Use highlight color for the icon */
+}
+
+.message-box-custom p {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.message-box-custom button {
+    background-color: var(--message-box-button-bg);
+    color: var(--message-box-button-text);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.message-box-custom button:hover {
+    background-color: var(--message-box-button-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* --- Account Dropdown Menu Styles --- */
+.account-dropdown {
+    position: absolute;
+    top: 100%; /* Position below the account icon */
+    right: 0;
+    background-color: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 180px;
+    z-index: 1050; /* Above search subheader */
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    overflow: hidden; /* For rounded corners */
+    animation: fadeIn 0.2s ease-out;
+}
+
+.account-dropdown.visible {
+    display: flex;
+}
+
+.account-dropdown a {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.account-dropdown a:hover {
+    background-color: var(--dropdown-item-hover-bg);
+}
+
+.account-dropdown a i {
+    font-size: 1em; /* Smaller icon size for dropdown */
+    margin-left: 0; /* Override default nav-icons margin-left */
+    color: var(--text); /* Ensure icon color adapts */
+}
+
+.account-dropdown a.logout-item {
+    border-top: 1px solid var(--dropdown-border);
+    margin-top: 5px;
+    padding-top: 15px;
+    color: var(--danger); /* Red for logout */
+    font-weight: bold;
+}
+.account-dropdown a.logout-item:hover {
+    background-color: rgba(var(--danger-rgb), 0.1); /* Use danger color for hover */
+}
+body.dark-mode .account-dropdown a.logout-item {
+    color: var(--danger);
+}
+
 
 /* Animations */
 @keyframes slideDown {
   from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInOverlay {
+    from { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
+    to { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 600px) {
+    .nav-icons i {
+        margin-left: 10px;
+        font-size: 1.1rem;
+    }
+    .logo a {
+        font-size: 1.8rem;
+    }
+    #mainHeader {
+        padding: 10px;
+    }
+    .search-bar-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    #searchInput {
+        width: calc(100% - 20px); /* Adjust for padding */
+        border-radius: 6px;
+    }
+    .voice-icon, .clear-icon {
+        right: 10px; /* Adjust position for smaller input */
+    }
+    .voice-icon {
+        top: 50%;
+        transform: translateY(-50%);
+        right: 35px;
+    }
+    .clear-icon {
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+    }
+    .suggestions-box {
+        margin-top: 5px;
+    }
+    .message-box-custom {
+        width: 95%;
+        padding: 20px;
+    }
+    .account-dropdown {
+        min-width: unset;
+        width: 160px; /* Adjust width for mobile */
+    }
 }

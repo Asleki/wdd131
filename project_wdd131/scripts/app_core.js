@@ -1,4 +1,4 @@
-// js/app_core.js
+// scripts/app_core.js
 // This file contains core application data (shows, hero slides) and common utility functions.
 
 // Data for hero slides
@@ -384,7 +384,7 @@ const allShows = [
         genre: "Action, Crime, Thriller",
         creators: "Victor Gatonye (Director)",
         cast: "Robert Agengo, Mwaura Bilal, Andreo Kamau, Mumbi Maina, Nyakundi Isaboke",
-        networkLogo: "netflixlogo.webp",
+        networkLogo: "netflixlogo.webp", // Available on Netflix
         networkText: "Watch Now",
         subscription: "Subscription Required",
         synopsis: "When a prison bus crashes in the middle of a forest, a group of convicts must work together to survive the harsh wilderness while evading an unknown, deadly threat lurking in the shadows."
@@ -393,6 +393,7 @@ const allShows = [
 
 // Global variables for hero section elements, to be assigned when DOM is ready
 let heroSection, heroQuoteElement, heroPosterElement;
+let currentSlideIndex = 0; // Initialize currentSlideIndex for hero section
 
 // Function to update the hero section on the homepage
 function updateHeroSection() {
@@ -405,13 +406,13 @@ function updateHeroSection() {
     const slide = heroSlides[currentSlideIndex];
 
     // Update background image
-    heroSection.style.backgroundImage = `url('${slide.backdrop}')`;
+    heroSection.style.backgroundImage = `url('images/herobackdrops/${slide.backdrop}')`;
     heroSection.style.backgroundSize = 'cover';
     heroSection.style.backgroundPosition = 'center';
     heroSection.style.backgroundRepeat = 'no-repeat';
 
     // Update poster image
-    heroPosterElement.src = slide.poster;
+    heroPosterElement.src = `images/heroposters/${slide.poster}`;
     heroPosterElement.alt = `Poster for ${slide.quote.substring(0, Math.min(slide.quote.length, 20))}...`; // Use a part of the quote for alt text
 
     // Update quote
@@ -426,50 +427,45 @@ function updateHeroSection() {
     currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
 }
 
-// Function to create HTML for a single show card (used on homepage)
+/**
+ * Creates HTML for a single show/movie card with the new 3-column horizontal layout.
+ * The "Read More" button now toggles synopsis expansion in place.
+ * The card's clickable area (excluding the "Read More" button) navigates to details.html.
+ * @param {object} show The show/movie object from allShows.
+ * @returns {string} The HTML string for the show/movie card.
+ */
 function createShowCardHTML(show) {
     const posterPath = `images/posters/${show.poster}`;
     const networkLogoPath = `images/icons&logos/${show.networkLogo}`;
-    const synopsisTruncated = show.synopsis.length > 150 ? show.synopsis.substring(0, 150) + '...' : show.synopsis;
+    const synopsisTruncated = show.synopsis; // Full synopsis for CSS truncation
 
     return `
-        <div class="show-card">
-            <div class="show-info-and-poster-container">
-                <div class="show-poster-container">
-                    <img src="${posterPath}" alt="${show.title} Poster" class="show-poster">
+        <div class="show-movie-card" data-title="${encodeURIComponent(show.title)}">
+            <div class="card-top-row">
+                <div class="card-poster-column">
+                    <img src="${posterPath}" alt="${show.title} Poster" class="card-poster">
                 </div>
-                <div class="show-details-right">
-                    <div>
-                        <h3>${show.title}</h3>
-                        <img src="images/icons&logos/theaters_24dp_green.svg" alt="Show Info" class="show-info-icon-display">
-                        <p><strong>IMDb:</strong> ${show.imdb}</p>
-                        <p><strong>Release Date:</strong> ${show.releaseDate}</p>
-                        <p><strong>Seasons:</strong> ${show.seasons}</p>
-                        <p><strong>Episodes:</strong> ${show.episodes}</p>
-                        <p><strong>Languages:</strong> ${show.languages}</p>
-                        <p><strong>Genre:</strong> ${show.genre}</p>
-                        <p><strong>Creators:</strong> ${show.creators}</p>
-                        <p><strong>Cast:</strong> ${show.cast}</p>
-                    </div>
-                    <div class="network-logo-section">
-                        <img src="${networkLogoPath}" alt="${show.networkText} Logo" class="network-logo">
-                        <p class="watch-now-text">${show.networkText}</p>
-                        <p class="subscription-required">${show.subscription}</p>
-                    </div>
+                <div class="card-info-column">
+                    <h3 class="card-title">${show.title}</h3>
+                    <p><strong>IMDb:</strong> ${show.imdb}</p>
+                    <p><strong>Release:</strong> ${show.releaseDate.match(/\d{4}/)?.[0] || 'N/A'}</p>
+                    <p><strong>Genre:</strong> ${show.genre}</p>
+                </div>
+                <div class="card-network-column">
+                    <img src="${networkLogoPath}" alt="${show.networkText} Logo" class="network-logo">
+                    <span class="watch-now-text">${show.networkText}</span>
+                    <span class="subscription-required">${show.subscription}</span>
                 </div>
             </div>
-            <div class="show-synopsis">
-                <h4>Overview:</h4>
+            <div class="card-synopsis-row">
                 <p class="synopsis-text" data-full-synopsis="${show.synopsis}">${synopsisTruncated}</p>
                 ${show.synopsis.length > 150 ? `
                 <div class="synopsis-controls">
                     <button class="read-more-btn">
-                        Read More
-                        <img src="images/icons&logos/readmore.black.icon.svg" alt="Read More">
+                        Read More <i class="fas fa-chevron-down"></i>
                     </button>
                     <button class="read-less-btn" style="display: none;">
-                        Read Less
-                        <img src="images/icons&logos/arrow.up.icon.svg" alt="Read Less">
+                        Read Less <i class="fas fa-chevron-up"></i>
                     </button>
                 </div>` : ''}
             </div>
@@ -480,32 +476,48 @@ function createShowCardHTML(show) {
 // Function to add "Read More/Less" event listeners to synopsis controls within a container
 function addSynopsisToggleListeners(container) {
     container.querySelectorAll('.read-more-btn').forEach(button => {
-        button.onclick = function() {
-            const synopsisText = this.closest('.show-synopsis').querySelector('.synopsis-text');
-            synopsisText.classList.add('expanded');
-            synopsisText.textContent = synopsisText.dataset.fullSynopsis;
-            this.style.display = 'none';
-            this.nextElementSibling.style.display = 'inline-flex';
+        button.onclick = function(event) {
+            event.stopPropagation(); // Prevent card click from triggering
+            const synopsisText = this.closest('.card-synopsis-row').querySelector('.synopsis-text');
+            if (synopsisText) {
+                synopsisText.classList.add('expanded');
+                synopsisText.textContent = synopsisText.dataset.fullSynopsis;
+                this.style.display = 'none';
+                // Adjust nextElementSibling based on whether it's a button or a div containing button
+                const readLessBtn = this.nextElementSibling;
+                if (readLessBtn && readLessBtn.classList.contains('read-less-btn')) {
+                    readLessBtn.style.display = 'inline-flex';
+                }
+            }
         };
     });
 
     container.querySelectorAll('.read-less-btn').forEach(button => {
-        button.onclick = function() {
-            const synopsisText = this.closest('.show-synopsis').querySelector('.synopsis-text');
-            synopsisText.classList.remove('expanded');
-            synopsisText.textContent = synopsisText.dataset.fullSynopsis.substring(0, 150) + '...';
-            this.style.display = 'none';
-            this.previousElementSibling.style.display = 'inline-flex';
+        button.onclick = function(event) {
+            event.stopPropagation(); // Prevent card click from triggering
+            const synopsisText = this.closest('.card-synopsis-row').querySelector('.synopsis-text');
+            if (synopsisText) {
+                synopsisText.classList.remove('expanded');
+                // Truncate again for display, should match initial CSS truncation
+                const synopsisLengthLimit = 150; // Keep consistent with CSS line clamping target
+                synopsisText.textContent = synopsisText.dataset.fullSynopsis.substring(0, synopsisLengthLimit) + (synopsisText.dataset.fullSynopsis.length > synopsisLengthLimit ? '...' : '');
+                this.style.display = 'none';
+                const readMoreBtn = this.previousElementSibling;
+                if (readMoreBtn && readMoreBtn.classList.contains('read-more-btn')) {
+                    readMoreBtn.style.display = 'inline-flex';
+                }
+            }
         };
     });
 }
 
-// Function to reset synopsis states within a container
+// Function to reset synopsis states within a container (useful for carousels if they dynamically change cards)
 function resetSynopsisStates(container) {
     container.querySelectorAll('.synopsis-text').forEach(synopsisText => {
         if (synopsisText.classList.contains('expanded')) {
             synopsisText.classList.remove('expanded');
-            synopsisText.textContent = synopsisText.dataset.fullSynopsis.substring(0, 150) + '...';
+            const synopsisLengthLimit = 150; // Ensure consistent truncation
+            synopsisText.textContent = synopsisText.dataset.fullSynopsis.substring(0, synopsisLengthLimit) + (synopsisText.dataset.fullSynopsis.length > synopsisLengthLimit ? '...' : '');
             const parentControls = synopsisText.nextElementSibling;
             if (parentControls && parentControls.classList.contains('synopsis-controls')) {
                 parentControls.querySelector('.read-more-btn').style.display = 'inline-flex';
@@ -515,9 +527,9 @@ function resetSynopsisStates(container) {
     });
 }
 
-// Function to update the quotes sidebar (this version is for homepage carousels)
+
+// Function to update the quotes sidebar on homepage (this will be overridden by details.js for show page)
 // Note: This function will use castDetails if castDetailsData is loaded globally.
-// This is a more generic version for the homepage carousel.
 function updateQuotesSidebar(quotesSidebarElement, currentShow) {
     if (!quotesSidebarElement) return;
     quotesSidebarElement.innerHTML = '<h3>Famous Quotes</h3>';
@@ -529,7 +541,8 @@ function updateQuotesSidebar(quotesSidebarElement, currentShow) {
         castNames.forEach(actorName => {
             const actorInfo = castDetails[currentShow.title].find(castMember => castMember.name === actorName);
             if (actorInfo && actorInfo.quotes && actorInfo.quotes.length > 0) {
-                collectedQuotes = collectedQuotes.concat(actorInfo.quotes.map(q => ({ quote: q, character: actorInfo.name })));
+                // Ensure quotes are just strings, remove any potential markdown if not already.
+                collectedQuotes = collectedQuotes.concat(actorInfo.quotes.map(q => ({ quote: q.replace(/\*\*/g, ''), character: actorInfo.name })));
             }
         });
 
@@ -603,15 +616,11 @@ function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, sh
     const currentShow = shows[currentShowIndex];
     updateQuotesSidebar(quotesSidebarElement, currentShow);
 
-    // Reset "Read More/Less" state for the current card
+    // Reset "Read More/Less" state for the current card (important for carousels to reset synopsis)
     setTimeout(() => {
         resetSynopsisStates(carouselTrack);
-    }, 500); // Match this timeout with the CSS transition duration for transform
+    }, 500);
 }
-
-// Array to hold state for each category carousel
-// This should be initialized once on the main page.
-// const categoryCarousels = []; // Declared globally above
 
 // Function to initialize a carousel for a given category on the homepage
 function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
@@ -656,10 +665,9 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
         return;
     }
 
-
     // Populate the carousel track with show cards for this category
     showsInCategory.forEach(show => {
-        carouselTrack.innerHTML += createShowCardHTML(show);
+        carouselTrack.innerHTML += createShowCardHTML(show); // Use the new createShowCardHTML
     });
 
     // Store this carousel's state in the global array
@@ -689,8 +697,21 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
         updateCarousel(carouselState.carouselTrack, carouselState.paginationContainer, carouselState.prevBtn, carouselState.nextBtn, carouselState.shows, carouselState.currentIndex, carouselState.quotesSidebar);
     });
 
-    // Add "Read More/Less" event listeners for all cards within this carousel
+    // Add synopsis toggle listeners to cards within this specific carousel
     addSynopsisToggleListeners(carouselTrack);
+
+    // Add click listeners to the entire card to navigate to details.html
+    carouselTrack.querySelectorAll('.show-movie-card').forEach(card => {
+        card.addEventListener('click', (event) => {
+            // Only navigate if the click target is NOT the read more/less button
+            if (!event.target.closest('.read-more-btn') && !event.target.closest('.read-less-btn')) {
+                const title = card.dataset.title;
+                if (title) {
+                    window.location.href = `details.html?title=${title}`;
+                }
+            }
+        });
+    });
 }
 
 
@@ -721,150 +742,34 @@ function renderAllCategories() {
     });
 }
 
-// Function to display a custom message box (replaces alert())
-function showMessageBox(message) {
+/**
+ * Displays a custom styled message box with an icon.
+ * @param {string} message The message to display.
+ * @param {string} [iconClass='fas fa-info-circle'] Font Awesome icon class (e.g., 'fas fa-check-circle', 'fas fa-exclamation-triangle').
+ */
+function showMessageBox(message, iconClass = 'fas fa-info-circle') {
     // Create overlay
     const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        backdrop-filter: blur(5px); /* Optional: blur background */
-    `;
+    overlay.classList.add('message-box-overlay');
 
     // Create message box
     const messageBox = document.createElement('div');
-    messageBox.style.cssText = `
-        background: var(--background-color-dark); /* Use a CSS variable for dark mode compatibility */
-        color: var(--text-color); /* Use a CSS variable for dark mode compatibility */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        max-width: 80%;
-        font-family: Arial, sans-serif;
-        border: 1px solid var(--border-color); /* Optional: subtle border */
-    `;
+    messageBox.classList.add('message-box-custom');
+
+    // Add icon
+    const iconElement = document.createElement('i');
+    iconElement.classList.add('message-icon', ...iconClass.split(' ')); // Split and add multiple classes
 
     const messageText = document.createElement('p');
     messageText.textContent = message;
-    messageText.style.marginBottom = '15px';
-    messageText.style.fontSize = '1.1em';
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'OK';
-    closeButton.style.cssText = `
-        background-color: var(--primary-button-background); /* Use a CSS variable */
-        color: var(--primary-button-text); /* Use a CSS variable */
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.2s ease;
-    `;
-    closeButton.onmouseover = () => closeButton.style.backgroundColor = 'var(--primary-button-hover-background)';
-    closeButton.onmouseout = () => closeButton.style.backgroundColor = 'var(--primary-button-background)';
     closeButton.onclick = () => document.body.removeChild(overlay);
 
+    messageBox.appendChild(iconElement);
     messageBox.appendChild(messageText);
     messageBox.appendChild(closeButton);
     overlay.appendChild(messageBox);
     document.body.appendChild(overlay);
 }
-
-// Main execution logic for homepage features.
-// This needs to be called from your main HTML file (e.g., index.html or watch.html)
-// within a DOMContentLoaded listener, after app_core.js is loaded.
-/*
-document.addEventListener('DOMContentLoaded', () => {
-    // Hero section initialization for the homepage
-    let heroSectionElement = document.getElementById('heroSection');
-    if (heroSectionElement) {
-        // Assign global variables used by updateHeroSection
-        heroSection = heroSectionElement;
-        heroQuoteElement = heroSectionElement.querySelector('.hero-quote');
-        heroPosterElement = heroSectionElement.querySelector('.hero-poster');
-
-        if (heroSlides.length > 0) {
-            updateHeroSection();
-            setInterval(updateHeroSection, 7000);
-        } else {
-            console.warn("Hero section elements not fully found or no slides defined on homepage. Hero slideshow functionality will not work.");
-            if(heroSectionElement) heroSectionElement.style.display = 'none';
-        }
-    } else {
-        console.warn("Hero section container with ID 'heroSection' not found on homepage. Hero slideshow functionality will not work.");
-    }
-
-    // Dark Mode Toggle Logic (if present on this page)
-    const modeToggle = document.querySelector('.mode-toggle');
-    const darkModeIcon = document.getElementById('darkModeIcon');
-    const lightModeIcon = document.getElementById('lightModeIcon');
-    const body = document.body;
-
-    if (modeToggle && darkModeIcon && lightModeIcon && body) {
-        const savedMode = localStorage.getItem('theme');
-        if (savedMode === 'dark') {
-            body.classList.add('dark-mode');
-            darkModeIcon.classList.add('active');
-            lightModeIcon.classList.remove('active');
-        } else {
-            body.classList.remove('dark-mode');
-            lightModeIcon.classList.add('active');
-            darkModeIcon.classList.remove('active');
-        }
-
-        modeToggle.addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                lightModeIcon.classList.add('active');
-                darkModeIcon.classList.remove('active');
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark-mode');
-                darkModeIcon.classList.add('active');
-                lightModeIcon.classList.remove('active');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    } else {
-        console.warn("Dark mode toggle elements not found on homepage. Dark mode functionality skipped.");
-    }
-
-    // Header Action Button Logic (if present on this page)
-    const addShowIcon = document.getElementById('addShowIcon');
-    if (addShowIcon) {
-        addShowIcon.addEventListener('click', (event) => {
-            event.preventDefault();
-            showMessageBox("Add to Playlist functionality is coming soon!");
-        });
-    }
-
-    const accountIcon = document.getElementById('accountIcon');
-    if (accountIcon) {
-        accountIcon.addEventListener('click', (event) => {
-            event.preventDefault();
-            showMessageBox("Account management features are under development!");
-        });
-    }
-
-    const searchIconBtn = document.querySelector('.search-icon-btn');
-    if (searchIconBtn) {
-        searchIconBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            showMessageBox("Search functionality will be enhanced soon!");
-        });
-    }
-
-    // Call the main rendering function for categories when the DOM is fully loaded
-    renderAllCategories();
-});
-*/

@@ -1,0 +1,196 @@
+/* General styling for authentication pages */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg); /* Uses theme variable from standalone_header.css */
+    color: var(--text); /* Uses theme variable from standalone_header.css */
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main container for the authentication forms */
+.auth-container {
+    flex-grow: 1; /* Allows the container to take up available vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20px auto; /* Add vertical margin and auto horizontal for centering */
+    max-width: 500px; /* Limit maximum width of the form area */
+    width: 100%;
+}
+
+/* Auth form styling */
+.auth-form {
+    background-color: var(--card-background-light); /* Use a lighter background for forms */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px; /* Max width for the form itself */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color-light);
+}
+
+body.dark-mode .auth-form {
+    background-color: var(--card-background-dark);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color-dark);
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: var(--primary-color, var(--highlight)); /* Use highlight for titles */
+    margin-bottom: 25px;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text); /* Ensure label text adapts */
+    font-size: 1.05em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color-light); /* Light mode border */
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--bg); /* Input background matches overall background */
+    color: var(--text); /* Input text color adapts */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .form-group input {
+    background-color: #333; /* Darker input background for dark mode */
+    border-color: var(--border-color-dark);
+    color: var(--text);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--highlight); /* Highlight border on focus */
+    box-shadow: 0 0 0 3px rgba(var(--highlight-rgb), 0.2); /* Soft highlight shadow */
+}
+
+/* Adjusting --highlight-rgb for the rgba usage since highlight is rgb() directly */
+:root {
+    --highlight-rgb: 28, 12, 241; /* Explicit RGB values for rgba() function */
+}
+body.dark-mode {
+    --highlight-rgb: 45, 5, 248; /* Lighter RGB for dark mode highlight */
+}
+
+
+.error-message {
+    color: var(--danger);
+    font-size: 0.85em;
+    margin-top: 5px;
+    min-height: 1.2em; /* Reserve space to prevent layout shift */
+}
+
+.submit-btn {
+    background-color: var(--primary-button-background-light); /* Light mode button */
+    color: var(--primary-button-text-light);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .submit-btn {
+    background-color: var(--primary-button-background-dark); /* Dark mode button */
+    color: var(--primary-button-text-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-button-hover-background-light); /* Light mode hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+body.dark-mode .submit-btn:hover {
+    background-color: var(--primary-button-hover-background-dark); /* Dark mode hover */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.auth-switch, .auth-forgot-password {
+    text-align: center;
+    font-size: 0.95em;
+    margin-top: 15px;
+}
+
+.auth-switch a, .auth-forgot-password a {
+    color: var(--highlight); /* Links use highlight color */
+    text-decoration: none;
+    font-weight: bold;
+    transition: text-decoration 0.2s ease;
+}
+
+.auth-switch a:hover, .auth-forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .auth-form {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+
+    .form-group input {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    .submit-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .auth-switch, .auth-forgot-password {
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+}

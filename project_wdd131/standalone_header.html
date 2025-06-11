@@ -13,13 +13,28 @@
 <body>
   <!-- Main Header -->
   <header id="mainHeader">
-    <!-- Removed the emoji, now just text that links to discover.html -->
     <div class="logo"><a href="discover.html">CineWatch</a></div>
     <nav class="nav-icons">
       <i id="searchIcon" class="fas fa-search" title="Search"></i>
       <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
       <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
       <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+      <!-- Account Dropdown Menu (initially hidden) -->
+      <div id="accountDropdown" class="account-dropdown">
+        <!-- Content will be dynamically added by JavaScript based on login status -->
+        <!-- Example for not logged in: -->
+        <!-- <a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a> -->
+        <!-- <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a> -->
+
+        <!-- Example for logged in: -->
+        <!-- <a href="#"><i class="fas fa-user"></i> <span id="dropdownUsername">Username</span></a> -->
+        <!-- <a href="#"><i class="fas fa-list-ul"></i> Playlist</a> -->
+        <!-- <a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a> -->
+        <!-- <a href="#"><i class="fas fa-heart"></i> Favorites</a> -->
+        <!-- <a href="#"><i class="fas fa-cog"></i> Settings</a> -->
+        <!-- <a href="#" class="logout-item"><i class="fas fa-sign-out-alt"></i> Logout</a> -->
+      </div>
     </nav>
   </header>
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Sign Up</title>
+    <link rel="icon" href="images/icons&logos/app-logo.png" type="image/x-icon">
+    <!-- Link our standalone header CSS -->
+    <link rel="stylesheet" href="styles/standalone_header.css">
+    <!-- Link existing watch.css for shared styles like footer, global body, etc. -->
+    <link rel="stylesheet" href="styles/watch.css">
+    <!-- Link the new authentication forms CSS for form-specific styles -->
+    <link rel="stylesheet" href="styles/auth_forms.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Header (Standalone Header) -->
+    <header id="mainHeader">
+        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content dynamically added by JS -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="alert-box hidden">
+        <i class="fas fa-exclamation-triangle red-icon"></i>
+        <span>You must be logged in to add shows!</span>
+    </div>
+
+    <main class="auth-container">
+        <form id="signupForm" class="auth-form">
+            <h2>Sign Up for CineWatch</h2>
+            <div class="form-group">
+                <label for="signupUsername">Username</label>
+                <input type="text" id="signupUsername" name="username" required>
+                <div class="error-message" id="usernameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" name="email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" name="password" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+            <button type="submit" class="submit-btn">Sign Up</button>
+            <p class="auth-switch">Already have an account? <a href="login.html">Login here</a></p>
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section centered-info">
+                <p>&copy; Copyright Alex Malunda 2025</p>
+                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
+            </div>
+            <div class="footer-section social-links">
+                <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+                <div class="social-icons">
+                    <!-- Corrected image paths for social icons as per typical project structure -->
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="images/socials/instagram-logo.webp" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/socials/facebook-logo.webp" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/socials/linkedin-logo.webp" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/socials/x-logo.webp" alt="X (formerly Twitter)">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load necessary JavaScript files from scripts/ folder -->
+    <script defer src="scripts/app_core.js"></script>
+    <script defer src="scripts/standalone_header.js"></script>
+    <script defer src="scripts/auth.js"></script>
+</body>
+</html>

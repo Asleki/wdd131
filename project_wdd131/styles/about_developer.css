@@ -108,10 +108,7 @@ body.dark-mode strong {
     align-items: center;
 }
 
-.site-header .logo img {
-    height: 50px; /* Adjust as needed */
-    width: auto;
-}
+
 
 .main-nav ul {
     list-style: none;

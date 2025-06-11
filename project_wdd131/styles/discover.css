@@ -1,42 +1,60 @@
+/* Root Theme Variables for light and dark mode */
+:root {
+    --background-color-light: #dbe5f5;
+    --text-color-light: #333;
+    --card-background-light: #c5e0f3;
+    --border-color-light: #ddd;
+    --primary-button-background-light: #007bff;
+    --primary-button-text-light: white;
+    --primary-button-hover-background-light: #0056b3;
+    --quote-background-light: #fff;
+    --quotes-sidebar-background-light: #e0e0e0;
+
+    /* These are from standalone_header.css, duplicated for direct use if discover.css is main */
+    --bg: var(--background-color-light);
+    --text: var(--text-color-light);
+    --header-bg: #f0ecec; /* Light mode header background */
+    --search-bg: #f4f4f4;
+    --highlight: rgb(28, 12, 241); /* Your specified highlight blue */
+    --danger: #f44336;
+    --cinewatch-blue: #000080; /* Dark blue color for CineWatch name in light mode */
+}
+
+body.dark-mode {
+    --background-color-dark: #1a1a1a;
+    --text-color-dark: #f0f0f0;
+    --card-background-dark: #2a2a2a;
+    --border-color-dark: #444;
+    --primary-button-background-dark: #6200ea;
+    --primary-button-text-dark: white;
+    --primary-button-hover-background-dark: #3700b3;
+    --quote-background-dark: #333;
+    --quotes-sidebar-background-dark: #262626;
+
+    /* These are from standalone_header.css, duplicated for direct use if discover.css is main */
+    --bg: var(--background-color-dark);
+    --text: var(--text-color-dark);
+    --header-bg: #8d8181; /* Dark mode header background */
+    --search-bg: #0a06ff;
+    --cinewatch-blue: #2d05f8; /* Lighter blue for dark mode contrast */
+}
+
+
 /* General Body and Layout */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
+    background-color: var(--bg); /* Uses theme variable */
+    color: var(--text); /* Uses theme variable */
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
 
-/* --- Dark Mode specific body styles --- */
-body.dark-mode {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
-}
-
-
-.header-action {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.2s ease;
-}
-
-.header-action:hover {
-    opacity: 0.7;
-}
-
-.header-action img {
-    width: 22px;
-    height: 22px;
-    vertical-align: middle;
-}
-
+/* --- Main Header Styles (Your existing .main-header, now below standalone_header) --- */
 .main-header {
-    background-color: #f0f0f0;
+    background-color: var(--header-bg); /* Use theme variable for header background */
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
@@ -45,28 +63,29 @@ body.dark-mode {
     flex-wrap: wrap;
     gap: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 180px;
+    min-height: 100px; /* Adjusted min-height as utility-header is gone */
     padding-bottom: 15px;
+    color: var(--text); /* Ensure main header text adapts to dark mode */
 }
 
 body.dark-mode .main-header {
-    background-color: #0a0a0a;
+    background-color: var(--header-bg); /* Already defined by --header-bg in dark-mode vars */
     box-shadow: 0 2px 8px rgba(255,255,255,0.1);
 }
 body.dark-mode .main-header .main-nav ul li a {
-    color: #e7d4d4;
+    color: var(--text); /* Ensure navigation links adapt */
 }
 body.dark-mode .main-header .main-nav ul li a:hover {
-    color: #8ab4f8;
+    color: var(--highlight); /* Use highlight color for hover in dark mode */
 }
 
 .header-section {
-    display: grid;
+    display: flex;
     align-items: center;
-
+    flex-shrink: 1;
 }
 
-.logo-link {
+.logo-link { /* This is for the tagline now, as main logo is in standalone_header */
     text-decoration: none;
     color: inherit;
     display: flex;
@@ -75,30 +94,23 @@ body.dark-mode .main-header .main-nav ul li a:hover {
     text-align: center;
 }
 
-.logo-link img {
-    max-width: 200px;
-    height: auto;
-    margin-bottom: 5px;
-}
+/* Removed .logo-link img as it's no longer present */
 
 .logo-link p.tagline {
-    font-size: 1.5em;
-    color: #555;
+    font-size: 0.9em;
+    color: var(--text); /* Tagline text color adapts */
     margin: 0;
     white-space: nowrap;
 }
 
-body.dark-mode .logo-link img {
-    filter: brightness(1.2) saturate(0.8);
-}
+/* No filter: brightness or saturate for tagline as it's text */
 body.dark-mode .logo-link p.tagline {
-    color: #ccc;
+    color: var(--text); /* Ensure tagline adapts */
 }
 
 .header-center {
     justify-content: center;
     min-width: 200px;
-    margin-top: auto;
     width: 100%;
 }
 
@@ -113,7 +125,7 @@ body.dark-mode .logo-link p.tagline {
 
 .main-nav ul li a {
     text-decoration: none;
-    color: #030303;
+    color: var(--text); /* Navigation links adapt */
     font-size: 1.1em;
     padding: 8px 0;
     transition: color 0.3s ease;
@@ -121,26 +133,20 @@ body.dark-mode .logo-link p.tagline {
 }
 
 .main-nav ul li a:hover {
-    color: #007bff;
-}
-
-body.dark-mode .main-nav ul li a {
-    color: #e7d4d4;
-}
-body.dark-mode .main-nav ul li a:hover {
-    color: #8ab4f8;
+    color: var(--highlight); /* Use highlight color for hover */
 }
 
 
-
-/* Basic Hero Section Styling */
+/* --- Hero Section Styling --- */
 .hero-section {
     position: relative;
-    width: 100%;
+    width: 100vw; /* Span the whole width of the viewport */
+    left: calc(50% - 50vw); /* Trick to make it full viewport width */
     height: 55vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 20px;
     box-sizing: border-box;
     overflow: hidden;
     color: white;
@@ -170,7 +176,6 @@ body.dark-mode .main-nav ul li a:hover {
     font-weight: bold;
     margin-bottom: 15px;
     line-height: 1.2;
-    padding-left: 2rem;
 }
 
 .hero-poster {
@@ -180,8 +185,13 @@ body.dark-mode .main-nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     z-index: 1;
-    padding: 10px 10px 0 10px;
+    /* Ensure hero poster does not invert in dark mode */
+    filter: none !important;
 }
+body.dark-mode .hero-poster {
+    filter: none !important; /* Double-check to ensure no inversion */
+}
+
 
 .hero-section::before {
     content: '';
@@ -199,6 +209,7 @@ body.dark-mode .main-nav ul li a:hover {
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        padding: 15px; /* Adjust padding for mobile */
     }
 
     .hero-content {
@@ -221,10 +232,12 @@ main {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding: 20px;
     flex-grow: 1;
 }
 
 /* --- Dark mode for main content elements (Consolidated and adjusted) --- */
+/* Importantly, no filter: invert(1) on images/icons to retain original colors */
 body.dark-mode .category-section {
     background-color: var(--card-background-dark);
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
@@ -238,6 +251,10 @@ body.dark-mode .show-card {
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     color: var(--text-color-dark);
 }
+body.dark-mode .show-card img {
+    /* Ensure images in show-card do NOT invert */
+    filter: none !important;
+}
 body.dark-mode .show-details-right h3 {
     color: var(--text-color-dark);
 }
@@ -245,10 +262,14 @@ body.dark-mode .show-details-right p {
     color: var(--text-color-dark);
 }
 body.dark-mode .network-logo-section .watch-now-text {
-    color: #8ab4f8;
+    color: var(--highlight); /* Use highlight for network text in dark mode */
 }
 body.dark-mode .network-logo-section .subscription-required {
     color: #ccc;
+}
+body.dark-mode .network-logo {
+    /* Ensure network logos do NOT invert */
+    filter: none !important;
 }
 body.dark-mode .show-synopsis h4 {
     color: var(--text-color-dark);
@@ -258,16 +279,14 @@ body.dark-mode .synopsis-text {
 }
 body.dark-mode .read-more-btn,
 body.dark-mode .read-less-btn {
-    color: #8ab4f8;
+    color: var(--highlight); /* Use highlight for read more/less in dark mode */
 }
 body.dark-mode .read-more-btn:hover,
 body.dark-mode .read-less-btn:hover {
-    background-color: rgba(138, 180, 248, 0.1);
+    /* Ensure the highlight color is correctly parsed for rgba in dark mode */
+    background-color: rgba(28, 12, 241, 0.1); /* Manual RGB values for your --highlight */
 }
-body.dark-mode .read-more-btn img,
-body.dark-mode .read-less-btn img {
-    filter: invert(1) hue-rotate(180deg) brightness(1.5);
-}
+/* Removed specific filter for read-more/less img as it's now an icon font */
 body.dark-mode .carousel-btn {
     background-color: rgba(255, 255, 255, 0.2);
 }
@@ -281,10 +300,10 @@ body.dark-mode .pagination-dot {
     background-color: #555;
 }
 body.dark-mode .pagination-dot.active {
-    background-color: #8ab4f8;
+    background-color: var(--highlight); /* Use highlight for active dot */
 }
 body.dark-mode .quotes-sidebar {
-    background-color: var(--card-background-dark);
+    background-color: var(--quotes-sidebar-background-dark);
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     color: var(--text-color-dark);
 }
@@ -292,8 +311,8 @@ body.dark-mode .quotes-sidebar h3 {
     color: var(--text-color-dark);
 }
 body.dark-mode .quote-container {
-    background-color: #333;
-    border-left-color: #8ab4f8;
+    background-color: var(--quote-background-dark);
+    border-left-color: var(--highlight); /* Use highlight for quote border in dark mode */
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 body.dark-mode .quote-text {
@@ -305,17 +324,18 @@ body.dark-mode .quote-character {
 
 /* Category Section Styling */
 .category-section {
-    background-color: #fff;
+    background-color: var(--card-background-light); /* Use theme variable */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: relative;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .category-section h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text); /* Use theme variable */
     text-align: center;
     font-size: 28px;
     font-weight: bold;
@@ -358,7 +378,7 @@ body.dark-mode .quote-character {
     min-width: 100%;
     box-sizing: border-box;
     display: flex;
-    background-color: #c5e0f3;
+    background-color: var(--card-background-light); /* Use theme variable */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
@@ -366,12 +386,14 @@ body.dark-mode .quote-character {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    /* --- MODIFIED: Adjusted max-height to allow more content (e.g., network logo) --- */
     max-height: 500px; /* Increased to accommodate more info. Adjust as needed. */
     transition: background-color 0.3s ease;
+    cursor: pointer; /* Indicate entire card is clickable */
 }
-body.dark-mode .show-card {
-    background-color: var(--card-background-dark);
+
+/* --- Ensure images inside show-card do NOT invert --- */
+.show-card img {
+    filter: none !important; /* Override any potential global filter */
 }
 
 /* --- MODIFIED: show-info-and-poster-container for flexible layout --- */
@@ -413,16 +435,13 @@ body.dark-mode .show-card {
     align-items: flex-start;
     width: 100%;
     min-width: 180px;
-    /* --- REMOVED: max-height and overflow: hidden to allow full content --- */
-    /* max-height: 200px; */
-    /* overflow: hidden; */
 }
 
 /* --- MODIFIED: show-details-right h3 for better readability --- */
 .show-details-right h3 {
     font-size: 1.8em; /* Adjusted for better readability */
     margin-bottom: 8px;
-    color: #222;
+    color: var(--text); /* Title color adapts */
     word-wrap: break-word;
     line-height: 1.2;
     text-align: left;
@@ -435,10 +454,10 @@ body.dark-mode .show-card {
     line-height: 1.4; /* Adjusted line height */
     word-wrap: break-word;
     text-align: left;
-    /* --- REMOVED: white-space: nowrap and text-overflow: ellipsis --- */
     white-space: normal; /* Allow text to wrap naturally */
     overflow: visible; /* Ensure content is visible */
     text-overflow: clip; /* No ellipsis if content wraps */
+    color: var(--text); /* Text color adapts */
 }
 
 .show-info-icon-display {
@@ -465,21 +484,30 @@ body.dark-mode .show-card {
     height: auto;
     margin-bottom: 5px;
     border-radius: 1rem;
+    filter: none !important; /* IMPORTANT: Ensure network logos do NOT invert */
+}
+
+/* Ensure icons on network logo section do not invert in dark mode */
+body.dark-mode .network-logo-section img {
+    filter: none !important;
 }
 
 /* --- MODIFIED: watch-now-text for clarity --- */
 .watch-now-text {
-    font-size: 1.1em;
     font-weight: bold;
-    color: #007bff;
+    color: var(--primary-button-background-light); /* Use light mode primary button color */
     margin-bottom: 3px;
+}
+body.dark-mode .watch-now-text {
+    color: var(--highlight); /* Use highlight for network text in dark mode */
 }
 
 /* --- MODIFIED: subscription-required for clarity --- */
 .subscription-required {
     font-size: 0.85em; /* Slightly larger for readability */
-    color: #666;
+    color: var(--text); /* Adapt to theme */
 }
+
 
 /* --- MODIFIED: show-synopsis padding and border --- */
 .show-synopsis {
@@ -487,17 +515,14 @@ body.dark-mode .show-card {
     text-align: left;
     margin-top: 15px; /* More separation from details */
     padding-top: 15px; /* More padding from above */
-    border-top: 1px solid rgba(0,0,0,0.08); /* Slightly more visible separator */
-}
-body.dark-mode .show-synopsis {
-    border-top-color: rgba(255,255,255,0.1);
+    border-top: 1px solid var(--border-color); /* Slightly more visible separator */
 }
 
 /* --- MODIFIED: show-synopsis h4 font size --- */
 .show-synopsis h4 {
     font-size: 1.2em; /* Slightly larger heading */
     margin-bottom: 8px;
-    color: #444;
+    color: var(--text); /* Adapt to theme */
     text-align: center;
 }
 
@@ -505,9 +530,21 @@ body.dark-mode .show-synopsis {
 .synopsis-text {
     font-size: 0.95em; /* Adjusted for better readability */
     line-height: 1.6;
-    color: #555;
+    color: var(--text); /* Adapt to theme */
     white-space: pre-wrap;
     text-align: justify;
+    max-height: 4.5em; /* Approximately 3 lines for synopsis */
+    overflow: hidden;
+    text-overflow: ellipsis; /* For browsers that support it on multi-line text */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    transition: max-height 0.3s ease-out; /* Smooth transition for expansion */
+}
+
+.synopsis-text.expanded {
+    max-height: 500px; /* Large enough to show full text */
+    -webkit-line-clamp: unset; /* Remove line clamp when expanded */
 }
 
 /* --- MODIFIED: synopsis-controls margin --- */
@@ -521,7 +558,7 @@ body.dark-mode .show-synopsis {
 .read-more-btn, .read-less-btn {
     background: none;
     border: none;
-    color: #007bff;
+    color: var(--primary-button-background-light); /* Use light mode primary button color */
     cursor: pointer;
     font-size: 0.95em; /* Slightly larger for readability */
     display: inline-flex;
@@ -529,17 +566,32 @@ body.dark-mode .show-synopsis {
     gap: 5px;
     padding: 5px 10px;
     border-radius: 5px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+body.dark-mode .read-more-btn, body.dark-mode .read-less-btn {
+    color: var(--highlight); /* Use highlight for dark mode */
 }
 
 .read-more-btn:hover, .read-less-btn:hover {
-    background-color: #e9f5ff;
+    background-color: rgba(0, 123, 255, 0.1); /* Light mode hover */
+}
+body.dark-mode .read-more-btn:hover, body.dark-mode .read-less-btn:hover {
+    /* To get RGBA from hex, use tools or derive. For your rgb(28, 12, 241) */
+    background-color: rgba(28, 12, 241, 0.1); /* Dark mode hover using highlight RGB */
 }
 
-.read-more-btn img, .read-less-btn img {
-    width: 16px; /* Original size */
-    height: 16px;
+/* Removed img styling for read more/less as it's now Font Awesome icons */
+
+
+/* Loading message styling */
+.loading-message, .no-shows-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--secondary-text);
+    padding: 50px 0;
+    grid-column: 1 / -1; /* Span across all columns in the grid */
 }
+
 
 /* Carousel Navigation Buttons */
 .carousel-btn {
@@ -596,16 +648,15 @@ body.dark-mode .show-synopsis {
 }
 
 .pagination-dot.active {
-    background-color: #007bff;
+    background-color: var(--highlight); /* Use highlight for active dot */
     transform: scale(1.2);
 }
 
 /* Famous Quotes Sidebar */
-/* --- MODIFIED: quotes-sidebar to allow more height and auto-scroll --- */
 .quotes-sidebar {
     width: 250px;
     min-width: 250px;
-    background-color: #e0e0e0;
+    background-color: var(--quotes-sidebar-background-light); /* Use theme variable */
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -615,58 +666,51 @@ body.dark-mode .show-synopsis {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* --- MODIFIED: Increased max height to match card, added scroll --- */
-    max-height: 500px; /* Match show-card max-height */
-    overflow-y: auto; /* Enable scrolling for quotes if too many */
-    transition: background-color 0.3s ease;
-}
-body.dark-mode .quotes-sidebar {
-    background-color: var(--card-background-dark);
+    max-height: 500px;
+    overflow-y: auto;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- MODIFIED: quotes-sidebar h3 font size --- */
 .quotes-sidebar h3 {
     margin-top: 0;
-    color: #333;
+    color: var(--text); /* Adapt to theme */
     text-align: center;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
 
-/* --- MODIFIED: quote-container padding --- */
 .quote-container {
-    background-color: #fff;
+    background-color: var(--quote-background-light); /* Use theme variable */
     padding: 12px;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid var(--primary-button-background-light); /* Use light mode primary button color */
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     margin-bottom: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 body.dark-mode .quote-container {
-    background-color: #333;
+    border-left-color: var(--highlight); /* Use highlight for dark mode */
 }
 
-/* --- MODIFIED: quote-text font size --- */
+
 .quote-text {
     font-style: italic;
     margin: 0 0 5px 0;
-    color: #444;
-    font-size: 0.9em; /* Slightly increased font size */
+    color: var(--text); /* Adapt to theme */
+    font-size: 0.9em;
 }
 
-/* --- MODIFIED: quote-character font size --- */
 .quote-character {
     display: block;
     text-align: right;
     font-weight: bold;
-    color: #666;
-    font-size: 0.8em; /* Slightly increased font size */
+    color: var(--secondary-text, #666); /* Adapt to theme */
+    font-size: 0.8em;
 }
 
 .no-quotes-message {
     text-align: center;
-    color: #888;
+    color: var(--secondary-text); /* Adapt to theme */
     font-size: 0.9em;
 }
 
@@ -675,7 +719,6 @@ body.dark-mode .quote-container {
 
 /* Desktop / Larger Screens (min-width: 768px) */
 @media (min-width: 768px) {
-    /* --- MODIFIED: show-info-and-poster-container desktop - keep flex-direction row --- */
     .show-info-and-poster-container {
         flex-direction: row; /* Horizontal layout for poster and details */
         justify-content: flex-start;
@@ -701,7 +744,6 @@ body.dark-mode .quote-container {
 
     .network-logo-section {
         align-items: flex-start;
-        /* --- ADDED: Margin-top on desktop to separate network logo from details above --- */
         margin-top: 15px;
     }
 
@@ -715,7 +757,6 @@ body.dark-mode .quote-container {
         align-items: flex-start;
     }
 
-    /* --- MODIFIED: carousel-track-container width for desktop --- */
     .carousel-track-container {
         width: calc(100% - 270px); /* Adjusted for sidebar width (250px + 20px margin) */
         max-width: 800px;
@@ -726,35 +767,15 @@ body.dark-mode .quote-container {
     }
 
     .main-nav ul li a {
-        color: #333;
+        color: var(--text);
     }
     .main-nav ul li a:hover {
-        color: #007bff;
-    }
-    body.dark-mode .main-nav ul li a {
-        color: #e7d4d4;
-    }
-    body.dark-mode .main-nav ul li a:hover {
-        color: #8ab4f8;
+        color: var(--highlight);
     }
 }
 
 /* Tablet and Mobile (max-width: 767px) */
 @media (max-width: 767px) {
-    /* --- Utility Header Responsive Styles --- */
-    .utility-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 8px 10px;
-        gap: 8px;
-    }
-
-    .utility-left, .utility-right {
-        width: 100%;
-        justify-content: center;
-        gap: 10px;
-    }
-
     /* --- Main Header Responsive Styles --- */
     .main-header {
         flex-direction: column;
@@ -768,10 +789,9 @@ body.dark-mode .quote-container {
         justify-content: center;
     }
 
-    .logo-link img {
-        max-width: 120px;
-        margin-bottom: 3px;
-    }
+    /* Logo link and tagline are now in standalone header, this refers to old structure
+       If .logo-link and p.tagline are still used, ensure their styles are responsive.
+       Based on discover.html, only p.tagline is there without an image. */
     .logo-link p.tagline {
         font-size: 0.8em;
     }
@@ -785,26 +805,25 @@ body.dark-mode .quote-container {
     .main-nav ul li a {
         display: block;
         padding: 10px;
-        background-color: rgba(0,0,0,0.05);
+        background-color: rgba(0,0,0,0.05); /* Light hover/background */
         border-radius: 5px;
-        color: #333;
+        color: var(--text);
     }
     body.dark-mode .main-nav ul li a {
-        background-color: rgba(255,255,255,0.1);
-        color: #e7d4d4;
+        background-color: rgba(255,255,255,0.1); /* Dark hover/background */
+        color: var(--text);
     }
 
-    /* --- Subheader Responsive Styles --- */
-    .subheader {
-        padding: 10px;
-        margin-bottom: 15px;
+    main {
+        padding: 15px; /* Adjust main content padding */
     }
 
-    .subheader .search-container input[type="text"],
-    .subheader .search-container button {
-        border-radius: 0;
-        font-size: 16px;
-        padding: 10px 15px;
+    .category-section {
+        padding: 15px;
+    }
+
+    .category-section h2 {
+        font-size: 22px;
     }
 
     /* ---- KEY CHANGES FOR SINGLE SHOW CARD DISPLAY ON SMALL SCREENS ---- */
@@ -812,57 +831,50 @@ body.dark-mode .quote-container {
         width: 100%;
     }
 
-    /* --- MODIFIED: show-card mobile - increased max-height to allow content --- */
     .show-card {
         min-width: 100%;
         width: 100%;
         padding: 15px;
         max-width: none;
         margin: 0;
-        max-height: 500px; /* Keep consistent with desktop max-height, or adjust if mobile needs more/less */
+        max-height: 500px;
     }
 
-    /* --- MODIFIED: show-info-and-poster-container mobile - stack elements --- */
     .show-info-and-poster-container {
         flex-direction: column; /* Stack poster and details vertically on mobile */
         align-items: center;
         text-align: center;
         margin-bottom: 10px;
-        flex-wrap: nowrap; /* Prevent wrapping if already stacked */
+        flex-wrap: nowrap;
     }
 
-    /* --- MODIFIED: show-poster-container mobile size --- */
     .show-poster-container {
-        width: 120px; /* Slightly larger poster for mobile, if content allows */
+        width: 120px;
         height: 180px;
     }
 
-    /* --- MODIFIED: show-details-right mobile alignment --- */
     .show-details-right {
         align-items: center; /* Center text on mobile */
-        max-height: none; /* Allow content to flow */
+        max-height: none;
         overflow: visible;
     }
 
-    /* --- MODIFIED: show-details-right h3 mobile font size --- */
     .show-details-right h3 {
-        font-size: 1.6em; /* Adjusted font size */
+        font-size: 1.6em;
         margin-bottom: 5px;
         text-align: center;
     }
 
-    /* --- MODIFIED: show-details-right p mobile font size and text alignment --- */
     .show-details-right p {
-        font-size: 0.9em; /* Adjusted font size */
+        font-size: 0.9em;
         margin: 3px 0;
-        text-align: center; /* Center these details */
-        white-space: normal; /* Allow wrapping on mobile */
+        text-align: center;
+        white-space: normal;
     }
 
-    /* --- MODIFIED: network-logo-section mobile alignment and margin --- */
     .network-logo-section {
         align-items: center; /* Center on mobile */
-        margin-top: 15px; /* Ensure space */
+        margin-top: 15px;
     }
 
     .network-logo {
@@ -897,11 +909,6 @@ body.dark-mode .quote-container {
         padding: 3px 8px;
     }
 
-    .read-more-btn img, .read-less-btn img {
-        width: 14px;
-        height: 14px;
-    }
-
     .carousel-btn {
         width: 40px;
         height: 40px;
@@ -927,19 +934,19 @@ body.dark-mode .quote-container {
         height: 10px;
     }
 
-    /* --- MODIFIED: quotes-sidebar mobile - width, margin, and max-height --- */
     .quotes-sidebar {
         width: 95%;
         margin-left: 0;
         margin-top: 20px;
         border-left: none;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid var(--border-color); /* Use theme variable */
         padding: 15px;
-        max-height: 350px; /* Adjusted max height for sidebar on mobile */
+        max-height: 350px;
     }
     body.dark-mode .quotes-sidebar {
-        border-top-color: rgba(255,255,255,0.08);
+        border-top-color: var(--border-color); /* Adapt to theme */
     }
+
 
     .quote-container {
         padding: 12px;
@@ -956,39 +963,20 @@ body.dark-mode .quote-container {
 
 /* Extra small screens (e.g., old phones, very narrow views) */
 @media (max-width: 480px) {
-    .utility-header {
-        padding: 5px 8px;
-        font-size: 0.8em;
-    }
-    .mode-icon, .header-action img {
-        width: 18px;
-        height: 18px;
-    }
-
+    /* Main header and nav styles remain similar */
     .main-header {
         padding: 10px 8px;
-    }
-
-    .logo-link img {
-        max-width: 100px;
     }
     .logo-link p.tagline {
         font-size: 0.75em;
     }
-
-    .main-nav ul {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
     .main-nav ul li a {
         font-size: 1em;
         padding: 8px;
     }
 
     main {
-        padding: 5px;
+        padding: 10px; /* Even less padding for tiny screens */
     }
 
     .category-section {
@@ -996,210 +984,50 @@ body.dark-mode .quote-container {
     }
 
     .category-section h2 {
-        font-size: 22px;
+        font-size: 20px;
     }
 
-    /* --- MODIFIED: show-card very small screen --- */
     .show-card {
         padding: 10px;
-        max-height: 480px; /* Adjusted for very small screens */
+        max-height: 460px;
     }
 
-    /* --- MODIFIED: show-poster-container very small screen --- */
     .show-poster-container {
-        width: 100px;
-        height: 150px;
+        width: 70px; /* Smaller poster for very small screens */
+        height: 105px;
     }
 
-    /* --- MODIFIED: show-details-right h3 very small screen --- */
     .show-details-right h3 {
-        font-size: 1.4em;
+        font-size: 1.2em;
     }
 
-    /* --- MODIFIED: show-details-right p very small screen --- */
     .show-details-right p {
         font-size: 0.85em;
     }
 
     .network-logo {
-        max-width: 80px;
+        max-width: 70px;
+    }
+
+    .watch-now-text {
+        font-size: 0.9em;
+    }
+
+    .subscription-required {
+        font-size: 0.6em;
+    }
+
+    .synopsis-text {
+        font-size: 0.8em;
+    }
+    .read-more-btn, .read-less-btn {
+        font-size: 0.75em;
     }
 
     .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1.2em;
+        width: 30px;
+        height: 30px;
+        font-size: 1em;
         top: 60%;
     }
-    .carousel-pagination {
-        margin-top: 10px;
-    }
-}
-
-/* --- CSS Variables Definition (Consolidated and refined) --- */
-:root {
-    /* Light Mode Variables */
-    --background-color-light: #dbe5f5;
-    --text-color-light: #333;
-    --card-background-light: #c5e0f3;
-    --border-color-light: #ddd;
-    --primary-button-background-light: #007bff;
-    --primary-button-text-light: white;
-    --primary-button-hover-background-light: #0056b3;
-    --quote-background-light: #fff;
-    --quotes-sidebar-background-light: #e0e0e0;
-}
-
-/* Dark Mode Variables */
-.dark-mode {
-    --background-color-dark: #1a1a1a;
-    --text-color-dark: #f0f0f0;
-    --card-background-dark: #2a2a2a;
-    --border-color-dark: #444;
-    --primary-button-background-dark: #6200ea;
-    --primary-button-text-dark: white;
-    --primary-button-hover-background-dark: #3700b3;
-    --quote-background-dark: #333;
-    --quotes-sidebar-background-dark: #262626;
-}
-
-/* --- Apply Variables to elements not directly covered by light/dark mode classes --- */
-.message-box {
-    background: var(--card-background-light);
-    color: var(--text-color-light);
-    border: 1px solid var(--border-color-light);
-}
-
-.message-box button {
-    background-color: var(--primary-button-background-light);
-    color: var(--primary-button-text-light);
-}
-
-.message-box button:hover {
-    background-color: var(--primary-button-hover-background-light);
-}
-
-body.dark-mode .message-box {
-    background: var(--card-background-dark);
-    color: var(--text-color-dark);
-    border-color: var(--border-color-dark);
-}
-
-body.dark-mode .message-box button {
-    background-color: var(--primary-button-background-dark);
-    color: var(--primary-button-text-dark);
-    border-color: var(--border-color-dark);
-}
-body.dark-mode .message-box button:hover {
-    background-color: var(--primary-button-hover-background-dark);
-}
-/* Footer Links - uses the general 'a' style by default, but can be overridden */
-
-.site-footer {
-    background-color: #e6e6fa; /* Or your desired footer background color */
-    padding: 20px 0; /* Add vertical padding, horizontal padding will be handled by content */
-    border-top: 1px solid #ccc; /* Optional: adds a subtle line above the footer */
-    color: #333; /* Default text color for the footer */
-    font-size: 0.9em; /* Slightly smaller text for footer */
-}
-
-.footer-content {
-    max-width: 960px; /* Max width for content on larger screens */
-    margin: 0 auto; /* Center the content div itself */
-    display: flex; /* Enable flexbox for its children */
-    flex-direction: column; /* Stack children vertically by default */
-    align-items: center; /* Center items horizontally when stacked vertically */
-    padding: 0 15px; /* Add some horizontal padding for smaller screens */
-}
-
-.footer-section {
-    text-align: center; /* Center text within each section */
-    margin-bottom: 15px; /* Space between sections */
-    width: 100%; /* Make sure sections take full width to center their content */
-}
-
-/* Remove margin-bottom from the last footer-section to avoid extra space */
-.footer-section:last-child {
-    margin-bottom: 0;
-}
-
-.centered-info p {
-    margin: 5px 0; /* Adjust spacing for paragraphs in the info section */
-}
-
-.centered-info a {
-    color: #007bff; /* Link color */
-    text-decoration: none; /* Remove underline */
-}
-
-.centered-info a:hover {
-    text-decoration: underline; /* Add underline on hover */
-}
-
-.social-links a {
-    color: #007bff; /* Link color for "About the Developer" */
-    text-decoration: none;
-    margin-bottom: 10px; /* Space between "About the Developer" and icons */
-    display: block; /* Make it a block to take its own line and allow vertical margin */
-}
-
-.social-links a:hover {
-    text-decoration: underline;
-}
-
-.social-icons {
-    display: flex; /* Make the social icons a flex container */
-    justify-content: center; /* Center the icons horizontally within their container */
-    align-items: center; /* Vertically align icons if they have different heights */
-    flex-wrap: wrap; /* Allow icons to wrap to the next line on very small screens */
-    margin-top: 10px; /* Space between "About the Developer" link and icons */
-}
-
-.social-icons a {
-    margin: 0 8px; /* Space between individual social icons */
-    display: flex; /* Use flex on the anchor to center the image if needed */
-    align-items: center;
-    justify-content: center;
-    /* Remove the 'display: block;' from .social-links a if you want this specific 'a' to be inline-flex */
-}
-
-.social-icons img {
-    width: 30px; /* Set a fixed size for your icons */
-    height: 30px;
-    display: block; /* Ensures the image behaves as a block within its flex parent */
-}
-
-/* --- Media Queries for larger screens (Optional, for more sophisticated layouts) --- */
-/* If you ever want the sections side-by-side on large screens, you'd use a media query */
-@media (min-width: 768px) { /* Example breakpoint for tablets and larger */
-    .footer-content {
-        flex-direction: row; /* Arrange sections horizontally on larger screens */
-        justify-content: space-around; /* Distribute space between sections */
-        align-items: flex-start; /* Align items to the top (or center, flex-end) */
-        flex-wrap: wrap; /* Allow wrapping if content exceeds width */
-    }
-
-    .footer-section {
-        flex: 1; /* Allow sections to grow and shrink, taking equal space */
-        min-width: 200px; /* Ensure sections don't get too small */
-        margin-bottom: 0; /* Reset vertical margin for row layout */
-        text-align: left; /* Align text left within each section on larger screens */
-    }
-
-    /* Override for specific sections if needed */
-    .centered-info,
-    .social-links {
-        text-align: center; /* Keep these sections text-aligned center if desired */
-    }
-
-    .social-icons {
-        justify-content: center; /* Keep icons centered within their section */
-    }
-}
-
-/* Override the general social-links a if it clashes with social-icons a */
-/* This is important if you want social icons to be inline-flex */
-.social-links > a[href="about_developer.html"] {
-    display: inline-block; /* Or remove this rule if it's already block and you want it on its own line */
-    margin-bottom: 10px;
 }
