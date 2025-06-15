@@ -1,0 +1,2990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Movie Tickets</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CONSOLIDATED CSS === */
+
+        /* Root Theme Variables */
+        :root {
+            --bg: #fff;
+            --text: #111;
+            --header-bg: #f0ecec;
+            --search-bg: #f4f4f4;
+            --highlight: rgb(28, 12, 241);
+            --danger: #f44336;
+            --cinewatch-blue: #000080;
+
+            --message-box-bg: #fff;
+            --message-box-text: #111;
+            --message-box-border: #ccc;
+            --message-box-button-bg: #007bff;
+            --message-box-button-text: white;
+            --message-box-button-hover-bg: #0056b3;
+
+            --dropdown-bg: #fff;
+            --dropdown-item-hover-bg: #f0f0f0;
+            --dropdown-border: #ddd;
+
+            --primary-color: #0056b3;
+            --secondary-color: #f0f8ff;
+            --accent-color: #e94560;
+            --text-color: #333;
+            --light-text-color: #666;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+
+            /* Dark Mode Palette overrides */
+            --dark-primary-color: #0f3460;
+            --dark-secondary-color: #1a1a2e;
+            --dark-accent-color: #e94560;
+            --dark-text-color: #e0e0e0;
+            --dark-light-text-color: #c0c0c0;
+            --dark-border-color: #33334c;
+            --dark-shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Dark mode specific overrides */
+        body.dark-mode {
+            background-color: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+        }
+
+        /* Header */
+        #mainHeader {
+            background-color: var(--dark-primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px var(--dark-shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo a {
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo a:hover {
+            color: var(--dark-text-color);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            position: relative; /* For dropdown positioning */
+        }
+
+        .nav-icons i {
+            margin-left: 20px;
+            font-size: 1.3rem;
+            color: var(--dark-text-color);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-icons i:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .nav-icons .yellow-icon {
+            color: gold;
+        }
+
+        /* Search Subheader */
+        #searchSubheader {
+            background-color: var(--dark-primary-color);
+            padding: 10px 20px;
+            border-top: 1px solid var(--dark-border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 99;
+            box-shadow: 0 2px 5px var(--dark-shadow-color);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        #searchSubheader.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute; /* Take out of flow when hidden */
+        }
+
+        .search-bar-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px 40px 10px 15px; /* Adjust padding for icons */
+            border: 1px solid var(--dark-border-color);
+            border-radius: 8px;
+            background-color: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent-color);
+        }
+
+        .voice-icon,
+        .clear-icon {
+            position: absolute;
+            right: 15px;
+            font-size: 1.1rem;
+            color: var(--dark-light-text-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .voice-icon:hover,
+        .clear-icon:hover {
+            color: var(--accent-color);
+        }
+
+        .voice-icon {
+            right: 45px; /* Position next to clear icon */
+        }
+
+        .suggestions-box {
+            position: absolute;
+            top: 100%; /* Position below the search input */
+            left: 0;
+            right: 0;
+            background-color: var(--dark-primary-color);
+            border: 1px solid var(--dark-border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 98;
+            padding: 5px 0;
+            display: none; /* Hidden by default */
+        }
+
+        .suggestions-box.active {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            color: var(--dark-text-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .suggestion-item:hover,
+        .suggestion-item.selected {
+            background-color: var(--dark-border-color);
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: absolute;
+            top: 100%; /* Position below the account icon */
+            right: 0;
+            background-color: var(--dark-primary-color);
+            border: 1px solid var(--dark-border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            min-width: 200px;
+            padding: 10px 0;
+            z-index: 101;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .account-dropdown.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .account-dropdown a {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: var(--dark-text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .account-dropdown a i {
+            margin-right: 10px;
+            color: var(--dark-light-text-color);
+        }
+
+        .account-dropdown a:hover {
+            background-color: var(--dark-border-color);
+        }
+
+        .account-dropdown a.logout-item {
+            border-top: 1px solid var(--dark-border-color);
+            margin-top: 10px;
+            padding-top: 10px;
+            color: var(--accent-color);
+        }
+
+        .account-dropdown a.disabled-link {
+            color: var(--dark-light-text-color);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Custom Message Box */
+        .message-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            visibility: hidden; /* Hidden by default */
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .message-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .message-box {
+            background: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--dark-shadow-color);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .message-box .alert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color); /* Default icon color */
+        }
+        .message-box .alert-icon.green-icon { color: #28a745; }
+        .message-box .alert-icon.blue-icon { color: var(--primary-color); }
+        .message-box .alert-icon.red-icon { color: #dc3545; } /* Changed from f44336 to a common red */
+        .message-box .alert-icon.yellow-icon { color: #ffc107; }
+
+
+        .message-box p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .message-box button {
+            background-color: var(--accent-color);
+            color: var(--dark-primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .message-box button:hover {
+            background-color: #ff6a80;
+        }
+
+        /* Page Containers */
+        .page-container {
+            display: none; /* Hidden by default, JS will show */
+            flex-direction: column; /* Most pages are column layouts */
+            flex-grow: 1; /* Allows pages to expand to fill space */
+        }
+        .page-container.active {
+            display: flex;
+        }
+
+        /* --- Cinema Guide Page Styles (from cinema_guide.css) --- */
+        #cinemaGuidePage #cinemaHero {
+            width: 100%;
+            height: 350px; /* Increased height */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Important for text animation */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        #cinemaGuidePage #hero-text-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 1rem;
+            white-space: nowrap; /* Ensures text stays on one line for animation */
+            overflow: hidden; /* Hides overflowing text to enable marquee effect */
+            width: 100%; /* Confine text to container width */
+        }
+
+        #cinemaGuidePage .hero-moving-text {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            display: inline-block; /* Essential for animation */
+            padding-left: 100%; /* Start text off-screen to the right */
+            animation: slideText 20s linear infinite; /* Adjust time for speed */
+        }
+
+        @keyframes slideText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Loading Overlay for Cinema Guide */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-primary-color); /* Dark background */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Above all other content */
+            transition: opacity 0.5s ease, visibility 0s;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* Prevent interaction when hidden */
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .loading-dot {
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        #main-content.hidden-content {
+            opacity: 0;
+            visibility: hidden;
+            height: 0; /* Collapse height when hidden */
+            overflow: hidden;
+        }
+
+        #filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--dark-primary-color);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px (0, 0, 0, 0.2);
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 15px; /* Spacing between filter items */
+        }
+
+        #filters label {
+            font-size: 1.1rem;
+            color: var(--dark-text-color);
+        }
+
+        #filters select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--dark-border-color);
+            background-color: var(--dark-secondary-color);
+            color: var(--dark-text-color);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: inset 0 1px 3px (0, 0, 0, 0.1);
+        }
+
+        #cinemaListings {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cinema-section {
+            background-color: var(--dark-primary-color);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            box-shadow: 0 6px 20px var(--dark-shadow-color);
+        }
+
+        .cinema-section h3 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--dark-border-color);
+            padding-bottom: 10px;
+        }
+
+        .shows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .show-card {
+            background-color: var(--dark-secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px (0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from <a> */
+            color: inherit; /* Inherit text color */
+        }
+
+        .show-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px (0, 0, 0, 0.3);
+        }
+
+        .show-poster {
+            width: 100%;
+            height: 380px; /* Increased height for posters */
+            object-fit: cover;
+            border-bottom: 1px solid var(--dark-border-color);
+        }
+
+        .show-info {
+            padding: 15px;
+            flex-grow: 1; /* Allow info to take remaining space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .show-info h4 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .show-info p {
+            font-size: 0.95rem;
+            color: var(--dark-light-text-color);
+            margin-bottom: 5px;
+        }
+
+        .show-info .imdb-rating {
+            font-weight: 500;
+            color: #ffc107;
+        }
+
+        .synopsis-text {
+            display: block; /* Ensures block-level display for line-clamping */
+            margin-bottom: 10px;
+            color: var(--dark-text-color);
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines initially */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .synopsis-text.expanded {
+            -webkit-line-clamp: unset; /* Show full text */
+            overflow: visible;
+            text-overflow: unset;
+        }
+
+        .read-more-btn, .read-less-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 0;
+            margin-top: 5px;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+            display: inline-block; /* Ensure it doesn't break line */
+        }
+
+        .read-more-btn:hover, .read-less-btn:hover {
+            color: var(--dark-text-color);
+        }
+
+        .read-less-btn {
+            display: none; /* Initially hidden */
+        }
+
+        .show-card-actions {
+            margin-top: auto; /* Pushes content to bottom */
+            padding-top: 15px;
+            border-top: 1px solid var(--dark-border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .screening-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--dark-light-text-color);
+            justify-content: center;
+        }
+
+        .screening-times span {
+            background-color: #2a4163; /* Slightly darker primary */
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .buy-ticket-btn {
+            background-color: var(--accent-color);
+            color: var(--dark-primary-color);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block; /* Make it block level */
+            width: fit-content; /* Adjust width to content */
+            margin: 0 auto; /* Center the button */
+        }
+
+        .buy-ticket-btn:hover {
+            background-color: #ff6a80;
+            transform: translateY(-2px);
+        }
+
+        /* --- Buy Ticket Page Styles --- */
+        #buyTicketPage #buyTicketHero {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 15px (0, 0, 0, 0.4);
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        #buyTicketPage #buyTicketHero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(26, 26, 46, 1) 0%, rgba(26, 26, 46, 0.6) 50%, rgba(26, 26, 46, 0.2) 100%);
+            z-index: 1;
+        }
+
+        #buyTicketPage #buyTicketHero h1 {
+            position: relative;
+            z-index: 2;
+            color: #e0e0e0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px (0, 0, 0, 0.8);
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        #buyTicketPage .main-content-padding {
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Stepper styles */
+        .stepper-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .stepper-line {
+            position: absolute;
+            height: 3px;
+            background-color: #e94560;
+            left: 5%;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 0;
+            border-radius: 5px;
+        }
+
+        .stepper-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #33334c;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            border: 2px solid #e94560;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .stepper-item.active .step-circle {
+            background-color: #e94560;
+            color: #1a1a2e;
+            border-color: #ff6a80;
+        }
+
+        .stepper-item.completed .step-circle {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+
+        .stepper-item.completed .step-circle::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #fff;
+            position: absolute;
+            font-size: 1.2rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .stepper-item.completed .step-circle span {
+            display: none;
+        }
+
+        .step-label {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #c0c0c0;
+            text-align: center;
+        }
+
+        .step-content {
+            background-color: #0f3460;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px (0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .step-content.hidden {
+            display: none;
+        }
+
+        #buyTicketPage #movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #buyTicketPage #movie-details img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px (0, 0, 0, 0.3);
+        }
+
+        #buyTicketPage #movie-details h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e94560;
+            margin-bottom: 0.5rem;
+        }
+
+        #buyTicketPage #movie-details p {
+            font-size: 1rem;
+            color: #e0e0e0;
+            margin-bottom: 0.3rem;
+        }
+
+        #buyTicketPage #movie-details .imdb-rating {
+            font-weight: 500;
+            color: #ffc107;
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin-top: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #333;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .seat.available {
+            background-color: #28a745;
+        }
+
+        .seat.selected {
+            background-color: #e94560;
+            color: #fff;
+        }
+
+        .seat.occupied {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .screen-indicator {
+            width: 80%;
+            height: 20px;
+            background-color: #555;
+            margin: 1rem auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            border: 1px solid (255, 255, 255, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .proceed-btn, .back-btn {
+            background-color: #e94560;
+            color: #1a1a2e;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .proceed-btn:hover, .back-btn:hover {
+            background-color: #ff6a80;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #555;
+        }
+
+        .back-btn:hover {
+            background-color: #777;
+        }
+
+        #summary-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        #summary-details p span {
+            font-weight: 600;
+            color: #e94560;
+        }
+
+        .cab-options input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        .cab-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .cab-option label {
+            font-size: 1rem;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .cab-input-group {
+            margin-top: 1rem;
+        }
+
+        .cab-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .cab-input-group input[type="text"],
+        .cab-input-group select,
+        .cab-input-group input[type="time"] {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e94560;
+            background-color: #33334c;
+            color: #e0e0e0;
+            margin-top: 0.5rem;
+            outline: none;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cab-input-group input[type="text"]:disabled,
+        .cab-input-group select:disabled,
+        .cab-input-group input[type="time"]:disabled {
+            background-color: #222;
+            color: #777;
+            border-color: #444;
+            cursor: not-allowed;
+        }
+
+        .cab-input-group input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            background-color: #33334c;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .payment-method:hover {
+            background-color: #44446a;
+        }
+
+        .payment-method.selected {
+            border-color: #e94560;
+            background-color: #44446a;
+        }
+
+        .payment-method input[type="radio"] {
+            margin-right: 1rem;
+            accent-color: #e94560;
+        }
+
+        .payment-method i {
+            margin-right: 0.75rem;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+        }
+
+        .payment-method span {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .snacks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .snack-item {
+            background-color: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px (0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px;
+        }
+
+        .snack-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+            margin-bottom: 10px;
+        }
+
+        .snack-item h4 {
+            margin: 5px 0;
+            color: #e94560;
+            font-size: 1.1rem;
+        }
+
+        .snack-item p {
+            margin: 0 0 10px 0;
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+
+        .snack-quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .snack-quantity-control button {
+            background-color: #e94560;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .snack-quantity-control button:hover {
+            background-color: #ff6a80;
+        }
+
+        .snack-quantity-control span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            min-width: 20px;
+            text-align: center;
+        }
+
+
+        /* --- Footer Styles (from original footer.css) --- */
+        .site-footer {
+            background-color: #e6e6fa; /* Light purple, adjust if you prefer dark mode consistency */
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            color: #333;
+            font-size: 0.9em;
+            margin-top: auto; /* Push footer to bottom */
+        }
+
+        body.dark-mode .site-footer {
+            background-color: #0f3460; /* Darker blue for dark mode footer */
+            border-top: 1px solid #33334c;
+            color: #e0e0e0;
+        }
+
+
+        .footer-content {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .footer-section {
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-section h3 {
+            color: #000080; /* Dark blue, adjust for dark mode if needed */
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        body.dark-mode .footer-section h3 {
+            color: #e94560; /* Accent color for dark mode footer headings */
+        }
+
+        .footer-section p, .footer-section ul {
+            margin: 5px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #666; /* Medium gray */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .footer-section a {
+            color: #c0c0c0; /* Lighter gray for dark mode links */
+        }
+
+        .footer-section a:hover {
+            color: #0056b3; /* Primary blue */
+        }
+        body.dark-mode .footer-section a:hover {
+            color: #e94560; /* Accent color for dark mode link hover */
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons img {
+            width: 24px; /* Adjust size as needed */
+            height: 24px;
+            filter: invert(0.5); /* Make SVGs visible on light backgrounds */
+            transition: filter 0.3s ease;
+        }
+        body.dark-mode .social-icons img {
+            filter: invert(1); /* Make SVGs white on dark backgrounds */
+        }
+
+        .social-icons img:hover {
+            filter: invert(0) sepia(1) saturate(5) hue-rotate(200deg) brightness(0.9); /* Example hover effect for icons */
+        }
+        body.dark-mode .social-icons img:hover {
+            filter: invert(0) sepia(1) saturate(5) hue-rotate(200deg) brightness(1.5); /* Brighter hover for dark mode */
+        }
+
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+            width: 80%;
+            max-width: 250px;
+        }
+        body.dark-mode .newsletter-form input[type="email"] {
+            background-color: #1a1a2e;
+            border: 1px solid #33334c;
+            color: #e0e0e0;
+        }
+
+        .newsletter-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        body.dark-mode .newsletter-form button {
+            background-color: #e94560;
+            color: #1a1a2e;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #0056b3;
+        }
+        body.dark-mode .newsletter-form button:hover {
+            background-color: #ff6a80;
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+            color: #666;
+            font-size: 0.85em;
+        }
+        body.dark-mode .footer-bottom {
+            border-top: 1px solid #33334c;
+            color: #c0c0c0;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .footer-section {
+                flex: 1;
+                min-width: 200px;
+                margin-bottom: 0;
+                text-align: left;
+            }
+
+            /* Override for specific sections if needed */
+            .centered-info,
+            .social-links {
+                text-align: center; /* Keep these sections text-aligned center if desired */
+            }
+
+            .social-icons {
+                justify-content: center; /* Keep icons centered within their section */
+            }
+
+             /* Correct alignment for the original footer structure */
+            .footer-section.contact-info,
+            .footer-section.quick-links,
+            .footer-section.social-links,
+            .footer-section.newsletter-signup {
+                text-align: left; /* Default for sections */
+            }
+            .footer-section.social-links .social-icons {
+                justify-content: flex-start; /* Align icons left within this section */
+            }
+            .footer-section.centered-info {
+                text-align: center; /* Override to keep this centered */
+            }
+            .footer-section.social-links > a[href="about_developer.html"] {
+                text-align: left; /* Ensure link is left-aligned within its section */
+            }
+        }
+
+        /* General Responsive Adjustments */
+        @media (max-width: 768px) {
+            .stepper-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .stepper-item {
+                flex-basis: 45%;
+            }
+            .stepper-line {
+                display: none;
+            }
+            .main-content-padding {
+                padding: 1rem;
+            }
+            #buyTicketHero h1 {
+                font-size: 1.8rem;
+            }
+            .seats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+            }
+            .seat {
+                width: 25px;
+                height: 25px;
+            }
+            .nav-icons i {
+                margin-left: 10px;
+                font-size: 1.1rem;
+            }
+            .logo a {
+                font-size: 1.8rem;
+            }
+            #mainHeader {
+                padding: 10px;
+            }
+            .search-bar-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            #searchInput {
+                width: calc(100% - 20px);
+                border-radius: 6px;
+            }
+            .voice-icon, .clear-icon {
+                right: 10px;
+            }
+            .voice-icon {
+                top: 50%;
+                transform: translateY(-50%);
+                right: 35px;
+            }
+            .clear-icon {
+                top: 50%;
+                transform: translateY(-50%);
+                right: 10px;
+            }
+            .suggestions-box {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Main Header (Common) -->
+    <header id="mainHeader">
+        <div class="logo"><a href="#" id="homeLink">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader (Common) -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <!-- Loading Overlay (Common) -->
+    <div id="loading-overlay">
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        <p class="mt-4 text-xl text-white" id="loading-message">Preparing your cinema experience...</p>
+    </div>
+
+    <!-- Main Content Containers (Pages) -->
+    <div id="cinemaGuidePage" class="page-container">
+        <!-- Hero Section for Cinema Guide -->
+        <section id="cinemaHero" style="background-image: url('images/cinema/IMAX.webp');">
+            <div id="hero-text-container">
+                <div class="hero-moving-text">Showing Now In Cinemas!</div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section id="filters">
+            <div class="flex items-center gap-2">
+                <label for="city-select" class="text-white">City:</label>
+                <select id="city-select" class="shadow-lg">
+                    <option value="All Cities">All Cities</option>
+                    <option value="Nairobi">Nairobi</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Eldoret">Eldoret</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Cinema Listings Section -->
+        <section id="cinemaListings" class="container mx-auto">
+            <!-- Cinema sections and their shows will be populated here by JavaScript -->
+        </section>
+    </div>
+
+    <div id="buyTicketPage" class="page-container">
+        <!-- Hero Section for Buy Ticket -->
+        <section id="buyTicketHero" style="background-image: url('https://placehold.co/900x300/333/fff?text=Loading...');">
+            <h1 id="hero-movie-title">Loading Movie...</h1>
+        </section>
+
+        <div class="main-content-padding">
+            <!-- Stepper -->
+            <div class="stepper-container">
+                <div class="stepper-line"></div>
+                <div class="stepper-item active" data-step="1">
+                    <div class="step-circle"><span>1</span></div>
+                    <div class="step-label">Show Details</div>
+                </div>
+                <div class="stepper-item" data-step="2">
+                    <div class="step-circle"><span>2</span></div>
+                    <div class="step-label">Select Seats</div>
+                </div>
+                <div class="stepper-item" data-step="3">
+                    <div class="step-circle"><span>3</span></div>
+                    <div class="step-label">Snacks</div>
+                </div>
+                <div class="stepper-item" data-step="4">
+                    <div class="step-circle"><span>4</span></div>
+                    <div class="step-label">Cab Service</div>
+                </div>
+                <div class="stepper-item" data-step="5">
+                    <div class="step-circle"><span>5</span></div>
+                    <div class="step-label">Summary</div>
+                </div>
+                <div class="stepper-item" data-step="6">
+                    <div class="step-circle"><span>6</span></div>
+                    <div class="step-label">Payment</div>
+                </div>
+            </div>
+
+            <!-- Step 1: Movie Details -->
+            <div id="step-movie-details" class="step-content">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Movie Details</h2>
+                <div id="movie-details">
+                    <img id="movie-poster" src="https://placehold.co/250x350/333/fff?text=No+Poster" alt="Movie Poster">
+                    <div class="movie-info-text d-flex flex-col items-center text-center">
+                        <h2 id="movie-title-display"></h2>
+                        <p><strong>Genre:</strong> <span id="movie-genre">N/A</span></p>
+                        <p><strong>IMDb Rating:</strong> <span id="movie-imdb" class="imdb-rating">N/A</span></p>
+                        <p><strong>Release Date:</strong> <span id="movie-release">N/A</span></p>
+                        <p><strong>Seasons:</strong> <span id="movie-seasons">N/A</span></p>
+                        <p><strong>Episodes:</strong> <span id="movie-episodes">N/A</span></p>
+                        <p><strong>Languages:</strong> <span id="movie-languages">N/A</span></p>
+                        <p><strong>Creators:</strong> <span id="movie-creators">N/A</span></p>
+                        <p><strong>Cast:</strong> <span id="movie-cast">N/A</span></p>
+                        <p><strong>Synopsis:</strong> <span id="movie-synopsis">N/A</span></p>
+                        <p class="mt-4"><a href="javascript:void(0);" id="backToCinemaGuideBtn" class="proceed-btn">Back to Cinema Guide</a></p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="proceed-btn" data-action="next">Proceed to Seats</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Select Seats -->
+            <div id="step-select-seats" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Select Your Seats</h2>
+
+                <!-- Seat Legend -->
+                <div class="seat-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #28a745;"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #e94560;"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #555;"></div>
+                        <span>Occupied</span>
+                    </div>
+                </div>
+
+                <div class="screen-indicator">SCREEN</div>
+                <div id="seats-container" class="seats-grid">
+                    <!-- Seats will be rendered here by JavaScript -->
+                </div>
+                <div class="action-buttons">
+                    <button class="back-btn" data-action="back">Back</button>
+                    <button class="proceed-btn" data-action="next">Proceed to Snacks</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Snacks -->
+            <div id="step-snacks" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Grab Some Snacks!</h2>
+                <div id="snacks-list" class="snacks-grid">
+                    <!-- Snacks will be rendered here by JavaScript -->
+                </div>
+                <div class="action-buttons">
+                    <button class="back-btn" data-action="back">Back</button>
+                    <button class="proceed-btn" data-action="next">Proceed to Cab Service</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Cab Service -->
+            <div id="step-cab-service" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Cab Service</h2>
+                <div class="cab-options">
+                    <div class="cab-option">
+                        <input type="radio" id="cab-pickup" name="cab-service" value="pickup">
+                        <label for="cab-pickup">Cab Pick Up (from home)</label>
+                    </div>
+                    <div class="cab-option">
+                        <input type="radio" id="cab-stand" name="cab-service" value="stand">
+                        <label for="cab-stand">Cab Stand Pick Up (at cinema)</label>
+                    </div>
+                    <div class="cab-option">
+                        <input type="radio" id="no-cab" name="cab-service" value="none" checked>
+                        <label for="no-cab">No Cab Service</label>
+                    </div>
+                </div>
+
+                <div class="cab-input-group">
+                    <label for="home-address">Home Address:</label>
+                    <input type="text" id="home-address" placeholder="Enter your home address">
+                </div>
+                <div class="cab-input-group">
+                    <label for="pickup-time">Preferred Pick-up Time:</label>
+                    <input type="time" id="pickup-time">
+                </div>
+                <div class="action-buttons">
+                    <button class="back-btn" data-action="back">Back</button>
+                    <button class="proceed-btn" data-action="next">Proceed to Summary</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Summary -->
+            <div id="step-summary" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Order Summary</h2>
+                <div id="summary-details">
+                    <p><strong>Movie:</strong> <span id="summary-movie-title"></span></p>
+                    <p><strong>Seats:</strong> <span id="summary-seats"></span></p>
+                    <p><strong>Snacks:</strong> <span id="summary-snacks"></span></p>
+                    <p><strong>Cab Service:</strong> <span id="summary-cab"></span></p>
+                    <p><strong>Total Amount:</strong> Ksh <span id="summary-total">0.00</span></p>
+                </div>
+                <div class="action-buttons">
+                    <button class="back-btn" data-action="back">Back</button>
+                    <button class="proceed-btn" data-action="next">Proceed to Payment</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Payment -->
+            <div id="step-payment" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Payment</h2>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="mpesa">
+                        <input type="radio" id="mpesa" name="payment-method" value="mpesa">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>M-Pesa</span>
+                    </div>
+                    <div class="payment-method" data-method="card">
+                        <input type="radio" id="card" name="payment-method" value="card">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Credit/Debit Card</span>
+                    </div>
+                    <div class="payment-method" data-method="paypal">
+                        <input type="radio" id="paypal" name="payment-method" value="paypal">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="back-btn" data-action="back">Back</button>
+                    <button class="proceed-btn" id="final-pay-now-btn">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Common) -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: info@cinewatch.com</p>
+                <p>Phone: +254 712 345678</p>
+                <p>Address: Nairobi, Kenya</p>
+            </div>
+            <div class="footer-section quick-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social-links">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/icons&logos/facebook_24dp.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/icons&logos/linkedin_24dp.svg" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section newsletter-signup">
+                <h3>Newsletter</h3>
+                <p>Stay updated with our latest shows and offers!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> CineWatch. All rights reserved.</p>
+            <p>Last Modified: <span id="last-modified"></span></p>
+        </div>
+    </footer>
+
+    <!-- Custom Alert/Message Box (Common) -->
+    <div class="message-overlay" id="customAlert">
+        <div class="message-box">
+            <i class="alert-icon fas fa-info-circle"></i>
+            <p id="alertMessage"></p>
+            <button id="closeAlert">OK</button>
+        </div>
+    </div>
+
+
+    <script>
+        // === CONSOLIDATED JAVASCRIPT ===
+
+        // Data for all shows (Merged from app_core.js, cinema_guide.js, tv_shows.js)
+        // Consolidated and ensuring 'id', 'poster', 'backdrop' are consistent.
+        const allShows = [
+            {
+                id: "moneyheist",
+                title: "Money Heist (La Casa de Papel)",
+                categories: ["Trending", "International"],
+                poster: "moneyheistposter1.webp",
+                backdrop: "moneyheistbackdrop.webp", // Use this for buy_ticket hero
+                imdb: "8.2/10 (Crime)",
+                releaseDate: "May 2, 2017",
+                seasons: "5 (Netflix Parts)",
+                episodes: "41",
+                languages: "Spanish",
+                genre: "Heist, Crime, Drama, Thriller",
+                creators: "Alex Pina",
+                cast: "Úrsula Corberó, Álvaro Morte, Itziar Ituño",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A mysterious man known as 'The Professor' recruits a band of eight robbers to carry out an ambitious plan: to steal billions of euros from the Royal Mint of Spain. As the heist unfolds, the team grapples with hostages, police, and personal conflicts, turning the robbery into a complex game of cat and mouse. Known for its intricate plot twists and strong character development."
+            },
+            {
+                id: "moneyheistk",
+                title: "Money Heist (K-Drama)",
+                categories: ["K-Drama", "Coming Soon"],
+                poster: "moneyheistkoreaposter1.webp",
+                backdrop: "moneyheistkoreabackdrop1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: December 2024 (Season 2)",
+                seasons: "2 (Expected)",
+                episodes: "N/A",
+                languages: "Korean",
+                genre: "Heist, Crime, Drama, Thriller",
+                creators: "Kim Hong-sun",
+                cast: "Yoo Ji-tae, Kim Yun-jin, Park Hae-soo",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "A Korean adaptation of the hit Spanish series, 'Money Heist', this version reinterprets the original's compelling narrative with a fresh, distinct Korean perspective, focusing on a major heist orchestrated by the Professor and his team of diverse personalities. Fans eagerly await the next installment."
+            },
+            {
+                id: "prisonbreak",
+                title: "Prison Break",
+                categories: ["Action", "Hollywood"],
+                poster: "prisonbreakposter1.webp",
+                backdrop: "prisonbreakbackdrop.webp",
+                imdb: "8.3/10 (Action)",
+                releaseDate: "August 29, 2005",
+                seasons: "5",
+                episodes: "90",
+                languages: "English",
+                genre: "Action, Crime, Drama, Thriller",
+                creators: "Paul Scheuring",
+                cast: "Wentworth Miller, Dominic Purcell, Amaury Nolasco",
+                networkLogo: "hululogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "When his brother, Lincoln Burrows, is wrongly sentenced to death, a structural engineer, Michael Scofield, devises an elaborate plan to break him out of prison—starting by getting incarcerated himself. A thrilling ride full of twists, tension, and brotherly loyalty as they navigate their escape and evade authorities."
+            },
+            {
+                id: "inception",
+                title: "Inception",
+                categories: ["Hollywood"],
+                poster: "inceptioposter1.webp",
+                backdrop: "inceptionbackdrop1.webp",
+                imdb: "8.8/10 (Sci-Fi)",
+                releaseDate: "July 16, 2010",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "English",
+                genre: "Action, Sci-Fi, Thriller",
+                creators: "Christopher Nolan",
+                cast: "Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page",
+                networkLogo: "hbo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "A thief who steals corporate secrets through use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the mission and his team to disaster."
+            },
+            {
+                id: "breakingbad",
+                title: "Breaking Bad",
+                categories: ["Trending", "Hollywood"],
+                poster: "breakingbadposter1.webp",
+                backdrop: "breakingbadbackdrop.webp",
+                imdb: "9.5/10 (Crime)",
+                releaseDate: "January 20, 2008",
+                seasons: "5",
+                episodes: "62",
+                languages: "English",
+                genre: "Crime, Drama, Thriller",
+                creators: "Vince Gilligan",
+                cast: "Bryan Cranston, Aaron Paul, Anna Gunn",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Breaking Bad follows Walter White, a high school chemistry teacher turned methamphetamine producer, as he partners with former student Jesse Pinkman. Faced with a cancer diagnosis and financial hardship, Walter descends into a criminal underworld that transforms his identity and relationships, exploring themes of morality, family, and ambition."
+            },
+            {
+                id: "theoffice",
+                title: "The Office",
+                categories: ["Hollywood"],
+                poster: "theofficeposter1.webp",
+                backdrop: "theofficebackdrop1.webp",
+                imdb: "9.0/10 (Comedy)",
+                releaseDate: "March 24, 2005",
+                seasons: "9",
+                episodes: "201",
+                languages: "English",
+                genre: "Comedy",
+                creators: "Ricky Gervais, Stephen Merchant, Greg Daniels",
+                cast: "Steve Carell, Rainn Wilson, John Krasinski",
+                networkLogo: "pecock-logo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium. The everyday lives of the employees are seen through the lens of a documentary film crew."
+            },
+            {
+                id: "yourhonor",
+                title: "Your Honor",
+                categories: ["Hollywood", "Coming Soon"],
+                poster: "yourhonorposter1.webp",
+                backdrop: "yourhonorbackdrop1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: Coming Soon (Season 3)",
+                seasons: "3 (Expected)",
+                episodes: "N/A",
+                languages: "English",
+                genre: "Crime, Drama, Thriller",
+                creators: "Peter Moffat",
+                cast: "Bryan Cranston",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "A respected New Orleans judge's life is turned upside down when his teenage son is involved in a hit-and-run, leading to a high-stakes game of lies, deceit, and impossible choices to protect his family. Season 3 is highly anticipated."
+            },
+            {
+                id: "3idiots",
+                title: "3 Idiots",
+                categories: ["Bollywood"],
+                poster: "3idiotsposter1.webp",
+                backdrop: "3idiotsbackdrop1.webp",
+                imdb: "8.4/10 (Comedy)",
+                releaseDate: "December 25, 2009",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Hindi",
+                genre: "Comedy, Drama, Romance",
+                creators: "Rajkumar Hirani",
+                cast: "Aamir Khan, Madhavan, Sharman Joshi",
+                networkLogo: "primevideologo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "Two friends embark on a quest for a third, long-lost friend, while reminiscing about their college days and the profound impact their eccentric, brilliant buddy had on their lives and perspectives on education and success."
+            },
+            {
+                id: "ghoul",
+                title: "Ghoul",
+                categories: ["Bollywood"],
+                poster: "ghoulposter1.webp",
+                backdrop: "ghoulbackdrop1.webp",
+                imdb: "7.1/10 (Horror)",
+                releaseDate: "August 24, 2018",
+                seasons: "1",
+                episodes: "3",
+                languages: "Hindi, English",
+                genre: "Horror, Thriller",
+                creators: "Patrick Graham",
+                cast: "Radhika Apte, Manav Kaul, Ratnabali Bhattacharjee",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A newly appointed interrogator arrives at a remote military detention center to question a dangerous terrorist, only to discover that the detainee is not what he seems and harbors a terrifying supernatural entity."
+            },
+            {
+                id: "dangal",
+                title: "Dangal",
+                categories: ["Bollywood"],
+                poster: "dangalposter1.webp",
+                backdrop: "dangalbackdrop1.webp",
+                imdb: "8.3/10 (Biography)",
+                releaseDate: "December 23, 2016",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Hindi",
+                genre: "Biography, Drama, Sport",
+                creators: "Nitesh Tiwari",
+                cast: "Aamir Khan, Fatima Sana Shaikh, Sanya Malhotra",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "Based on the true story of Mahavir Singh Phogat, a former wrestler who trains his daughters Geeta Phogat and Babita Kumari to become world-class female wrestlers, challenging societal norms and achieving international success."
+            },
+            {
+                id: "nairobihalflife",
+                title: "Nairobi Half Life",
+                categories: ["Kenyan Drama"],
+                poster: "nairobihalflifeposter1.webp",
+                backdrop: "nairobihalflifebackdrop1.webp",
+                imdb: "7.8/10 (Crime)",
+                releaseDate: "October 31, 2012",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Swahili, Kikuyu, English",
+                genre: "Crime, Drama",
+                creators: "David 'Tosh' Gitonga (Director)",
+                cast: "Joseph Wairimu, Olwenya Maina, Mugambi Nthiga",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Now",
+                subscription: "May require Rent/Buy",
+                synopsis: "Nairobi Half Life tells the story of Mwas, an aspiring actor from a rural town who travels to Nairobi to pursue his dreams. Faced with harsh city life, he’s pulled into a world of crime and must struggle to stay true to his dreams while surviving the city’s brutal realities. It's a powerful and gritty portrayal of urban life in Kenya."
+            },
+            {
+                id: "crimeandjustice",
+                title: "Crime and Justice",
+                categories: ["Kenyan Drama", "Trending", "Coming Soon"],
+                poster: "crimeandjusticeposter1.webp",
+                backdrop: "crimeandjusticebackdrop1.webp",
+                imdb: "7.0/10 (Crime)",
+                releaseDate: "February 22, 2021",
+                seasons: "3",
+                episodes: "N/A",
+                languages: "English, Swahili",
+                genre: "Crime, Drama, Legal",
+                creators: "Showmax Original",
+                cast: "Sarah Hassan, Alfred Munyua, Maqbul Mohammed",
+                networkLogo: "showmaxlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A Kenyan police procedural series that follows two detectives as they investigate various crimes in Nairobi. The show delves into the dark side of the city, exploring themes of corruption, greed, and the pursuit of justice."
+            },
+            {
+                id: "dayofthejackal",
+                title: "The Day Of The Jackal",
+                categories: ["International", "Coming Soon"],
+                poster: "thedayofthejackalposter1.webp",
+                backdrop: "thedayofthejackalbackdrop1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: November 2024 (Series)",
+                seasons: "1 (Upcoming Series)",
+                episodes: "N/A",
+                languages: "English",
+                genre: "Thriller",
+                creators: "Ronan Bennett",
+                cast: "Eddie Redmayne, Lashana Lynch",
+                networkLogo: "pecock-logo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "An upcoming modern-day reimagining of the iconic novel and film, following a professional assassin known as 'The Jackal' as he undertakes a mission to assassinate a high-profile target."
+            },
+            {
+                id: "traintobusan",
+                title: "Train To Busan",
+                categories: ["K-Drama"],
+                poster: "traintobusanposter2.webp",
+                backdrop: "traintobusanbackdrop1.webp",
+                imdb: "7.6/10 (Action)",
+                releaseDate: "July 20, 2016",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Korean",
+                genre: "Action, Horror, Thriller",
+                creators: "Yeon Sang-ho (Director)",
+                cast: "Gong Yoo, Jung Yu-mi, Ma Dong-seok",
+                networkLogo: "amazon-prime-logo-free-png.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "While a zombie apocalypse breaks out in South Korea, a father and daughter, along with other passengers, are trapped on a high-speed train fighting for their lives as the infection spreads rapidly."
+            },
+            {
+                id: "extraction",
+                title: "Extraction",
+                categories: ["Hollywood", "Coming Soon"],
+                poster: "extractionposter1.webp",
+                backdrop: "extractionbackdrop1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: 2025 (Extraction 3)",
+                seasons: "3 (Expected)",
+                episodes: "N/A",
+                languages: "English",
+                genre: "Action, Thriller",
+                creators: "Sam Hargrave (Director)",
+                cast: "Chris Hemsworth",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "Extraction follows a black market mercenary who embarks on a deadly mission to rescue the kidnapped son of an imprisoned international crime lord. The highly anticipated third installment will continue the high-octane action."
+            },
+            {
+                id: "allofusaredead",
+                title: "All Of Us Are Dead",
+                categories: ["K-Drama", "Coming Soon"],
+                poster: "allofusaredeadposter1.webp",
+                backdrop: "squidgamebackdrop1.webp", // Using a general zombie/thriller backdrop since no direct match was provided
+                imdb: "Expected",
+                releaseDate: "Expected Premier: 2025 (Season 2)",
+                seasons: "2 (Expected)",
+                episodes: "N/A",
+                languages: "Korean",
+                genre: "Action, Drama, Horror",
+                creators: "Lee Jae-kyoo, Kim Nam-su",
+                cast: "Park Ji-hu, Yoon Chan-young, Cho Yi-hyun",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "When a zombie virus breaks out in a high school, trapped students must fight their way out or turn into one of the infected. The second season is set to continue their struggle for survival."
+            },
+            {
+                id: "strangerthings",
+                title: "Stranger Things",
+                categories: ["Hollywood"],
+                poster: "strangerthingsposter1.webp",
+                backdrop: "strangerthingsbackdrop1.webp",
+                imdb: "8.7/10 (Drama)",
+                releaseDate: "July 15, 2016",
+                seasons: "5",
+                episodes: "34",
+                languages: "English",
+                genre: "Drama, Fantasy, Horror",
+                creators: "The Duffer Brothers",
+                cast: "Millie Bobby Brown, Finn Wolfhard, Winona Ryder",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl with extraordinary powers."
+            },
+            {
+                id: "lupin",
+                title: "Lupin",
+                categories: ["International"],
+                poster: "lupinposter1.webp",
+                backdrop: "lupinbackdrop1.webp",
+                imdb: "7.5/10 (Crime)",
+                releaseDate: "January 8, 2021",
+                seasons: "3 (Parts)",
+                episodes: "17",
+                languages: "French",
+                genre: "Crime, Drama, Mystery",
+                creators: "George Kay, François Uzan",
+                cast: "Omar Sy, Ludivine Sagnier, Clotilde Hesme",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Inspired by the adventures of Arsène Lupin, master of disguise and gentleman thief Assane Diop sets out to avenge his father for an injustice inflicted by a wealthy family."
+            },
+            {
+                id: "squidgame",
+                title: "Squid Game",
+                categories: ["Trending", "K-Drama", "Coming Soon"],
+                poster: "squidgameposter1.webp",
+                backdrop: "squidgamebackdrop1.webp",
+                imdb: "8.0/10 (Action)",
+                releaseDate: "September 17, 2021",
+                seasons: "2 (Expected)",
+                episodes: "9 (Season 1)",
+                languages: "Korean, English",
+                genre: "Action, Thriller, Drama",
+                creators: "Hwang Dong-hyuk",
+                cast: "Lee Jung-jae, Park Hae-soo, Jung Ho-yeon",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "When a man with a huge debt is invited to play a series of children's games for a life-changing sum of money. The catch is, losing means death. The second season is highly anticipated."
+            },
+            {
+                id: "secondwife",
+                title: "Second Wife",
+                categories: ["Kenyan Drama", "Coming Soon"],
+                poster: "secondfamilyposter1.webp",
+                backdrop: "secondfamilybackdrop1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: TBA",
+                seasons: "N/A",
+                episodes: "N/A",
+                languages: "Swahili, English",
+                genre: "Drama",
+                creators: "N/A",
+                cast: "N/A",
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "Details for 'Second Wife' are scarce, but it's expected to be a compelling Kenyan drama exploring familial and marital complexities, possibly revolving around the theme of polygamy or a new spouse in a family."
+            },
+            {
+                id: "40sticks",
+                title: "40 Sticks",
+                categories: ["Kenyan Drama"],
+                poster: "40sticksposter1.webp",
+                backdrop: "crimeandjusticebackdrop1.webp", // Using a general crime/drama backdrop since no direct match was provided
+                imdb: "6.2/10 (Action)",
+                releaseDate: "October 2, 2020",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Swahili, English",
+                genre: "Action, Crime, Thriller",
+                creators: "Victor Gatonye (Director)",
+                cast: "Robert Agengo, Mwaura Bilal, Andreo Kamau",
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "When a prison bus crashes in the middle of a forest, a group of convicts must work together to survive the harsh wilderness while evading an unknown, deadly threat lurking in the shadows."
+            }
+        ];
+
+        // Mock data for cinemas and their showtimes
+        const cinemaData = [
+            {
+                id: 'nairobi-century',
+                name: 'Century Cinemax Garden City',
+                city: 'Nairobi',
+                welcomeMessage: 'Welcome to Century Cinemax Garden City! We are thrilled to have you!',
+                shows: [
+                    { id: "moneyheist", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM", "07:00 PM"] },
+                    { id: "prisonbreak", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM", "08:00 PM"] },
+                    { id: "inception", showtimes: ["10:30 AM", "01:30 PM", "04:30 PM", "07:30 PM"] },
+                    { id: "breakingbad", showtimes: ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM"] },
+                    { id: "theoffice", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "3idiots", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "ghoul", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "dangal", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "nairobihalflife", showtimes: ["11:30 AM", "02:30 PM", "05:30 PM", "08:30 PM"] },
+                ]
+            },
+            {
+                id: 'nairobi-anga',
+                name: 'Anga Diamond Plaza',
+                city: 'Nairobi',
+                welcomeMessage: 'Enjoy your movie at Anga Diamond Plaza! Your comfort is our priority.',
+                shows: [
+                    { id: "strangerthings", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM", "07:00 PM"] },
+                    { id: "lupin", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM", "08:00 PM"] },
+                    { id: "squidgame", showtimes: ["10:30 AM", "01:30 PM", "04:30 PM", "07:30 PM"] },
+                    { id: "40sticks", showtimes: ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM"] },
+                    { id: "traintobusan", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "extraction", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "allofusaredead", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "yourhonor", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "dayofthejackal", showtimes: ["11:30 AM", "02:30 PM", "05:30 PM", "08:30 PM"] },
+                ]
+            },
+            {
+                id: 'nairobi-imax',
+                name: 'IMAX Two Rivers',
+                city: 'Nairobi',
+                welcomeMessage: 'Experience cinema like never before at IMAX Two Rivers! Get ready for an immersive journey.',
+                shows: [
+                    { id: "inception", showtimes: ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM"] },
+                    { id: "breakingbad", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM", "07:00 PM"] },
+                    { id: "traintobusan", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM", "08:00 PM"] },
+                    { id: "extraction", showtimes: ["10:30 AM", "01:30 PM", "04:30 PM", "07:30 PM"] },
+                    { id: "moneyheist", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "prisonbreak", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "strangerthings", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "lupin", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "dangal", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                ]
+            },
+            {
+                id: 'mombasa-nyali',
+                name: 'Nyali Cinemax',
+                city: 'Mombasa',
+                welcomeMessage: 'Greetings from Nyali Cinemax! We hope you have a fantastic time.',
+                shows: [
+                    { id: "3idiots", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "dangal", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "nairobihalflife", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                    { id: "crimeandjustice", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "moneyheist", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "prisonbreak", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                    { id: "inception", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "breakingbad", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "traintobusan", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                ]
+            },
+            {
+                id: 'mombasa-cinemax',
+                name: 'Cinemax Mombasa',
+                city: 'Mombasa',
+                welcomeMessage: 'Welcome to Cinemax Mombasa! Get ready for a cinematic adventure.',
+                shows: [
+                    { id: "strangerthings", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM", "07:00 PM"] },
+                    { id: "lupin", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM", "08:00 PM"] },
+                    { id: "squidgame", showtimes: ["10:30 AM", "01:30 PM", "04:30 PM", "07:30 PM"] },
+                    { id: "40sticks", showtimes: ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM"] },
+                    { id: "yourhonor", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "dayofthejackal", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "moneyheistk", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "secondwife", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "theoffice", showtimes: ["11:30 AM", "02:30 PM", "05:30 PM", "08:30 PM"] },
+                ]
+            },
+            {
+                id: 'kisumu-mega',
+                name: 'Mega City Cinemas',
+                city: 'Kisumu',
+                welcomeMessage: 'Enjoy your visit to Mega City Cinemas! We\'re glad you\'re here.',
+                shows: [
+                    { id: "nairobihalflife", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "crimeandjustice", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "moneyheist", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                    { id: "prisonbreak", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "inception", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "breakingbad", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                    { id: "3idiots", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "dangal", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "traintobusan", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM"] },
+                ]
+            },
+            {
+                id: 'eldoret-cinemax',
+                name: 'Eldoret Cinemax',
+                city: 'Eldoret',
+                welcomeMessage: 'Welcome to Eldoret Cinemax! Your ultimate entertainment awaits.',
+                shows: [
+                    { id: "strangerthings", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM", "07:00 PM"] },
+                    { id: "lupin", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM", "08:00 PM"] },
+                    { id: "squidgame", showtimes: ["10:30 AM", "01:30 PM", "04:30 PM", "07:30 PM"] },
+                    { id: "40sticks", showtimes: ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM", "09:00 PM"] },
+                    { id: "yourhonor", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "dayofthejackal", showtimes: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+                    { id: "moneyheistk", showtimes: ["09:30 AM", "12:30 PM", "03:30 PM", "06:30 PM"] },
+                    { id: "secondwife", showtimes: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+                    { id: "theoffice", showtimes: ["11:30 AM", "02:30 PM", "05:30 PM", "08:30 PM"] },
+                ]
+            }
+        ];
+
+        // Hero section image data for cinema guide page
+        const cinemaGuideHeroImages = [
+            'images/cinema/IMAX.webp',
+            'images/cinema/IMAX2.webp'
+        ];
+        let currentCinemaHeroImageIndex = 0;
+
+
+        // Data for snacks
+        const snacksData = [
+            { id: 'popcorn', name: 'Popcorn', price: 350, image: 'images/snacks/popcorn.webp' },
+            { id: 'soda', name: 'Soda', price: 150, image: 'images/snacks/soda.webp' },
+            { id: 'nachos', name: 'Nachos', price: 400, image: 'images/snacks/nachos.webp' },
+            { id: 'chocolate', name: 'Chocolate Bar', price: 200, image: 'images/snacks/chocolate.webp' },
+            { id: 'hotdog', name: 'Hot Dog', price: 500, image: 'images/snacks/hotdog.webp' },
+        ];
+
+        // Global state for Buy Ticket Page
+        let currentStep = 1;
+        const totalSteps = 6;
+        let selectedSeats = [];
+        let selectedSnacks = {}; // { snackId: quantity }
+        let totalAmount = 0;
+        let selectedMovieForTicket = null; // Renamed to avoid conflict with `selectedMovie` in cinema guide
+        let selectedPaymentMethod = null;
+
+        // Common Elements
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingMessage = document.getElementById('loading-message');
+        const cinemaGuidePage = document.getElementById('cinemaGuidePage');
+        const buyTicketPage = document.getElementById('buyTicketPage');
+        const homeLink = document.getElementById('homeLink');
+        const backToCinemaGuideBtn = document.getElementById('backToCinemaGuideBtn');
+
+        // Message Box functions
+        const customAlert = document.getElementById('customAlert');
+        const alertMessage = document.getElementById('alertMessage');
+        const closeAlertBtn = document.getElementById('closeAlert');
+
+        function showMessageBox(message, iconClass = 'fas fa-info-circle') {
+            const alertIcon = customAlert.querySelector('.alert-icon');
+            alertMessage.textContent = message;
+            alertIcon.className = 'alert-icon'; // Reset to base class
+            iconClass.split(' ').forEach(cls => alertIcon.classList.add(cls)); // Add new classes
+            customAlert.classList.add('show');
+            // Auto-hide after 5 seconds
+            clearTimeout(customAlert.dataset.hideTimeout);
+            customAlert.dataset.hideTimeout = setTimeout(() => {
+                customAlert.classList.remove('show');
+            }, 5000);
+        }
+
+        closeAlertBtn.addEventListener('click', () => {
+            customAlert.classList.remove('show');
+            clearTimeout(customAlert.dataset.hideTimeout);
+        });
+
+        // --- Page Navigation (Show/Hide Containers) ---
+        function showPage(pageId, showIdFromClick = null, cinemaIdFromClick = null) {
+            cinemaGuidePage.classList.remove('active');
+            buyTicketPage.classList.remove('active');
+
+            if (pageId === 'cinemaGuidePage') {
+                cinemaGuidePage.classList.add('active');
+                // Ensure initial setup for cinema guide page on display
+                updateCinemaHeroImage();
+                renderShows(document.getElementById('city-select').value);
+            } else if (pageId === 'buyTicketPage') {
+                buyTicketPage.classList.add('active');
+                // Ensure initial setup for buy ticket page on display
+                // Pass showId directly if available from the click event
+                loadMovieDetailsForTicketPage(showIdFromClick); // Pass showId directly
+                navigateToStep(1); // Always start at step 1 for buy ticket
+                renderSeats(8, 10);
+                renderSnacks();
+                updateCabInputsState();
+            }
+        }
+
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Removed: window.history.pushState({}, '', '?page=cinema_guide');
+            showPage('cinemaGuidePage');
+        });
+
+        if (backToCinemaGuideBtn) {
+            backToCinemaGuideBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Removed: window.history.pushState({}, '', '?page=cinema_guide');
+                showPage('cinemaGuidePage');
+            });
+        }
+
+
+        // --- Cinema Guide Specific Logic (consolidated from cinema_guide.js) ---
+        function updateCinemaHeroImage() {
+            const cinemaHero = document.getElementById('cinemaHero');
+            if (cinemaHero && cinemaGuideHeroImages.length > 0) {
+                cinemaHero.style.backgroundImage = `url('${cinemaGuideHeroImages[currentCinemaHeroImageIndex]}')`;
+                currentCinemaHeroImageIndex = (currentCinemaHeroImageIndex + 1) % cinemaGuideHeroImages.length;
+            }
+        }
+
+        function createCinemaShowCardHTML(show, showtimes, cinemaId) {
+            // Find the show's data from the allShows array
+            const fullShowDetails = allShows.find(s => s.id === show.id);
+            if (!fullShowDetails) return ''; // Should not happen if data is consistent
+
+            const posterPath = `images/posters/${fullShowDetails.poster}`;
+            const imdbRating = fullShowDetails.imdb ? fullShowDetails.imdb.split(' ')[0] : 'N/A';
+            const releaseYear = fullShowDetails.releaseDate ? fullShowDetails.releaseDate.match(/\d{4}/)?.[0] : 'N/A';
+            const isMovie = fullShowDetails.seasons === "1 (Film)" || fullShowDetails.seasons === "N/A (Film)";
+            const type = isMovie ? "Movie" : "Series";
+
+            const synopsisTruncated = fullShowDetails.synopsis.length > 150 ? fullShowDetails.synopsis.substring(0, 150) + '...' : fullShowDetails.synopsis;
+
+            return `
+                <div class="show-card">
+                    <img src="${posterPath}" alt="${fullShowDetails.title} Poster" class="show-poster"
+                         onerror="this.onerror=null;this.src='https://placehold.co/350x450/333/fff?text=No+Poster';">
+                    <div class="show-info">
+                        <h4>${fullShowDetails.title}</h4>
+                        <p class="text-sm text-gray-400">${type} &bull; ${releaseYear}</p>
+                        <p class="imdb-rating">IMDb: ${imdbRating}</p>
+                        <p class="synopsis-text" data-full-synopsis="${fullShowDetails.synopsis}">${synopsisTruncated}</p>
+                        ${fullShowDetails.synopsis.length > 150 ? `
+                        <button class="read-more-btn">Read More</button>
+                        <button class="read-less-btn" style="display: none;">Read Less</button>` : ''}
+
+                        <div class="show-card-actions">
+                            <div class="screening-times">
+                                ${showtimes.map(time => `<span>${time}</span>`).join('')}
+                            </div>
+                            <a href="javascript:void(0);" class="buy-ticket-btn" data-show-id="${show.id}" data-cinema-id="${cinemaId}">Buy Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderShows(selectedCity) {
+            const cinemaListingsContainer = document.getElementById('cinemaListings');
+            if (!cinemaListingsContainer) {
+                console.error("Element with ID 'cinemaListings' not found.");
+                return;
+            }
+            cinemaListingsContainer.innerHTML = '';
+
+            const filteredCinemas = cinemaData.filter(cinema =>
+                selectedCity === "All Cities" || cinema.city === selectedCity
+            );
+
+            if (filteredCinemas.length === 0) {
+                cinemaListingsContainer.innerHTML = `<p class="text-center text-gray-400 text-lg mt-8">No cinemas found for ${selectedCity}.</p>`;
+                return;
+            }
+
+            filteredCinemas.forEach(cinema => {
+                const cinemaSection = document.createElement('div');
+                cinemaSection.classList.add('cinema-section');
+
+                const cinemaTitle = document.createElement('h3');
+                cinemaTitle.textContent = cinema.name + (selectedCity === "All Cities" ? ` (${cinema.city})` : '');
+                cinemaSection.appendChild(cinemaTitle);
+
+                const showsGrid = document.createElement('div');
+                showsGrid.classList.add('shows-grid');
+
+                cinema.shows.forEach(cinemaShow => {
+                    // Pass cinema.id to the create function
+                    showsGrid.innerHTML += createCinemaShowCardHTML(cinemaShow, cinemaShow.showtimes, cinema.id);
+                });
+
+                cinemaSection.appendChild(showsGrid);
+                cinemaListingsContainer.appendChild(cinemaSection);
+            });
+
+            // Add event listeners for "Read More/Less" and "Buy Ticket" after content is rendered
+            addShowCardEventListeners(); // For synopsis
+            addBuyTicketButtonListeners(); // For Buy Ticket navigation
+        }
+
+        function addShowCardEventListeners() {
+            document.querySelectorAll('.show-card').forEach(card => {
+                const synopsisText = card.querySelector('.synopsis-text');
+                const readMoreBtn = card.querySelector('.read-more-btn');
+                const readLessBtn = card.querySelector('.read-less-btn');
+
+                if (readMoreBtn && readLessBtn) {
+                    readMoreBtn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation(); // Stop propagation to prevent card navigation
+                        synopsisText.textContent = synopsisText.dataset.fullSynopsis;
+                        synopsisText.classList.add('expanded');
+                        readMoreBtn.style.display = 'none';
+                        readLessBtn.style.display = 'inline-block';
+                    });
+
+                    readLessBtn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation(); // Stop propagation to prevent card navigation
+                        synopsisText.textContent = synopsisText.dataset.fullSynopsis.substring(0, 150) + '...';
+                        synopsisText.classList.remove('expanded');
+                        readMoreBtn.style.display = 'inline-block';
+                        readLessBtn.style.display = 'none';
+                    });
+                }
+            });
+        }
+
+        function addBuyTicketButtonListeners() {
+            document.querySelectorAll('.buy-ticket-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                    const showId = button.dataset.showId;
+                    const cinemaId = button.dataset.cinemaId;
+                    // Removed: window.history.pushState({}, '', `?page=buy_ticket&showId=${showId}&cinemaId=${cinemaId}`);
+                    showPage('buyTicketPage', showId, cinemaId); // Pass showId and cinemaId
+                });
+            });
+        }
+
+
+        // --- Buy Ticket Page Specific Logic (consolidated from buy_ticket.html inline script) ---
+
+        // Stepper Navigation
+        const stepperItems = document.querySelectorAll('.stepper-item');
+        const stepContents = document.querySelectorAll('.step-content');
+        const buyTicketHeroTitle = document.getElementById('hero-movie-title');
+        const buyTicketHeroSection = document.getElementById('buyTicketHero');
+
+        function navigateToStep(step) {
+            // Validation before proceeding
+            if (step > currentStep) { // Only validate if moving forward
+                if (currentStep === 1) {
+                    if (!selectedMovieForTicket) {
+                        showMessageBox("Movie details could not be loaded. Please go back to the cinema guide.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                } else if (currentStep === 2) {
+                    if (selectedSeats.length === 0) {
+                        showMessageBox("Please select at least one seat to proceed.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                } else if (currentStep === 4) {
+                    const cabPickupRadio = document.getElementById('cab-pickup');
+                    const cabStandRadio = document.getElementById('cab-stand');
+                    const homeAddressInput = document.getElementById('home-address');
+                    const pickupTimeInput = document.getElementById('pickup-time');
+
+                    if (cabPickupRadio.checked && homeAddressInput.value.trim() === '') {
+                        showMessageBox("Please enter your home address for cab pick up.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                    if ((cabPickupRadio.checked || cabStandRadio.checked) && pickupTimeInput.value.trim() === '') {
+                        showMessageBox("Please enter your preferred pick-up time for cab service.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                } else if (currentStep === 6) {
+                     if (!selectedPaymentMethod) {
+                        showMessageBox("Please select a payment method to proceed with payment.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                     if (totalAmount <= 0) {
+                        showMessageBox("Cannot process payment. Total amount must be greater than zero. Please select seats or snacks.", "fas fa-exclamation-triangle red-icon");
+                        return;
+                    }
+                }
+            }
+
+
+            // Mark previous step as completed if moving forward
+            if (step > currentStep) {
+                const prevStepperItem = document.querySelector(`.stepper-item[data-step="${currentStep}"]`);
+                if (prevStepperItem) {
+                    prevStepperItem.classList.add('completed');
+                    prevStepperItem.classList.remove('active');
+                }
+            } else if (step < currentStep) { // If moving backward, unmark current as completed
+                 const currentStepperItem = document.querySelector(`.stepper-item[data-step="${currentStep}"]`);
+                 if (currentStepperItem) {
+                     currentStepperItem.classList.remove('completed');
+                 }
+            }
+
+
+            currentStep = step;
+
+            stepperItems.forEach(item => {
+                const itemStep = parseInt(item.dataset.step);
+                if (itemStep === currentStep) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            stepContents.forEach(content => {
+                const contentStep = parseInt(content.id.replace('step-', ''));
+                if (contentStep === currentStep) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+
+            updateSummary();
+            updateCabInputsState(); // Ensure cab inputs state is correct on navigation
+
+            // Hide the numeric label for completed steps
+            document.querySelectorAll('.stepper-item.completed .step-circle span').forEach(span => {
+                span.style.display = 'none';
+            });
+            // Show the numeric label for non-completed or active steps
+            document.querySelectorAll('.stepper-item:not(.completed) .step-circle span, .stepper-item.active .step-circle span').forEach(span => {
+                span.style.display = '';
+            });
+        }
+
+        // Handle navigation buttons for Buy Ticket Page
+        document.querySelectorAll('#buyTicketPage .proceed-btn, #buyTicketPage .back-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const action = event.target.dataset.action;
+                if (action === 'next') {
+                    if (currentStep < totalSteps) {
+                        navigateToStep(currentStep + 1);
+                    }
+                } else if (action === 'back') {
+                    if (currentStep > 1) {
+                        navigateToStep(currentStep - 1);
+                    }
+                }
+            });
+        });
+
+        // Load Movie Details for Buy Ticket Page
+        function loadMovieDetailsForTicketPage(initialShowId = null) {
+            // First, try to get showId from passed argument
+            let showId = initialShowId;
+            // If not passed, fallback to URL parameter (for direct URL access/refresh)
+            // Removed URL parameter parsing for showId from here
+            // if (!showId) {
+            //     const urlParams = new URLSearchParams(window.location.search);
+            //     showId = urlParams.get('showId');
+            // }
+
+            if (showId) {
+                selectedMovieForTicket = allShows.find(show => show.id === showId);
+            } else {
+                selectedMovieForTicket = null; // Ensure it's explicitly null if no showId
+            }
+
+
+            if (selectedMovieForTicket) {
+                buyTicketHeroTitle.textContent = selectedMovieForTicket.title;
+                // Use the backdrop for the hero section
+                buyTicketHeroSection.style.backgroundImage = `url(images/herobackdrops/${selectedMovieForTicket.backdrop})`;
+                document.getElementById('movie-title-display').textContent = selectedMovieForTicket.title;
+                document.getElementById('movie-poster').src = `images/posters/${selectedMovieForTicket.poster}`; // Use poster for detailed view
+                document.getElementById('movie-genre').textContent = selectedMovieForTicket.genre;
+                document.getElementById('movie-imdb').textContent = selectedMovieForTicket.imdb;
+                document.getElementById('movie-release').textContent = selectedMovieForTicket.releaseDate;
+                document.getElementById('movie-seasons').textContent = selectedMovieForTicket.seasons;
+                document.getElementById('movie-episodes').textContent = selectedMovieForTicket.episodes;
+                document.getElementById('movie-languages').textContent = selectedMovieForTicket.languages;
+                document.getElementById('movie-creators').textContent = selectedMovieForTicket.creators;
+                document.getElementById('movie-cast').textContent = selectedMovieForTicket.cast;
+                document.getElementById('movie-synopsis').textContent = selectedMovieForTicket.synopsis;
+
+            } else {
+                buyTicketHeroTitle.textContent = 'Movie Not Found';
+                buyTicketHeroSection.style.backgroundImage = `url(https://placehold.co/900x300/333/fff?text=Movie+Not+Found)`;
+                // Only show message box if initial load from URL or user interaction failed to find movie
+                // Removed: if (!initialShowId) { // Only show alert if it was a direct URL access or refresh
+                     showMessageBox("Movie details could not be loaded. Please go back to the cinema guide and select a show.", "fas fa-exclamation-triangle red-icon");
+                // Removed: }
+                // Also clear the detailed info fields
+                document.getElementById('movie-title-display').textContent = 'N/A';
+                document.getElementById('movie-poster').src = 'https://placehold.co/250x350/333/fff?text=No+Poster';
+                document.getElementById('movie-genre').textContent = 'N/A';
+                document.getElementById('movie-imdb').textContent = 'N/A';
+                document.getElementById('movie-release').textContent = 'N/A';
+                document.getElementById('movie-seasons').textContent = 'N/A';
+                document.getElementById('movie-episodes').textContent = 'N/A';
+                document.getElementById('movie-languages').textContent = 'N/A';
+                document.getElementById('movie-creators').textContent = 'N/A';
+                document.getElementById('movie-cast').textContent = 'N/A';
+                document.getElementById('movie-synopsis').textContent = 'N/A';
+            }
+        }
+
+        // Seat Selection Logic (Buy Ticket Page)
+        const seatsContainer = document.getElementById('seats-container');
+
+        function renderSeats(rows, cols) {
+            seatsContainer.innerHTML = '';
+            selectedSeats = []; // Clear selected seats on re-render
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const seat = document.createElement('div');
+                    seat.classList.add('seat');
+                    const seatId = `R${r + 1}C${c + 1}`;
+                    seat.dataset.seatId = seatId;
+                    seat.textContent = (c + 1).toString();
+
+                    if (Math.random() < 0.2) {
+                        seat.classList.add('occupied');
+                    } else {
+                        seat.classList.add('available');
+                        seat.addEventListener('click', () => {
+                            if (!seat.classList.contains('occupied')) {
+                                seat.classList.toggle('selected');
+                                if (seat.classList.contains('selected')) {
+                                    selectedSeats.push(seatId);
+                                } else {
+                                    selectedSeats = selectedSeats.filter(s => s !== seatId);
+                                }
+                                calculateTotal();
+                            }
+                        });
+                    }
+                    seatsContainer.appendChild(seat);
+                }
+            }
+        }
+
+        // Snacks Logic (Buy Ticket Page)
+        const snacksListContainer = document.getElementById('snacks-list');
+
+        function renderSnacks() {
+            snacksListContainer.innerHTML = '';
+            selectedSnacks = {}; // Clear selected snacks on re-render
+            snacksData.forEach(snack => {
+                const snackItem = document.createElement('div');
+                snackItem.classList.add('snack-item');
+                snackItem.innerHTML = `
+                    <img src="${snack.image}" alt="${snack.name}">
+                    <h4>${snack.name}</h4>
+                    <p>Ksh ${snack.price.toFixed(2)}</p>
+                    <div class="snack-quantity-control">
+                        <button data-id="${snack.id}" data-action="decrease">-</button>
+                        <span id="quantity-${snack.id}">${selectedSnacks[snack.id] || 0}</span>
+                        <button data-id="${snack.id}" data-action="increase">+</button>
+                    </div>
+                `;
+                snacksListContainer.appendChild(snackItem);
+            });
+
+            snacksListContainer.addEventListener('click', (event) => {
+                const target = event.target;
+                if (target.tagName === 'BUTTON' && target.closest('.snack-quantity-control')) {
+                    const snackId = target.dataset.id;
+                    const action = target.dataset.action;
+                    let currentQuantity = selectedSnacks[snackId] || 0;
+
+                    if (action === 'increase') {
+                        currentQuantity++;
+                    } else if (action === 'decrease' && currentQuantity > 0) {
+                        currentQuantity--;
+                    }
+                    selectedSnacks[snackId] = currentQuantity;
+                    document.getElementById(`quantity-${snackId}`).textContent = currentQuantity;
+                    calculateTotal();
+                }
+            });
+        }
+
+        // Cab Service Logic - Enable/Disable inputs (Buy Ticket Page)
+        const cabRadios = document.querySelectorAll('input[name="cab-service"]');
+        const homeAddressInput = document.getElementById('home-address');
+        const pickupTimeInput = document.getElementById('pickup-time');
+
+        function updateCabInputsState() {
+            const selectedCabOption = document.querySelector('input[name="cab-service"]:checked').value;
+
+            if (selectedCabOption === 'pickup') {
+                homeAddressInput.disabled = false;
+                pickupTimeInput.disabled = false;
+            } else if (selectedCabOption === 'stand') {
+                homeAddressInput.disabled = true;
+                homeAddressInput.value = '';
+                pickupTimeInput.disabled = false;
+            } else { // 'none'
+                homeAddressInput.disabled = true;
+                homeAddressInput.value = '';
+                pickupTimeInput.disabled = true;
+                pickupTimeInput.value = '';
+            }
+        }
+
+        cabRadios.forEach(radio => {
+            radio.addEventListener('change', updateCabInputsState);
+        });
+
+        // Payment Method Selection (Buy Ticket Page)
+        document.querySelectorAll('.payment-method').forEach(methodDiv => {
+            methodDiv.addEventListener('click', () => {
+                document.querySelectorAll('.payment-method').forEach(div => div.classList.remove('selected'));
+                methodDiv.classList.add('selected');
+                const radio = methodDiv.querySelector('input[type="radio"]');
+                radio.checked = true;
+                selectedPaymentMethod = radio.value;
+            });
+        });
+
+        // Calculate Total (Buy Ticket Page)
+        function calculateTotal() {
+            let currentTotal = 0;
+
+            const seatPrice = 600;
+            currentTotal += selectedSeats.length * seatPrice;
+
+            for (const snackId in selectedSnacks) {
+                const quantity = selectedSnacks[snackId];
+                const snack = snacksData.find(s => s.id === snackId);
+                if (snack) {
+                    currentTotal += quantity * snack.price;
+                }
+            }
+
+            const cabPickupRadio = document.getElementById('cab-pickup');
+            if (cabPickupRadio && cabPickupRadio.checked) {
+                currentTotal += 500;
+            }
+
+            totalAmount = currentTotal;
+            updateSummary();
+        }
+
+        // Update Summary (Buy Ticket Page)
+        function updateSummary() {
+            document.getElementById('summary-movie-title').textContent = selectedMovieForTicket ? selectedMovieForTicket.title : 'N/A';
+            document.getElementById('summary-seats').textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'None selected';
+
+            const snacksSummary = Object.keys(selectedSnacks)
+                .filter(snackId => selectedSnacks[snackId] > 0)
+                .map(snackId => {
+                    const snack = snacksData.find(s => s.id === snackId);
+                    return snack ? `${snack.name} (${selectedSnacks[snackId]})` : ''; // Corrected: selectedSnacks[snackId]
+                })
+                .join(', ');
+            document.getElementById('summary-snacks').textContent = snacksSummary || 'None selected';
+
+            const selectedCabOption = document.querySelector('input[name="cab-service"]:checked').value;
+            let cabSummary = 'No Cab Service';
+            if (selectedCabOption === 'pickup') {
+                cabSummary = `Cab Pick Up (Home: ${homeAddressInput.value || 'N/A'}, Time: ${pickupTimeInput.value || 'N/A'})`;
+            } else if (selectedCabOption === 'stand') {
+                cabSummary = `Cab Stand Pick Up (Time: ${pickupTimeInput.value || 'N/A'})`;
+            }
+            document.getElementById('summary-cab').textContent = cabSummary;
+
+            document.getElementById('summary-total').textContent = totalAmount.toFixed(2);
+        }
+
+        // Final Pay Now button (Buy Ticket Page)
+        document.getElementById('final-pay-now-btn').addEventListener('click', () => {
+            // navigateToStep(6) will handle validation before allowing final payment logic
+            // The actual payment confirmation message is handled within navigateToStep's validation
+            if (currentStep === 6 && selectedPaymentMethod && totalAmount > 0) {
+                 const cinemaIdFromUrl = new URLSearchParams(window.location.search).get('cinemaId'); // Get cinemaId from URL
+                 const selectedCinema = cinemaData.find(cinema => cinema.id === cinemaIdFromUrl);
+                 const welcomeMessage = selectedCinema ? selectedCinema.welcomeMessage : "Thank you for your purchase! We eagerly await your visit!";
+
+                 showMessageBox(`Payment successful! ${welcomeMessage} Total paid: Ksh ${totalAmount.toFixed(2)}`, "fas fa-check-circle green-icon");
+            }
+        });
+
+
+        // --- Header and Search Bar Toggle (Common) ---
+        const searchIcon = document.getElementById('searchIcon');
+        const searchSubheader = document.getElementById('searchSubheader');
+        const clearSearch = document.getElementById('clearSearch');
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('suggestionsBox');
+
+        searchIcon.addEventListener('click', () => {
+            searchSubheader.classList.toggle('hidden');
+            if (!searchSubheader.classList.contains('hidden')) {
+                searchInput.focus();
+            }
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            suggestionsBox.innerHTML = '';
+            suggestionsBox.classList.add('hidden');
+        });
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            suggestionsBox.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredShows = allShows.filter(show =>
+                    show.title.toLowerCase().includes(query) ||
+                    show.genre.toLowerCase().includes(query) ||
+                    (show.cast && show.cast.toLowerCase().includes(query))
+                );
+
+                if (filteredShows.length > 0) {
+                    filteredShows.forEach(show => {
+                        const div = document.createElement('div');
+                        div.classList.add('suggestion-item');
+                        div.textContent = show.title;
+                        div.addEventListener('click', () => {
+                            searchInput.value = show.title;
+                            suggestionsBox.classList.add('hidden');
+                            // Removed: window.history.pushState({}, '', `?page=buy_ticket&showId=${show.id}`);
+                            showPage('buyTicketPage', show.id); // Pass show.id directly
+                        });
+                        suggestionsBox.appendChild(div);
+                    });
+                    suggestionsBox.classList.remove('hidden');
+                } else {
+                    suggestionsBox.classList.add('hidden');
+                }
+            } else {
+                suggestionsBox.classList.add('hidden');
+            }
+        });
+
+        // Dark Mode Toggle (Common)
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            // Update icon based on mode
+            if (isDarkMode) {
+                darkModeToggle.classList.replace('fa-moon', 'fa-sun');
+                darkModeToggle.title = 'Toggle Light Mode';
+            } else {
+                darkModeToggle.classList.replace('fa-sun', 'fa-moon');
+                darkModeToggle.title = 'Toggle Dark Mode';
+            }
+        });
+
+        // Apply dark mode on load
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'true') {
+            body.classList.add('dark-mode');
+            darkModeToggle.classList.replace('fa-moon', 'fa-sun');
+            darkModeToggle.title = 'Toggle Light Mode';
+        } else {
+            body.classList.remove('dark-mode');
+            darkModeToggle.classList.replace('fa-sun', 'fa-moon');
+            darkModeToggle.title = 'Toggle Dark Mode';
+        }
+
+        // Account Dropdown Logic (Common)
+        const accountIcon = document.getElementById("accountIcon");
+        const accountDropdown = document.getElementById("accountDropdown");
+        let userLoggedIn = true; // Simulate user logged in
+        let currentUsername = "Jane Doe";
+
+        function updateAccountDropdown() {
+            accountDropdown.innerHTML = "";
+            if (userLoggedIn) {
+                const profileLink = document.createElement("a");
+                profileLink.href = "#";
+                profileLink.innerHTML = `<i class="fas fa-user-circle"></i> View Profile (${currentUsername})`;
+                accountDropdown.appendChild(profileLink);
+
+                const playlistLink = document.createElement("a");
+                playlistLink.href = "#";
+                playlistLink.innerHTML = `<i class="fas fa-list-ul"></i> Playlist`;
+                accountDropdown.appendChild(playlistLink);
+
+                const favoriteLink = document.createElement("a");
+                favoriteLink.href = "#";
+                favoriteLink.innerHTML = `<i class="fas fa-heart"></i> Favorite`;
+                accountDropdown.appendChild(favoriteLink);
+
+                const settingsLink = document.createElement("a");
+                settingsLink.href = "#";
+                settingsLink.innerHTML = `<i class="fas fa-cog"></i> Settings`;
+                accountDropdown.appendChild(settingsLink);
+
+                const logoutLink = document.createElement("a");
+                logoutLink.href = "#";
+                logoutLink.classList.add("logout-item");
+                logoutLink.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
+                logoutLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    userLoggedIn = false;
+                    updateAccountDropdown();
+                    showMessageBox("You have been logged out.", "fas fa-check-circle green-icon");
+                    accountDropdown.classList.remove("visible");
+                });
+                accountDropdown.appendChild(logoutLink);
+            } else {
+                const loginLink = document.createElement("a");
+                loginLink.href = "#"; // Use # and JS to handle login form if needed, or point to external login.html
+                loginLink.innerHTML = `<i class="fas fa-sign-in-alt"></i> Login`;
+                loginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showMessageBox("Login functionality is not implemented in this demo.", "fas fa-info-circle blue-icon");
+                });
+                accountDropdown.appendChild(loginLink);
+
+                const signupLink = document.createElement("a");
+                signupLink.href = "#"; // Use # and JS to handle signup form if needed
+                signupLink.innerHTML = `<i class="fas fa-user-plus"></i> Sign Up`;
+                signupLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showMessageBox("Sign Up functionality is not implemented in this demo.", "fas fa-info-circle blue-icon");
+                });
+                accountDropdown.appendChild(signupLink);
+
+                const playlistLink = document.createElement("a");
+                playlistLink.href = "#";
+                playlistLink.classList.add("disabled-link");
+                playlistLink.innerHTML = `<i class="fas fa-list-ul"></i> Playlist`;
+                playlistLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showMessageBox("Please Log in to view your Favourites.", "fas fa-info-circle blue-icon");
+                });
+                accountDropdown.appendChild(playlistLink);
+
+                const favoriteLink = document.createElement("a");
+                favoriteLink.href = "#";
+                favoriteLink.classList.add("disabled-link");
+                favoriteLink.innerHTML = `<i class="fas fa-heart"></i> Favorite`;
+                favoriteLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showMessageBox("Please Log in to view your playlist.", "fas fa-info-circle blue-icon");
+                });
+                accountDropdown.appendChild(favoriteLink);
+            }
+        }
+
+        if (accountIcon) {
+            accountIcon.addEventListener('click', (event) => {
+                event.preventDefault();
+                accountDropdown.classList.toggle("visible");
+            });
+        }
+
+        // Close dropdowns if clicked outside
+        document.addEventListener("click", e => {
+            const isClickInsideSearchIcon = searchIcon && searchIcon.contains(e.target);
+            const isClickInsideSearchSubheader = searchSubheader && searchSubheader.contains(e.target);
+            const isClickInsideAccountIcon = accountIcon && accountIcon.contains(e.target);
+            const isClickInsideAccountDropdown = accountDropdown && accountDropdown.contains(e.target);
+
+            if (!searchSubheader.classList.contains("hidden") && !isClickInsideSearchIcon && !isClickInsideSearchSubheader) {
+                searchSubheader.classList.add("hidden");
+                suggestionsBox.classList.remove("active");
+                searchInput.value = "";
+            }
+
+            if (accountDropdown && accountDropdown.classList.contains("visible") && !isClickInsideAccountIcon && !isClickInsideAccountDropdown) {
+                accountDropdown.classList.remove("visible");
+            }
+        });
+
+
+        // --- Initial Load Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update footer info
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            document.getElementById('last-modified').textContent = document.lastModified;
+
+            // Initialize dark mode based on local storage
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'true') {
+                body.classList.add('dark-mode');
+                darkModeToggle.classList.replace('fa-moon', 'fa-sun');
+                darkModeToggle.title = 'Toggle Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                darkModeToggle.classList.replace('fa-sun', 'fa-moon');
+                darkModeToggle.title = 'Toggle Dark Mode';
+            }
+
+            // Update account dropdown initially
+            updateAccountDropdown();
+
+            // The initial page load will now always default to the cinema guide page.
+            // Navigation to the buy ticket page will only happen via user clicks.
+            loadingMessage.textContent = "Preparing your cinema experience...";
+            loadingOverlay.style.opacity = '1';
+            loadingOverlay.style.visibility = 'visible';
+
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                loadingOverlay.style.visibility = 'hidden';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                    showPage('cinemaGuidePage'); // Always start on cinema guide
+                    // Start cinema hero image rotation
+                    setInterval(updateCinemaHeroImage, 7000);
+                    // Initial render of shows based on "All Cities"
+                    renderShows(document.getElementById('city-select').value);
+                    // Add event listener for city selection
+                    document.getElementById('city-select').addEventListener('change', (event) => {
+                        renderShows(event.target.value);
+                    });
+                }, 500); // Allow fade-out
+            }, 3000); // 3 seconds loading for initial cinema guide
+        });
+    </script>
+</body>
+</html>

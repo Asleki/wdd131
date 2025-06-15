@@ -6,10 +6,41 @@
     <meta name="author" content="Alex Malunda">
     <meta name="description" content="Privacy Policy for CineWatch, detailing how user data is collected, used, and protected for our movie and series streaming platform.">
     <title>CineWatch Privacy Notice</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/privacy.css">
+  
+    <link rel="stylesheet" href="tvshows.css">
+ 
+    <!-- Link existing watch.css for shared styles like footer, global body, etc. -->
+    <link rel="stylesheet" href="styles/watch.css">
+    <!-- Link the new authentication forms CSS for form-specific styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+        <!-- Main Header -->
+    <header id="mainHeader">
+        <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+  <main>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
    
@@ -152,15 +183,17 @@
                 <p>By email: <a href="mailto:privacy@cinewatch.com" class="text-blue-600 hover:text-blue-800">privacy@cinewatch.com</a></p>
             </section>
         </div>
+       
     </main>
 
        <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-section centered-info">
                 <p>&copy; Copyright A Alex Malunda 2025</p>
-                <p>Last Modified: <span id="last-modified"></span></p>
+                
                 <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
                 <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
             </div>
             <div class="footer-section social-links">
                 <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
@@ -188,6 +221,9 @@
         </div>
     </div>
 
-    <script src="scripts/privacy.js"></script>
+    <script src="scripts/tv_shows.js"></script>
+
+
+    
 </body>
 </html>

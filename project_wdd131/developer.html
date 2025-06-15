@@ -7,26 +7,39 @@
     <meta name="author" content="Alex Malunda">
     <title>About the Developer - CineWatch</title>
     <link rel="stylesheet" href="styles/about_developer.css">
+    <link rel="stylesheet" href="styles/standalone_header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="site-header">
-        
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="tv_shows.html">TV Shows</a></li>
-                    <li><a href="movies.html">Movies</a></li>
-                    <li><a href="cinema_guide.html">Cinema Guide</a></li>
-                    <li><a href="about_us.html">About Us</a></li>
-                    <li>                        
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- Main Header -->
+  <header id="mainHeader">
+    <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
+    <nav class="nav-icons">
+      <i id="searchIcon" class="fas fa-search" title="Search"></i>
+      <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+      <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+      <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+      <!-- Account Dropdown Menu (initially hidden) -->
+      <div id="accountDropdown" class="account-dropdown">
+      </div>
+    </nav>
+  </header>
+
+  <!-- Search Subheader - Moved here to appear directly below the main header -->
+  <div id="searchSubheader" class="hidden">
+    <div class="search-bar-container">
+      <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+      <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+      <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+    </div>
+    <div id="suggestionsBox" class="suggestions-box"></div>
+  </div>
+
+  <main>
 
     <main class="dev-main-content">
         <section class="hero-section">
@@ -43,7 +56,7 @@
                 </div>
                 <div class="text-content">
                     <h2>Hello, I'm Alex Malunda!</h2>
-                    <p>I'm the passionate developer behind **CineWatch**, a platform designed to make your entertainment discovery effortless and enjoyable. My journey into web development has been an exciting adventure, driven by a love for technology and storytelling.</p>
+                    <p>I'm the passionate developer behind CineWatch, a platform designed to make your entertainment discovery effortless and enjoyable. My journey into web development has been an exciting adventure, driven by a love for technology and storytelling.</p>
                 </div>
             </div>
         </section>
@@ -73,7 +86,7 @@
         <section id="professional-background" class="dev-section section-padding">
             <div class="container">
                 <h3>Professional Background</h3>
-                <p>Apart from my work on CineWatch, I am currently a software engineering student at [Your Current Institution, e.g., University of XYZ]. My responsibilities include developing front-end features for academic projects, collaborating on API integrations, and conducting usability testing for various web applications.</p>
+                <p>Apart from my work on CineWatch, I am currently a software engineering student at Brigham Young University - Idaho. My responsibilities include developing front-end features for academic projects, collaborating on API integrations, and conducting usability testing for various web applications.</p>
             </div>
         </section>
 
@@ -121,8 +134,8 @@
                 <h3>My Other Projects</h3>
                 <p>You can explore more of my work on my GitHub pages. Here are a few highlights:</p>
                 <ul class="project-list">
-                    <li><a href="https://github.com/Asleki/project-name-1/" target="_blank" rel="noopener noreferrer">Project Name One</a> - A brief description of what this project is about.</li>
-                    <li><a href="https://github.com/Asleki/project-name-2/" target="_blank" rel="noopener noreferrer">Project Name Two</a> - Another cool project showcasing [specific skill].</li>
+                    <li><a href="https://github.com/Asleki/project-name-1/" target="_blank" rel="noopener noreferrer">Whitewater Rafting Site</a> - A brief description of what this project is about.</li>
+                    <li><a href="https://github.com/Asleki/project-name-2/" target="_blank" rel="noopener noreferrer">La Familia Bank Application</a> - Another cool project showcasing [specific skill].</li>
                 </ul>
                 <p>Visit my full GitHub profile for more: <a href="https://github.com/Asleki?tab=repositories" target="_blank" rel="noopener noreferrer">github.com/Asleki/repositories</a></p>
             </div>
@@ -141,9 +154,10 @@
         <div class="footer-content">
             <div class="footer-section centered-info">
                 <p>&copy; Copyright A Alex Malunda 2025</p>
-                <p>Last Modified: <span id="last-modified"></span></p>
+                
                 <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
                 <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
             </div>
             <div class="footer-section social-links">
                 <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
@@ -165,6 +179,8 @@
         </div>
     </footer>
 
-    <script src="scripts/about_developer.js"></script>
+
+    <script src="scripts/tv_shows.js"></script>
+    
     </body>
 </html>

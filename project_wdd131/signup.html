@@ -6,7 +6,8 @@
     <title>CineWatch - Sign Up</title>
     <link rel="icon" href="images/icons&logos/app-logo.png" type="image/x-icon">
     <!-- Link our standalone header CSS -->
-    <link rel="stylesheet" href="styles/standalone_header.css">
+    <link rel="stylesheet" href="tvshows.css">
+    <link rel="stylesheet" href="styles/movie$tv_shows.css">
     <!-- Link existing watch.css for shared styles like footer, global body, etc. -->
     <link rel="stylesheet" href="styles/watch.css">
     <!-- Link the new authentication forms CSS for form-specific styles -->
@@ -15,9 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <!-- Main Header (Standalone Header) -->
+        <!-- Main Header -->
     <header id="mainHeader">
-        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
         <nav class="nav-icons">
             <i id="searchIcon" class="fas fa-search" title="Search"></i>
             <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
@@ -26,7 +27,7 @@
 
             <!-- Account Dropdown Menu (initially hidden) -->
             <div id="accountDropdown" class="account-dropdown">
-                <!-- Content dynamically added by JS -->
+                <!-- Content will be dynamically added by JavaScript based on login status -->
             </div>
         </nav>
     </header>
@@ -39,12 +40,6 @@
             <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
         </div>
         <div id="suggestionsBox" class="suggestions-box"></div>
-    </div>
-
-    <!-- Alert Box -->
-    <div id="alertBox" class="alert-box hidden">
-        <i class="fas fa-exclamation-triangle red-icon"></i>
-        <span>You must be logged in to add shows!</span>
     </div>
 
     <main class="auth-container">
@@ -88,25 +83,25 @@
                 <div class="social-icons">
                     <!-- Corrected image paths for social icons as per typical project structure -->
                     <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <img src="images/socials/instagram-logo.webp" alt="Instagram">
+                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
                     </a>
                     <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <img src="images/socials/facebook-logo.webp" alt="Facebook">
+                        <img src="images/socialicons/facebook_24dp.svg" alt="Facebook">
                     </a>
                     <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img src="images/socials/linkedin-logo.webp" alt="LinkedIn">
+                        <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn">
                     </a>
                     <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
-                        <img src="images/socials/x-logo.webp" alt="X (formerly Twitter)">
+                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
                     </a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Load necessary JavaScript files from scripts/ folder -->
-    <script defer src="scripts/app_core.js"></script>
-    <script defer src="scripts/standalone_header.js"></script>
-    <script defer src="scripts/auth.js"></script>
+
+    
+    <script src="scripts/tv_shows.js"></script>
+    
 </body>
 </html>

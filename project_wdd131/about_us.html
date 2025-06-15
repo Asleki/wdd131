@@ -7,25 +7,41 @@
     <meta name="author" content="Alex Malunda">
     <title>About Us - CineWatch</title>
     <link rel="stylesheet" href="styles/about_us.css">
+    <link rel="stylesheet" href="styles/standalone_header.css">
+    <!-- Link existing watch.css for shared styles like footer, global body, etc. -->
+    <link rel="stylesheet" href="styles/watch.css">
+    <!-- Link the new authentication forms CSS for form-specific styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">            
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="discover.html">Home</a></li>
-                    <li><a href="tv-shows.html">TV Shows</a></li>
-                    <li><a href="movies.html">Movies</a></li>
-                    <li>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <!-- Main Header -->
+    <header id="mainHeader">
+        <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
     </header>
+
+    <!-- Search Subheader -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
 
     <main class="about-page-content">
         <section class="hero-section">
@@ -89,75 +105,7 @@
             </div>
         </section>
 
-        <section id="about-developer" class="section-padding developer-section">
-            <div class="container">
-                <h2>The Developer Behind CineWatch</h2>
-                <div class="content-wrapper">
-                    <div class="image-content">
-                        <img src="images/developer/profile.webp" alt="Photo of the Site Developer, Alex Malunda" class="developer-image">
-                    </div>
-                    <div class="text-content">
-                        <h3>Hello, I'm Alex Malunda!</h3>
-                        <p>I'm the passionate developer behind **CineWatch**, a platform designed to make your entertainment discovery effortless and enjoyable. My journey into web development has been an exciting adventure, driven by a love for technology and storytelling.</p>
-
-                        <h4>My Bio</h4>
-                        <p>I am an aspiring web developer and a software engineering student with a keen interest in creating intuitive and visually appealing web applications. My skills span HTML, CSS, JavaScript, and I'm continuously expanding my knowledge in areas like React and UI/UX Design. I thrive on solving complex problems and bringing ideas to life through code.</p>
-                        <p>Beyond coding, I enjoy watching movies (of course!), playing basketball, and constantly learning new things. I believe that good design and robust functionality are equally important in creating memorable user experiences.</p>
-
-                        <h4>My Inspiration for CineWatch</h4>
-                        <p>CineWatch was born out of a personal frustration with the fragmented landscape of online entertainment. I often found myself jumping between multiple streaming services and review sites just to decide what to watch. My inspiration was to create a centralized, user-friendly hub where fellow movie and TV show enthusiasts could easily discover new content, get quick details, read famous quotes, and find out where to watch – all in one place.</p>
-
-                        <h4>A Fun Story in Web Development</h4>
-                        <p>One memorable moment in my web development journey happened during a personal project. I was trying to implement a dynamic animation for content loading and spent hours debugging what turned out to be a single missing semicolon! It was a frustrating but ultimately hilarious realization, teaching me the critical importance of meticulous attention to detail in code.</p>
-
-                        <h4>Professional Background</h4>
-                        <p>Apart from my work on CineWatch, I am currently a software engineering student at [Your Current Institution, e.g., University of XYZ]. My responsibilities include developing front-end features for academic projects, collaborating on API integrations, and conducting usability testing for various web applications.</p>
-
-                        <h4>Connect with Me</h4>
-                        <ul class="contact-list">
-                            <li>
-                                <a href="mailto:alexmalunda@aol.com" aria-label="Email Alex Malunda">
-                                    <img src="images/socialicons/emailicon.webp" alt="Email Icon" width="24" height="24"> alexmalunda@aol.com
-                                </a>
-                            </li>
-                            <li>
-                                <a href="tel:+254707176595" aria-label="Call Alex Malunda on phone number +254 707 176595">
-                                    <img src="images/socialicons/icons8-phone.svg" alt="Phone Icon" width="24" height="24"> +254 707 176595
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/in/alexmalunda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile of Alex Malunda">
-                                    <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn Icon" width="24" height="24"> linkedin.com/in/alexmalunda
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/Asleki" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile of Alex Malunda (Asleki)">
-                                    <img src="images/socialicons/icons8-github-logo.svg" alt="GitHub Icon" width="24" height="24"> github.com/Asleki
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/aslekiymastamynd" target="_blank" rel="noopener noreferrer" aria-label="Facebook profile of Alex Malunda (aslekiymastamynd)">
-                                    <img src="images/socialicons/facebook_24dp.svg" alt="Facebook Icon" width="24" height="24"> facebook.com/aslekiymastamynd
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://wa.me/254110029069" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp message to Alex Malunda">
-                                    <img src="images/socialicons/icons8-whatsapp-logo.svg" alt="WhatsApp Icon" width="24" height="24"> Send me a message
-                                </a>
-                            </li>
-                        </ul>
-
-                        <h4>My Other Projects</h4>
-                        <ul class="project-list">
-                            <li><a href="https://github.com/Asleki/project-name-1/" target="_blank" rel="noopener noreferrer">Project Name One</a> - A brief description of what this project is about.</li>
-                            <li><a href="https://github.com/Asleki/project-name-2/" target="_blank" rel="noopener noreferrer">Project Name Two</a> - Another cool project showcasing [specific skill].</li>
-                        </ul>
-                        <p>Visit my full GitHub profile for more: <a href="https://github.com/Asleki?tab=repositories" target="_blank" rel="noopener noreferrer">github.com/Asleki/repositories</a></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+       
         <section class="cta-section section-padding bg-dark">
             <div class="container text-center">
                 <h2>Join Our Streaming Family!</h2>

@@ -114,12 +114,22 @@ body.dark-mode #searchIcon {
 #searchSubheader {
   background-color: var(--search-bg);
   padding: 10px 20px;
-  display: flex;
+  display: none; /* Hidden by default */
   flex-direction: column;
   gap: 10px;
-  animation: slideDown 0.3s ease-in-out;
+  width: 100%; /* Ensure it spans full width */
+  box-sizing: border-box; /* Include padding in width */
+  position: relative; /* Ensure it creates a stacking context for its children if needed */
+  z-index: 999; /* Slightly less than header to be below it, but above other content */
 }
 
+/* This rule applies when the 'hidden' class is NOT present on #searchSubheader */
+#searchSubheader:not(.hidden) {
+    display: flex; /* Show it as a flex container */
+    animation: slideDown 0.3s ease-in-out; /* Apply slide down animation */
+}
+
+/* This class should be used if you want to explicitly hide the search bar programmatically */
 .hidden {
   display: none !important;
 }

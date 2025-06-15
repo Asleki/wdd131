@@ -470,8 +470,8 @@ const allShowQuotes = [
     ],
     // Ghoul
     [
-        { quote: "The truth will set you free, but first it will make you miserable.", character: "Nida Rahim" },
-        { quote: "Some demons are not meant to be exorcised.", character: "Colonel Dacunha" }
+        { quote: "The truth will set you free, but first it will make you miserable.", "character": "Nida Rahim" },
+        { quote: "Some demons are not meant to be exorcised.", "character": "Colonel Dacunha" }
     ],
     // Dangal
     [
@@ -481,7 +481,7 @@ const allShowQuotes = [
     // Nairobi Half Life
     [
         { quote: "Nairobi will chew you and spit you out.", character: "Oti" },
-        { quote: "You think life is a movie?", character: "Mosquito" },
+        { quote: "You think life is a movie?", "character": "Mosquito" },
         { quote: "Dreams are expensive here.", character: "Mwas" }
     ],
     // Crime and Justice (Quotes might be harder to find, general themes)
@@ -643,6 +643,9 @@ function updateQuotesSidebar(quotesSidebarElement, currentShow, quotesForShow) {
     }
 }
 
+// Array to hold state for each category carousel
+const categoryCarousels = [];
+
 // Function to update a specific carousel's display
 function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, shows, currentShowIndex, quotesSidebarElement) {
     if (!carouselTrack || !paginationContainer || !prevBtn || !nextBtn || !quotesSidebarElement) {
@@ -696,9 +699,6 @@ function updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, sh
         resetSynopsisStates(carouselTrack);
     }, 500); // Match this timeout with the CSS transition duration for transform
 }
-
-// Array to hold state for each category carousel
-const categoryCarousels = [];
 
 // Function to initialize a carousel for a given category
 function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
@@ -763,7 +763,7 @@ function initializeCarouselForCategory(category, showsInCategory, sectionDiv) {
     categoryCarousels.push(carouselState);
 
     // Initial update of the carousel display
-    updateCarousel(carouselTrack, paginationContainer, prevBtn, nextBtn, showsInCategory, currentIndex, quotesSidebar);
+    updateCarousel(carouselState.carouselTrack, carouselState.paginationContainer, carouselState.prevBtn, carouselState.nextBtn, carouselState.shows, carouselState.currentIndex, carouselState.quotesSidebar);
 
     // Add event listeners for navigation buttons for this specific carousel
     prevBtn.addEventListener('click', () => {
@@ -809,65 +809,6 @@ function renderAllCategories() {
     });
 }
 
-// Function to display a custom message box (replaces alert())
-function showMessageBox(message) {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        backdrop-filter: blur(5px); /* Optional: blur background */
-    `;
-
-    // Create message box
-    const messageBox = document.createElement('div');
-    messageBox.style.cssText = `
-        background: var(--background-color-dark); /* Use a CSS variable for dark mode compatibility */
-        color: var(--text-color); /* Use a CSS variable for dark mode compatibility */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        max-width: 80%;
-        font-family: Arial, sans-serif;
-        border: 1px solid var(--border-color); /* Optional: subtle border */
-    `;
-
-    const messageText = document.createElement('p');
-    messageText.textContent = message;
-    messageText.style.marginBottom = '15px';
-    messageText.style.fontSize = '1.1em';
-
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
-    closeButton.style.cssText = `
-        background-color: var(--primary-button-background); /* Use a CSS variable */
-        color: var(--primary-button-text); /* Use a CSS variable */
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.2s ease;
-    `;
-    closeButton.onmouseover = () => closeButton.style.backgroundColor = 'var(--primary-button-hover-background)';
-    closeButton.onmouseout = () => closeButton.style.backgroundColor = 'var(--primary-button-background)';
-    closeButton.onclick = () => document.body.removeChild(overlay);
-
-    messageBox.appendChild(messageText);
-    messageBox.appendChild(closeButton);
-    overlay.appendChild(messageBox);
-    document.body.appendChild(overlay);
-}
-
 
 // Main execution logic
 document.addEventListener('DOMContentLoaded', () => {
@@ -890,76 +831,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Hero section container with ID 'heroSection' not found. Hero slideshow functionality will not work.");
     }
 
-    // --- Dark Mode Toggle Logic ---
-    const modeToggle = document.querySelector('.mode-toggle');
-    const darkModeIcon = document.getElementById('darkModeIcon');
-    const lightModeIcon = document.getElementById('lightModeIcon');
-    const body = document.body;
-
-    // Robustness: Check if elements exist before adding event listeners or manipulating
-    if (modeToggle && darkModeIcon && lightModeIcon && body) {
-        // Check for saved preference in localStorage, default to light mode
-        const savedMode = localStorage.getItem('theme');
-        if (savedMode === 'dark') {
-            body.classList.add('dark-mode');
-            darkModeIcon.classList.add('active');
-            lightModeIcon.classList.remove('active');
-        } else {
-            body.classList.remove('dark-mode');
-            lightModeIcon.classList.add('active');
-            darkModeIcon.classList.remove('active');
-        }
-
-        modeToggle.addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                // Switch to light mode
-                body.classList.remove('dark-mode');
-                lightModeIcon.classList.add('active');
-                darkModeIcon.classList.remove('active');
-                localStorage.setItem('theme', 'light');
-            } else {
-                // Switch to dark mode
-                body.classList.add('dark-mode');
-                darkModeIcon.classList.add('active');
-                lightModeIcon.classList.remove('active');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    } else {
-        console.warn("Dark mode toggle elements not found. Dark mode functionality skipped.");
-    }
-
-
     // --- Header Action Button Logic (using showMessageBox) ---
-    const addShowIcon = document.getElementById('addShowIcon');
-    if (addShowIcon) {
-        addShowIcon.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            showMessageBox("Add to Playlist functionality is coming soon!");
-        });
-    } else {
-        console.warn("Add Show Icon not found.");
-    }
+    // Removed the problematic dark mode toggle logic
+    // Removed the problematic addShowIcon and searchIconBtn sections
+    // as their functionality is managed by standalone_header.js or they do not exist
+    // in this context, causing warnings.
 
-    const accountIcon = document.getElementById('accountIcon');
-    if (accountIcon) {
-        accountIcon.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            showMessageBox("Account management features are under development!");
-        });
-    } else {
-        console.warn("Account Icon not found.");
-    }
 
-    const searchIconBtn = document.querySelector('.search-icon-btn');
-    if (searchIconBtn) {
-        searchIconBtn.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            showMessageBox("Search functionality will be enhanced soon!");
-        });
-    } else {
-        console.warn("Search Icon button not found.");
-    }
+    
+
 
     // Call the main rendering function for categories when the DOM is fully loaded
     renderAllCategories();

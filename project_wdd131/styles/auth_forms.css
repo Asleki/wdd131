@@ -39,9 +39,9 @@ body {
 }
 
 body.dark-mode .auth-form {
-    background-color: var(--card-background-dark);
+    background-color: rgb(139, 125, 125);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--border-color-dark);
+    border: 5px solid rgb(94, 96, 239);
 }
 
 .auth-form h2 {

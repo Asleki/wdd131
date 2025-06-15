@@ -1,0 +1,2642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Tickets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        /* === Consolidated CSS from standalone_header.css, watch.css, shows_movies_list.css === */
+
+        /* Root Theme Variables (from standalone_header.css & main_styles.css combined) */
+        :root {
+          --bg: #fff;
+          --text: #111;
+          --header-bg: #f0ecec;
+          --search-bg: #f4f4f4;
+          --highlight: rgb(28, 12, 241); /* This is the blue used for highlight */
+          --danger: #f44336;
+          --cinewatch-blue: #000080; /* Dark blue color for CineWatch name */
+
+          /* Variables for custom message box & dropdown in light mode */
+          --message-box-bg: #fff;
+          --message-box-text: #111;
+          --message-box-border: #ccc;
+          --message-box-button-bg: #007bff;
+          --message-box-button-text: white;
+          --message-box-button-hover-bg: #0056b3;
+
+          --dropdown-bg: #fff;
+          --dropdown-item-hover-bg: #f0f0f0;
+          --dropdown-border: #ddd;
+
+            /* Light Mode Palette: Fresh Blues (from updated main_styles.css) */
+            --primary-color: #0056b3; /* A vibrant blue for main accents and headings */
+            --secondary-color: #007bff; /* A slightly lighter blue for links and secondary actions */
+            --accent-color: #f39c12; /* Orange for highlights and call-to-action elements */
+            --text-color-light: #2C3E50; /* Dark, almost black blue-gray for readability */
+            --background-color-light: #F0F8FF; /* Alice Blue - very light, airy blue */
+            --section-bg-light: #E6F7FF; /* Pale blue for section backgrounds */
+            --border-color-light: #A0D9EF; /* Medium blue for borders */
+            --shadow-color-light: rgba(70, 130, 180, 0.2); /* Steel blue with transparency for subtle shadow */
+            --header-bg-light: #C9EEFF; /* Light Cyan-like blue for headers */
+        }
+
+        body.dark-mode {
+          --bg: #111;
+          --text: #f4f4f4;
+          --header-bg: #8d8181;
+          --search-bg: #0a06ff;
+          --cinewatch-blue: #2d05f8; /* Lighter blue for dark mode contrast */
+
+          /* Variables for custom message box & dropdown in dark mode */
+          --message-box-bg: #2a2a2a;
+          --message-box-text: #f4f4f4;
+          --message-box-border: #444;
+          --message-box-button-bg: #6200ea;
+          --message-box-button-text: white;
+          --message-box-button-hover-bg: #3700b3;
+
+          --dropdown-bg: #2a2a2a;
+          --dropdown-item-hover-bg: #3a3a3a;
+          --dropdown-border: #555;
+
+            /* Dark Mode Palette: Existing Grays/Blacks (from updated main_styles.css) */
+            --text-color-dark: #f0f0f0; /* Light text on dark backgrounds */
+            --background-color-dark: #1a1a1a; /* Dark page background */
+            --section-bg-dark: #2a2a2a; /* Dark section background */
+            --border-color-dark: #4a4a4a; /* Dark border color */
+            --shadow-color-dark: rgba(0, 0, 0, 0.4);
+            --header-bg-dark: #464343;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* --- Utility Header Styles (from watch.css, adapted) --- */
+        .utility-header {
+            background-color: var(--header-bg-light); /* Use variable */
+            color: var(--text-color-light); /* Use variable */
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        body.dark-mode .utility-header {
+            background-color: var(--header-bg-dark);
+            color: var(--text-color-dark);
+        }
+        body.dark-mode .utility-header .header-action img {
+            filter: invert(1);
+        }
+        body.dark-mode .utility-header .join-cinewatch {
+            color: #8ab4f8;
+        }
+        body.dark-mode .utility-header .join-cinewatch:hover {
+            color: #a7c7ff;
+        }
+
+        .utility-left, .utility-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            cursor: pointer;
+            font-size: 1.2rem; /* Adjusted for consistency with other icons */
+            color: inherit;
+        }
+        .mode-icon {
+            width: 22px;
+            height: 22px;
+            vertical-align: middle;
+            display: block; /* Ensure icons are block by default */
+        }
+        .mode-icon.active {
+            display: block;
+        }
+        .light-mode-icon, .dark-mode-icon {
+            transition: transform 0.3s ease;
+        }
+        .light-mode-icon:hover, .dark-mode-icon:hover {
+            transform: scale(1.1);
+        }
+        body.dark-mode .dark-mode-icon {
+            filter: invert(1);
+        }
+        body.dark-mode .light-mode-icon {
+            filter: invert(0); /* Ensure light icon looks normal in dark mode */
+        }
+
+        .header-action {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .header-action:hover {
+            opacity: 0.7;
+        }
+
+        .header-action img {
+            width: 22px;
+            height: 22px;
+            vertical-align: middle;
+        }
+
+        .join-cinewatch {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .join-cinewatch:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Main Header (from standalone_header.css) */
+        #mainHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: var(--header-bg);
+          color: var(--text);
+          padding: 10px 20px;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }
+
+        /* Stylish CineWatch Logo/Site Name */
+        .logo a {
+          font-family: 'Georgia', serif; /* A more stylish, serif font for the logo */
+          font-size: 2.4rem; /* Larger font size */
+          font-weight: bold; /* Make it bold */
+          color: var(--cinewatch-blue); /* Dark blue color */
+          text-decoration: none; /* Remove underline from link */
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Subtle text shadow for depth */
+          transition: color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover */
+          display: inline-block; /* Allows transform to work */
+        }
+
+        .logo a:hover {
+          color: var(--highlight); /* Highlight color on hover for effect */
+          transform: scale(1.03); /* Slightly enlarge on hover */
+        }
+
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            position: relative; /* For the account dropdown positioning */
+        }
+
+        .nav-icons i {
+          margin-left: 15px;
+          font-size: 1.2rem;
+          cursor: pointer;
+          transition: color 0.3s, transform 0.3s;
+        }
+
+        .yellow-icon {
+          color: var(--highlight);
+        }
+
+        .red-icon {
+          color: var(--danger);
+        }
+
+        .nav-icons i:hover {
+          transform: scale(1.2);
+        }
+
+        /* Specific rule for Search Icon in dark mode */
+        body.dark-mode #searchIcon {
+          color: var(--highlight); /* Make search icon blue in dark mode */
+        }
+
+        /* Search Subheader */
+        #searchSubheader {
+          background-color: var(--search-bg);
+          padding: 10px 20px;
+          display: none; /* Hidden by default */
+          flex-direction: column;
+          gap: 10px;
+          width: 100%; /* Ensure it spans full width */
+          box-sizing: border-box; /* Include padding in width */
+          position: relative; /* Ensure it creates a stacking context for its children if needed */
+          z-index: 999; /* Slightly less than header to be below it, but above other content */
+        }
+
+        /* This rule applies when the 'hidden' class is NOT present on #searchSubheader */
+        #searchSubheader:not(.hidden) {
+            display: flex; /* Show it as a flex container */
+            animation: slideDown 0.3s ease-in-out; /* Apply slide down animation */
+        }
+
+        /* This class should be used if you want to explicitly hide the search bar programmatically */
+        .hidden {
+          display: none !important;
+        }
+
+        .search-bar-container {
+          display: flex;
+          align-items: center;
+          position: relative;
+        }
+
+        #searchInput {
+          flex-grow: 1;
+          padding: 10px;
+          font-size: 1rem;
+          width: 100%;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          outline: none;
+        }
+
+        .voice-icon, .clear-icon {
+          position: absolute;
+          right: 35px;
+          font-size: 1rem;
+          color: var(--text);
+          cursor: pointer;
+        }
+
+        .clear-icon {
+          right: 10px;
+        }
+
+        .suggestions-box {
+          background: var(--bg);
+          border: 1px solid var(--dropdown-border); /* Use border-color variable */
+          border-radius: 6px;
+          max-height: 250px;
+          overflow-y: auto;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .suggestions-box div {
+          padding: 10px;
+          border-bottom: 1px solid var(--dropdown-border); /* Use border-color variable */
+          cursor: pointer;
+          color: var(--text); /* Ensure text color is theme-aware */
+        }
+
+        .suggestions-box div:last-child {
+            border-bottom: none; /* No border for the last item */
+        }
+
+        .suggestions-box div:hover {
+          background-color: #eee; /* Light hover for light mode */
+        }
+
+        body.dark-mode .suggestions-box div:hover {
+            background-color: #555; /* Darker hover for dark mode */
+        }
+
+        /* --- Custom Alert/Message Box (Revised styles for the existing HTML structure) --- */
+        #customAlert { /* This acts as the overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Very high z-index to be on top of everything */
+            backdrop-filter: blur(5px);
+            opacity: 0; /* Hidden by default */
+            visibility: hidden; /* Hidden by default */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #customAlert.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .alert-content { /* This acts as the actual message box */
+            background: var(--message-box-bg);
+            color: var(--message-box-text);
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--message-box-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: zoomIn 0.3s ease-out; /* Apply animation when it appears */
+        }
+
+        /* Ensure the icon and button within the alert-content inherit correct styling */
+        .alert-icon {
+            font-size: 3em;
+            color: var(--highlight); /* Using highlight color for icon */
+        }
+        .alert-icon.red-icon { /* Specific color override for error/danger */
+            color: var(--danger);
+        }
+        .alert-icon.blue-icon { /* Specific color override for info */
+            color: var(--secondary-color);
+        }
+        .alert-icon.green-icon { /* Specific color override for success */
+            color: #28a745; /* A standard green */
+        }
+
+
+        .alert-content p {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .close-alert-btn {
+            background-color: var(--message-box-button-bg);
+            color: var(--message-box-button-text);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .close-alert-btn:hover {
+            background-color: var(--message-box-button-hover-bg);
+            transform: translateY(-1px);
+        }
+
+
+        /* --- Account Dropdown Menu Styles --- */
+        .account-dropdown {
+            position: absolute;
+            top: 100%; /* Position below the account icon */
+            right: 0;
+            background-color: var(--dropdown-bg);
+            border: 1px solid var(--dropdown-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 180px;
+            z-index: 1050; /* Above search subheader */
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden; /* For rounded corners */
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .account-dropdown.visible {
+            display: flex;
+        }
+
+        .account-dropdown a {
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .account-dropdown a:hover {
+            background-color: var(--dropdown-item-hover-bg);
+        }
+
+        .account-dropdown a i {
+            font-size: 1em; /* Smaller icon size for dropdown */
+            margin-left: 0; /* Override default nav-icons margin-left */
+            color: var(--text); /* Ensure icon color adapts */
+        }
+
+        .account-dropdown a.logout-item {
+            border-top: 1px solid var(--dropdown-border);
+            margin-top: 5px;
+            padding-top: 15px;
+            color: var(--danger); /* Red for logout */
+            font-weight: bold;
+        }
+        .account-dropdown a.logout-item:hover {
+            background-color: rgba(var(--danger-rgb), 0.1); /* Use danger color for hover */
+        }
+        body.dark-mode .account-dropdown a.logout-item {
+            color: var(--danger);
+        }
+
+        /* Styling for disabled/info links in dropdown */
+        .account-dropdown a.disabled-link {
+            color: #888; /* Grey out text */
+            cursor: default;
+            pointer-events: auto; /* Allow click event to fire for showMessageBox */
+            background-color: transparent; /* No hover background */
+        }
+        .account-dropdown a.disabled-link:hover {
+            background-color: transparent; /* No hover background */
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+          from { transform: translateY(-20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInOverlay {
+            from { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
+            to { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            .site-header .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .main-nav ul { /* Note: This nav is from main_styles.css version, not cinewatch_home.html's nav-icons */
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .utility-icons {
+                justify-content: center;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .search-subheader {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .search-suggestions {
+                position: static; /* Stacks suggestions below input */
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-section {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .shows-movies-grid {
+                grid-template-columns: 1fr; /* Single column for mobile */
+                gap: 20px; /* Slightly less gap for mobile */
+            }
+
+            .show-card img {
+                height: 250px; /* Adjust poster height for mobile */
+            }
+
+            .nav-icons i {
+                margin-left: 10px;
+                font-size: 1.1rem;
+            }
+            .logo a {
+                font-size: 1.8rem;
+            }
+            #mainHeader {
+                padding: 10px;
+            }
+            .search-bar-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            #searchInput {
+                width: calc(100% - 20px); /* Adjust for padding */
+                border-radius: 6px;
+            }
+            .voice-icon, .clear-icon {
+                right: 10px; /* Adjust position for smaller input */
+            }
+            .voice-icon {
+                top: 50%;
+                transform: translateY(-50%);
+                right: 35px;
+            }
+            .clear-icon {
+                top: 50%;
+                transform: translateY(-50%);
+                right: 10px;
+            }
+            .suggestions-box {
+                margin-top: 5px;
+            }
+            .alert-content { /* Message box for smaller screens */
+                width: 95%;
+                padding: 20px;
+            }
+            .account-dropdown {
+                min-width: unset;
+                width: 160px; /* Adjust width for mobile */
+            }
+        }
+
+        /* Hero section specific to buy_ticket page */
+        #buyTicketHero {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            overflow: hidden; /* Ensure content doesn't spill */
+            margin-bottom: 20px;
+        }
+
+        #buyTicketHero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        #buyTicketHero .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #buyTicketHero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        #buyTicketHero p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Styling for the multi-step form */
+        .form-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #2a2a3e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .step-navigation {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .step-navigation::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #444;
+            z-index: 1;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            color: #888;
+            transition: color 0.3s ease;
+        }
+
+        .step-item.active {
+            color: #6a0dad; /* A vibrant purple for active step */
+        }
+
+        .step-item.completed {
+            color: #28a745; /* Green for completed step */
+        }
+
+        .step-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #555;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .step-item.active .step-circle {
+            background-color: #6a0dad;
+            box-shadow: 0 0 10px rgba(106, 13, 173, 0.6);
+        }
+
+        .step-item.completed .step-circle {
+            background-color: #28a745;
+        }
+
+        .step-connector {
+            position: absolute;
+            height: 2px;
+            background: #444;
+            top: 40px; /* Aligns with the middle of the circles */
+            left: 50%;
+            right: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            transition: background 0.3s ease;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #444;
+            top: 20px; /* Roughly center of the circle */
+            left: 50%;
+            transform: translateX(0);
+            z-index: -1;
+        }
+
+        .step-item.completed + .step-item::before {
+            background: #28a745; /* Color the connector green if previous is completed */
+        }
+
+        .step-content {
+            display: none; /* Hidden by default */
+            padding: 20px 0;
+        }
+
+        .step-content.active {
+            display: block; /* Show active step */
+        }
+
+        .step-content h2 {
+            font-size: 1.8em;
+            color: #a78bfa; /* Light purple heading */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            background-color: #3a3a4e;
+            color: #e0e0e0;
+            font-size: 1em;
+            box-sizing: border-box; /* Ensures padding doesn't add to the width */
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.4);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: #6a0dad; /* Purple */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a0ca0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #444;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Movie and Time Selection */
+        .movie-options, .time-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .movie-card, .time-slot-card {
+            background-color: #3a3a4e;
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 180px; /* Fixed width for consistency */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .movie-card:hover, .time-slot-card:hover {
+            border-color: #a78bfa;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie-card.selected, .time-slot-card.selected {
+            border-color: #6a0dad;
+            box-shadow: 0 0 15px rgba(106, 13, 173, 0.8);
+            background-color: #4c4c6a;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for movie posters */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .movie-card h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+        }
+
+        .movie-card p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .time-slot-card span {
+            display: block;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .time-slot-card p {
+            font-size: 0.85em;
+            color: #ccc;
+        }
+
+        /* Seat Selection */
+        .screen-area {
+            background-color: #555;
+            height: 30px;
+            width: 80%;
+            margin: 0px auto 40px auto;
+            border-bottom-left-radius: 50% 100%;
+            border-bottom-right-radius: 50% 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .seats-grid {
+            display: grid;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .seat-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            background-color: #4a4a5e;
+            border: 1px solid #666;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            color: #e0e0e0;
+        }
+
+        .seat.reserved {
+            background-color: #888;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .seat.selected {
+            background-color: #6a0dad;
+            border-color: #a78bfa;
+            transform: scale(1.1);
+        }
+
+        .seat:not(.reserved):hover {
+            background-color: #a78bfa;
+            transform: scale(1.05);
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #666;
+        }
+
+        .legend-available { background-color: #4a4a5e; }
+        .legend-selected { background-color: #6a0dad; }
+        .legend-reserved { background-color: #888; }
+
+
+        /* Snacks Section */
+        .snacks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .snack-card {
+            background-color: #3a3a4e;
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .snack-card:hover {
+            transform: translateY(-3px);
+            border-color: #a78bfa;
+        }
+
+        .snack-card img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .snack-card h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 5px;
+        }
+
+        .snack-card p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .snack-quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto; /* Push controls to bottom */
+        }
+
+        .snack-quantity-controls button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .snack-quantity-controls button:hover {
+            background-color: #5a0ca0;
+        }
+
+        .snack-quantity-controls span {
+            font-size: 1.1em;
+            font-weight: bold;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background-color: #3a3a4e;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .order-summary h3 {
+            font-size: 1.6em;
+            color: #a78bfa;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #555;
+            font-size: 1em;
+        }
+
+        .summary-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e0e0e0;
+            border-top: 2px solid #555;
+            margin-top: 15px;
+        }
+
+        /* Payment Method */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .payment-option {
+            background-color: #3a3a4e;
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #a78bfa;
+            transform: translateX(5px);
+        }
+
+        .payment-option.selected {
+            border-color: #6a0dad;
+            box-shadow: 0 0 10px rgba(106, 13, 173, 0.6);
+            background-color: #4c4c6a;
+        }
+
+        .payment-option input[type="radio"] {
+            transform: scale(1.5);
+            accent-color: #6a0dad; /* Color for the radio button itself */
+        }
+
+        .payment-option .payment-info {
+            flex-grow: 1;
+        }
+
+        .payment-option .payment-info h4 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+        }
+
+        .payment-option .payment-info p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .payment-option i {
+            font-size: 2em;
+            color: #a78bfa;
+        }
+
+        /* Cinema/Showtime Information */
+        .cinema-info-summary {
+            background-color: #3a3a4e;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .cinema-info-summary h3 {
+            font-size: 1.5em;
+            color: #a78bfa;
+            margin-bottom: 15px;
+        }
+
+        .cinema-info-summary p {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .cinema-info-summary strong {
+            color: #e0e0e0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 10px;
+                padding: 20px;
+            }
+
+            .step-navigation {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .step-item {
+                width: 30%; /* Adjust width for smaller screens */
+                margin-bottom: 10px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .movie-card, .time-slot-card {
+                width: 100%; /* Full width for smaller cards */
+            }
+
+            .seats-grid {
+                overflow-x: auto; /* Allow horizontal scrolling for seats */
+                justify-content: flex-start; /* Align seats to start for scrolling */
+                padding-bottom: 10px; /* Add padding for scrollbar */
+            }
+
+            .seat-row {
+                flex-wrap: nowrap; /* Prevent wrapping in seat rows */
+            }
+
+            .snack-card {
+                width: 100%;
+            }
+        }
+
+        /* For the custom alert box (already in header CSS, but ensure it's not overridden) */
+        #customAlert { /* This acts as the overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Very high z-index to be on top of everything */
+            backdrop-filter: blur(5px);
+            opacity: 0; /* Hidden by default */
+            visibility: hidden; /* Hidden by default */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #customAlert.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .alert-content { /* This acts as the actual message box */
+            background: var(--message-box-bg);
+            color: var(--message-box-text);
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--message-box-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: zoomIn 0.3s ease-out; /* Apply animation when it appears */
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <header id="mainHeader">
+        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <div id="accountDropdown" class="account-dropdown">
+                </div>
+        </nav>
+    </header>
+
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <section id="buyTicketHero" style="background-image: url('images/herobackdrops/inceptionbackdrop.webp');">
+        <div class="hero-content">
+            <h1>Purchase Your Tickets</h1>
+            <p>Experience the magic of cinema. Select your movie, seats, and snacks for a perfect viewing experience.</p>
+        </div>
+    </section>
+
+    <div class="form-container">
+        <div class="step-navigation">
+            <div class="step-item active" data-step="1">
+                <span class="step-circle">1</span>
+                <span class="step-label">Movie & Time</span>
+            </div>
+            <div class="step-item" data-step="2">
+                <span class="step-circle">2</span>
+                <span class="step-label">Seats</span>
+            </div>
+            <div class="step-item" data-step="3">
+                <span class="step-circle">3</span>
+                <span class="step-label">Snacks</span>
+            </div>
+            <div class="step-item" data-step="4">
+                <span class="step-circle">4</span>
+                <span class="step-label">Summary</span>
+            </div>
+            <div class="step-item" data-step="5">
+                <span class="step-circle">5</span>
+                <span class="step-label">Payment</span>
+            </div>
+        </div>
+
+        <div id="step1" class="step-content active">
+            <h2>Select Movie & Showtime</h2>
+            <div class="form-group">
+                <label for="cinemaSelect">Select Cinema:</label>
+                <select id="cinemaSelect" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white">
+                    <option value="">-- Select a Cinema --</option>
+                    </select>
+            </div>
+            <h3>Available Movies</h3>
+            <div id="movieOptions" class="movie-options">
+                </div>
+            <h3>Available Showtimes</h3>
+            <div id="timeOptions" class="time-options">
+                </div>
+            <div class="button-group">
+                <button class="btn btn-primary" id="nextToStep2">Next</button>
+            </div>
+        </div>
+
+        <div id="step2" class="step-content">
+            <h2>Select Your Seats</h2>
+            <div class="cinema-info-summary">
+                <h3>Selected Details:</h3>
+                <p><strong>Movie:</strong> <span id="summaryMovieTitle"></span></p>
+                <p><strong>Cinema:</strong> <span id="summaryCinemaName"></span></p>
+                <p><strong>Time:</strong> <span id="summaryShowtime"></span></p>
+            </div>
+            <div class="screen-area">SCREEN</div>
+            <div id="seatsGrid" class="seats-grid">
+                </div>
+            <div class="seat-legend">
+                <div class="legend-item"><span class="legend-color legend-available"></span>Available</div>
+                <div class="legend-item"><span class="legend-color legend-selected"></span>Selected</div>
+                <div class="legend-item"><span class="legend-color legend-reserved"></span>Reserved</div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="prevToStep1">Previous</button>
+                <button class="btn btn-primary" id="nextToStep3">Next</button>
+            </div>
+        </div>
+
+        <div id="step3" class="step-content">
+            <h2>Select Snacks & Drinks</h2>
+            <div id="snacksGrid" class="snacks-grid">
+                </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="prevToStep2">Previous</button>
+                <button class="btn btn-primary" id="nextToStep4">Next</button>
+            </div>
+        </div>
+
+        <div id="step4" class="step-content">
+            <h2>Order Summary</h2>
+            <div class="order-summary">
+                <h3>Your Booking Details</h3>
+                <div class="summary-item"><span>Movie:</span><span id="finalMovie"></span></div>
+                <div class="summary-item"><span>Cinema:</span><span id="finalCinema"></span></div>
+                <div class="summary-item"><span>Showtime:</span><span id="finalShowtime"></span></div>
+                <div class="summary-item"><span>Selected Seats:</span><span id="finalSeats"></span></div>
+                <div class="summary-item"><span>Ticket Price per Seat:</span><span id="finalTicketPrice"></span></div>
+                <div class="summary-item"><span>Snacks:</span><span id="finalSnacks"></span></div>
+                <div class="summary-total"><span>Total Amount:</span><span id="finalTotal"></span></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="prevToStep3">Previous</button>
+                <button class="btn btn-primary" id="nextToStep5">Proceed to Payment</button>
+            </div>
+        </div>
+
+        <div id="step5" class="step-content">
+            <h2>Select Payment Method</h2>
+            <div class="payment-methods">
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="mpesa">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <div class="payment-info">
+                        <h4>M-Pesa</h4>
+                        <p>Pay securely via M-Pesa mobile money.</p>
+                    </div>
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="card">
+                    <i class="fas fa-credit-card"></i>
+                    <div class="payment-info">
+                        <h4>Credit/Debit Card</h4>
+                        <p>Pay with Visa, MasterCard, or American Express.</p>
+                    </div>
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="paypal">
+                    <i class="fab fa-paypal"></i>
+                    <div class="payment-info">
+                        <h4>PayPal</h4>
+                        <p>Secure payment via your PayPal account.</p>
+                    </div>
+                </label>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="prevToStep4">Previous</button>
+                <button class="btn btn-primary" id="final-pay-now-btn">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content">
+            <i class="fas fa-exclamation-triangle alert-icon red-icon"></i>
+            <p id="alertMessage"></p>
+            <button id="closeAlert" class="close-alert-btn">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Data for all shows (canonical source from app_core.js) - needed for search functionality in header
+        const allShows = [
+            {
+                id: "moneyheist",
+                title: "Money Heist (La Casa de Papel)",
+                categories: ["Trending", "International"],
+                poster: "moneyheistposter1.webp",
+                imdb: "8.2/10 (Crime)",
+                releaseDate: "May 2, 2017",
+                seasons: "5 (Netflix Parts)",
+                episodes: "41",
+                languages: "Spanish",
+                genre: "Heist, Crime, Drama, Thriller",
+                creators: "Alex Pina",
+                cast: ["Úrsula Corberó", "Álvaro Morte", "Itziar Ituño"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A mysterious man known as 'The Professor' recruits a band of eight robbers to carry out an ambitious plan: to steal billions of euros from the Royal Mint of Spain. As the heist unfolds, the team grapples with hostages, police, and personal conflicts, turning the robbery into a complex game of cat and mouse. Known for its intricate plot twists and strong character development."
+            },
+            {
+                id: "moneyheistk",
+                title: "Money Heist (K-Drama)",
+                categories: ["K-Drama", "Coming Soon"],
+                poster: "moneyheistkoreaposter1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: December 2024 (Season 2)",
+                seasons: "2 (Expected)",
+                episodes: "N/A",
+                languages: "Korean",
+                genre: "Heist, Crime, Drama, Thriller",
+                creators: "Kim Hong-sun",
+                cast: ["Yoo Ji-tae", "Kim Yun-jin", "Park Hae-soo"],
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "A Korean adaptation of the hit Spanish series, 'Money Heist', this version reinterprets the original's compelling narrative with a fresh, distinct Korean perspective, focusing on a major heist orchestrated by the Professor and his team of diverse personalities. Fans eagerly await the next installment."
+            },
+            {
+                id: "prisonbreak",
+                title: "Prison Break",
+                categories: ["Action", "Hollywood"],
+                poster: "prisonbreakposter1.webp",
+                imdb: "8.3/10 (Action)",
+                releaseDate: "August 29, 2005",
+                seasons: "5",
+                episodes: "90",
+                languages: "English",
+                genre: "Action, Crime, Drama, Thriller",
+                creators: "Paul Scheuring",
+                cast: ["Wentworth Miller", "Dominic Purcell", "Amaury Nolasco"],
+                networkLogo: "hululogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "When his brother, Lincoln Burrows, is wrongly sentenced to death, a structural engineer, Michael Scofield, devises an elaborate plan to break him out of prison—starting by getting incarcerated himself. A thrilling ride full of twists, tension, and brotherly loyalty as they navigate their escape and evade authorities."
+            },
+            {
+                id: "inception",
+                title: "Inception",
+                categories: ["Hollywood"],
+                poster: "inceptioposter1.webp",
+                imdb: "8.8/10 (Sci-Fi)",
+                releaseDate: "July 16, 2010",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "English",
+                genre: "Action, Sci-Fi, Thriller",
+                creators: "Christopher Nolan",
+                cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"],
+                networkLogo: "hbo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "A thief who steals corporate secrets through use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the mission and his team to disaster."
+            },
+            {
+                id: "breakingbad",
+                title: "Breaking Bad",
+                categories: ["Trending", "Hollywood"],
+                poster: "breakingbadposter1.webp",
+                imdb: "9.5/10 (Crime)",
+                releaseDate: "January 20, 2008",
+                seasons: "5",
+                episodes: "62",
+                languages: "English",
+                genre: "Crime, Drama, Thriller",
+                creators: "Vince Gilligan",
+                cast: ["Bryan Cranston", "Aaron Paul", "Anna Gunn"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Breaking Bad follows Walter White, a high school chemistry teacher turned methamphetamine producer, as he partners with former student Jesse Pinkman. Faced with a cancer diagnosis and financial hardship, Walter descends into a criminal underworld that transforms his identity and relationships, exploring themes of morality, family, and ambition."
+            },
+            {
+                id: "theoffice",
+                title: "The Office",
+                categories: ["Hollywood"],
+                poster: "theofficeposter1.webp",
+                imdb: "9.0/10 (Comedy)",
+                releaseDate: "March 24, 2005",
+                seasons: "9",
+                episodes: "201",
+                languages: "English",
+                genre: "Comedy",
+                creators: ["Ricky Gervais", "Stephen Merchant", "Greg Daniels"],
+                cast: ["Steve Carell", "Rainn Wilson", "John Krasinski"],
+                networkLogo: "pecock-logo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium. The everyday lives of the employees are seen through the lens of a documentary film crew."
+            },
+            {
+                id: "yourhonor",
+                title: "Your Honor",
+                categories: ["Hollywood", "Coming Soon"],
+                poster: "yourhonorposter1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: Coming Soon (Season 3)",
+                seasons: "3 (Expected)",
+                episodes: "N/A",
+                languages: "English",
+                genre: "Crime, Drama, Thriller",
+                creators: "Peter Moffat",
+                cast: ["Bryan Cranston"],
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "A respected New Orleans judge's life is turned upside down when his teenage son is involved in a hit-and-run, leading to a high-stakes game of lies, deceit, and impossible choices to protect his family. Season 3 is highly anticipated."
+            },
+            {
+                id: "3idiots",
+                title: "3 Idiots",
+                categories: ["Bollywood"],
+                poster: "3idiotsposter1.webp",
+                imdb: "8.4/10 (Comedy)",
+                releaseDate: "December 25, 2009",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Hindi",
+                genre: "Comedy, Drama, Romance",
+                creators: "Rajkumar Hirani",
+                cast: ["Aamir Khan", "Madhavan", "Sharman Joshi"],
+                networkLogo: "primevideologo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "Two friends embark on a quest for a third, long-lost friend, while reminiscing about their college days and the profound impact their eccentric, brilliant buddy had on their lives and perspectives on education and success."
+            },
+            {
+                id: "ghoul",
+                title: "Ghoul",
+                categories: ["Bollywood"],
+                poster: "ghoulposter1.webp",
+                imdb: "7.1/10 (Horror)",
+                releaseDate: "August 24, 2018",
+                seasons: "1",
+                episodes: "3",
+                languages: "Hindi, English",
+                genre: "Horror, Thriller",
+                creators: "Patrick Graham",
+                cast: ["Radhika Apte", "Manav Kaul", "Ratnabali Bhattacharjee"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A newly appointed interrogator arrives at a remote military detention center to question a dangerous terrorist, only to discover that the detainee is not what he seems and harbors a terrifying supernatural entity."
+            },
+            {
+                id: "dangal",
+                title: "Dangal",
+                categories: ["Bollywood"],
+                poster: "dangalposter1.webp",
+                imdb: "8.3/10 (Biography)",
+                releaseDate: "December 23, 2016",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Hindi",
+                genre: "Biography, Drama, Sport",
+                creators: "Nitesh Tiwari",
+                cast: ["Aamir Khan", "Fatima Sana Shaikh", "Sanya Malhotra"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "Based on the true story of Mahavir Singh Phogat, a former wrestler who trains his daughters Geeta Phogat and Babita Kumari to become world-class female wrestlers, challenging societal norms and achieving international success."
+            },
+            {
+                id: "nairobihalflife",
+                title: "Nairobi Half Life",
+                categories: ["Kenyan Drama"],
+                poster: "nairobihalflifeposter1.webp",
+                imdb: "7.8/10 (Crime)",
+                releaseDate: "October 31, 2012",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Swahili, Kikuyu, English",
+                genre: "Crime, Drama",
+                creators: "David 'Tosh' Gitonga (Director)",
+                cast: ["Joseph Wairimu", "Olwenya Maina", "Mugambi Nthiga"],
+                networkLogo: "youtubelogo.webp",
+                networkText: "Watch Now",
+                subscription: "May require Rent/Buy",
+                synopsis: "Nairobi Half Life tells the story of Mwas, an aspiring actor from a rural town who travels to Nairobi to pursue his dreams. Faced with harsh city life, he’s pulled into a world of crime and must struggle to stay true to his dreams while surviving the city’s brutal realities. It's a powerful and gritty portrayal of urban life in Kenya."
+            },
+            {
+                id: "crimeandjustice",
+                title: "Crime and Justice",
+                categories: ["Kenyan Drama", "Trending", "Coming Soon"],
+                poster: "crimeandjusticeposter1.webp",
+                imdb: "7.0/10 (Crime)",
+                releaseDate: "February 22, 2021",
+                seasons: "3",
+                episodes: "N/A",
+                languages: "English, Swahili",
+                genre: "Crime, Drama, Legal",
+                creators: "Showmax Original",
+                cast: ["Sarah Hassan", "Alfred Munyua", "Maqbul Mohammed"],
+                networkLogo: "showmaxlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A Kenyan police procedural series that follows two detectives as they investigate various crimes in Nairobi. The show delves into the dark side of the city, exploring themes of corruption, greed, and the pursuit of justice."
+            },
+            {
+                id: "dayofthejackal",
+                title: "The Day Of The Jackal",
+                categories: ["International", "Coming Soon"],
+                poster: "thedayofthejackalposter1.webp",
+                imdb: "Expected",
+                releaseDate: "Expected Premier: November 2024 (Series)",
+                seasons: "1 (Upcoming Series)",
+                episodes: "N/A",
+                languages: "English",
+                genre: "Thriller",
+                creators: "Ronan Bennett",
+                cast: ["Eddie Redmayne", "Lashana Lynch"],
+                networkLogo: "pecock-logo.webp",
+                networkText: "Watch Trailer",
+                subscription: "Free",
+                synopsis: "An upcoming modern-day reimagining of the iconic novel and film, following a professional assassin known as 'The Jackal' as he undertakes a mission to assassinate a high-profile target."
+            },
+            {
+                id: "traintobusan",
+                title: "Train To Busan",
+                categories: ["K-Drama"],
+                poster: "traintobusanposter1.webp",
+                imdb: "7.6/10 (Action)",
+                releaseDate: "July 20, 2016",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Korean",
+                genre: "Action, Horror, Thriller",
+                creators: "Yeon Sang-ho (Director)",
+                cast: ["Gong Yoo", "Jung Yu-mi", "Ma Dong-seok"],
+                networkLogo: "amazon-prime-logo-free-png.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription/Rent/Buy",
+                synopsis: "While a zombie apocalypse breaks out in South Korea, a father and daughter, as well as other passengers, struggle to survive on a train from Seoul to Busan."
+            },
+            {
+                id: "alongwiththegods",
+                title: "Along With The Gods: The Two Worlds",
+                categories: ["K-Drama"],
+                poster: "alongwiththegodsposter1.webp",
+                imdb: "7.2/10 (Action)",
+                releaseDate: "December 20, 2017",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Korean",
+                genre: "Action, Drama, Fantasy",
+                creators: "Kim Yong-hwa (Director)",
+                cast: ["Ha Jung-woo", "Cha Tae-hyun", "Ju Ji-hoon"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "After a heroic death, firefighter Kim Ja-hong is escorted to the afterlife by three guardians who must prove his innocence in seven trials over 49 days to earn reincarnation. The film explores themes of justice, redemption, and the afterlife through stunning visuals and emotional storytelling."
+            },
+            {
+                id: "thecall",
+                title: "The Call",
+                categories: ["K-Drama"],
+                poster: "thecallposter1.webp",
+                imdb: "7.1/10 (Crime)",
+                releaseDate: "November 27, 2020",
+                seasons: "1 (Film)",
+                episodes: "N/A (Film)",
+                languages: "Korean",
+                genre: "Crime, Drama, Horror",
+                creators: "Lee Chung-hyun (Director)",
+                cast: ["Park Shin-hye", "Jeon Jong-seo", "Kim Sung-ryung"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Two women, living in different times, are connected by a mysterious phone call that allows them to alter each other's pasts and futures, leading to unforeseen and terrifying consequences. A mind-bending thriller with unexpected twists."
+            },
+            {
+                id: "sweet_home",
+                title: "Sweet Home",
+                categories: ["K-Drama", "Trending"],
+                poster: "sweethomeposter1.webp",
+                imdb: "7.3/10 (Action)",
+                releaseDate: "December 18, 2020",
+                seasons: "3",
+                episodes: "28 (across 3 seasons)",
+                languages: "Korean",
+                genre: "Apocalyptic, Horror, Drama",
+                creators: "Lee Eung-bok",
+                cast: ["Song Kang", "Lee Jin-wook", "Lee Si-young"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A reclusive high school student moves into a new apartment building after a personal tragedy. Soon, a mysterious apocalypse begins, turning humans into monstrous beings that reflect their inner desires. He and other residents must fight for survival and retain their humanity against the terrifying creatures."
+            },
+            {
+                id: "squid_game",
+                title: "Squid Game",
+                categories: ["K-Drama", "Trending"],
+                poster: "squidgameposter1.webp",
+                imdb: "8.0/10 (Action)",
+                releaseDate: "September 17, 2021",
+                seasons: "1",
+                episodes: "9",
+                languages: "Korean, English",
+                genre: "Drama, Survival, Thriller",
+                creators: "Hwang Dong-hyuk",
+                cast: ["Lee Jung-jae", "Park Hae-soo", "Jung Ho-yeon"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Hundreds of cash-strapped contestants accept an invitation to compete in children's games for a tempting prize, but the high stakes and deadly consequences soon become apparent. A dark and intense social commentary on capitalism and human nature."
+            },
+            {
+                id: "all_of_us_are_dead",
+                title: "All of Us Are Dead",
+                categories: ["K-Drama", "Trending"],
+                poster: "allofusaredeadposter1.webp",
+                imdb: "7.5/10 (Action)",
+                releaseDate: "January 28, 2022",
+                seasons: "1",
+                episodes: "12",
+                languages: "Korean",
+                genre: "Zombie, Horror, Action, Drama",
+                creators: "Lee Jae-kyoo",
+                cast: ["Park Ji-hu", "Yoon Chan-young", "Cho Yi-hyun"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A high school becomes the epicenter of a zombie virus outbreak. Trapped students must fight their way out or turn into one of the infected, while the outside world grapples with containing the spread and protecting survivors."
+            },
+            {
+                id: "strong_girl_bong_soon",
+                title: "Strong Girl Bong-soon",
+                categories: ["K-Drama"],
+                poster: "stronggirlbongsoonposter1.webp",
+                imdb: "7.6/10 (Comedy)",
+                releaseDate: "February 24, 2017",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Romantic Comedy, Fantasy, Action",
+                creators: "Lee Hyung-min",
+                cast: ["Park Bo-young", "Park Hyung-sik", "Ji Soo"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Do Bong-soon is a young woman born with superhuman strength, which she must use for good. She's hired as a bodyguard to a quirky CEO of a gaming company and finds herself entangled in a complex investigation while also navigating a budding romance."
+            },
+            {
+                id: "vincenzo",
+                title: "Vincenzo",
+                categories: ["K-Drama", "Trending"],
+                poster: "vincenzoposter1.webp",
+                imdb: "8.4/10 (Crime)",
+                releaseDate: "February 20, 2021",
+                seasons: "1",
+                episodes: "20",
+                languages: "Korean, Italian",
+                genre: "Crime, Dark Comedy, Legal Drama",
+                creators: "Kim Hee-won",
+                cast: ["Song Joong-ki", "Jeon Yeo-been", "Ok Taec-yeon"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Vincenzo Cassano, a Korean-Italian mafia consigliere, returns to South Korea after a conflict within his organization. He teams up with a feisty lawyer to fight against a corrupt conglomerate using his unconventional, mafia-style tactics to achieve justice."
+            },
+            {
+                id: "itaewon_class",
+                title: "Itaewon Class",
+                categories: ["K-Drama"],
+                poster: "itaewonclassposter1.webp",
+                imdb: "8.2/10 (Drama)",
+                releaseDate: "January 31, 2020",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Drama, Business, Romance",
+                creators: "Kim Sung-yoon",
+                cast: ["Park Seo-joon", "Kim Da-mi", "Kwon Nara"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "After being expelled from school and losing his father, Park Sae-ro-yi opens a bar-restaurant in Itaewon, Seoul. He strives to achieve his dreams and seek revenge against the powerful conglomerate that ruined his life, overcoming obstacles with the help of his diverse and loyal team."
+            },
+            {
+                id: "crash_landing_on_you",
+                title: "Crash Landing on You",
+                categories: ["K-Drama", "Trending"],
+                poster: "crashlandingonyouposter1.webp",
+                imdb: "8.7/10 (Romance)",
+                releaseDate: "December 14, 2019",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Romantic Comedy, Drama",
+                creators: "Lee Jeong-hyo",
+                cast: ["Hyun Bin", "Son Ye-jin", "Seo Ji-hye"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A wealthy South Korean heiress accidentally paraglides into North Korea and is discovered by a North Korean army officer. He helps her hide and attempts to send her back, leading to a secret romance across the divided peninsula."
+            },
+            {
+                id: "its_okay_to_not_be_okay",
+                title: "It's Okay to Not Be Okay",
+                categories: ["K-Drama"],
+                poster: "itsokaytonotbeokayposter1.webp",
+                imdb: "8.6/10 (Romance)",
+                releaseDate: "June 20, 2020",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Romantic Drama, Psychological",
+                creators: "Park Shin-woo",
+                cast: ["Kim Soo-hyun", "Seo Yea-ji", "Oh Jung-se"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A community health worker in a psychiatric ward and a children's book author with an antisocial personality disorder find healing and emotional connection while confronting their past traumas. The drama explores themes of mental health, family, and acceptance."
+            },
+            {
+                id: "goblin",
+                title: "Goblin (Guardian: The Lonely and Great God)",
+                categories: ["K-Drama"],
+                poster: "goblinposter1.webp",
+                imdb: "8.6/10 (Fantasy)",
+                releaseDate: "December 2, 2016",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Fantasy, Romance, Drama",
+                creators: "Lee Eung-bok",
+                cast: ["Gong Yoo", "Kim Go-eun", "Lee Dong-wook"],
+                networkLogo: "viki.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A goblin, cursed with immortality, searches for his human bride to finally end his life. He encounters a high school student who can see ghosts and is destined to be his bride, leading to a magical and poignant love story intertwined with past lives and destiny."
+            },
+            {
+                id: "descendants_of_the_sun",
+                title: "Descendants of the Sun",
+                categories: ["K-Drama"],
+                poster: "descendantsofthesunposter1.webp",
+                imdb: "8.3/10 (Action)",
+                releaseDate: "February 24, 2016",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Action, Romance, Medical Drama",
+                creators: "Lee Eung-bok",
+                cast: ["Song Joong-ki", "Song Hye-kyo", "Jin Goo"],
+                networkLogo: "viki.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "The story follows the love story between a special forces captain and a surgeon in a fictional war-torn country. Despite their differing views on life and death, they navigate dangerous situations and personal sacrifices to protect lives and find love."
+            },
+            {
+                id: "reply_1988",
+                title: "Reply 1988",
+                categories: ["K-Drama"],
+                poster: "reply1988poster1.webp",
+                imdb: "9.2/10 (Comedy)",
+                releaseDate: "November 6, 2015",
+                seasons: "1",
+                episodes: "20",
+                languages: "Korean",
+                genre: "Slice of Life, Comedy, Romance",
+                creators: "Shin Won-ho",
+                cast: ["Lee Hye-ri", "Park Bo-gum", "Ryu Jun-yeol"],
+                networkLogo: "viki.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Set in 1988, this drama follows the lives of five friends and their families living in the same neighborhood in Seoul. It beautifully portrays the warmth of family, the innocence of first love, and the enduring bonds of friendship through heartwarming and humorous everyday stories."
+            },
+            {
+                id: "hospital_playlist",
+                title: "Hospital Playlist",
+                categories: ["K-Drama"],
+                poster: "hospitalplaylistposter1.webp",
+                imdb: "8.8/10 (Medical)",
+                releaseDate: "March 12, 2020",
+                seasons: "2",
+                episodes: "24 (12 per season)",
+                languages: "Korean",
+                genre: "Medical Drama, Slice of Life, Comedy",
+                creators: "Shin Won-ho",
+                cast: ["Jo Jung-suk", "Yoo Yeon-seok", "Jung Kyung-ho"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Follows the lives of five doctors who have been best friends since medical school. They work at the same hospital, navigate their demanding careers, and find solace in their shared love for music as they form a band. The series offers a realistic and heartwarming look at the lives of doctors and their patients."
+            },
+            {
+                id: "kingdom",
+                title: "Kingdom",
+                categories: ["K-Drama"],
+                poster: "kingdomposter1.webp",
+                imdb: "8.3/10 (Action)",
+                releaseDate: "January 25, 2019",
+                seasons: "2",
+                episodes: "12 (6 per season)",
+                languages: "Korean",
+                genre: "Historical, Horror, Political Thriller",
+                creators: "Kim Eun-hee",
+                cast: ["Ju Ji-hoon", "Ryu Seung-ryong", "Bae Doo-na"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Set in Korea's Joseon Dynasty, a crown prince investigates a mysterious plague that turns people into zombies while uncovering a political conspiracy to usurp the throne. A thrilling blend of historical drama, zombie horror, and court intrigue."
+            },
+            {
+                id: "start_up",
+                title: "Start-Up",
+                categories: ["K-Drama"],
+                poster: "startupposter1.webp",
+                imdb: "8.0/10 (Romance)",
+                releaseDate: "October 17, 2020",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Romantic Comedy, Drama, Business",
+                creators: "Oh Choong-hwan",
+                cast: ["Bae Suzy", "Nam Joo-hyuk", "Kim Seon-ho"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "Follows young entrepreneurs vying to launch innovative start-up companies in Korea's competitive tech industry. The drama explores their journeys, challenges, and romantic entanglements as they strive for success in the fictional Sandbox. "
+            },
+            {
+                id: "signal",
+                title: "Signal",
+                categories: ["K-Drama"],
+                poster: "signalposter1.webp",
+                imdb: "8.5/10 (Crime)",
+                releaseDate: "January 22, 2016",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Crime, Fantasy, Thriller",
+                creators: "Kim Won-seok",
+                cast: ["Lee Je-hoon", "Kim Hye-soo", "Cho Jin-woong"],
+                networkLogo: "viki.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A mysterious walkie-talkie allows a cold-case profiler and a detective from the past to communicate across time, helping them solve long-unsolved cases and prevent future crimes. However, their interference with the past leads to unforeseen and dangerous consequences."
+            },
+            {
+                id: "flower_of_evil",
+                title: "Flower of Evil",
+                categories: ["K-Drama"],
+                poster: "flowerofevilposter1.webp",
+                imdb: "8.7/10 (Crime)",
+                releaseDate: "July 29, 2020",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Crime, Thriller, Romance",
+                creators: "Kim Chul-kyu",
+                cast: ["Lee Joon-gi", "Moon Chae-won"],
+                networkLogo: "viki.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A detective is married to a seemingly perfect husband, unaware of his dark past and true identity as a man who has hidden his brutal history. As she investigates a series of murders, she begins to suspect her husband might be involved, leading to a thrilling and emotionally intense cat-and-mouse game."
+            },
+            {
+                id: "my_mister",
+                title: "My Mister",
+                categories: ["K-Drama"],
+                poster: "mymisterposter1.webp",
+                imdb: "9.1/10 (Drama)",
+                releaseDate: "March 21, 2018",
+                seasons: "1",
+                episodes: "16",
+                languages: "Korean",
+                genre: "Drama, Slice of Life",
+                creators: "Kim Won-seok",
+                cast: ["Lee Sun-kyun", "IU (Lee Ji-eun)"],
+                networkLogo: "netflixlogo.webp",
+                networkText: "Watch Now",
+                subscription: "Subscription Required",
+                synopsis: "A middle-aged engineer quietly endures the burdens of his life, while a young, struggling woman also carries her own heavy burdens. Their paths intertwine, and they find solace and healing in their unexpected connection, offering each other comfort and a different perspective on life's hardships."
+            }
+        ];
+
+
+        // Function to show custom alert (from tv_shows2.html - preferred version)
+        function showMessageBox(message, type = 'info') {
+            const customAlert = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            const alertIcon = customAlert.querySelector('.alert-icon');
+
+            alertMessage.textContent = message;
+
+            // Reset icon classes
+            alertIcon.classList.remove('red-icon', 'blue-icon', 'green-icon');
+            alertIcon.classList.remove('fa-exclamation-triangle', 'fa-times-circle', 'fa-check-circle', 'fa-info-circle');
+
+            // Set icon based on type
+            if (type === 'error') {
+                alertIcon.classList.add('fas', 'fa-times-circle', 'red-icon');
+            } else if (type === 'success') {
+                alertIcon.classList.add('fas', 'fa-check-circle', 'green-icon');
+            } else { // default to info
+                alertIcon.classList.add('fas', 'fa-info-circle', 'blue-icon');
+            }
+
+            customAlert.classList.add('show');
+        }
+
+        // Close alert function (from tv_shows2.html)
+        document.getElementById('closeAlert').addEventListener('click', () => {
+            document.getElementById('customAlert').classList.remove('show');
+        });
+
+        // Handle Last Modified Date (from tv_shows2.html)
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastModifiedElement = document.getElementById('last-modified');
+            if (lastModifiedElement) {
+                const lastModifiedDate = new Date(document.lastModified);
+                lastModifiedElement.textContent = lastModifiedDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+        });
+
+        // Toggle Dark Mode (from tv_shows2.html)
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                // Save user preference
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+                updateDarkModeIcon(); // Update icon immediately after toggling
+            });
+
+            // Apply saved theme on load
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                // Default to light mode if no preference or 'light'
+                document.body.classList.remove('dark-mode');
+            }
+            updateDarkModeIcon(); // Set initial icon based on applied theme
+        }
+
+        function updateDarkModeIcon() {
+            if (darkModeToggle) { // Ensure the element exists before trying to update
+                if (document.body.classList.contains('dark-mode')) {
+                    darkModeToggle.classList.remove('fa-moon');
+                    darkModeToggle.classList.add('fa-sun');
+                    darkModeToggle.title = "Toggle Light Mode";
+                } else {
+                    darkModeToggle.classList.remove('fa-sun');
+                    darkModeToggle.classList.add('fa-moon');
+                    darkModeToggle.title = "Toggle Dark Mode";
+                }
+            }
+        }
+
+        // Search Bar Toggle (from tv_shows2.html)
+        const searchIcon = document.getElementById('searchIcon');
+        const searchSubheader = document.getElementById('searchSubheader');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const suggestionsBox = document.getElementById('suggestionsBox');
+
+        if (searchIcon) {
+            searchIcon.addEventListener('click', () => {
+                searchSubheader.classList.toggle('hidden');
+                if (!searchSubheader.classList.contains('hidden')) {
+                    searchInput.focus(); // Focus on search input when shown
+                } else {
+                    searchInput.value = ''; // Clear search when hidden
+                    suggestionsBox.innerHTML = ''; // Clear suggestions
+                    suggestionsBox.style.display = 'none'; // Hide suggestions
+                }
+            });
+        }
+
+        if (clearSearch) {
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                suggestionsBox.innerHTML = '';
+                suggestionsBox.style.display = 'none';
+                searchInput.focus();
+            });
+        }
+
+        // Search Input Functionality (from tv_shows2.html)
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+                suggestionsBox.innerHTML = ''; // Clear previous suggestions
+
+                if (query.length > 1) {
+                    const filteredShows = allShows.filter(show =>
+                        show.title.toLowerCase().includes(query) ||
+                        show.genre.toLowerCase().includes(query) ||
+                        show.cast.some(actor => actor.toLowerCase().includes(query)) ||
+                        show.categories.some(category => category.toLowerCase().includes(query))
+                    );
+
+                    if (filteredShows.length > 0) {
+                        filteredShows.slice(0, 5).forEach(show => { // Limit to 5 suggestions
+                            const suggestionDiv = document.createElement('div');
+                            suggestionDiv.textContent = show.title;
+                            suggestionDiv.addEventListener('click', () => {
+                                window.location.href = `details.html?title=${encodeURIComponent(show.title)}`;
+                            });
+                            suggestionsBox.appendChild(suggestionDiv);
+                        });
+                        suggestionsBox.style.display = 'block';
+                    } else {
+                        suggestionsBox.style.display = 'none';
+                    }
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            });
+        }
+
+
+        // Account Dropdown Toggle (from tv_shows2.html)
+        const accountIcon = document.getElementById('accountIcon');
+        const accountDropdown = document.getElementById('accountDropdown');
+
+        if (accountIcon) {
+            accountIcon.addEventListener('click', () => {
+                // Toggle visibility
+                accountDropdown.classList.toggle('visible');
+
+                // If visible, populate content based on login status
+                if (accountDropdown.classList.contains('visible')) {
+                    renderAccountDropdown();
+                }
+            });
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', (event) => {
+                if (!accountIcon.contains(event.target) && !accountDropdown.contains(event.target)) {
+                    accountDropdown.classList.remove('visible');
+                }
+            });
+        }
+
+        function renderAccountDropdown() {
+            // Placeholder for login status logic
+            const isLoggedIn = false; // This should come from actual auth status
+
+            accountDropdown.innerHTML = ''; // Clear existing content
+
+            if (isLoggedIn) {
+                accountDropdown.innerHTML += `
+                    <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="watchlist.html"><i class="fas fa-bookmark"></i> My Watchlist</a>
+                    <a href="#" class="logout-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                `;
+                // Add event listener for logout if it's rendered
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showMessageBox('You have been logged out.', 'info');
+                    // Add actual logout logic here
+                    accountDropdown.classList.remove('visible'); // Hide after logout
+                    renderAccountDropdown(); // Re-render to show logged out state
+                });
+            } else {
+                accountDropdown.innerHTML += `
+                    <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="register.html"><i class="fas fa-user-plus"></i> Register</a>
+                    <a href="#" class="disabled-link" onclick="showMessageBox('Please login or register to access account features.', 'info'); return false;"><i class="fas fa-info-circle"></i> Account Info</a>
+                `;
+            }
+        }
+
+        // Ticket Booking Form Logic (from buy_ticket.html)
+
+        let currentStep = 1;
+        let selectedMovie = null;
+        let selectedCinemaName = null;
+        let selectedShowtime = null;
+        let selectedSeats = [];
+        let selectedSnacks = {};
+        let totalAmount = 0;
+        let selectedPaymentMethod = null;
+
+        const ticketPricePerSeat = 1000; // Example price
+        const snackPrices = {
+            'Popcorn (Large)': 500,
+            'Soda (Large)': 300,
+            'Nachos': 700,
+            'Hotdog': 400
+        };
+
+        const cinemaData = [
+            {
+                name: "Cineplex Nairobi",
+                movies: [
+                    {
+                        title: "Inception",
+                        poster: "images/inceptioposter1.webp",
+                        times: [
+                            { time: "10:00 AM", price: 1000, capacity: { rows: 8, cols: 10 }, reserved: ["A1", "A2", "C5"] },
+                            { time: "01:00 PM", price: 1000, capacity: { rows: 8, cols: 10 }, reserved: ["B3", "D7"] }
+                        ]
+                    },
+                    {
+                        title: "Breaking Bad (Movie)",
+                        poster: "images/breakingbadposter1.webp",
+                        times: [
+                            { time: "04:00 PM", price: 1000, capacity: { rows: 8, cols: 10 }, reserved: ["E1", "E2"] },
+                            { time: "07:00 PM", price: 1000, capacity: { rows: 8, cols: 10 }, reserved: ["F8", "G9"] }
+                        ]
+                    }
+                ],
+                welcomeMessage: "Thank you for choosing Cineplex Nairobi! Enjoy your movie!"
+            },
+            {
+                name: "Prestige Cinema",
+                movies: [
+                    {
+                        title: "Money Heist (Movie)",
+                        poster: "images/moneyheistposter1.webp",
+                        times: [
+                            { time: "11:00 AM", price: 1200, capacity: { rows: 7, cols: 9 }, reserved: ["A1", "B2"] },
+                            { time: "02:00 PM", price: 1200, capacity: { rows: 7, cols: 9 }, reserved: ["C3", "D4"] }
+                        ]
+                    },
+                    {
+                        title: "Train To Busan",
+                        poster: "images/traintobusanposter1.webp",
+                        times: [
+                            { time: "05:00 PM", price: 1200, capacity: { rows: 7, cols: 9 }, reserved: ["E5", "F6"] }
+                        ]
+                    }
+                ],
+                welcomeMessage: "Welcome to Prestige Cinema! Your comfort is our priority."
+            }
+        ];
+
+
+        const stepElements = document.querySelectorAll('.step-content');
+        const stepItems = document.querySelectorAll('.step-item');
+        const cinemaSelect = document.getElementById('cinemaSelect');
+        const movieOptionsContainer = document.getElementById('movieOptions');
+        const timeOptionsContainer = document.getElementById('timeOptions');
+        const seatsGridContainer = document.getElementById('seatsGrid');
+        const snacksGridContainer = document.getElementById('snacksGrid');
+
+        const summaryMovieTitle = document.getElementById('summaryMovieTitle');
+        const summaryCinemaName = document.getElementById('summaryCinemaName');
+        const summaryShowtime = document.getElementById('summaryShowtime');
+
+        const finalMovie = document.getElementById('finalMovie');
+        const finalCinema = document.getElementById('finalCinema');
+        const finalShowtime = document.getElementById('finalShowtime');
+        const finalSeats = document.getElementById('finalSeats');
+        const finalTicketPrice = document.getElementById('finalTicketPrice');
+        const finalSnacks = document.getElementById('finalSnacks');
+        const finalTotal = document.getElementById('finalTotal');
+
+        function navigateToStep(step) {
+            stepElements.forEach(el => el.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+
+            stepItems.forEach((item, index) => {
+                if (index + 1 < step) {
+                    item.classList.add('completed');
+                    item.classList.remove('active');
+                } else if (index + 1 === step) {
+                    item.classList.add('active');
+                    item.classList.remove('completed');
+                } else {
+                    item.classList.remove('active', 'completed');
+                }
+            });
+            currentStep = step;
+            updateButtons();
+        }
+
+        function updateButtons() {
+            const nextButton1 = document.getElementById('nextToStep2');
+            const nextButton2 = document.getElementById('nextToStep3');
+            const nextButton3 = document.getElementById('nextToStep4');
+            const nextButton4 = document.getElementById('nextToStep5');
+            const finalPayNowBtn = document.getElementById('final-pay-now-btn');
+
+            if (nextButton1) nextButton1.disabled = !(selectedMovie && selectedShowtime);
+            if (nextButton2) nextButton2.disabled = selectedSeats.length === 0;
+            if (nextButton3) nextButton3.disabled = false; // Snacks are optional
+            if (nextButton4) nextButton4.disabled = totalAmount <= 0;
+            if (finalPayNowBtn) finalPayNowBtn.disabled = totalAmount <= 0; // Disable if total amount is zero
+        }
+
+
+        function populateCinemaSelect() {
+            cinemaSelect.innerHTML = '<option value="">-- Select a Cinema --</option>';
+            cinemaData.forEach(cinema => {
+                const option = document.createElement('option');
+                option.value = cinema.name;
+                option.textContent = cinema.name;
+                cinemaSelect.appendChild(option);
+            });
+        }
+
+        function renderMovies(cinemaName) {
+            movieOptionsContainer.innerHTML = '';
+            timeOptionsContainer.innerHTML = ''; // Clear times when cinema changes
+
+            const cinema = cinemaData.find(c => c.name === cinemaName);
+            if (cinema) {
+                cinema.movies.forEach(movie => {
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('movie-card');
+                    movieCard.dataset.title = movie.title;
+                    movieCard.innerHTML = `
+                        <img src="${movie.poster}" alt="${movie.title}">
+                        <h4>${movie.title}</h4>
+                        <p>Starting from Ksh ${movie.times[0].price}</p>
+                    `;
+                    movieCard.addEventListener('click', () => {
+                        document.querySelectorAll('.movie-card').forEach(card => card.classList.remove('selected'));
+                        movieCard.classList.add('selected');
+                        selectedMovie = movie;
+                        selectedShowtime = null; // Reset showtime on new movie selection
+                        renderShowtimes(selectedMovie);
+                        updateButtons();
+                    });
+                    movieOptionsContainer.appendChild(movieCard);
+                });
+            }
+        }
+
+        function renderShowtimes(movie) {
+            timeOptionsContainer.innerHTML = '';
+            if (movie) {
+                movie.times.forEach(timeSlot => {
+                    const timeCard = document.createElement('div');
+                    timeCard.classList.add('time-slot-card');
+                    timeCard.dataset.time = timeSlot.time;
+                    timeCard.innerHTML = `
+                        <span>${timeSlot.time}</span>
+                        <p>Ksh ${timeSlot.price}</p>
+                    `;
+                    timeCard.addEventListener('click', () => {
+                        document.querySelectorAll('.time-slot-card').forEach(card => card.classList.remove('selected'));
+                        timeCard.classList.add('selected');
+                        selectedShowtime = timeSlot;
+                        updateButtons();
+                    });
+                    timeOptionsContainer.appendChild(timeCard);
+                });
+            }
+        }
+
+        function renderSeats(rows, cols) {
+            seatsGridContainer.innerHTML = '';
+            seatsGridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            selectedSeats = []; // Reset selected seats when rendering new grid
+            const reservedSeats = selectedShowtime ? selectedShowtime.reserved : [];
+
+            for (let r = 0; r < rows; r++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('seat-row');
+                const rowLetter = String.fromCharCode(65 + r); // A, B, C...
+
+                for (let c = 1; c <= cols; c++) {
+                    const seatId = `${rowLetter}${c}`;
+                    const seatDiv = document.createElement('div');
+                    seatDiv.classList.add('seat');
+                    seatDiv.textContent = seatId;
+                    seatDiv.dataset.seatId = seatId;
+
+                    if (reservedSeats.includes(seatId)) {
+                        seatDiv.classList.add('reserved');
+                    } else {
+                        seatDiv.addEventListener('click', () => {
+                            if (seatDiv.classList.contains('selected')) {
+                                seatDiv.classList.remove('selected');
+                                selectedSeats = selectedSeats.filter(seat => seat !== seatId);
+                            } else {
+                                seatDiv.classList.add('selected');
+                                selectedSeats.push(seatId);
+                            }
+                            updateOrderSummary();
+                            updateButtons();
+                        });
+                    }
+                    rowDiv.appendChild(seatDiv);
+                }
+                seatsGridContainer.appendChild(rowDiv);
+            }
+        }
+
+        function renderSnacks() {
+            snacksGridContainer.innerHTML = '';
+            const snacksData = [
+                { name: "Popcorn (Large)", price: 500, image: "images/snacks/popcorn.webp" },
+                { name: "Soda (Large)", price: 300, image: "images/snacks/soda.webp" },
+                { name: "Nachos", price: 700, image: "images/snacks/nachos.webp" },
+                { name: "Hotdog", price: 400, image: "images/snacks/hotdog.webp" },
+            ];
+
+            snacksData.forEach(snack => {
+                const snackCard = document.createElement('div');
+                snackCard.classList.add('snack-card');
+                snackCard.innerHTML = `
+                    <img src="${snack.image}" alt="${snack.name}">
+                    <h4>${snack.name}</h4>
+                    <p>Ksh ${snack.price}</p>
+                    <div class="snack-quantity-controls">
+                        <button class="decrease-qty" data-snack-name="${snack.name}">-</button>
+                        <span class="qty-display" data-snack-name="${snack.name}">0</span>
+                        <button class="increase-qty" data-snack-name="${snack.name}">+</button>
+                    </div>
+                `;
+                snacksGridContainer.appendChild(snackCard);
+
+                // Initialize quantity to 0
+                selectedSnacks[snack.name] = 0;
+            });
+
+            snacksGridContainer.querySelectorAll('.increase-qty').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const snackName = e.target.dataset.snackName;
+                    selectedSnacks[snackName]++;
+                    e.target.parentNode.querySelector('.qty-display').textContent = selectedSnacks[snackName];
+                    updateOrderSummary();
+                });
+            });
+
+            snacksGridContainer.querySelectorAll('.decrease-qty').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const snackName = e.target.dataset.snackName;
+                    if (selectedSnacks[snackName] > 0) {
+                        selectedSnacks[snackName]--;
+                        e.target.parentNode.querySelector('.qty-display').textContent = selectedSnacks[snackName];
+                        updateOrderSummary();
+                    }
+                });
+            });
+        }
+
+        function updateOrderSummary() {
+            totalAmount = 0;
+            let seatsSummary = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'None';
+            let snacksSummary = '';
+            let snacksTotal = 0;
+
+            selectedSeats.forEach(seat => {
+                totalAmount += ticketPricePerSeat; // Assuming all tickets have the same price for simplicity
+            });
+
+            for (const snackName in selectedSnacks) {
+                if (selectedSnacks[snackName] > 0) {
+                    const price = snackPrices[snackName];
+                    snacksTotal += selectedSnacks[snackName] * price;
+                    snacksSummary += `${snackName} (${selectedSnacks[snackName]}x) `;
+                }
+            }
+            totalAmount += snacksTotal;
+
+            if (snacksSummary === '') {
+                snacksSummary = 'None';
+            }
+
+            // Update Step 2 Summary
+            if (selectedMovie) {
+                summaryMovieTitle.textContent = selectedMovie.title;
+            } else {
+                summaryMovieTitle.textContent = 'N/A';
+            }
+            summaryCinemaName.textContent = selectedCinemaName || 'N/A';
+            if (selectedShowtime) {
+                summaryShowtime.textContent = selectedShowtime.time;
+            } else {
+                summaryShowtime.textContent = 'N/A';
+            }
+
+
+            // Update Step 4 Final Summary
+            finalMovie.textContent = selectedMovie ? selectedMovie.title : 'N/A';
+            finalCinema.textContent = selectedCinemaName || 'N/A';
+            finalShowtime.textContent = selectedShowtime ? selectedShowtime.time : 'N/A';
+            finalSeats.textContent = seatsSummary;
+            finalTicketPrice.textContent = `Ksh ${ticketPricePerSeat.toFixed(2)}`;
+            finalSnacks.textContent = snacksSummary;
+            finalTotal.textContent = `Ksh ${totalAmount.toFixed(2)}`;
+
+            updateButtons();
+        }
+
+        // Event Listeners for Navigation Buttons
+        document.getElementById('nextToStep2').addEventListener('click', () => {
+            if (!selectedMovie || !selectedShowtime || !selectedCinemaName) {
+                showMessageBox("Please select a cinema, movie and showtime to proceed.");
+                return;
+            }
+            navigateToStep(2);
+            renderSeats(selectedShowtime.capacity.rows, selectedShowtime.capacity.cols);
+            updateOrderSummary();
+        });
+        document.getElementById('prevToStep1').addEventListener('click', () => navigateToStep(1));
+        document.getElementById('nextToStep3').addEventListener('click', () => {
+            if (selectedSeats.length === 0) {
+                showMessageBox("Please select at least one seat to proceed.");
+                return;
+            }
+            navigateToStep(3);
+            updateOrderSummary();
+        });
+        document.getElementById('prevToStep2').addEventListener('click', () => navigateToStep(2));
+        document.getElementById('nextToStep4').addEventListener('click', () => navigateToStep(4));
+        document.getElementById('prevToStep3').addEventListener('click', () => navigateToStep(3));
+        document.getElementById('nextToStep5').addEventListener('click', () => {
+            if (totalAmount <= 0) {
+                 showMessageBox("Your order is empty. Please select seats or snacks before proceeding to payment.");
+                 return;
+            }
+            navigateToStep(5);
+        });
+        document.getElementById('prevToStep4').addEventListener('click', () => navigateToStep(4));
+
+
+        // Event listener for cinema selection dropdown
+        cinemaSelect.addEventListener('change', (event) => {
+            selectedCinemaName = event.target.value;
+            selectedMovie = null; // Reset movie and showtime when cinema changes
+            selectedShowtime = null;
+            renderMovies(selectedCinemaName);
+            updateButtons(); // Disable next button if selections are reset
+        });
+
+        // Payment method selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radioButton => {
+            radioButton.addEventListener('change', (event) => {
+                document.querySelectorAll('.payment-option').forEach(label => {
+                    label.classList.remove('selected');
+                });
+                if (event.target.checked) {
+                    event.target.closest('.payment-option').classList.add('selected');
+                    selectedPaymentMethod = radioButton.value; // Store the selected method
+                }
+            });
+        });
+
+        // Final Pay Now button handler on the payment method step (Step 6)
+        document.getElementById('final-pay-now-btn').addEventListener('click', () => {
+            if (!selectedPaymentMethod) {
+                showMessageBox("Please select a payment method to proceed.");
+                return; // Prevent further execution if no payment method is selected
+            }
+
+            // Ensure total amount is greater than 0
+            if (totalAmount <= 0) {
+                showMessageBox("Cannot process payment. Total amount must be greater than zero. Please select seats or snacks.");
+                return;
+            }
+
+            // Determine the cinema welcome message based on selectedCinemaName
+            const selectedCinema = cinemaData.find(cinema => cinema.name === selectedCinemaName) || { welcomeMessage: "Thank you for your purchase! We eagerly await your visit!" };
+
+            showMessageBox(`Payment successful! ${selectedCinema.welcomeMessage} Total paid: Ksh ${totalAmount.toFixed(2)}`);
+        });
+
+
+        // Initial load: Go to the first step
+        document.addEventListener('DOMContentLoaded', () => {
+            populateCinemaSelect();
+            navigateToStep(1);
+            renderSnacks(); // Render snacks once on load
+            updateButtons(); // Ensure buttons are correctly enabled/disabled on load
+        });
+    </script>
+</body>
+</html>

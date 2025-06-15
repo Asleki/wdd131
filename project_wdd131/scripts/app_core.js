@@ -742,34 +742,3 @@ function renderAllCategories() {
     });
 }
 
-/**
- * Displays a custom styled message box with an icon.
- * @param {string} message The message to display.
- * @param {string} [iconClass='fas fa-info-circle'] Font Awesome icon class (e.g., 'fas fa-check-circle', 'fas fa-exclamation-triangle').
- */
-function showMessageBox(message, iconClass = 'fas fa-info-circle') {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.classList.add('message-box-overlay');
-
-    // Create message box
-    const messageBox = document.createElement('div');
-    messageBox.classList.add('message-box-custom');
-
-    // Add icon
-    const iconElement = document.createElement('i');
-    iconElement.classList.add('message-icon', ...iconClass.split(' ')); // Split and add multiple classes
-
-    const messageText = document.createElement('p');
-    messageText.textContent = message;
-
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
-    closeButton.onclick = () => document.body.removeChild(overlay);
-
-    messageBox.appendChild(iconElement);
-    messageBox.appendChild(messageText);
-    messageBox.appendChild(closeButton);
-    overlay.appendChild(messageBox);
-    document.body.appendChild(overlay);
-}

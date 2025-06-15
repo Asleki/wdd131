@@ -1,12 +1,12 @@
 /* General Body and HTML Styles */
 :root {
-    --light-bg: #f9f9f9;
+    --light-bg: #a3d2f1;
     --dark-bg: #1a1a1a;
     --light-text: #333;
     --dark-text: #f0f0f0;
-    --light-section-bg: #ffffff;
-    --dark-section-bg: #2a2a2a;
-    --accent-color: #1F4A83; /* Changed from #666666 to a deep dark blue */
+    --light-section-bg: hsl(200, 12%, 95%);
+    --dark-section-bg: #5b5454;
+    --accent-color: #4a96fa; /* Changed from #666666 to a deep dark blue */
     --link-color: #007bff;
     --link-hover-color: #0056b3;
     --border-color: #ddd;
@@ -33,24 +33,8 @@ body.dark-mode {
     color: var(--dark-text);
 }
 
-body.dark-mode .site-header {
-    background-color: #222;
-    border-bottom: 1px solid #444;
-}
 
-body.dark-mode .main-nav a {
-    color: var(--dark-text);
-}
 
-body.dark-mode .main-nav a:hover,
-body.dark-mode .main-nav a.active {
-    color: var(--accent-color);
-}
-
-body.dark-mode .mode-toggle {
-    background-color: #333;
-    border: 1px solid #555;
-}
 
 body.dark-mode .hero-section {
     color: var(--dark-text); /* Ensure text is visible on hero */
@@ -67,7 +51,7 @@ body.dark-mode .dev-section.bg-dark {
 }
 
 body.dark-mode .site-footer {
-    background-color: #222;
+    background-color: #605d5d;
     border-top: 1px solid #444;
     color: var(--dark-text);
 }
@@ -349,9 +333,7 @@ body.dark-mode .dev-section.bg-dark a {
     transition: filter 0.3s ease;
 }
 
-body.dark-mode .contact-list img {
-    filter: brightness(1.2) invert(1); /* Invert and brighten for dark mode */
-}
+
 
 .contact-list a:hover img {
     filter: brightness(1); /* Restore brightness on hover */
@@ -392,51 +374,115 @@ body.dark-mode .contact-list img {
     margin-bottom: 20px;
 }
 
-/* Footer Styles (shared from about_us for consistency) */
+/* Footer Links - uses the general 'a' style by default, but can be overridden */
+
 .site-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 30px 0;
-    text-align: center;
-    font-size: 0.9em;
-    border-top: 1px solid #444;
+    background-color: #e6e6fa; /* Or your desired footer background color */
+    padding: 20px 0; /* Add vertical padding, horizontal padding will be handled by content */
+    border-top: 1px solid #ccc; /* Optional: adds a subtle line above the footer */
+    color: #333; /* Default text color for the footer */
+    font-size: 0.9em; /* Slightly smaller text for footer */
 }
 
 .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    max-width: 960px; /* Max width for content on larger screens */
+    margin: 0 auto; /* Center the content div itself */
+    display: flex; /* Enable flexbox for its children */
+    flex-direction: column; /* Stack children vertically by default */
+    align-items: center; /* Center items horizontally when stacked vertically */
+    padding: 0 15px; /* Add some horizontal padding for smaller screens */
 }
 
-.footer-section p,
-.footer-section a {
-    margin: 5px 0;
-    color: #bbb;
+.footer-section {
+    text-align: center; /* Center text within each section */
+    margin-bottom: 15px; /* Space between sections */
+    width: 100%; /* Make sure sections take full width to center their content */
+}
+
+/* Remove margin-bottom from the last footer-section to avoid extra space */
+.footer-section:last-child {
+    margin-bottom: 0;
+}
+
+.centered-info p {
+    margin: 5px 0; /* Adjust spacing for paragraphs in the info section */
+}
+
+.centered-info a {
+    color: #007bff; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.centered-info a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.social-links a {
+    color: #007bff; /* Link color for "About the Developer" */
     text-decoration: none;
-    transition: color 0.3s ease;
+    margin-bottom: 10px; /* Space between "About the Developer" and icons */
+    display: block; /* Make it a block to take its own line and allow vertical margin */
 }
 
-.footer-section a:hover {
-    color: var(--accent-color);
+.social-links a:hover {
+    text-decoration: underline;
 }
 
 .social-icons {
-    margin-top: 15px;
-    display: flex;
+    display: flex; /* Make the social icons a flex container */
+    justify-content: center; /* Center the icons horizontally within their container */
+    align-items: center; /* Vertically align icons if they have different heights */
+    flex-wrap: wrap; /* Allow icons to wrap to the next line on very small screens */
+    margin-top: 10px; /* Space between "About the Developer" link and icons */
+}
+
+.social-icons a {
+    margin: 0 8px; /* Space between individual social icons */
+    display: flex; /* Use flex on the anchor to center the image if needed */
+    align-items: center;
     justify-content: center;
-    gap: 15px;
+    /* Remove the 'display: block;' from .social-links a if you want this specific 'a' to be inline-flex */
 }
 
 .social-icons img {
-    width: 30px;
+    width: 30px; /* Set a fixed size for your icons */
     height: 30px;
-    filter: invert(1); /* Make social icons white */
-    transition: transform 0.3s ease;
+    display: block; /* Ensures the image behaves as a block within its flex parent */
 }
 
-.social-icons a:hover img {
-    transform: scale(1.1);
+/* --- Media Queries for larger screens (Optional, for more sophisticated layouts) --- */
+/* If you ever want the sections side-by-side on large screens, you'd use a media query */
+@media (min-width: 768px) { /* Example breakpoint for tablets and larger */
+    .footer-content {
+        flex-direction: row; /* Arrange sections horizontally on larger screens */
+        justify-content: space-around; /* Distribute space between sections */
+        align-items: flex-start; /* Align items to the top (or center, flex-end) */
+        flex-wrap: wrap; /* Allow wrapping if content exceeds width */
+    }
+
+    .footer-section {
+        flex: 1; /* Allow sections to grow and shrink, taking equal space */
+        min-width: 200px; /* Ensure sections don't get too small */
+        margin-bottom: 0; /* Reset vertical margin for row layout */
+        text-align: left; /* Align text left within each section on larger screens */
+    }
+
+    /* Override for specific sections if needed */
+    .centered-info,
+    .social-links {
+        text-align: center; /* Keep these sections text-aligned center if desired */
+    }
+
+    .social-icons {
+        justify-content: center; /* Keep icons centered within their section */
+    }
+}
+
+/* Override the general social-links a if it clashes with social-icons a */
+/* This is important if you want social icons to be inline-flex */
+.social-links > a[href="about_developer.html"] {
+    display: inline-block; /* Or remove this rule if it's already block and you want it on its own line */
+    margin-bottom: 10px;
 }
 
 /* Responsive Design */

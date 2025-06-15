@@ -37,16 +37,15 @@ body.dark-mode {
 
 .main-header {
     background-color: #f0f0f0;
-    padding: 15px 20px;
+    padding: 5px 20px; /* Reduced padding to help reduce height */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: row; /* Align items horizontally */
+    align-items: center; /* Vertically align items in the center */
+    justify-content: space-between; /* Space out header-left and header-center */
+    flex-wrap: wrap; /* Allow wrapping if content is too wide */
+    gap: 15px; /* Adjusted gap for better spacing */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 180px;
-    padding-bottom: 15px;
+    min-height: 80px; /* Set a fixed minimum height */
 }
 
 body.dark-mode .main-header {
@@ -61,46 +60,48 @@ body.dark-mode .main-header .main-nav ul li a:hover {
 }
 
 .header-section {
-    display: grid;
-    align-items: center;
+    display: flex; /* Use flex for internal alignment control */
+    align-items: center; /* Vertically align content within section */
+    flex-grow: 1; /* Allow sections to grow */
+}
 
+.header-section.header-left {
+    justify-content: center; /* Center the logo-link within this section */
+}
+
+.header-section.header-center {
+    justify-content: flex-end; /* Push the navigation to the right */
 }
 
 .logo-link {
     text-decoration: none;
     color: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    display: flex; /* Use flex for image and tagline alignment */
+    flex-direction: row; /* Keep image and tagline side-by-side */
+    align-items: center; /* Vertically align image and tagline */
+    gap: 10px; /* Space between logo and tagline */
+    white-space: nowrap; /* Prevent tagline from wrapping */
 }
 
 .logo-link img {
-    max-width: 200px;
+    max-width: 100px; /* Increased logo size */
     height: auto;
-    margin-bottom: 5px;
+    margin-bottom: 0; /* Remove bottom margin as it's now a row */
 }
 
 .logo-link p.tagline {
-    font-size: 1.5em;
-    color: #555;
-    margin: 0;
-    white-space: nowrap;
+    font-size: larger;
+    color: #002aff;
+    margin: 0; /* Remove default margins */
+    font-style: italic;
+    font-weight: bold;
 }
 
-body.dark-mode .logo-link img {
-    filter: brightness(1.2) saturate(0.8);
-}
+
 body.dark-mode .logo-link p.tagline {
     color: #ccc;
 }
 
-.header-center {
-    justify-content: center;
-    min-width: 200px;
-    margin-top: auto;
-    width: 100%;
-}
 
 .main-nav ul {
     list-style: none;
@@ -108,7 +109,7 @@ body.dark-mode .logo-link p.tagline {
     padding: 0;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px; /* Slightly reduced gap for nav items */
 }
 
 .main-nav ul li a {
@@ -388,7 +389,6 @@ body.dark-mode .show-card {
     justify-content: center; /* Center content if it wraps */
 }
 
-/* --- MODIFIED: show-poster-container slightly larger for better detail --- */
 .show-poster-container {
     flex-shrink: 0;
     width: 140px; /* Slightly increased width for poster */
@@ -675,6 +675,31 @@ body.dark-mode .quote-container {
 
 /* Desktop / Larger Screens (min-width: 768px) */
 @media (min-width: 768px) {
+    /* --- Main Header Responsive Styles for Desktop --- */
+    .main-header {
+        flex-direction: row; /* Ensure row direction on larger screens */
+        padding: 5px 20px; /* Consistent padding */
+        min-height: 80px; /* Consistent min-height */
+        justify-content: space-between; /* Space out sections */
+    }
+
+    .header-section {
+        width: auto; /* Allow sections to size based on content */
+    }
+
+    .logo-link {
+        flex-direction: row; /* Ensure row direction for logo and tagline */
+        gap: 10px;
+    }
+
+    .logo-link img {
+        max-width: 80px; /* Consistent logo size */
+    }
+
+    .logo-link p.tagline {
+        font-size: 1.2em; /* Consistent tagline font size */
+    }
+
     /* --- MODIFIED: show-info-and-poster-container desktop - keep flex-direction row --- */
     .show-info-and-poster-container {
         flex-direction: row; /* Horizontal layout for poster and details */
@@ -741,26 +766,13 @@ body.dark-mode .quote-container {
 
 /* Tablet and Mobile (max-width: 767px) */
 @media (max-width: 767px) {
-    /* --- Utility Header Responsive Styles --- */
-    .utility-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 8px 10px;
-        gap: 8px;
-    }
-
-    .utility-left, .utility-right {
-        width: 100%;
-        justify-content: center;
-        gap: 10px;
-    }
-
     /* --- Main Header Responsive Styles --- */
     .main-header {
-        flex-direction: column;
+        flex-direction: column; /* Stack vertically on small screens */
         align-items: center;
-        gap: 15px;
-        padding: 15px 10px;
+        gap: 10px; /* Reduced gap */
+        padding: 5px 10px; /* Adjusted padding for mobile */
+        min-height: 90px; /* Adjusted min-height for mobile */
     }
 
     .header-section {
@@ -768,23 +780,32 @@ body.dark-mode .quote-container {
         justify-content: center;
     }
 
+    .logo-link {
+        flex-direction: row; /* Keep row for logo and tagline on mobile too */
+        justify-content: center; /* Center logo and tagline group */
+        gap: 5px; /* Smaller gap on mobile */
+    }
+
     .logo-link img {
-        max-width: 120px;
-        margin-bottom: 3px;
+        max-width: 70px; /* Further reduced logo size for mobile */
+        margin-bottom: 0;
     }
     .logo-link p.tagline {
-        font-size: 0.8em;
+        font-size: 1em; /* Further reduced tagline font size for mobile */
     }
 
     .main-nav ul {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
+        flex-direction: row; /* Keep horizontal navigation on mobile */
+        flex-wrap: wrap; /* Allow navigation items to wrap */
+        justify-content: center;
+        gap: 8px; /* Smaller gap for nav items on mobile */
+        margin-top: 5px; /* Add some space below logo/tagline */
     }
 
     .main-nav ul li a {
-        display: block;
-        padding: 10px;
+        display: inline-block; /* Changed to inline-block for better wrapping */
+        padding: 5px 8px; /* Smaller padding for nav items */
+        font-size: 0.9em; /* Smaller font size for nav items */
         background-color: rgba(0,0,0,0.05);
         border-radius: 5px;
         color: #333;
@@ -792,19 +813,6 @@ body.dark-mode .quote-container {
     body.dark-mode .main-nav ul li a {
         background-color: rgba(255,255,255,0.1);
         color: #e7d4d4;
-    }
-
-    /* --- Subheader Responsive Styles --- */
-    .subheader {
-        padding: 10px;
-        margin-bottom: 15px;
-    }
-
-    .subheader .search-container input[type="text"],
-    .subheader .search-container button {
-        border-radius: 0;
-        font-size: 16px;
-        padding: 10px 15px;
     }
 
     /* ---- KEY CHANGES FOR SINGLE SHOW CARD DISPLAY ON SMALL SCREENS ---- */
@@ -858,6 +866,8 @@ body.dark-mode .quote-container {
         text-align: center; /* Center these details */
         white-space: normal; /* Allow wrapping on mobile */
     }
+
+    
 
     /* --- MODIFIED: network-logo-section mobile alignment and margin --- */
     .network-logo-section {
@@ -956,35 +966,25 @@ body.dark-mode .quote-container {
 
 /* Extra small screens (e.g., old phones, very narrow views) */
 @media (max-width: 480px) {
-    .utility-header {
-        padding: 5px 8px;
-        font-size: 0.8em;
-    }
-    .mode-icon, .header-action img {
-        width: 18px;
-        height: 18px;
-    }
-
     .main-header {
-        padding: 10px 8px;
+        padding: 5px 8px; /* Further reduced padding */
+        min-height: 80px; /* Further reduced min-height */
     }
 
     .logo-link img {
-        max-width: 100px;
+        max-width: 60px; /* Further reduced logo size */
     }
     .logo-link p.tagline {
-        font-size: 0.75em;
+        font-size: 0.9em; /* Further reduced tagline font size */
     }
 
     .main-nav ul {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
+        gap: 5px; /* Smaller gap for nav items */
     }
 
     .main-nav ul li a {
-        font-size: 1em;
-        padding: 8px;
+        font-size: 0.85em; /* Smaller font size for nav items */
+        padding: 4px 6px; /* Smaller padding for nav items */
     }
 
     main {

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Future Settings</title>
+    <style>
+        /* General Body Styling (to ensure modal takes over) */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Hide scrollbars when modal is active */
+            font-family: 'Arial', sans-serif;
+            background-color: #080808; /* Dark background for streaming vibe */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+        }
+
+        /* The main modal box */
+        .settings-modal-box {
+            position: fixed; /* Or absolute if within a specific parent */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8); /* Start smaller */
+            width: 80%;
+            max-width: 700px; /* Max width for larger screens */
+            height: 60vh; /* Set a height for the modal */
+            max-height: 500px; /* Max height for modal */
+            background: linear-gradient(145deg, #1a2a6c, #b21f1f); /* CineWatch brand colors */
+            color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            padding: 30px;
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        /* Show state for the modal */
+        .settings-modal-box.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Top section for CineWatch title */
+        .modal-header {
+            flex-shrink: 0; /* Don't shrink when content grows */
+            padding-bottom: 20px;
+            overflow: hidden; /* Crucial for the slide-in animation */
+            text-align: center;
+        }
+
+        .site-title {
+            font-family: 'Georgia', serif; /* Or a stylized font */
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            white-space: nowrap; /* Prevent wrapping */
+            display: inline-block; /* Essential for animation */
+
+            /* Animation for site title */
+            animation: slideInTitle 1s ease-out forwards; /* Slide in and stay */
+        }
+
+        @keyframes slideInTitle {
+            from {
+                transform: translateX(100%); /* Start off-screen right */
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0); /* End at its natural position */
+                opacity: 1;
+            }
+        }
+
+        /* Main content area for features */
+        .modal-content {
+            flex-grow: 1; /* Take up remaining space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* For feature animation containment */
+        }
+
+        /* Feature message styling */
+        .feature-message {
+            font-size: 1.6em;
+            font-weight: 500;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            text-align: center;
+            max-width: 90%; /* Prevent too wide lines */
+        }
+
+        /* Icon styling */
+        .feature-icon {
+            font-size: 4em; /* Larger icons for central display */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .settings-modal-box {
+                width: 90%;
+                height: 70vh;
+                padding: 20px;
+            }
+            .site-title {
+                font-size: 2.5em;
+            }
+            .feature-message {
+                font-size: 1.3em;
+            }
+            .feature-icon {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .settings-modal-box {
+                width: 95%;
+                height: 80vh;
+                padding: 15px;
+            }
+            .site-title {
+                font-size: 2em;
+            }
+            .feature-message {
+                font-size: 1.1em;
+            }
+            .feature-icon {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cineWatchSettingsModal" class="settings-modal-box">
+        <div class="modal-header">
+            <span class="site-title">CineWatch</span>
+        </div>
+        <div class="modal-content">
+            <p class="feature-message"></p>
+            <span class="feature-icon"></span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const settingsModal = document.getElementById('cineWatchSettingsModal');
+            const featureMessage = settingsModal.querySelector('.feature-message');
+            const featureIcon = settingsModal.querySelector('.feature-icon');
+            const siteTitle = settingsModal.querySelector('.site-title');
+
+            // Define the new set of features to display
+            const features = [
+                { text: "Change Profile Picture...", icon: "👤" },
+                { text: "Link Other Accounts...", icon: "🔗" },
+                { text: "Save Downloads for Offline Viewing...", icon: "💾" },
+                { text: "Manage & Change Password...", icon: "🔒" },
+                { text: "Personalized Recommendations...", icon: "✨" },
+                // Add more features as needed!
+            ];
+
+            let currentFeatureIndex = 0;
+            let featureCyclingTimeout;
+            const displayDuration = 3000; // Time each feature is displayed (milliseconds)
+            const contentTransitionDuration = 500; // CSS transition duration for text/icon fade
+
+            /**
+             * Cycles through and displays each feature with animations.
+             * @param {number} index - The current index of the feature to display.
+             */
+            function displayFeature(index) {
+                // Step 1: Fade out current text and icon
+                featureMessage.style.opacity = '0';
+                featureMessage.style.transform = 'translateY(30px)';
+                featureIcon.style.opacity = '0';
+                featureIcon.style.transform = 'translateY(30px)';
+
+                // Step 2: After fade-out, update content and fade in new content
+                setTimeout(() => {
+                    const feature = features[index];
+                    featureMessage.textContent = feature.text;
+                    featureIcon.textContent = feature.icon; 
+
+                    // Step 3: Fade in new text and icon
+                    featureMessage.style.opacity = '1';
+                    featureMessage.style.transform = 'translateY(0)';
+                    featureIcon.style.opacity = '1';
+                    featureIcon.style.transform = 'translateY(0)';
+
+                    // Determine next action: display next feature or finish
+                    const nextIndex = index + 1;
+                    if (nextIndex < features.length) {
+                        featureCyclingTimeout = setTimeout(() => displayFeature(nextIndex), displayDuration);
+                    } else {
+                        // All features displayed, initiate redirect
+                        featureCyclingTimeout = setTimeout(redirectToHomepage, displayDuration + 1000); // Give a little extra time on last feature
+                    }
+                }, contentTransitionDuration); 
+            }
+
+            /**
+             * Makes the modal visible and starts the feature display sequence.
+             */
+            function showModalAndStartFeatures() {
+                settingsModal.classList.add('show'); // Triggers modal's entrance animation
+                
+                // Delay starting feature animation until after modal itself has appeared
+                setTimeout(() => {
+                    // Start site title animation (if it's not already handled by pure CSS animation-fill-mode: forwards)
+                    // No specific JS needed if using forwards on slideInTitle
+                    displayFeature(currentFeatureIndex); // Start the feature cycle
+                }, 700); // Slightly after modal's main transition
+            }
+
+            /**
+             * Redirects the user to the CineWatch homepage.
+             */
+            function redirectToHomepage() {
+                // Optional: You can add a subtle fade-out animation for the modal here
+                settingsModal.style.opacity = '0';
+                settingsModal.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                
+                setTimeout(() => {
+                    window.location.href = 'cinewatch_home.html'; // Redirect to your homepage
+                }, 700); // Allow time for fade-out before redirect
+            }
+
+            // Automatically show the modal when the page loads
+            showModalAndStartFeatures();
+
+        });
+    </script>
+
+</body>
+</html>

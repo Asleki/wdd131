@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Tickets</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Inter Font -->
+    <link rel="stylesheet" href="tvshows.css">
+    <link rel="stylesheet" href="footer.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -414,6 +416,32 @@
     </style>
 </head>
 <body class="dark-mode">
+
+            <!-- Main Header -->
+    <header id="mainHeader">
+        <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
     <!-- Hero Section -->
     <section id="buyTicketHero" style="background-image: url('https://placehold.co/900x300/333/fff?text=Loading...');">
         <h1 id="hero-movie-title">Loading Movie...</h1>
@@ -454,7 +482,7 @@
             <h2 class="text-2xl font-bold text-center text-e94560 mb-4">Movie Details</h2>
             <div id="movie-details">
                 <img id="movie-poster" src="https://placehold.co/250x350/333/fff?text=No+Poster" alt="Movie Poster">
-                <div class="movie-info-text text-center">
+                <div class="movie-info-text d-flex flex-col items-center text-center">
                     <h2 id="movie-title-display"></h2>
                     <p><strong>Genre:</strong> <span id="movie-genre"></span></p>
                     <p><strong>IMDb:</strong> <span id="movie-imdb"></span></p>
@@ -602,6 +630,33 @@
             </div>
         </div>
     </div>
+      <footer class="site-footer">
+      <div class="footer-content">
+          <div class="footer-section centered-info">
+              <p>&copy; Copyright Alex Malunda 2025</p>
+              <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+              <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+              <p>Last Modified: <span id="last-modified"></span></p>
+          </div>
+          <div class="footer-section social-links">
+              <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+              <div class="social-icons">
+                  <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                  </a>
+                  <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                      <img src="images/icons&logos/facebook_24dp.svg" alt="Facebook">
+                  </a>
+                  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <img src="images/icons&logos/linkedin_24dp.svg" alt="LinkedIn">
+                  </a>
+                  <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                      <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                  </a>
+              </div>
+          </div>
+      </div>
+  </footer>
 
     <script>
         // Data for all shows (copied from cinema_guide.html to keep consistent)
@@ -988,10 +1043,11 @@
 
         // Mock data for snacks
         const snacksData = [
-            { id: "popcorn-large", name: "Large Popcorn", price: 500, image: "https://placehold.co/100x100/e94560/fff?text=Popcorn" },
-            { id: "soda-coke", name: "Coca-Cola", price: 200, image: "https://placehold.co/100x100/e94560/fff?text=Soda" },
-            { id: "nachos", name: "Nachos with Cheese", price: 450, image: "https://placehold.co/100x100/e94560/fff?text=Nachos" },
-            { id: "water-bottle", name: "Bottled Water", price: 100, image: "https://placehold.co/100x100/e94560/fff?text=Water" },
+            // Updated image paths to point to your local .webp files
+            { id: "popcorn-large", name: "Large Popcorn", price: 500, image: "popcorns.webp" },
+            { id: "soda-coke", name: "Coca-Cola", price: 200, image: "cocacola.webp" },
+            { id: "nachos", name: "Nachos with Cheese", price: 450, image: "nachos.webp" },
+            { id: "water-bottle", name: "Bottled Water", price: 100, image: "bottledwater.webp" },
         ];
 
         // Mock data for cinemas (used for welcome message on final step)
@@ -1155,8 +1211,10 @@
                 const snackCard = document.createElement('div');
                 snackCard.classList.add('bg-gray-700', 'p-4', 'rounded-lg', 'flex', 'items-center', 'gap-4', 'shadow-md');
 
+                // Using snack.image directly now points to the local path.
+                // Added onerror to show a placeholder if the image path is incorrect or file is missing
                 snackCard.innerHTML = `
-                    <img src="${snack.image}" alt="${snack.name}" class="w-16 h-16 object-cover rounded-md">
+                    <img src="images/snacks/${snack.image}" alt="${snack.name}" class="w-16 h-16 object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e94560/fff?text=No+Image';">
                     <div class="flex-grow">
                         <h3 class="text-xl font-semibold">${snack.name}</h3>
                         <p class="text-e94560">Ksh ${snack.price.toFixed(2)}</p>
@@ -1413,6 +1471,11 @@
             renderSeats(8, 10); // Example: 8 rows, 10 columns
             renderSnacks();
         });
+    </script>
+    <script src="scripts/tv_shows.js"></script>
+     <script>
+        // JavaScript to update the "Last Modified" date in the footer
+        document.getElementById('last-modified').textContent = document.lastModified;
     </script>
 </body>
 </html>

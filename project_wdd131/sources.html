@@ -8,10 +8,38 @@
     <title>CineWatch Attributions and Sources</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/privacy.css">
+    <link rel="stylesheet" href="tvshows.css">
+    <link rel="stylesheet" href="styles/movie$tv_shows.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles/sources.css"> 
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
+
+        <!-- Main Header -->
+    <header id="mainHeader">
+        <div class="logo"><a href="cinewatch_home.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
 
     
     <main class="flex-grow flex justify-center p-4 sm:p-6 lg:p-8">
@@ -88,33 +116,34 @@
     </main>
 
     
-        <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-section centered-info">
-                <p>&copy; Copyright A Alex Malunda 2025</p>
-                <p>Last Modified: <span id="last-modified"></span></p>
-                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
-                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
-            </div>
-            <div class="footer-section social-links">
-                <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
-                    </a>
-                    <a href="https://www.facebook.com/aslekiymastamynd" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <img src="images/socialicons/facebook_24dp.svg" alt="Facebook">
-                    </a>
-                    <a href="https://www.linkedin.com/in/alexmalunda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <img src="images/socialicons/linkedin_24dp.svg" alt="LinkedIn">
-                    </a>
-                    <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
-                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+         <footer class="site-footer">
+      <div class="footer-content">
+          <div class="footer-section centered-info">
+              <p>&copy; Copyright Alex Malunda 2025</p>
+              <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+              <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+              <p>Last Modified: <span id="last-modified"></span></p>
+          </div>
+          <div class="footer-section social-links">
+              <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+              <div class="social-icons">
+                  <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                  </a>
+                  <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                      <img src="images/icons&logos/facebook_24dp.svg" alt="Facebook">
+                  </a>
+                  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <img src="images/icons&logos/linkedin_24dp.svg" alt="LinkedIn">
+                  </a>
+                  <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                      <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                  </a>
+              </div>
+          </div>
+      </div>
+  </footer>
+
     <div id="customAlert" class="custom-alert">
         <div class="alert-content">
             <i class="fas fa-exclamation-triangle alert-icon yellow-icon"></i> 
@@ -124,5 +153,6 @@
     </div>
 
     <script src="scripts/privacy.js"></script>
+    <script src="scripts/tv_shows.js"></script>
 </body>
 </html>

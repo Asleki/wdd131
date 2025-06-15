@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWatch - Movies</title>
+    <!-- CSS Links from cinewatch_home.html and existing movies.html -->
+    <link rel="stylesheet" href="styles/standalone_header.css">
+    <link rel="stylesheet" href="styles/watch.css"> <!-- For general site styles like dark mode and footer -->
+    <link rel="stylesheet" href="styles/shows_movies_list.css"> <!-- For the movie list grid -->
+
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts for consistency (Poppins and Roboto from cinewatch_home.html) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <!-- Main Header from cinewatch_home.html -->
+    <header id="mainHeader">
+        <div class="logo"><a href="discover.html">CineWatch</a></div>
+        <nav class="nav-icons">
+            <i id="searchIcon" class="fas fa-search" title="Search"></i>
+            <i id="addIcon" class="fas fa-plus-circle yellow-icon" title="Add to Watchlist"></i>
+            <i id="accountIcon" class="fas fa-user-circle yellow-icon" title="Account"></i>
+            <i id="darkModeToggle" class="fas fa-moon yellow-icon" title="Toggle Mode"></i>
+
+            <!-- Account Dropdown Menu (initially hidden) -->
+            <div id="accountDropdown" class="account-dropdown">
+                <!-- Content will be dynamically added by JavaScript based on login status -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Subheader from cinewatch_home.html -->
+    <div id="searchSubheader" class="hidden">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search movies, shows..." autocomplete="off" />
+            <i class="fas fa-microphone voice-icon" title="Voice Search"></i>
+            <i id="clearSearch" class="fas fa-times clear-icon" title="Clear"></i>
+        </div>
+        <div id="suggestionsBox" class="suggestions-box"></div>
+    </div>
+
+    <main class="list-page-container">
+        <h1 class="page-title">All Movies</h1>
+        <div id="moviesList" class="shows-movies-grid">
+            <!-- Movie cards will be dynamically inserted here -->
+            <p class="loading-message">Loading movies...</p>
+        </div>
+    </main>
+
+    <!-- Unified Footer from cinewatch_home.html -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section centered-info">
+                <p>&copy; Copyright Alex Malunda 2025</p>
+                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a></p>
+                <p><a href="sources.html" target="_blank" rel="noopener noreferrer">Sources</a></p>
+                <p>Last Modified: <span id="last-modified"></span></p>
+            </div>
+            <div class="footer-section social-links">
+                <a href="developer.html" target="_blank" rel="noopener noreferrer">About the Developer</a>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="images/icons&logos/instagram_24dp.svg" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="images/icons&logos/facebook_24dp.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <img src="images/icons&logos/linkedin_24dp.svg" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                        <img src="images/icons&logos/twitter_24dp.svg" alt="X (formerly Twitter)">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Alert/Message Box (This is the correctly managed one) -->
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content">
+            <i class="fas fa-exclamation-triangle alert-icon red-icon"></i>
+            <p id="alertMessage"></p>
+            <button id="closeAlert" class="close-alert-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- Link all necessary JavaScript files in order -->
+    <!-- app_core.js should be loaded first as it contains allShows data and utility functions like showMessageBox -->
+    <script src="scripts/app_core.js"></script>
+    <script src="scripts/main_script.js"></script> <!-- Provides general DOM-ready logic, but not showMessageBox -->
+    <script src="scripts/standalone_header.js"></script> <!-- Includes header JS functionality -->
+    <script src="scripts/movies.js"></script> <!-- Specific JS for this page -->
+</body>
+</html>
